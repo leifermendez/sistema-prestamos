@@ -63,12 +63,6 @@ class subCloseController extends Controller
 
         $data_agent = db_supervisor_has_agent::where('id_wallet',$id_wallet)->first();
         if(!isset($id_wallet)){return 'ID wallet vacio';};
-        $base_amount = 0;
-         if(db_close_day::where('id_agent',$data_agent->id_user_agent)
-            ->whereDate('created_at',  Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())->exists()){
-             $base_amount = db_close_day::where('id_agent',$data_agent->id_user_agent)
-                 ->whereDate('created_at',  Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())->first()->base_before;
-         }
 
 
         $today_amount = db_summary::whereDate('created_at',  Carbon::createFromFormat('d/m/Y', $date_start)
@@ -84,8 +78,16 @@ class subCloseController extends Controller
         $bills = db_bills::whereDate('created_at',Carbon::createFromFormat('d/m/Y', $date_start)
             ->toDateString())
             ->sum('amount');
+
+        $base_amount = 0;
+        if(db_close_day::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())->exists()){
+            $base_amount = db_close_day::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())->first()->base_before;
+        }
+
         $total = floatval($base_amount+$today_amount)-floatval($today_sell+$bills);
         $average = 1000;
+
+
 
         $data = array(
             'base' => $base_amount,

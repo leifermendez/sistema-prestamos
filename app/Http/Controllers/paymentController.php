@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\db_agent_has_user;
 use App\db_credit;
+use App\db_not_pay;
 use App\db_summary;
 use App\db_supervisor_has_agent;
 use App\User;
@@ -136,9 +137,21 @@ class paymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        //
+        $id_credit = $request->id_credit;
+
+        if(!isset($id_credit)){return 'ID cretido';};
+
+        $values = array(
+            'created_at' => Carbon::now(),
+            'id_credit' => $id_credit,
+            'id_user' => $id
+        );
+
+        db_not_pay::insert($values);
+
+        return redirect('route');
     }
 
     /**

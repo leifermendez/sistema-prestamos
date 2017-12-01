@@ -67,7 +67,8 @@ class subEditController extends Controller
                 'credit.utility',
                 'credit.amount_neto',
                 'credit.created_at',
-                'credit.id as credit_id'
+                'credit.id as credit_id',
+                'credit.payment_number'
             )
             ->get();
 

@@ -62,7 +62,7 @@
                                 <div class="widget stats-widget">
                                     <div class="widget-body clearfix bg-inverse">
                                         <div class="pull-left">
-                                            <h3 class="widget-title text-white">Cierre</h3>
+                                            <h3 class="widget-title text-white">Historial de Cierre</h3>
                                         </div>
                                         <span class="pull-right big-icon watermark"><i class="fa fa-lock"></i></span>
                                     </div>

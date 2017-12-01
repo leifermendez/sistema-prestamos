@@ -46,6 +46,7 @@
 
                                         </td>
                                         <td>
+                                            <a href="{{url('payment')}}/{{$client->id_user}}/edit?id_credit={{$client->id}}" class="btn btn-warning btn-xs"><i class="fa fa-archive"></i> Saltar</a>
                                             <a href="{{url('payment')}}/{{$client->id}}" class="btn btn-success btn-xs"><i class="fa fa-money"></i> Pagar</a>
                                             <a href="{{url('summary')}}?id_credit={{$client->id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
                                         </td>

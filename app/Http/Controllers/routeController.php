@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\db_credit;
+use App\db_not_pay;
 use App\db_summary;
 use App\db_supervisor_has_agent;
 use App\User;
@@ -46,7 +47,10 @@ class routeController extends Controller
                     $d->saldo = $d->amount_total-(db_summary::where('id_credit',$d->id)->sum('amount'));
                     $d->quote = (floatval($d->amount_neto*$d->utility)+floatval($d->amount_neto))/floatval($d->payment_number);
                     $d->lsat_pay = db_summary::where('id_credit',$d->id)->orderBy('created_at','desc')->first()->created_at;
-                    $data_filter[]=$d;
+                    if(!db_not_pay::whereDate('created_at','=',Carbon::now()->toDateString())->exists()){
+                        $data_filter[]=$d;
+                    }
+
                 }
             }else{
                     $d->user=User::find($d->id_user);

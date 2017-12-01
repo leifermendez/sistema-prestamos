@@ -49,7 +49,7 @@
                                             <option value="0.05">5%</option>
                                             <option value="0.1">10%</option>
                                             <option value="0.15">15%</option>
-                                            <option value="0.2">20%</option>
+                                            <option value="0.2" selected >20%</option>
                                             <option value="0.25">25%</option>
                                             <option value="0.30">30%</option>
                                         </select>
@@ -58,7 +58,7 @@
                                         <label for="payment_number">Cuotas:</label>
                                         <select name="payment_number" class="form-control" id="payment_number">
                                             @foreach($payment_number as $p)
-                                                <option value="{{$p->name}}">{{$p->name}}</option>
+                                                <option {{($p->selected) ? 'selected':'' }} value="{{$p->name}}">{{$p->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
