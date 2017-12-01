@@ -1,0 +1,54 @@
+body{
+  background: $body-bg;
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+}
+
+a,
+a:link,
+a:visited{
+  text-decoration: none;
+  outline: none;
+}
+
+a:hover,
+a:active{
+  text-decoration: none;
+  outline: none;
+}
+
+ul,ol{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.row{
+  margin-left: -.75rem;
+  margin-right: -.75rem;
+}
+
+[class*="col-"]{
+  padding-right: .75rem;
+  padding-left: .75rem;
+}
+
+.row.no-gutter{
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.no-gutter [class^='col-'] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+code{
+  border: 1px solid $info;
+  background: lighten($info, 42%);
+  color: $info;
+  border-radius: 3px;
+}

@@ -1,0 +1,44 @@
+//= Our own variables
+@import 'app-sass/variables';
+//= Bootstrap variables
+@import 'bootstrap-sass/bootstrap/variables';
+//= Bootstrap mixins
+@import 'bootstrap-sass/bootstrap/mixins';
+//= Our own mixins
+@import 'app-sass/mixins';
+
+
+//= External libraries
+@import 'libs-sass/libs';
+
+//= Building Blocks
+@import 'app-sass/blocks/general';
+@import 'app-sass/blocks/menubar';
+@import 'app-sass/blocks/navbar';
+@import 'app-sass/blocks/main';
+@import 'app-sass/blocks/footer';
+@import 'app-sass/blocks/side-panel';
+@import 'app-sass/blocks/action-panel';
+@import 'app-sass/blocks/customizer';
+
+//= Components
+@import 'app-sass/ui-components/charts';
+@import 'app-sass/ui-components/cards';
+@import 'app-sass/ui-components/widgets';
+
+//= apps
+@import 'app-sass/apps/mail-app';
+@import 'app-sass/apps/fullcalendar';
+@import 'app-sass/apps/contacts';
+
+//= pages
+@import 'app-sass/pages/search';
+@import 'app-sass/pages/profile';
+@import 'app-sass/pages/gallery';
+@import 'app-sass/pages/invoice';
+@import 'app-sass/pages/prices';
+@import 'app-sass/pages/demos';
+
+//= themes
+// theme variants
+@import 'app-sass/themes';

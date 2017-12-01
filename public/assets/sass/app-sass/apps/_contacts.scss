@@ -1,0 +1,30 @@
+.contact-item{
+	position: relative;
+	&:hover{
+		.contact-item-actions{
+			display: block;
+			opacity: 1;
+		}
+	}
+
+	.contact-links{
+		a{
+			color: $text-color;
+			&:hover{
+				color: $info;
+			}
+		}
+	}
+}
+
+.contact-item-actions{
+	position: absolute;
+	display: none;
+	opacity: 0;
+	transition: opacity .5s ease;
+	top: 20px;
+	right: 20px;
+	.btn{
+		padding: 4px 8px;
+	}
+}

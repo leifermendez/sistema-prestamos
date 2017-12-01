@@ -1,0 +1,41 @@
+.gallery {
+	.row{
+		margin-left: -6px;
+		margin-right: -6px;
+	}
+	[class*='col-'] {
+		padding-left: 6px;
+		padding-right: 6px;
+	}
+}
+
+.gallery-item{
+	position: relative;
+	margin-bottom: 12px;
+	padding: 4px;
+	border-radius: 3px;
+	overflow: hidden;
+	background-color: #fff;
+	.thumb{
+		height: 100%;
+		a{
+			display: block;
+			overflow: hidden;
+		}
+		img{
+			transition: transform .5s ease;
+		}
+		&:hover img{
+			transform: scale(1.2);
+		}
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.caption{
+		padding: 8px 12px;
+	}
+}

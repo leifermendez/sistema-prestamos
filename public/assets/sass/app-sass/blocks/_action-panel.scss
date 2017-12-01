@@ -1,0 +1,108 @@
+.action-panel-btn{
+	@include box-shadow(1px 1px 3px #aaa);
+	border: none;
+	color: $text-color;
+}
+
+.app-actions-list{
+	position: relative;
+	height: 100%;
+	overflow: hidden;
+	.list-group-item{
+		background: transparent;
+		border: none;
+		padding-top: 12px;
+		padding-bottom: 12px;
+	}
+}
+
+.action-panel-toggle{
+	display: none;
+	position: absolute;
+	top: calc(50% - 25px);
+	right: -25px;
+	height: 50px;
+	width: 25px;
+	cursor: pointer;
+	border-top-right-radius: 100px;
+	border-bottom-right-radius: 100px;
+	background: #fff;
+	@include box-shadow(2px 0 3px rgba(0,0,0,.175));
+	.fa{
+		display: none;
+		line-height: 50px;
+		text-align: center;
+		font-size: 18px;
+		&:hover{
+			color: $primary;
+		}
+		&.fa-chevron-right{
+			display: block;
+		}
+	}
+}
+
+
+.app-action-panel{
+	.item-actions{
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding-top: 12px;
+		padding-right: 16px;
+		display: none;
+		.item-action{
+			font-size: 16px;
+			color: $text-color;
+			margin-left: 8px;
+			&:hover{
+				color: $info;
+			}
+		}
+	}
+
+	.list-group-item:hover{
+		.hide-on-hover{
+			display: none;
+		}
+		.item-actions{
+			display: block;
+		}
+	}
+
+	@media (max-width: $screen-md-min) {
+		position: fixed;
+		top: $navbar-height;
+		bottom: 0;
+		left: -262px;
+		width: 260px;
+		height: calc(100% - #{$navbar-height});
+		padding: 16px;
+		background: #fff;
+		@include box-shadow(2px 0 4px rgba(0,0,0,.08));
+		z-index: 999;
+		transition: left .5s ease, top .5s;
+		&.open{
+			left: 0;
+			.fa-chevron-right{
+				display: none;
+			}
+			.fa-chevron-left{
+				display: block;
+			}
+		}
+
+		.action-panel-toggle{
+			display: block;
+		}
+
+		body.navbar-collapse-in &{
+			top: $navbar-height * 2;
+			height: calc(100% - #{$navbar-height * 2});
+		}
+
+		body.menubar-in &{
+			left: -262px;
+		}
+	}
+}

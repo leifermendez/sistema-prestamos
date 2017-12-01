@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64"><g  transform="translate(0, 0)">
+<path data-cap="butt" data-color="color-2" fill="none" stroke="#0066cc" stroke-width="2" stroke-miterlimit="10" d="M30.8,49.5&#10;&#9;C29.3,49.8,27.7,50,26,50C12.7,50,2,39.3,2,26S12.7,2,26,2s24,10.7,24,24c0,1.7-0.2,3.3-0.5,4.9" stroke-linejoin="miter" stroke-linecap="butt"/>
+<path data-cap="butt" data-color="color-2" fill="none" stroke="#0066cc" stroke-width="2" stroke-miterlimit="10" d="M29.4,39.6&#10;&#9;C28.3,39.9,27.2,40,26,40c-7.7,0-14-6.3-14-14s6.3-14,14-14s14,6.3,14,14c0,1.2-0.2,2.4-0.4,3.5" stroke-linejoin="miter" stroke-linecap="butt"/>
+<path data-cap="butt" fill="none" stroke="#343434" stroke-width="2" stroke-miterlimit="10" d="M28.2,29.4C27.5,29.8,26.8,30,26,30&#10;&#9;c-2.2,0-4-1.8-4-4s1.8-4,4-4s4,1.8,4,4c0,0.8-0.2,1.6-0.7,2.2" stroke-linejoin="miter" stroke-linecap="butt"/>
+<polygon fill="none" stroke="#343434" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" points="28,28 32,58 40,50 &#10;&#9;50,60 60,50 50,40 58,32 " stroke-linejoin="miter"/>
+</g></svg>

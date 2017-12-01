@@ -1,0 +1,211 @@
+//= PADDINGS:
+
+/* Padding all: (padding-top, padding-right, padding-bottom, padding-left) */
+.p-0{ padding: 0 !important; }
+.p-xs{ padding: $padding-xs !important; }
+.p-sm{ padding: $padding-sm !important; }
+.p-md{ padding: $padding-md !important; }
+.p-lg{ padding: $padding-lg !important; }
+.p-xl{ padding: $padding-xl !important; }
+
+/* Horizontal padding: (padding-top, padding-bottom) */
+.p-h-0{ padding-top: 0 !important; padding-bottom: 0!important; }
+.p-h-xs{ padding-top: $padding-xs !important; padding-bottom: $padding-xs !important; }
+.p-h-sm{ padding-top: $padding-sm !important; padding-bottom: $padding-sm !important; }
+.p-h-md{ padding-top: $padding-md !important; padding-bottom: $padding-md !important; }
+.p-h-lg{ padding-top: $padding-lg !important; padding-bottom: $padding-lg !important; }
+.p-h-xl{ padding-top: $padding-xl !important; padding-bottom: $padding-xl !important; }
+
+/* Vertical padding: (padding-left, padding-right) */
+.p-v-0{ padding-left: 0 !important; padding-right: 0!important; }
+.p-v-xs{ padding-right: $padding-xs !important; padding-left: $padding-xs !important; }
+.p-v-sm{ padding-right: $padding-sm !important; padding-left: $padding-sm !important; }
+.p-v-md{ padding-right: $padding-md !important; padding-left: $padding-md !important; }
+.p-v-lg{ padding-right: $padding-lg !important; padding-left: $padding-lg !important; }
+.p-v-xl{ padding-right: $padding-xl !important; padding-left: $padding-xl !important; }
+
+/* Top padding: (padding-top) */
+.p-t-0{ padding-top: 0 !important; }
+.p-t-xs{ padding-top: $padding-xs !important; }
+.p-t-sm{ padding-top: $padding-sm !important; }
+.p-t-md{ padding-top: $padding-md !important; }
+.p-t-lg{ padding-top: $padding-lg !important; }
+.p-t-xl{ padding-top: $padding-xl !important; }
+
+/* Right padding: (padding-right) */
+.p-r-0{ padding-right: 0 !important; }
+.p-r-xs{ padding-right: $padding-xs !important; }
+.p-r-sm{ padding-right: $padding-sm !important; }
+.p-r-md{ padding-right: $padding-md !important; }
+.p-r-lg{ padding-right: $padding-lg !important; }
+.p-r-xl{ padding-right: $padding-xl !important; }
+
+/* Bottom padding: (padding-bottom) */
+.p-b-0{ padding-bottom: 0 !important; }
+.p-b-xs{ padding-bottom: $padding-xs !important; }
+.p-b-sm{ padding-bottom: $padding-sm !important; }
+.p-b-md{ padding-bottom: $padding-md !important; }
+.p-b-lg{ padding-bottom: $padding-lg !important; }
+.p-b-xl{ padding-bottom: $padding-xl !important; }
+
+/* Left padding: (padding-left) */
+.p-l-0{ padding-left: 0 !important; }
+.p-l-xs{ padding-left: $padding-xs; }
+.p-l-sm{ padding-left: $padding-sm !important; }
+.p-l-md{ padding-left: $padding-md !important; }
+.p-l-lg{ padding-left: $padding-lg !important; }
+.p-l-xl{ padding-left: $padding-xl !important; }
+
+//= MARGINS:
+
+/* Margin all: (margin-top, margin-right, margin-bottom, margin-left) */
+.m-0{ margin: 0 !important; }
+.m-xs{ margin: $margin-xs !important; }
+.m-sm{ margin: $margin-sm !important; }
+.m-md{ margin: $margin-md !important; }
+.m-lg{ margin: $margin-lg !important; }
+.m-xl{ margin: $margin-xl !important; }
+
+/* Horizontal margin: (margin-top, margin-bottom) */
+.m-h-0{ margin-top: 0!important; margin-bottom: 0!important; }
+.m-h-xs{ margin-top: $margin-xs !important; margin-bottom: $margin-xs !important; }
+.m-h-sm{ margin-top: $margin-sm !important; margin-bottom: $margin-sm !important; }
+.m-h-md{ margin-top: $margin-md !important; margin-bottom: $margin-md !important; }
+.m-h-lg{ margin-top: $margin-lg !important; margin-bottom: $margin-lg !important; }
+.m-h-xl{ margin-top: $margin-xl !important; margin-bottom: $margin-xl !important; }
+
+/* Vertical margin: (margin-left, margin-right) */
+.m-v-0{ margin-left: 0!important; margin-right: 0!important; }
+.m-v-xs{ margin-left: $margin-xs !important; margin-right: $margin-xs !important; }
+.m-v-sm{ margin-left: $margin-sm !important; margin-right: $margin-sm !important; }
+.m-v-md{ margin-left: $margin-md !important; margin-right: $margin-md !important; }
+.m-v-lg{ margin-left: $margin-lg !important; margin-right: $margin-lg !important; }
+.m-v-xl{ margin-left: $margin-xl !important; margin-right: $margin-xl !important; }
+
+/* Top padding: (padding-top) */
+.m-t-0{ margin-top: 0 !important; }
+.m-t-xs{ margin-top: $margin-xs !important; }
+.m-t-sm{ margin-top: $margin-sm !important; }
+.m-t-md{ margin-top: $margin-md !important; }
+.m-t-lg{ margin-top: $margin-lg !important; }
+.m-t-xl{ margin-top: $margin-xl !important; }
+
+/* Right padding: (padding-right) */
+.m-r-0{ margin-right: 0 !important; }
+.m-r-xs{ margin-right: $margin-xs !important; }
+.m-r-sm{ margin-right: $margin-sm !important; }
+.m-r-md{ margin-right: $margin-md !important; }
+.m-r-lg{ margin-right: $margin-lg !important; }
+.m-r-xl{ margin-right: $margin-xl !important; }
+
+/* Bottom padding: (padding-bottom) */
+.m-b-0{ margin-bottom: 0 !important; }
+.m-b-xs{ margin-bottom: $margin-xs !important; }
+.m-b-sm{ margin-bottom: $margin-sm !important; }
+.m-b-md{ margin-bottom: $margin-md !important; }
+.m-b-lg{ margin-bottom: $margin-lg !important; }
+.m-b-xl{ margin-bottom: $margin-xl !important; }
+
+/* Left padding: (padding-left) */
+.m-l-0{ margin-left: 0 !important; }
+.m-l-xs{ margin-left: $margin-xs !important; }
+.m-l-sm{ margin-left: $margin-sm !important; }
+.m-l-md{ margin-left: $margin-md !important; }
+.m-l-lg{ margin-left: $margin-lg !important; }
+.m-l-xl{ margin-left: $margin-xl !important; }
+
+//= Borders
+.b-0{ border: none !important; }
+.b-t-0{ border-top: none !important; }
+.b-r-0{ border-right: none !important; }
+.b-b-0{ border-bottom: none !important; }
+.b-l-0{ border-left: none !important; }
+.b-2x{ border-width: 2px; }
+
+//= Font sizes
+.fz-xs{ font-size: $font-size-xs !important; }
+.fz-sm{ font-size: $font-size-sm !important; }
+.fz-md{ font-size: $font-size-md !important; }
+.fz-lg{ font-size: $font-size-lg !important; }
+.fz-xl{ font-size: $font-size-xl !important; }
+
+//= Font styles
+.fs-italic{ font-style: italic !important; }
+.fs-normal{ font-style: normal !important; }
+
+//= Font weights
+.fw-300{ font-weight: 300 !important; }
+.fw-400{ font-weight: 400 !important; }
+.fw-500{ font-weight: 500 !important; }
+.fw-600{ font-weight: 600 !important; }
+.fw-700{ font-weight: 700 !important; }
+.fw-800{ font-weight: 800 !important; }
+.fw-800{ font-weight: 900 !important; }
+
+//= Display property
+.inline-block{ display: inline-block !important; }
+
+//= circular shapes
+.circle,
+.rounded{ border-radius: 500px; }
+
+//= text alignment classes
+.text-right{ text-align: right !important; }
+.text-center{ text-align: center !important; }
+.text-left{ text-align: left !important; }
+
+//= min-width property
+.mw-xs{ min-width: 30px; }
+.mw-sm{ min-width: 60px; }
+.mw-md{ min-width: 120px; }
+.mw-lg{ min-width: 140px; }
+.mw-xl{ min-width: 200px; }
+
+//= line-height
+.lh-xs,
+.lh-1{ line-height: 1; }
+.lh-sm{ line-height: 1.3; }
+.lh-md{ line-height: 1.6; }
+.lh-lg{ line-height: 1.8; }
+.lh-xl{ line-height: 2; }
+
+//= hidden in extra small devices
+.hidden-float{
+	@media(max-width: $grid-float-breakpoint-max) {
+		display: none !important;	
+	}
+}
+
+//= hidden when the menubar is in top
+.hidden-menubar-top{
+  body.menubar-top &{
+    display: none;
+  }
+}
+
+.theme-color{
+	color: $primary;
+}
+
+//= Backgrounds
+@each $class, $bgColor in $contextualColors{
+	.bg-#{$class}, .#{$class}{ background-color: $bgColor; color: #fff; }
+}
+// white backgrounds
+.bg-white, .white, .light{ background-color: #fff !important; color: $text-color; }
+
+//= Colors
+@each $class, $color in $contextualColors{
+	.text-#{$class}{ color: $color !important; }
+}
+// custome color helper classes
+.text-white{ color: $text-white !important; }
+.text-color{ color: $text-color !important; }
+.title-color{ color: $title-color !important; }
+.watermark{ color: $watermark; }
+.text-muted{ color: inherit; opacity: .6; }
+
+//= border contextual colors
+@each $class, $color in $contextualColors{
+	.b-#{$class}{ border-color: $color; }
+}

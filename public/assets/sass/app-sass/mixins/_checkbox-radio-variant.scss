@@ -1,0 +1,44 @@
+//= From the awesome-bootstrap-checkboxes library
+@mixin checkbox-variant($parent, $color) {
+  #{$parent} input[type="checkbox"]:checked + label,
+  #{$parent} input[type="radio"]:checked + label {
+    &::before {
+      background-color: $color;
+      border-color: $color;
+    }
+    &::after{
+      color: #fff;
+    }
+  }
+}
+
+@mixin checkbox-variant-indeterminate($parent, $color) {
+  #{$parent} input[type="checkbox"]:indeterminate + label,
+  #{$parent} input[type="radio"]:indeterminate + label {
+    &::before {
+      background-color: $color;
+      border-color: $color;
+    }
+    &::after{
+      background-color: #fff;
+    }
+  }
+}
+
+@mixin radio-variant($parent, $color) {
+  #{$parent} input[type="radio"]{
+    + label{
+      &::after{
+        background-color: $color;
+      }
+    }
+    &:checked + label{
+      &::before {
+        border-color: $color;
+      }
+      &::after{
+        background-color: $color;
+      }
+    }
+  }
+}

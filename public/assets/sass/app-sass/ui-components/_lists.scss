@@ -1,0 +1,96 @@
+// List groups
+
+@each $themeName, $themeColor in $contextualColors{
+	@include list-group-item-variant($themeName, $themeColor, #fff);
+} 
+
+.list-group.no-border{
+	.list-group-item{
+		padding: 10px 16px;
+		border: none;
+		margin: 0;
+		background: transparent;
+		&.active{
+			color: $primary
+		}
+		&.disabled{
+			color: #ddd;
+		}
+	}
+}
+
+.list-group-item{
+	padding: $padding-sm $padding-md;
+}
+
+.media-group-item{
+	position: relative;
+	display: block;
+	padding: 8px 16px;
+	background-color: #fff;
+	border-bottom: 1px solid #f5f7f9;
+	&:last-child{
+		border-bottom: none;
+	}
+}
+
+a.media-group-item,
+a.list-group-item{
+	color: $gray-dark;
+	&:hover, &:focus{
+		background-color: #f5f7f9;
+	}
+}
+
+.pull-right .dropdown-menu{
+	right: 0;
+	left: auto;
+}
+
+// reset
+
+.dropdown-menu{
+	box-shadow: 0 3px 12px rgba(0, 0, 0, .175);
+	border: none;
+
+	> li > a{
+		padding: 6px 16px;
+		border: none;
+	}
+
+	> li:last-child a{
+		border-bottom: none;
+	}
+
+	> li .label{
+		float: right;
+	}
+}
+
+.dropdown-menu{
+	> li > a:hover,
+	> li > a:focus {
+		background-color: #f5f7f9;
+	}
+}
+
+.media-left{
+	padding: 0;
+}
+
+.media-heading{
+	margin-top: 4px;
+	margin-bottom:4px;
+	font-weight: 500;
+	a{ color: $title-color; }
+}
+
+.media-meta{
+	font-size: 12px !important;
+	color: $text-muted;
+}
+
+.badge{
+	border-radius: 2px;
+	font-size: 10px;
+}

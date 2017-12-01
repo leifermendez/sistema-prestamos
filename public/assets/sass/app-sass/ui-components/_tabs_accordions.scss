@@ -1,0 +1,123 @@
+.nav-tabs{
+	> li > a{
+		border: none;
+		border-radius: 0;
+		font-weight: 500;
+		margin: 0;
+	}
+	
+	> li > a:hover,
+	> li > a:focus,
+	> li.active > a,
+	> li.active > a:hover,
+	> li.active > a:focus{
+		border: none;
+	}
+	
+	> li > a{
+		padding: 24px 16px;
+		border-bottom: 2px solid transparent;
+	}
+
+	// this class is Deprecated (the horizontal tab) is the default now
+	.nav-tabs-horizontal &{
+		> li > a{
+			padding: 24px 16px;
+			border-bottom: 2px solid transparent;
+		}
+	}
+
+	.nav-tabs-vertical &{
+		min-height: 200px;
+		float: left;
+		border-bottom: none;
+		margin-right: 24px;
+
+		> li {
+			float: none;
+			margin-bottom: 0;
+			margin-right: -2px;
+		}
+
+		> li > a {
+			padding: 8px 16px;
+			border-right: 2px solid transparent;
+			border-bottom: none;
+		}
+	}
+}
+
+.nav-tabs{
+	> li > a{
+		color: $text-color;
+		background-color: transparent;
+	}
+	
+	> li > a:hover,
+	> li > a:focus,
+	> li.active > a,
+	> li.active > a:hover,
+	> li.active > a:focus{
+		color: $primary;
+		background-color: transparent;
+		border-bottom: 2px solid $primary;
+	}
+	
+	// this class is Deprecated (the horizontal tab) is the default now
+	.nav-tabs-horizontal &{
+		> li > a:hover,
+		> li > a:focus,
+		> li.active > a,
+		> li.active > a:hover,
+		> li.active > a:focus{
+			border-bottom: 2px solid $primary;
+		}
+	}
+
+	.nav-tabs-vertical &{
+		border-right: 1px solid #ddd;
+		
+		> li > a:hover,
+		> li > a:focus,
+		> li.active > a,
+		> li.active > a:hover,
+		> li.active > a:focus{
+			border-right: 2px solid $primary;
+			border-bottom: none;
+		}
+	}
+}
+
+// accordions
+.accordion {
+	.panel-heading {
+		padding: 0;
+		background-color: transparent;
+	}
+	
+	.panel-body{ line-height: 2; }
+}
+
+.accordion-toggle{
+	display: block;
+	padding: 24px 16px;
+	@include clearfix();
+	
+	&[aria-expanded="true"] > .acc-switch:before{ content: '\f068'; }
+	&[aria-expanded="false"] > .acc-switch:before{ content: '\f067'; }
+
+	.panel-title{ float: left; }
+
+	.acc-switch{
+		display: inline-block;
+		font-size: 16px;
+		float: right;
+	}
+
+	&,
+	&:focus,
+	&:hover,
+	&:active,{
+		color: $title-color;
+	}
+}

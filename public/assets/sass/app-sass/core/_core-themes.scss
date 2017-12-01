@@ -1,0 +1,4 @@
+//= theme variants
+@each $themeName, $color in $contextualColors{
+  @include theme-variant($themeName, $color);
+}

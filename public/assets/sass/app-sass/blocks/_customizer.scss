@@ -1,0 +1,101 @@
+.app-customizer{
+	position: fixed;
+	right: -202px;
+	width: 200px;
+	height: auto;
+	z-index: 888;
+	background: #fff;
+	transition: right .5s ease 0s;
+	@include box-shadow(0 0 2px #aaa);
+	
+	.nav-tabs {
+		> li > a{
+			padding: 10px 15px;
+			border-bottom-width: 1px;
+		}
+
+		> li > a:hover,
+		> li > a:focus,
+		> li.active > a,
+		> li.active > a:hover,
+		> li.active > a:focus{
+			border-bottom: 1px solid $primary;
+		}
+	}
+
+	.tab-pane{
+		padding: 16px 16px 0;
+	}
+
+	.radio{
+		label{
+			font-weight: 600;
+			font-size: 14px;
+		}
+	}
+
+	label{
+		cursor: pointer;
+	}
+
+	&.open{
+		right: 0;
+	}
+	
+	.customizer-reset{
+		padding: 16px;
+	}
+
+	@media(min-width: $grid-float-breakpoint) {
+		top: 130px;
+
+		body.menubar-top &{
+			top: $navbar-height + $menubar-top-height + 30px;
+		}
+	}
+
+	@media(max-width: $grid-float-breakpoint-max) {
+		top: $navbar-height * 2;
+
+		body.navbar-collapse-in &{
+			top: ($navbar-height * 2 ) + 20px;
+		}
+
+		.tab-pane{
+			padding: 12px 12px 0;
+			max-height: 160px;
+			overflow-y: auto;
+		}
+
+		.customizer-reset{
+			padding: 12px;
+		}
+	}
+}
+
+.app-customizer-toggle{
+	position: absolute;
+	background: #fff;
+	right: 100%;
+	top: 0;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	color: $text-color;
+	text-decoration: none;
+	font-size: 16px;
+	@include box-shadow(0 0 2px #aaa);
+	.fa{
+		animation: rotate-me 2s infinite linear;
+	}
+}
+
+@keyframes rotate-me {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

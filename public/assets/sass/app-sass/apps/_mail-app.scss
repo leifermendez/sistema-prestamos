@@ -1,0 +1,163 @@
+.divid{
+	width: 100%;
+	height: 1px;
+	margin: 16px auto;
+	background: #e0e0e0;
+}
+
+.mail-list{
+	&>tbody>tr>td{
+		padding: 0;
+		border-top: none;
+	}
+	.table>tbody>tr>td{
+		padding: 0;
+	}
+}
+
+
+.mail-item{
+	background: #fff;
+	margin-bottom: 16px;
+	padding: 16px;
+	border-radius: 3px;
+	box-shadow: 0 0 1px rgba(0,0,0,.15);
+
+	.mail-container{
+		width: 100%;
+		min-width: 100%;
+	}
+}
+
+
+.mail-item tr>td{
+	vertical-align: top;
+}
+
+td.mail-left{
+	width: 64px;
+	padding-right: 16px;
+}
+
+td.mail-right{
+	width: 124px;
+	padding-left: 24px;
+}
+
+.mail-item .avatar{
+	margin-right: 0;
+	display: block;
+}
+.mail-item-header{
+	margin-top: 8px;
+	margin-bottom: 12px;
+}
+
+.mail-item-title{
+	font-size: 16px;
+	display: inline-block;
+	margin: 0;
+	margin-right: 16px;
+}
+
+.mail-item-excerpt{
+	margin-bottom: 0;
+}
+
+.mail-item-date{
+	text-align: center;
+	color: $text-color;
+}
+
+.mail-item-star{
+	text-align: center;
+	a{
+		color: $text-color;
+	}
+	&.starred a{
+		color: $brand-warning;
+	}
+}
+
+/* Email app side panel */
+.mail-cats>a,
+.mail-labels>a{
+	border: none;
+	color: #6a6c6f;
+	font-size: 14px;
+	font-weight: 500;
+	background-color: transparent;
+}
+
+.mail-cats>a>.fa,
+.mail-labels>a>.fa,
+.mail-actions>a>.fa{
+	display: inline-block;
+	margin-right: 12px;
+}
+
+.mail-cats>a>.fa{
+	color: #aaa;
+	font-size: 12px;
+}
+
+.mail-cats>a:hover{
+	background-color: #d8dfea;
+}
+
+
+.mail-actions>a{
+	border: none;
+	font-size: 14px;
+	color: $title-color;
+	background-color: transparent;
+}
+
+.mail-actions>a:hover{
+	background-color: transparent;
+}
+
+.mail-toolbar .btn-group{
+	margin-right: $margin-md;
+}
+
+.mail-toolbar .btn-group.pull-right{
+	margin-right: 0;
+}
+
+.compose-btn,
+.mail-toolbar .btn{
+	border: none;
+	box-shadow: 0 1px 3px #ccc;
+	color: #6a6c6f;
+}
+
+.compose-btn{
+	width: 120px;
+}
+
+.new-message{
+	.panel-heading{
+		background: #fff;
+		input{
+			border: none;
+			box-shadow: none;
+			outline: none;
+			width: 100%;
+		}
+	}
+	.panel-body{
+		line-height: 2;
+	}
+
+	#new-message-body{
+		display: block;
+		width: 100%;
+		min-height: 200px;
+		padding: 16px;
+		border: none;
+		resize: none;
+		box-shadow: none;
+		outline: none;
+	}
+}

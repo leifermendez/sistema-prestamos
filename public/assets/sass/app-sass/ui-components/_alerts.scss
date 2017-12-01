@@ -1,0 +1,30 @@
+.alert-custom{
+	width: 100%;
+	display: block;
+	margin-bottom: $margin-lg;
+	padding: $padding-md;
+	border-width: 1px;
+	border-style: solid;
+	border-left-width: 7px;
+	
+	&.alert-dismissible{
+		padding-right: $padding-lg;
+
+		.close{
+			top: -15px;
+			right: -15px;
+		}
+	}
+
+	&.alert-success{ border-color: $alert-success-text; }
+
+	&.alert-info{ border-color: $alert-info-text; }
+
+	&.alert-warning{ border-color:  $alert-warning-text; }
+
+	&.alert-danger{ border-color: $alert-danger-text; }
+}
+
+.alert-title{
+	text-transform: uppercase;
+}

@@ -1,0 +1,72 @@
+.progress{
+	height: 16px;
+	.progress-bar{
+		line-height: 16px;
+	}
+}
+// size options
+.progress-xs{
+	height: 8px !important;
+	.progress-bar{
+		line-height: 8px;
+		font-size: 8px;
+	}
+}
+.progress-sm{
+	height: 12px !important;
+	.progress-bar{
+		line-height: 12px;
+		font-size: 10px;
+	}
+}
+.progress-md{
+	height: 16px !important;
+	.progress-bar{
+		line-height: 16px;
+		font-size: 12px;
+	}
+}
+.progress-lg{
+	height: 24px !important;
+	.progress-bar{
+		line-height: 24px;
+		font-size: 14px;
+	}
+}
+
+//= color options
+.progress-bar-primary{
+	@include progress-bar-variant($primary);
+}
+
+.progress-bar-info{
+	@include progress-bar-variant($info);
+}
+
+.progress-bar-success{
+	@include progress-bar-variant($success);
+}
+
+.progress-bar-warning{
+	@include progress-bar-variant($warning);
+}
+
+.progress-bar-danger{
+	@include progress-bar-variant($danger);
+}
+
+.progress-bar-pink{
+	@include progress-bar-variant($pink);
+}
+
+.progress-bar-purple{
+	@include progress-bar-variant($purple);
+}
+
+.progress-bar-inverse{
+	@include progress-bar-variant($inverse);
+}
+
+.progress-bar-dark{
+	@include progress-bar-variant($dark);
+}

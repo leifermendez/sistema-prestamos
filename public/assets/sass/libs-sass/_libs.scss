@@ -1,0 +1,39 @@
+@import 'libs-settings';
+@import 'hamburgers/hamburgers';
+@import 'bootstrap-timepicker/bootstrap-timepicker';
+@import 'dropzone/dropzone';
+@import 'PACE/default-theme';
+
+//= hamburger lib specific styles
+.hamburger{
+	outline: none;
+	border: none;
+}
+
+//= dropzone lib specific styles
+.dropzone {
+	border: 2px dashed #188ae2;
+}
+
+//= tinymce plugin
+body.mce-fullscreen {
+  #dash-navbar{
+    z-index: 999;
+  }
+}
+.mce-fullscreen{
+  z-index: 1100 !important;
+}
+.mce-panel{
+  border-color: #EDF0F5!important;
+}
+
+// perfecscroll settings
+.ps-scrollbar-y-rail{
+  width: 4px !important;
+  background: rgba(0,0,0,.2);
+}
+.ps-scrollbar-y{
+  background: #777 !important;
+  width: 4px !important;
+}

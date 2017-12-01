@@ -1,0 +1,121 @@
+//= contextual colors
+$watermark: #edf0f5;
+$default:   #f4f8f9;
+$primary:   #188ae2;
+$success:   #10c469;
+$info:      #35b8e0;
+$warning:   #f9c851;
+$danger:    #ff5b5b;
+$purple:    #5b69bc;
+$pink:      #ff8acc;
+$inverse:   #3b3e47;
+$dark:      #282828;
+$deepOrange:#FF5722;
+
+//= Contextual colors map
+// Don't remove it or modify it's name, since it's used in many places
+//==================================
+// you can add your own items to it
+// as many qs this list contains items different variants of
+// buttons, radios, checkboxes, badges, labels, backgrounds and text color
+// and many others will be generated automatically for you
+$contextualColors: (
+  primary:    $primary,
+  success:    $success,
+  warning:    $warning,
+  danger:     $danger,
+  info:       $info,
+  pink:       $pink,
+  purple:     $purple,
+  inverse:    $inverse,
+  dark:       $dark,
+  deepOrange: $deepOrange,
+);
+
+
+//= reset bootstrp brand color variables
+$brand-primary:   $primary;
+$brand-info:      $info;
+$brand-success:   $success;
+$brand-warning:   $warning;
+$brand-danger:    $danger;
+
+
+//= reset bootstrap navbar-default
+$navbar-inverse-color:  #fff;
+$navbar-inverse-bg:     $primary;
+$navbar-inverse-border: darken($primary, 5%);
+
+
+//= reset body background color
+$body-bg: #edf0f5;
+
+
+//= gray 
+$gray-base:     #000;
+$gray-darker:   lighten($gray-base, 13.5%); // #222
+$gray-dark:     lighten($gray-base, 20%);   // #333
+$gray:          lighten($gray-base, 33.5%); // #555
+$gray-light:    lighten($gray-base, 46.7%); // #777
+$gray-lighter:  lighten($gray-base, 93.5%); // #eee
+
+
+// text color variables
+$title-color: $gray-dark;
+$text-color:  #6a6c6f;
+$text-muted:  $gray-light;
+$text-white:  #ffffff;
+
+//= font-weight
+$weight-thin:         100;
+$weight-extra-light:  200;
+$weight-light:        300;
+$weight-normal:       400;
+$weight-regular:      $weight-normal;
+$weight-medium:       500;
+$weight-semi-bold:    600;
+$weight-bold:         700;
+$weight-extra-bold:   800;
+$weight-black:        900;
+$weight-heavy:        $weight-black;
+
+
+//= Paddings
+$padding-xs: 6px;
+$padding-sm: 12px;
+$padding-md: 16px;
+$padding-lg: 24px;
+$padding-xl: 32px;
+
+
+//= margins
+$margin-xs: 6px;
+$margin-sm: 12px;
+$margin-md: 16px;
+$margin-lg: 24px;
+$margin-xl: 32px;
+
+
+//= Font sizes
+$font-size-xs: 8px;
+$font-size-sm: 12px;
+$font-size-md: 16px;
+$font-size-lg: 24px;
+$font-size-xl: 32px;
+
+
+//= Misc variable 
+$gutter:                2rem;
+$gutter-half:           1rem;
+$navbar-height:         60px;
+$menubar-top-height:    80px;
+$menubar-fold-width:    5rem;
+$menubar-unfold-width:  220px;
+
+$opacity-transition-time: .5s;
+$sidebar-folding-transition-time: .5s;
+
+$alert-success-border: #74a730;
+
+//= Fonts
+$font-family-sans-serif: Raleway, "Helvetica Neue", Helvetica, Arial, sans-serif !default;

@@ -1,0 +1,173 @@
+//= Our own variables
+@import 'app-sass/variables';
+//= Bootstrap variables
+@import 'bootstrap-sass/bootstrap/variables';
+//= Bootstrap mixins
+@import 'bootstrap-sass/bootstrap/mixins';
+//= Our own mixins
+@import 'app-sass/mixins';
+
+
+body.simple-page{
+	background-color: $primary;
+	padding-top: 8%;
+}
+
+.simple-page-wrap{
+	width: 380px;
+	margin: 0 auto;
+}
+
+.simple-page-logo {
+	text-align: center;
+	font-size: 24px;
+	margin-bottom: 24px;
+	a{
+		color: #fff;
+	}
+}
+
+.simple-page-form{
+	background-color: #fff;
+	border-radius: 6px;
+	padding: 24px;
+	margin-bottom: 24px;
+
+	.form-group{
+		margin-bottom: 32px;
+	}
+	input,
+	input:focus,
+	input:active{
+		outline: none;
+		box-shadow: none;
+	}
+
+	input{
+		border: none;
+		border-bottom: 1px solid #eee;
+		height: 40px;
+	}
+	.btn{
+		width: 100%;
+	}
+}
+
+.simple-page-footer{
+	p{
+		text-align: center;
+		margin-bottom: 24px;
+	}
+	a{
+		color: #fff;
+		font-weight: 500;
+	}
+	small{
+		margin-right: 16px;
+		color: #fff;
+	}
+}
+
+// 404 page
+
+#_404_title{
+	text-align: center;
+	font-weight: 900;
+	font-size: 140px;
+	letter-spacing: 5px;
+	color: #fff;
+}
+
+#_404_msg{
+	color: #fff;
+	text-align: center;
+	font-size: 16px;
+}
+
+#_404_form{
+	margin-top: 48px;
+	.form-control{
+		height: 40px;
+
+	}
+	.input-group-addon{
+		background: $primary;
+		border: $primary;
+		color: #fff;
+	}
+}
+
+// Unlock page
+
+#unlock-user{
+	margin-top: 64px;
+	margin-bottom: 48px;
+	.avatar{
+		display: block;
+		margin-right: 0;
+		margin: 0 auto;
+		width: 80px;
+		height: 80px;
+	}
+	h4{
+		color: #fff;
+		text-align: center;
+		text-transform: uppercase;
+	}
+}
+
+#unlock-form{
+	.form-group{
+		margin-bottom: 32px;
+	}
+	input,
+	input:focus,
+	input:active{
+		outline: none;
+		box-shadow: none;
+		border: none;
+		border-bottom: 1px solid #aaa;
+	}
+	input{
+		&::-webkit-input-placeholder{
+   		color: #fff;
+   	}
+   	&::-moz-placeholder{
+   		color: #fff;
+   	}
+   	&:-ms-input-placeholder{
+   		color: #fff;
+   	}
+   	width: 70%;
+   	margin: 0 auto;
+   	border-radius: 0;
+   	text-align: center;
+   	color: #fff;
+   	background-color: transparent;
+   	height: 40px;
+	}
+
+	#unlock-btn{
+		display: block;
+		margin: 0 auto;
+		background-color: #fff;
+		color: $primary;
+		border-radius: 3px;
+		width: 120px;
+	}
+}
+
+
+#back-to-home{
+	position: fixed;
+	top: 60px;
+	left: 60px;
+
+	a{
+		color: #fff;
+		font-size: 18px;
+		i{
+			font-size: 24px;
+		}
+	}
+}

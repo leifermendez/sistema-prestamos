@@ -1,0 +1,108 @@
+.fullcalendar,
+#fullcalendar{
+	margin-bottom: 24px;
+	background: #fff;
+	padding: 24px 16px;
+	@include box-shadow;
+}
+.fc th.fc-day-header{
+	color: #333;
+	background-color: $body-bg;
+	padding: 12px 0;
+	border: 1px solid #fff;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.fc .fc-row.ui-widget-header,
+.fc .fc-row.fc-week.ui-widget-content {
+	margin-right: 0 !important;
+	border-width: 0 !important;
+}
+.fc-day{
+	background-color: #fff;
+}
+
+.fc-today{
+/*	background-color: #edf0f5;
+	color: #fff;*/
+}
+
+.fc-basic-view .fc-day-number{
+	font-size: 16px;
+	color: gray;
+	padding-top: 8px !important;
+	padding-right: 16px !important;
+}
+
+.fc th, .fc td{
+	border-color: #edf0f5;
+}
+
+/* fullCalendar toolbar */
+.fc-toolbar{
+	margin-bottom: 24px;
+}
+
+.fc-toolbar .fc-center h2{
+	font-size: 16px;
+}
+
+.fc-toolbar .ui-button{
+	border: none;
+	box-shadow: 0 0 2px #ccc;
+	background: #fff;
+	color: #6a6c6f;
+	height: 35px;
+	border-radius: 2px;
+}
+
+.fc-toolbar .ui-button:hover{
+	background: $body-bg;
+}
+
+.fc-toolbar .ui-state-disabled{
+	color: #ccc;
+	box-shadow: none;
+	border: 1px solid #eee;
+}
+.fc-toolbar .ui-state-disabled:hover{
+	background: #fff;
+}
+
+.fc-today-button{
+	width: 70px;	
+}
+
+
+/* Event Styling*/
+.fc-content-skeleton .fc-event-container{
+	padding: 0 12px;
+}
+
+.fc-event-container .fc-event{
+	padding: 4px 8px;
+	font-size: 14px;
+	font-weight: 400;
+	margin-bottom: 8px;
+	border-radius: 2px;
+	border: none;
+}
+
+// darggable-events
+#external-events{
+	.external-event{
+		color: #fff;
+		width: 100%;
+		padding: 8px 16px;
+		font-size: 14px;
+		font-weight: 400;
+		margin-bottom: 8px;
+		border-radius: 2px;
+		&.ui-draggable-dragging{
+			z-index: 999;
+		}
+		cursor: move;
+	}
+}

@@ -1,0 +1,141 @@
+.panel{
+  margin-bottom: $margin-lg;
+  border: none;
+}
+
+.panel-body,
+.panel-footer{
+  padding: $padding-sm $padding-md;
+}
+
+.panel-heading{
+  padding: $padding-md;
+}
+
+.panel-title{
+	text-transform: uppercase;
+}
+.panel-footer{
+  background: #f5f7f9;
+}
+
+.panel-body{
+	p{
+		color: #797979;
+		font-size: 14px;
+		line-height: 1.8;
+		font-weight: 500;
+		margin: 0;
+	}
+}
+.panel-default {
+  @include panel-variant(#f5f7f9, $text-color, #f5f7f9, #f5f7f9);
+}
+.panel-primary {
+  @include panel-variant($primary, $text-white, $primary, #f5f7f9);
+}
+.panel-info {
+  @include panel-variant($info, $text-white, $info, #f5f7f9);
+}
+.panel-success {
+  @include panel-variant($success, $text-white, $success, #f5f7f9);
+}
+.panel-warning {
+  @include panel-variant($warning, $text-white, $warning, #f5f7f9);
+}
+.panel-danger {
+  @include panel-variant($danger, $text-white, $danger, #f5f7f9);
+}
+.panel-pink {
+  @include panel-variant($pink, $text-white, $pink, #f5f7f9);
+}
+.panel-purple {
+  @include panel-variant($purple, $text-white, $purple, #f5f7f9);
+}
+.panel-inverse {
+  @include panel-variant($inverse, $text-white, $inverse, #f5f7f9);
+}
+.panel-dark {
+  @include panel-variant($dark, $text-white, $dark, #f5f7f9);
+}
+
+// custom panels
+.panel-custom{
+	border-top: 3px solid transparent;
+	border-bottom: 3px solid transparent;
+	.panel-heading{
+		border: none;
+		background: #fff;
+	}
+
+	&.panel-default{
+		border-top-color: #ddd;
+		border-bottom-color: #ddd;
+		.panel-title{
+			color: #797979;
+		}
+	}
+	&.panel-primary{
+		border-top-color: $primary;
+		border-bottom-color: $primary;
+		.panel-title{
+			color: $primary;
+		}
+	}
+	&.panel-info{
+		border-top-color: $info;
+		border-bottom-color: $info;
+		.panel-title{
+			color: $info;
+		}
+	}
+	&.panel-success{
+		border-top-color: $success;
+		border-bottom-color: $success;
+		.panel-title{
+			color: $success;
+		}
+	}
+	&.panel-warning{
+		border-top-color: $warning;
+		border-bottom-color: $warning;
+		.panel-title{
+			color: $warning;
+		}
+	}
+	&.panel-danger{
+		border-top-color: $danger;
+		border-bottom-color: $danger;
+		.panel-title{
+			color: $danger;
+		}
+	}
+	&.panel-pink{
+		border-top-color: $pink;
+		border-bottom-color: $pink;
+		.panel-title{
+			color: $pink;
+		}
+	}
+	&.panel-purple{
+		border-top-color: $purple;
+		border-bottom-color: $purple;
+		.panel-title{
+			color: $purple;
+		}
+	}
+	&.panel-inverse{
+		border-top-color: $inverse;
+		border-bottom-color: $inverse;
+		.panel-title{
+			color: $inverse;
+		}
+	}
+	&.panel-dark{
+		border-top-color: $dark;
+		border-bottom-color: $dark;
+		.panel-title{
+			color: $dark;
+		}
+	}
+}

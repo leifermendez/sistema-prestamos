@@ -1,0 +1,49 @@
+.btn {
+	outline: 0 !important;
+	font-weight: 500;
+	font-size: 14px;
+	padding: 8px 16px;
+
+	&:focus,
+	&:active{
+		outline: none;
+	}
+}
+
+.form-inline{
+	.btn{ height: 38px; }
+}
+
+//= Generates solid buttons
+@each $class, $bgColor in $contextualColors{
+	.btn-#{$class} {
+		@include button-variant(#fff, $bgColor, $bgColor);
+	}
+}
+
+//= Outlined buttons
+.btn.btn-outline{
+	border-width: 1px;
+	border-style: solid;
+	background-color: transparent;
+}
+
+//= Generate outlined buttons
+@each $class, $color in $contextualColors{
+	.btn-outline.btn-#{$class} {
+	  @include button-outline-variant($color, $color, $color);
+	}
+}
+
+//= Button sizes
+.btn-xs{
+	@include button-size(2px, 6px, 12px, 1.5, 3px);
+}
+
+.btn-sm{
+	@include button-size(6px, 12px, 12px, 1.5, 3px);
+}
+
+.btn-lg{
+	@include button-size(12px,16px,  18px, 1.333, 3px);
+}

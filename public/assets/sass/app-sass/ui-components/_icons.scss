@@ -1,0 +1,41 @@
+.icon{
+	width: 42px;
+	height: 42px;
+	margin-bottom: 16px;
+	border: 1px solid #ccc;
+	text-align: center;
+	line-height: 42px;
+	display: inline-block;
+}
+
+.icon-circle{
+	border-radius: 100%;
+}
+
+.icon-sm{
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+}
+
+.icon-md{
+	width: 42px;
+	height: 42px;
+	line-height: 42px;
+}
+
+.icon-lg{
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+}
+
+// demo icons
+.icon-list{
+	.icon-list-item{
+		padding: 8px 16px;
+	}
+	i{
+		margin-right: 16px;
+	}
+}

@@ -1,0 +1,140 @@
+// override bootstrap defaults
+// Some form-specific variables
+$form-control-height: 38px;
+$form-control-border-color: #ddd;
+$form-control-focus-border-color: #ccc;
+
+.form-group{
+	margin-bottom: $margin-lg
+}
+
+.form-control{
+	border-radius: 3px;
+	height: $form-control-height;
+	box-shadow: none;
+	border-color: $form-control-border-color;
+	&:focus,
+	&:active{
+		border-color: $form-control-focus-border-color;
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+.input-sm {
+	height: 30px;
+	padding: 5px 10px;
+	font-size: 12px;
+	line-height: 1.5;
+	border-radius: 3px;
+}
+
+.input-lg {
+	height: 46px;
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 1.3333333;
+	border-radius: 6px;
+}
+
+textarea.form-control{
+	min-height: 100px;
+}
+
+label{
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.radio,
+.checkbox{
+	margin-top: 0;
+	margin-bottom: 12px;
+}
+
+.form-inline{
+	.form-control{
+		min-width: 250px;
+	}
+}
+
+// DataTables styling
+div.dataTables_wrapper{
+
+	div.dataTables_length{
+		select{
+			width: 100px;
+			height: 30px;
+			font-weight: 600;
+			font-size: 14px;
+		}
+	}
+
+	div.dataTables_filter{
+		input{
+			width: 200px;
+			height: 30px;
+		}
+	}
+}
+
+// select2 plugin modifications
+
+.select2-selection{
+	height: $form-control-height !important;
+
+	&.select2-selection--single{
+		height: $form-control-height !important;
+		.select2-selection__rendered{
+			line-height: $form-control-height !important;
+		}
+	}
+	.select2-selection__choice{
+		margin-top: 8px !important;
+	}
+	.select2-selection__arrow{
+		height: 38px !important;
+	}
+}
+
+// bootstrap-tagsinput plugin
+
+.bootstrap-tagsinput{
+	width: 100%;
+	border-radius: 3px;
+	min-height: $form-control-height;
+	// height: $form-control-height;
+	box-shadow: none;
+	border-color: $form-control-border-color;
+	&:focus,
+	&:active{
+		border-color: $form-control-focus-border-color;
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+// bootstrap touchspin
+
+.bootstrap-touchspin{
+	.btn.bootstrap-touchspin-down,
+	.btn.bootstrap-touchspin-up{
+		height: 38px;
+		font-size: 18px;
+	}
+	
+	.input-group-addon{
+		border-left: 0;
+		border-right: 0;
+	}
+
+	.input-group-btn-vertical{
+		&>.btn {
+			height: 20px;
+			width: 25px;
+			i{
+				left: 25%;
+			}
+		}
+	}
+}

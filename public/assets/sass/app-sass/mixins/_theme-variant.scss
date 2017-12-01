@@ -1,0 +1,56 @@
+@mixin theme-variant($themeName, $bg-color) {
+	$color: $bg-color !default;
+	
+	// if the bg-color is too dark
+	// or themeName is inverse or dark then
+	// set the color to $primary (#188ae2)
+	@if lightness($bg-color) < 25% or $themeName == inverse or $themeName == dark {
+		$color: $primary;
+	}
+
+	.theme-#{$themeName}{
+		.navbar-brand,
+		.navbar-brand:hover,
+		.navbar-brand:focus{
+			color: $bg-color;
+		}
+
+		.theme-color{
+			color: $bg-color;
+		}
+
+		.menubar{
+			.app-menu {
+				li.open,
+				li.active{
+					border-left-color: $color;
+				}
+
+				li.open > a,
+				li.active > a,
+				li:hover > a,
+				li.menu-heading > a{
+					color: $color;
+				}
+			}
+		}
+	}
+	
+	// if the theme is not one of the predefined themes
+	// add new variants and helper classes for the new theme
+	@if index(map-keys($contextualColors), $themeName) == null {
+		
+		@include radio-variant('.radio-#{$themeName}', $bg-color);
+		
+		.text-#{$themeName} {
+			color: $bg-color;
+		}
+
+		.bg-#{$themeName}, .#{$themeName} {
+			background-color: $bg-color;
+			@if lightness($bg-color) < 50% {
+				color: #fff;
+			}
+		}
+	}
+}

@@ -1,0 +1,5 @@
+@each $themeName, $color in $contextualColors{
+	.badge-#{$themeName}{
+		@include badge-variant($color, #fff);
+	}
+}

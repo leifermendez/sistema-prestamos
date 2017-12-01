@@ -1,0 +1,52 @@
+@mixin button-outline-variant($color, $background, $border) {
+  color: $color;
+  background-color: transparent;
+  border-color: $border;
+
+  &:focus,
+  &.focus {
+    color: #fff;
+    background-color: darken($background, 10%);
+        border-color: darken($border, 14%);
+  }
+  &:hover {
+    color: #fff;
+    background-color: $background;
+        border-color: $border;
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: #fff;
+    background-color: darken($background, 10%);
+        border-color: darken($border, 14%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: #fff;
+      background-color: darken($background, 12%);
+          border-color: darken($border, 16%);
+    }
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus,
+    &.focus {
+      background-color: $background;
+          border-color: $border;
+    }
+  }
+
+  .badge {
+    color: #fff;
+    background-color: $color;
+  }
+}

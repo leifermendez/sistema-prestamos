@@ -1,0 +1,46 @@
+/**========= DASHBOARD MAIN ===========**/
+.app-main{
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity $opacity-transition-time, transform .2s ease-in-out;
+  min-height: calc(100% - #{$navbar-height});
+  
+  &.in{
+    opacity: 1;
+  }
+
+  @media(min-width: $grid-float-breakpoint){
+    body.menubar-unfold &{
+      margin-left: $menubar-unfold-width;
+    }
+
+    body.menubar-fold &{
+      margin-left: $menubar-fold-width;
+    }
+  }
+
+  @media(max-width: $grid-float-breakpoint-max){
+    body.menubar-in &{
+      transform: translate3d($menubar-unfold-width, 0, 0);
+      overflow: hidden;
+    }
+  }
+}
+
+.wrap{
+  padding-top: 1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  @media (max-width: $grid-float-breakpoint-max) {
+    padding-left: .75rem;
+    padding-right: .75rem;
+  }
+
+  @media(min-width: $grid-float-breakpoint) {
+    body.menubar-top &{
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+}

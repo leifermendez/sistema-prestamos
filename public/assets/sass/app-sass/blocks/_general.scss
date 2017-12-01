@@ -1,0 +1,84 @@
+html{
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  padding-top: $navbar-height;
+  transition: padding-top .5s;
+
+  @media(min-width: $grid-float-breakpoint) {
+    &.menubar-fold {
+      .foldable{
+        visibility: hidden;
+        display: none;
+      }
+    }
+
+    &.menubar-top{
+      padding-top: $navbar-height + $menubar-top-height;
+    }
+  }
+
+  @media(max-width: $grid-float-breakpoint-max) {
+    &.menubar-in{
+      height: 100%;
+      overflow: hidden;
+    }
+
+    &.navbar-collapse-in{
+      padding-top: $navbar-height * 2;
+    }
+  }
+}
+
+
+.menubar,
+.app-main{
+  @media(min-width: $screen-lg-min) {
+    body.menubar-top &{
+      padding-right: calc((100% - 1200px) / 2 + 30px);
+      padding-left: calc((100% - 1200px) / 2 + 30px);
+    }
+  }
+  
+  @media(max-width: $screen-md-max) and (min-width: $screen-md-min){
+    body.menubar-top &{
+      padding-right: calc((100% - 992px) / 2 + 30px);
+      padding-left: calc((100% - 992px) / 2 + 30px);
+    }
+  }
+  
+
+  @media(max-width: $screen-sm-max) and (min-width: $screen-sm) {
+    body.menubar-top &{
+      padding-right: 30px;
+      padding-left: 30px;
+    }
+  }
+}
+
+.navbar{
+  @media(min-width: $screen-lg-min) {
+    body.menubar-top &{
+      padding-right: calc((100% - 1200px) / 2 + 15px);
+      padding-left: calc((100% - 1200px) / 2 + 15px);
+    }
+  }
+  
+  @media(max-width: $screen-md-max) and (min-width: $screen-md-min){
+    body.menubar-top &{
+      padding-right: calc((100% - 992px) / 2 + 15px);
+      padding-left: calc((100% - 992px) / 2 + 15px);
+    }
+  }
+  
+
+  @media(max-width: $screen-sm-max) and (min-width: $screen-sm) {
+    body.menubar-top &{
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  }
+}

@@ -1,0 +1,92 @@
+
+#jqstooltip{
+  display: block;
+  background: #36404a;
+  color: #fff;
+  border-radius: 3px;
+  padding: 8px 16px !important;
+  width: auto !important;
+  height: auto !important;
+  border: none;
+  white-space: nowrap;
+}
+
+#pieLegend{
+  .legendColorBox{
+    &>div{
+      border: none !important;
+      &>div{
+        border-width: 7px !important;
+      }
+    }
+  }
+  .legendLabel, .legendColorBox{
+    padding: .2rem 0 .4rem 0;
+  }
+  .legend-label{
+    font-weight: $weight-medium;
+    margin-top: .5em;
+    margin-left: .5em;
+  }
+}
+
+.flotTip{
+  background: #36404a;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 3px;
+  font-family: lato, Helvetica, serif;
+}
+
+.small-chart{
+  margin-top: 4px;
+}
+
+.chart{
+  height: 300px;
+  width: 100%;
+}
+
+// MORRIS CHARTS
+.morris-hover.morris-default-style{
+  border-radius: 5px;
+  padding: 10px 12px;
+  color: #666;
+  background: #36404a;
+  border: none;
+  color: #ffffff !important;
+
+  .morris-hover-point{
+    color: #fff !important;
+  }
+}
+.chart-legend{
+  margin-bottom: 16px;
+  text-align: center;
+  .chart-legend-label{
+    .fa{
+      display: inline-block;
+      margin-right: 6px;
+    }
+  }
+}
+
+.sparkline-chart{
+  canvas{
+    display: block !important;
+    margin: 0 auto;
+  }
+}
+
+.pieprogress {
+  position: relative;
+  strong{
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+  }
+}

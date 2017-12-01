@@ -1,0 +1,50 @@
+.side-panel{
+  position: fixed;
+  right: -100%;
+  top: $navbar-height;
+  width: 240px;
+  height: calc(100% - #{$navbar-height});
+  transition: all .5s ease;
+
+  &.open {
+    right: 0;
+  }
+
+  .panel-header {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .panel-title {
+    margin: 0;
+    color: #333;
+  }
+  
+  .scrollable-container {
+    position: relative;
+    height: calc(100% - 57px) !important;
+  }
+
+  @media(max-width: $grid-float-breakpoint-max){
+    &.open{
+      width: 100%;
+    }
+
+    body.navbar-collapse-in &{
+      top: $navbar-height * 2;
+      height: calc(100% - #{$navbar-height * 2});
+    }
+  }
+
+  @media(min-width: $grid-float-breakpoint) {
+    body.menubar-top &{
+      top: $navbar-height + $menubar-top-height;
+      height: calc(100% - #{$navbar-height + $menubar-top-height});
+    }
+  }
+}
+
+.side-panel{
+  background-color: #fff;
+  @include box-shadow(-2px 0 4px rgba(0,0,0,.08));
+}

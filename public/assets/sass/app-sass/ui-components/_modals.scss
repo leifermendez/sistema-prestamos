@@ -1,0 +1,33 @@
+.modal-dialog{
+	margin-top: 80px;
+}
+
+.modal-content{
+	.form-group{
+		margin-bottom: 24px;
+	}
+	.form-control{
+		height: 40px;
+		border-radius: 0;
+	}
+}
+
+#composeModal{
+	z-index: 10000;
+	.form-group{
+		margin-bottom: $margin-md;
+	}
+
+	input.form-control{
+		border: none;
+		box-shadow: none;
+		outline: none;
+		border-bottom: 1px solid #eee;
+	}
+	textarea{
+		border-radius: 0;
+		box-shadow: none;
+		border: 1px solid #eee;
+		resize: none;
+	}
+}

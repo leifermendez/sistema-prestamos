@@ -1,0 +1,46 @@
+.table{
+	margin-bottom: 0;
+	th{
+		font-size: 14px;
+		font-weight: 600;
+	}
+}
+
+.table.no-cellborder{
+	margin-top: -2px;
+	table-layout: fixed;
+	th,td{
+		border: none;
+		padding: 8px 0;
+	}
+	.table-icon{
+		margin-right: 6px;
+		color: #ccc;
+	}
+}
+
+// DataTables
+.fixedHeader-floating{
+	top: $navbar-height !important;
+	z-index: 90;
+	th{
+		background: #edf0f5;
+	}
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+   background-color: $body-bg;
+}
+
+// DataTables styling
+
+.dt-buttons{
+	display: block;
+	max-width: 100%;
+	width: 300px;
+	margin: 0 auto;
+	margin-bottom: 16px;
+	.btn{
+		background-color: $body-bg;
+	}
+}

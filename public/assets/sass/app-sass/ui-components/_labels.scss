@@ -1,0 +1,5 @@
+@each $themeName, $color in $contextualColors{
+	.label-#{$themeName}{
+		@include label-variant($color);
+	}
+}

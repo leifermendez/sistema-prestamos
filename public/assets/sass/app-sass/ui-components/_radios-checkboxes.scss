@@ -1,0 +1,13 @@
+@import '../../libs-sass/awesome-bootstrap-checkboxes/awesome-bootstrap-checkbox';
+
+@each $class, $color in $contextualColors{
+  @include checkbox-variant('.checkbox-#{$class}', $color);
+}
+
+@each $class, $color in $contextualColors{
+  @include checkbox-variant-indeterminate('.checkbox-#{$class}', $color);
+}
+
+@each $class, $color in $contextualColors{
+  @include radio-variant('.radio-#{$class}', $color);
+}
