@@ -28,7 +28,7 @@
                                         <td><span class="value">{{$cred->created_at}}</span></td>
                                         <td><span class="value">{{$cred->utility}}</span></td>
                                         <td><span class="value">{{$cred->payment_number}}</span></td>
-                                        <td><span class="value">{{$cred->amount_neto}}</span></td>
+                                        <td><span class="value">{{$cred->valor}}</span></td>
                                     </tr>
                                 @endforeach
                                 </tbody></table>

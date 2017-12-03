@@ -82,9 +82,11 @@ class agentController extends Controller
                 'users.country',
                 'users.address',
                 'wallet.name as wallet_name',
-                'users.id'
+                'users.id',
+                'agent_has_supervisor.base as base_current'
             )
             ->first();
+
 
         return view('supervisor_agent.edit',$data);
     }
@@ -100,7 +102,9 @@ class agentController extends Controller
     {
         $base = $request->base_number;
         if(!isset($base)){return 'Base Vacia';};
-
+        $base_current = db_supervisor_has_agent::where('id_user_agent',$id)
+            ->where('id_supervisor',Auth::id())->first()->base;
+        $base = $base_current+$base;
         db_supervisor_has_agent::where('id_user_agent',$id)
             ->where('id_supervisor',Auth::id())
             ->update(['base'=>$base]);

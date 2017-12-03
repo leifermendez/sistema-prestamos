@@ -54,11 +54,16 @@ class summaryController extends Controller
             $data_credit->payment_amount = (floatval($data_credit->amount_neto+$data_credit->utility_amount)/floatval($data_credit->payment_number));
 
             $data_credit->total = floatval($data_credit->utility_amount+$data_credit->amount_neto);
+            $last = array(
+                'recent' => db_summary::where($sql)->first()->amount,
+                'rest' => ($data_credit->total)-(db_summary::where($sql)->sum('amount'))
+            );
             $data = array(
                 'clients' => $tmp,
                 'user' =>  User::find(db_credit::find($id_credit)->id_user),
                 'credit_data' => $data_credit,
-                'other_credit' => db_credit::where('id_user',$data_credit->id_user)->get()
+                'other_credit' => db_credit::where('id_user',$data_credit->id_user)->get(),
+                'last' => $last,
             );
 
         return view('summary.index',$data);
@@ -102,11 +107,11 @@ class summaryController extends Controller
 
         db_summary::insert($values);
         $sum = db_summary::where('id_credit',$id_credit)->sum('amount');
-        if($sum>=db_credit::find($id_credit)->amount_neto){
+        if($sum>=(db_credit::find($id_credit)->amount_neto)+(db_credit::find($id_credit)->amount_neto*db_credit::find($id_credit)->utility)){
             db_credit::where('id',$id_credit)->update(['status'=>'close']);
         }
 
-        return redirect('summary?id_credit='.$id_credit);
+        return redirect('summary?id_credit='.$id_credit.'&show=last');
     }
 
     /**

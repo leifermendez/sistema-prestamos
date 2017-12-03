@@ -12,6 +12,22 @@
                             <a type="button" href="{{url('route')}}" class="btn btn-deepOrange"><i class="fa fa-car"></i> Continuar ruta</a>
                         </div><!-- .widget -->
                     </div>
+                    @if(app('request')->input('show')=='last')
+                        <div class="col-md-12 col-sm-12">
+                            <div class="widget stats-widget">
+                                <div class="widget-body clearfix">
+                                    <div class="pull-left">
+                                        <small class="text-color">Pago realizado</small>
+                                        <h3 class="widget-title text-success">{{$last['recent']}}</h3>
+                                        <small class="text-color">Saldo</small>
+                                        <h3 class="widget-title text-primary">{{$last['rest']}}</h3>
+                                    </div>
+                                    <span class="pull-right big-icon watermark"><i class="fa fa-money"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="col-md-12 col-sm-12">
                         <div class="panel">
                             <div class="panel-heading">

@@ -53,6 +53,18 @@
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="widget p-lg">
+                            <h4 class="m-b-lg">Últimos creditos</h4>
+                            @foreach($credits as $client)
+                                @if($credit_data->id != $client->id)
+                                    <a class="btn btn-primary" href="{{url('supervisor/menu/history/')}}/{{$client->id}}">{{$client->id}}</a>
+                                @endif
+                            @endforeach
+                        </div><!-- .widget -->
+                    </div>
+                </div><!-- .row -->
             </section>
         </div>
     </main>

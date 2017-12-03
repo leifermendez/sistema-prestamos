@@ -44,7 +44,7 @@ class transactionController extends Controller
 
         if(!isset($date)){return 'Fecha Vacia';};
 
-        $data_summary = db_summary::whereDate('credit.created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
+        $data_summary = db_summary::whereDate('summary.created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
             ->where('credit.id_agent',Auth::id())
             ->join('credit','summary.id_credit','=','credit.id')
             ->join('users','credit.id_user','=','users.id')
@@ -52,6 +52,7 @@ class transactionController extends Controller
                 'users.name',
                 'users.last_name',
                 'credit.payment_number',
+                'credit.utility',
                 'credit.amount_neto',
                 'credit.id as id_credit',
                 'summary.number_index',
@@ -60,7 +61,6 @@ class transactionController extends Controller
                 )
             ->groupBy('summary.id')
             ->get();
-
 
         $data_credit = db_credit::whereDate('credit.created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
             ->where('credit.id_agent',Auth::id())

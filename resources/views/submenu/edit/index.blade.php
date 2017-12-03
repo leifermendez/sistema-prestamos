@@ -90,7 +90,7 @@
                                         <td><span class="value">{{$sum->amount}}</span></td>
                                         <td><span class="value">{{($sum->amount_neto)-($sum->total_payment)}}</span></td>
                                         <td class="text-right">
-                                            <a href="{{url('supervisor/summary')}}/{{$cred->credit_id}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
+                                            <a href="{{url('supervisor/summary')}}/{{$sum->id_summary}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
                                         </td>
                                     </tr>
                                 @endforeach

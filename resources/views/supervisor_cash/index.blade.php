@@ -9,13 +9,13 @@
                     <div class="col-md-12">
 
                         <div class="widget p-lg">
-                            <h4 class="m-b-lg">Carteras</h4>
+                            <h4 class="m-b-lg">Cartera</h4>
                             <table class="table supervisor-cash-table">
                                 <tbody>
                                 <tr>
-                                    <th>Fecha</th>
+                                    <th>Cartera</th>
                                     <th>Detalle</th>
-                                    <th>Saldo Base</th>
+                                    <th>Valor actual Base</th>
                                 </tr>
                                 @foreach($clients as $client)
                                     <tr>

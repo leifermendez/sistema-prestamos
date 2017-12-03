@@ -79,7 +79,7 @@ class subCloseController extends Controller
             ->toDateString())
             ->sum('amount');
 
-        $base_amount = 0;
+        $base_amount = false;
         if(db_close_day::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())->exists()){
             $base_amount = db_close_day::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())->first()->base_before;
         }

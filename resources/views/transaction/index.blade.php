@@ -28,7 +28,7 @@
                                         <td><span class="value">{{$cred->created_at}}</span></td>
                                         <td><span class="value">{{$cred->utility}}</span></td>
                                         <td><span class="value">{{$cred->payment_number}}</span></td>
-                                        <td><span class="value">{{$cred->amount_neto}}</span></td>
+                                        <td><span class="value">{{($cred->amount_neto)+($cred->amount_neto*$cred->utility)}}</span></td>
 
                                     </tr>
                                 @endforeach
@@ -79,7 +79,7 @@
                                         <td><span class="value">{{$sum->id_credit}}</span></td>
                                         <td><span class="value">{{$sum->number_index}}</span></td>
                                         <td><span class="value">{{$sum->amount}}</span></td>
-                                        <td><span class="value">{{($sum->amount_neto)-($sum->total_payment)}}</span></td>
+                                        <td><span class="value">{{($sum->amount_neto+($sum->amount_neto*$sum->utility))-($sum->total_payment)}}</span></td>
                                     </tr>
                                 @endforeach
 

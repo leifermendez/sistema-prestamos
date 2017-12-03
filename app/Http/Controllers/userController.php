@@ -96,6 +96,10 @@ class userController extends Controller
         if(!isset($amount)){return redirect($redirect_error);};
 
         $base=db_supervisor_has_agent::where('id_user_agent',Auth::id())->first()->base;
+        $base_credit = db_credit::whereDate('created_at',Carbon::now()->toDateString())
+            ->where('id_agent',Auth::id())
+            ->sum('amount_neto');
+        $base -= $base_credit;
 
         if($amount>$base){
             return 'No tienes dinero suficiente';
@@ -125,10 +129,15 @@ class userController extends Controller
                 }
             }
         }
-        db_agent_has_user::insert([
-            'id_agent'=>Auth::id(),
-            'id_client'=>$id,
-            'id_wallet'=>db_supervisor_has_agent::where('id_user_agent',Auth::id())->first()->id_wallet]);
+
+        if(!db_agent_has_user::where('id_agent',Auth::id())->where('id_client',$id)->exists()){
+            db_agent_has_user::insert([
+                'id_agent'=>Auth::id(),
+                'id_client'=>$id,
+                'id_wallet'=>db_supervisor_has_agent::where('id_user_agent',Auth::id())->first()->id_wallet]);
+        }
+
+
 
         $values = array(
             'created_at'=> Carbon::now(),

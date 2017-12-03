@@ -53,13 +53,11 @@ class subEditController extends Controller
         $date_end = $request->date_end;
 
         if(!isset($date_start)){return 'Fecha Inicio Vacia';};
-        if(!isset($date_end)){return 'Fecha Final Vacia';};
 
         $data_credit = db_supervisor_has_agent::where('id_wallet',$id)
             ->join('credit','agent_has_supervisor.id_user_agent','=','credit.id_agent')
             ->join('users','credit.id_user','=','users.id')
-            ->whereDate('credit.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
-            ->whereDate('credit.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
+            ->whereDate('credit.created_at','=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
             ->select(
                 'users.name',
                 'users.last_name',
@@ -77,8 +75,7 @@ class subEditController extends Controller
             ->join('summary','agent_has_supervisor.id_user_agent','=','summary.id_agent')
             ->join('credit','summary.id_credit','=','credit.id')
             ->join('users','credit.id_user','=','users.id')
-            ->whereDate('summary.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
-            ->whereDate('summary.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
+            ->whereDate('summary.created_at','=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
             ->select(
                 'credit.id as credit_id',
                 'users.id',
@@ -88,12 +85,12 @@ class subEditController extends Controller
                 'summary.number_index',
                 'summary.amount',
                 'credit.amount_neto',
-                'summary.created_at'
+                'summary.created_at',
+                'summary.id as id_summary'
             )
             ->get();
 
-        $data_bill = db_bills::whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
-            ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
+        $data_bill = db_bills::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
             ->where('id_wallet',$id)
             ->get();
 

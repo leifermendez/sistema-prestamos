@@ -75,6 +75,7 @@ class supervisorSummaryController extends Controller
                 'summary.id as id_summary'
             )
             ->first();
+
         $data->id_wallet = $id_wallet;
 
         return view('submenu.summary.edit',$data);

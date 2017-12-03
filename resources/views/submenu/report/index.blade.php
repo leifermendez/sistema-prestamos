@@ -18,7 +18,7 @@
                                     <th>Creditos</th>
                                     <th>Gasto Agente</th>
                                     <th>Cierre</th>
-                                    <th>% Diario</th>
+                                    <th>Gasto Supervisor</th>
                                     <th>Valor Cartera</th>
 
                                 </tr>
@@ -30,7 +30,7 @@
                                         <td><span class="value">{{$cred->credit_total}}</span></td>
                                         <td><span class="value">{{$cred->bills_total}}</span></td>
                                         <td><span class="value">{{$cred->total_day}}</span></td>
-                                        <td><span class="value">{{$cred->credit_utility}}</span></td>
+                                        <td><span class="value">{{$cred->supervisor_bills}}</span></td>
                                         <td><span class="value">{{$cred->base_wallet}}</span></td>
 
 

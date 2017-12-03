@@ -42,9 +42,9 @@ class paymentController extends Controller
                     ->where('id_agent',Auth::id())
                     ->first();
                 $data->credit_id = $data_tmp->id;
-                $data->amount_neto = $data_tmp->amount_neto;
+                $data->amount_neto = ($data_tmp->amount_neto)+($data_tmp->amount_neto*$data_tmp->utility);
                 $data->payment_number = $data_tmp->payment_number;
-                $data->positive = $data_tmp->amount_neto-(db_summary::where('id_credit',$data_tmp->id)
+                $data->positive = $data->amount_neto-(db_summary::where('id_credit',$data_tmp->id)
                     ->where('id_agent',Auth::id())
                     ->sum('amount'));
                 $data->payment_current = db_summary::where('id_credit',$data_tmp->id)->count();

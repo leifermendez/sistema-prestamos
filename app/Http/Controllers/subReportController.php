@@ -52,8 +52,14 @@ class subReportController extends Controller
                 ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
                 ->where('id_agent',$datum->id_agent)
                 ->sum('amount');
-            $datum->base_wallet = ($datum->base_before+$datum->summary_total)-($datum->credit_total+$datum->bills_total);
+
+            $datum->supervisor_bills = db_bills::whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
+                ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
+                ->where('id_wallet',$id_wallet)->whereNull('id_agent')
+                ->sum('amount');
+            $datum->base_wallet = ($datum->base_before+$datum->summary_total)-($datum->credit_total+$datum->bills_total+$datum->supervisor_bills);
         }
+
         $data = array(
             'credit' => $data
         );

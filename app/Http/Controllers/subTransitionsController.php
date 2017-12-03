@@ -76,6 +76,9 @@ class subTransitionsController extends Controller
             )
             ->get();
 
+        foreach ($data_credit as $d){
+            $d->valor = (($d->amount_neto)+($d->amount_neto*$d->utility)-db_summary::where('id_credit',$d->credit_id)->sum('amount'));
+        }
 
         $data_summary = db_supervisor_has_agent::where('id_wallet',$id)
             ->join('summary','agent_has_supervisor.id_user_agent','=','summary.id_agent')

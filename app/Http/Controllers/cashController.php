@@ -25,6 +25,7 @@ class cashController extends Controller
             ->join('wallet','id_wallet','=','wallet.id')
             ->sum('agent_has_supervisor.base');
         $report = db_close_day::where('id_supervisor',Auth::id())->orderBy('id','desc')->get();
+
         $data = array(
             'clients' => $data,
             'report' => $report,

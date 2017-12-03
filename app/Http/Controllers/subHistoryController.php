@@ -32,15 +32,29 @@ class subHistoryController extends Controller
             ->get();
 
         foreach ($data as $datum){
+            $datum->setAttribute('amount_neto',($datum->amount_neto)+($datum->amount_neto*$datum->utility));
             $datum->summary_total = $datum->amount_neto-(db_summary::where('id_credit',$datum->credit_id)
                 ->sum('amount'));
-            $datum->setAttribute('amount_neto',($datum->amount_neto)+($datum->amount_neto*$datum->utility));
+
             $datum->number_index = db_summary::where('id_credit',$datum->credit_id)
                     ->count();
         }
 
+        $data_wallet = db_supervisor_has_agent::where('id_supervisor',Auth::id())->first();
+        $total_summary = db_summary::where('id_agent',$data_wallet->id_user_agent)->sum('amount');
+        $total_credit = db_credit::where('id_agent',$data_wallet->id_user_agent)->get();
+        $total_credit_amount = 0;
+        foreach ($total_credit as $cred){
+            $total_credit_amount+=($cred->amount_neto)+($cred->amount_neto*$cred->utility);
+        }
+        $total_rest = ($total_credit_amount-$total_summary);
+
+
         $data = array(
-            'clients' => $data
+            'clients' => $data,
+            'total' => $total_summary,
+            'total_rest' => $total_rest,
+            'total_credit' => $total_credit_amount,
         );
 
         return view('submenu.history.index',$data);
@@ -104,10 +118,10 @@ class subHistoryController extends Controller
         $data_credit->total = floatval($data_credit->utility_amount+$data_credit->amount_neto);
         $data = array(
             'clients' => $tmp,
+            'credits' => db_credit::where('id_user',$data_credit->id_user)->orderBy('id','desc')->get(),
             'user' =>  User::find(db_credit::find($id_credit)->id_user),
             'credit_data' => $data_credit,
         );
-
         return view('submenu.history.show',$data);
     }
 

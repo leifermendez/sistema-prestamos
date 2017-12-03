@@ -25,8 +25,13 @@
                                         <input type="text" name="name" value="{{$wallet_name}}" class="form-control" id="name" required>
                                     </div>
                                     <div class="form-group">
+                                        <label for="base_number_current">Base actual:</label>
+                                        <input type="number" name="base_number_current" value="{{$base_current}}"  readonly class="form-control" id="base_number_current" required>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="base_number">Base:</label>
                                         <input type="number" name="base_number" class="form-control" id="base_number" required>
+                                        <p class="text-muted">La nueva base se sumara con la base actual</p>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-success btn-block btn-md">Guardar</button>

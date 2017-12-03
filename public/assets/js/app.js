@@ -611,6 +611,15 @@
     	$('#link_client_audit').attr('disabled',false);
     	$('#link_client_audit').attr('href',$('#link_client_audit').attr('href')+'/'+$(this).val());
 	});
+
+    $('body').on('submit','.payment-create',function(){
+    	if(confirm('Esta seguro de realizar el pago ('+$('.payment-create #amount').val()+')')){
+    		return true;
+		}else{
+    		return false;
+		}
+	});
+
 }(jQuery, window);
 
 //= public function for adding themes

@@ -16,6 +16,7 @@
         <a href="{{url('home')}}" class="navbar-brand">
             <span class="brand-icon">{{Auth::user()->name}}</span>
         </a>
+
     </div><!-- .navbar-header -->
 
 </nav>

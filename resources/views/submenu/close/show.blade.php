@@ -16,27 +16,27 @@
                                 <form method="GET" action="{{url('history')}}" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="base_amount">Base del cobro:</label>
-                                        <input type="text" name="base_amount" value="{{$base}}" readonly class="form-control" id="base_amount" required>
+                                        <input type="text" name="base_amount" value="{{($base) ? $base : 'No existe cierre del día'}}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="base_amount">Recaudo:</label>
-                                        <input type="text" name="today" value="{{$today_amount}}" readonly class="form-control" id="base_amount" required>
+                                        <input type="text" name="today" value="{{($base) ? $today_amount : 'No existe cierre del día'}}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="base_amount">Ventas:</label>
-                                        <input type="text" name="today" value="{{$today_sell}}" readonly class="form-control" id="base_amount" required>
+                                        <input type="text" name="today" value="{{($base) ? $today_sell : 'No existe cierre del día' }}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="base_amount">Gastos:</label>
-                                        <input type="text" name="today" value="{{$bills}}" readonly class="form-control" id="base_amount" required>
+                                        <input type="text" name="today" value="{{($base) ? $bills : 'No existe cierre del día' }}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="base_amount">Total Cuadre:</label>
-                                        <input type="text" name="today" value="{{$total}}" readonly class="form-control" id="base_amount" required>
+                                        <input type="text" name="today" value="{{($base) ? $total : 'No existe cierre del día'}}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="base_amount">Efectividad:</label>
-                                        <input type="text" name="today" value="{{$average}}" readonly class="form-control" id="base_amount" required>
+                                        <input type="text" name="today" value="{{($base) ? $average : 'No existe cierre del día'}}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                 </form>
 

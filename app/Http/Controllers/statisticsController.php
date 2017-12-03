@@ -85,7 +85,7 @@ class statisticsController extends Controller
             ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
             ->sum('amount');
 
-        $days = Carbon::createFromFormat('d/m/Y',$date_start);
+        $days = Carbon::createFromFormat('d/m/Y',$date_start)->subDay();
         $days= $days->diffInDays(Carbon::createFromFormat('d/m/Y',$date_end));
 
         $data = array(

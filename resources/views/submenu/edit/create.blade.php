@@ -15,12 +15,8 @@
                             <div class="widget-body">
                                 <form method="GET" action="{{url('supervisor/menu/edit')}}/{{ app('request')->input('id_wallet') }}" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label for="nit_number"> Fecha Inicial:</label>
+                                        <label for="nit_number"> Fecha:</label>
                                         <input type="text" name="date_start"  class="form-control datepicker-trigger" id="date_start" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nit_number"> Fecha Final:</label>
-                                        <input type="text" name="date_end"  class="form-control datepicker-trigger" id="date_end" required>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-success btn-block btn-md">Buscar</button>

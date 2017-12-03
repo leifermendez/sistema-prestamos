@@ -13,7 +13,7 @@
                             </header><!-- .widget-header -->
                             <hr class="widget-separator">
                             <div class="widget-body">
-                                <form method="POST" action="{{url('summary')}}" enctype="multipart/form-data">
+                                <form method="POST" class="payment-create" action="{{url('summary')}}" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <label for="name">Nombres:</label>
@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="amount">Valor de abono:</label>
-                                        <input type="number" step="any" value="{{$credit_data['payment_quote']}}" name="amount" class="form-control" id="amount">
+                                        <input type="number" step="any" min="1" max="{{$credit_data['rest']}}" value="{{$credit_data['payment_quote']}}" name="amount" class="form-control" id="amount">
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" {{($credit_data['rest']<1) ? 'disabled': ''}} class="btn btn-success btn-block btn-md">Guardar</button>

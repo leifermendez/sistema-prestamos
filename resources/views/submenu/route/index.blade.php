@@ -16,7 +16,9 @@
                                     <th>Nombres</th>
                                     <th>Fecha de prestamos</th>
                                     <th>Cuato diaria</th>
+                                    <th>Dias sin pagar</th>
                                     <th>Valor</th>
+                                    <th>Saldo</th>
                                     <th>Barrio</th>
                                     <th>Status</th>
                                     <th></th>
@@ -27,7 +29,9 @@
                                         <td>{{$client->user->name}} {{$client->user->last_name}}</td>
                                         <td>{{$client->created_at}}</td>
                                         <td>{{$client->quote}}</td>
+                                        <td>{{$client->rest_days}}</td>
                                         <td>{{$client->amount_neto}}</td>
+                                        <td>{{$client->saldo}}</td>
                                         <td>{{$client->user->province}}</td>
                                         <td>
                                             @if($client->user->status=='good')
