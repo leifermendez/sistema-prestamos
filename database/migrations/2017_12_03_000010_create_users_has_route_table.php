@@ -29,17 +29,6 @@ class CreateUsersHasRouteTable extends Migration
             $table->index(["agent_has_supervisor_id"], 'fk_users_has_route_agent_has_supervisor1_idx');
 
             $table->index(["route_id"], 'fk_users_has_route_route1_idx');
-
-
-            $table->foreign('agent_has_supervisor_id', 'fk_users_has_route_agent_has_supervisor1_idx')
-                ->references('id')->on('agent_has_supervisor')
-                ->onDelete('no action')
-                ->onUpdate('no action');
-
-            $table->foreign('route_id', 'users_has_route_route_id')
-                ->references('id')->on('route')
-                ->onDelete('no action')
-                ->onUpdate('no action');
         });
     }
 

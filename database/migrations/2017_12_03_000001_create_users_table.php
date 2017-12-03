@@ -36,8 +36,6 @@ class CreateUsersTable extends Migration
             $table->string('nit', 45)->nullable()->default(null);
             $table->enum('status', ['bad', 'good'])->nullable()->default('good');
             $table->text('country')->nullable()->default(null);
-
-            $table->unique(["email"], 'users_email_unique');
             $table->nullableTimestamps();
         });
     }

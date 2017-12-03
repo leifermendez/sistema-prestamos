@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWalletTable extends Migration
+class CreateNotPayTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $set_schema_table = 'wallet';
+    public $set_schema_table = 'not_pay';
 
     /**
      * Run the migrations.
-     * @table wallet
+     * @table not_pay
      *
      * @return void
      */
@@ -24,8 +24,9 @@ class CreateWalletTable extends Migration
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('name')->nullable()->default(null);
             $table->timestamp('created_at')->nullable()->default(null);
+            $table->integer('id_credit');
+            $table->integer('id_user')->nullable()->default(null);
         });
     }
 
