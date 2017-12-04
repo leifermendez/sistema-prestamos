@@ -95,10 +95,15 @@ class subTransitionsController extends Controller
                 'summary.number_index',
                 'summary.amount',
                 'credit.amount_neto',
+                'credit.utility',
                 'summary.created_at',
                 'credit.id as credit_id'
                 )
             ->get();
+
+        foreach ($data_summary as $data){
+            $data->total_summary = db_summary::where('id_credit',$data->credit_id)->sum('amount');
+        }
 
         $data_bill = db_bills::whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
             ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())

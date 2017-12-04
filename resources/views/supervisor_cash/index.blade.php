@@ -15,7 +15,7 @@
                                 <tr>
                                     <th>Cartera</th>
                                     <th>Detalle</th>
-                                    <th>Valor actual Base</th>
+                                    <th>Valor inicial</th>
                                 </tr>
                                 @foreach($clients as $client)
                                     <tr>

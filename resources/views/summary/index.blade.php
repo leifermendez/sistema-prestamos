@@ -78,7 +78,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
-                            <h4 class="m-b-lg">Otros creditos</h4>
+                            <h4 class="m-b-lg">Ultimos creditos</h4>
                             @foreach($other_credit as $c)
                                 @if((app('request')->input('id_credit'))!=$c->id)
                                     <a href="{{url('summary')}}/?id_credit={{$c->id}}" class="btn btn-info">{{$c->id}}</a>

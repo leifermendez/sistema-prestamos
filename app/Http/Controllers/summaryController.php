@@ -54,8 +54,12 @@ class summaryController extends Controller
             $data_credit->payment_amount = (floatval($data_credit->amount_neto+$data_credit->utility_amount)/floatval($data_credit->payment_number));
 
             $data_credit->total = floatval($data_credit->utility_amount+$data_credit->amount_neto);
+            $amount_last = 0;
+            if(db_summary::where($sql)->exists()){
+                $amount_last = db_summary::where($sql)->first()->amount;
+            }
             $last = array(
-                'recent' => db_summary::where($sql)->first()->amount,
+                'recent' => $amount_last,
                 'rest' => ($data_credit->total)-(db_summary::where($sql)->sum('amount'))
             );
             $data = array(

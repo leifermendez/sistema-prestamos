@@ -15,7 +15,7 @@
                                     <th>Credito</th>
                                     <th>Nombres</th>
                                     <th>Fecha de prestamos</th>
-                                    <th>Cuato diaria</th>
+                                    <th>Cuota diaria</th>
                                     <th>Dias sin pagar</th>
                                     <th>Valor</th>
                                     <th>Saldo</th>

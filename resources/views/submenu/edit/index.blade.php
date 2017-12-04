@@ -29,7 +29,7 @@
                                         <td><span class="value">{{$cred->created_at}}</span></td>
                                         <td><span class="value">{{$cred->utility}}</span></td>
                                         <td><span class="value">{{$cred->payment_number}}</span></td>
-                                        <td><span class="value">{{$cred->amount_neto}}</span></td>
+                                        <td><span class="value">{{($cred->amount_neto)+($cred->amount_neto*$cred->utility)}}</span></td>
                                         <td class="text-right">
                                             <a href="{{url('supervisor/credit')}}/{{$cred->credit_id}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
                                         </td>
@@ -85,10 +85,10 @@
                                 @foreach($summary as $sum)
                                     <tr>
                                         <td><span class="value">{{$sum->name}} {{$sum->last_name}}</span></td>
-                                        <td><span class="value">{{$sum->id_credit}}</span></td>
+                                        <td><span class="value">{{$sum->credit_id}}</span></td>
                                         <td><span class="value">{{$sum->number_index}}</span></td>
                                         <td><span class="value">{{$sum->amount}}</span></td>
-                                        <td><span class="value">{{($sum->amount_neto)-($sum->total_payment)}}</span></td>
+                                        <td><span class="value">{{(($sum->amount_neto)+($sum->amount_neto*$sum->utility))-($sum->total_payment)}}</span></td>
                                         <td class="text-right">
                                             <a href="{{url('supervisor/summary')}}/{{$sum->id_summary}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
                                         </td>

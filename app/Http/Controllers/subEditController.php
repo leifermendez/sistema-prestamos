@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\db_bills;
 use App\db_credit;
+use App\db_summary;
 use App\db_supervisor_has_agent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -85,10 +86,15 @@ class subEditController extends Controller
                 'summary.number_index',
                 'summary.amount',
                 'credit.amount_neto',
+                'credit.utility',
                 'summary.created_at',
                 'summary.id as id_summary'
             )
             ->get();
+
+        foreach ($data_summary as $datum){
+            $datum->total_payment = db_summary::where('id_credit',$datum->credit_id)->sum('amount');
+        }
 
         $data_bill = db_bills::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
             ->where('id_wallet',$id)

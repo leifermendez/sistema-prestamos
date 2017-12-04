@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\db_bills;
 use App\db_close_day;
+use App\db_credit;
 use App\db_summary;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -44,15 +45,16 @@ class subReportController extends Controller
             ->get();
 
         foreach ($data as $datum){
-            $datum->summary_total = db_summary::whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
-                ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
+            $datum->summary_total = db_summary::whereDate('created_at','=',Carbon::parse($datum->created_at))
                 ->where('id_agent',$datum->id_agent)
                 ->sum('amount');
             $datum->bills_total = db_bills::whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
                 ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
                 ->where('id_agent',$datum->id_agent)
                 ->sum('amount');
-
+            $datum->credit_total = db_credit::whereDate('created_at','=',Carbon::parse($datum->created_at))
+                ->where('id_agent',$datum->id_agent)
+                ->sum('amount_neto');
             $datum->supervisor_bills = db_bills::whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
                 ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
                 ->where('id_wallet',$id_wallet)->whereNull('id_agent')
@@ -61,7 +63,9 @@ class subReportController extends Controller
         }
 
         $data = array(
-            'credit' => $data
+            'credit' => $data,
+            'date_start' => $date_start,
+            'date_end' => $date_end
         );
 //(base+recaudo)-(creditos+gastos)
         return view('submenu.report.index',$data);

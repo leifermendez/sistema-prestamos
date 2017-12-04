@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
-                            <h4 class="m-b-lg">Movimientos desde hasta</h4>
+                            <h4 class="m-b-lg">Movimientos desde {{$date_start}} hasta {{$date_end}}</h4>
                             <table class="table supervisor-report-table">
                                 <tbody>
                                 <tr>

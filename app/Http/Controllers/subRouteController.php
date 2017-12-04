@@ -39,7 +39,17 @@ class subRouteController extends Controller
                 $end =Carbon::parse($tmp->created_at)->addDay();
                 if($end->lt(Carbon::now())){
                     $d->user=User::find($d->id_user);
+                    $d->amount_neto = (floatval($d->amount_neto*$d->utility)+floatval($d->amount_neto));
+                    if(db_summary::where('id_credit',$d->id)->exists()){
+                        $d->rest_days = db_summary::where('id_credit',$d->id)->orderBy('created_at','desc')->first();
+                        $dt = Carbon::now();
+                        $d->rest_days = $dt->diffInDays(Carbon::parse($d->rest_days->created_at));
+                    }else{
+                        $dt = Carbon::now();
+                        $d->rest_days = $dt->diffInDays(Carbon::parse($d->created_at));
+                    }
                     $d->quote = (floatval($d->amount_neto*$d->utility)+floatval($d->amount_neto))/floatval($d->payment_number);
+                    $d->saldo = ($d->amount_neto)-(db_summary::where('id_credit',$d->id)->sum('amount'));
                     $data_filter[]=$d;
                 }
             }else{
