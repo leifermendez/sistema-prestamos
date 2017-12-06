@@ -37,11 +37,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="amount">Valor de cuota:</label>
-                                        <input type="text" readonly value="{{$credit_data['payment_quote']}}" class="form-control" id="amount">
+                                        <input type="text" readonly value="{{$credit_data['payment_quote']}}" class="form-control" id="amount1">
                                     </div>
                                     <div class="form-group">
                                         <label for="amount">Cuotas pagadas:</label>
-                                        <input type="text" readonly value="{{$credit_data['payment_done']}}" class="form-control" id="amount">
+                                        <input type="text" readonly value="{{$credit_data['payment_done']}}" class="form-control" id="amount2">
                                     </div>
                                     <div class="form-group">
                                         <label for="amount">Valor de abono:</label>

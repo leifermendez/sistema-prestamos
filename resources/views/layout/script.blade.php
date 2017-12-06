@@ -17,10 +17,17 @@
 <script src="{{asset('/libs/bower/fullcalendar/dist/fullcalendar.min.js')}}"></script>
 <script src="{{asset('/assets/js/fullcalendar.js')}}"></script>
 <script src="{{asset('/assets/js/dropzone.js')}}"></script>
+<script src="{{asset('/assets/js/datatable.js')}}"></script>
 
 <script type="text/javascript">
     Dropzone.options.imageUpload = {
         maxFilesize:1,
         acceptedFiles: ".jpeg,.jpg,.png,.gif"
     };
+
+    $('table').DataTable(
+        {
+            "pageLength": 50
+        }
+    );
 </script>

@@ -10,7 +10,8 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Detalles Clientes y Ventas</h4>
                             <table class="table supervisor-history-table">
-                                <tbody>
+
+                                <thead>
                                 <tr>
                                     <th>Nombres</th>
                                     <th>Credito</th>
@@ -19,6 +20,18 @@
                                     <th>Cuota</th>
                                     <th></th>
                                 </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Nombres</th>
+                                    <th>Credito</th>
+                                    <th>Valor</th>
+                                    <th>Saldo</th>
+                                    <th>Cuota</th>
+                                    <th></th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
                                 @foreach($clients as $client)
                                     <tr>
                                         <td><span class="value">{{$client->name}} {{$client->last_name}}</span></td>

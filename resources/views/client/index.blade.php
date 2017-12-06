@@ -10,7 +10,7 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Detalles Clientes y Ventas</h4>
                             <table class="table client-table">
-                                <tbody>
+                                <thead>
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Apellidos</th>
@@ -21,6 +21,20 @@
                                     <th>Tipo</th>
                                     <th>Accion</th>
                                 </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Barrio</th>
+                                    <th>Total</th>
+                                    <th>Pagados</th>
+                                    <th>Vigentes</th>
+                                    <th>Tipo</th>
+                                    <th>Accion</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
                                 @foreach($clients as $client)
                                     <tr>
                                         <td><span class="value">{{$client->name}}</span></td>

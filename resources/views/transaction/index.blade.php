@@ -28,12 +28,47 @@
                                         <td><span class="value">{{$cred->created_at}}</span></td>
                                         <td><span class="value">{{$cred->utility}}</span></td>
                                         <td><span class="value">{{$cred->payment_number}}</span></td>
-                                        <td><span class="value">{{($cred->amount_neto)+($cred->amount_neto*$cred->utility)}}</span></td>
+                                        <td><span class="value">{{($cred->amount_neto)}}</span></td>
 
                                     </tr>
                                 @endforeach
 
                                 </tbody></table>
+                                <footer class="widget-footer">
+                                    <p><b>Total: </b><span class="text-success">{{$total_credit}}</span></p>
+                                </footer>
+                        </div><!-- .widget -->
+                    </div>
+                </div><!-- .row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="widget p-lg">
+                            <h4 class="m-b-lg">Pagos Recibidos</h4>
+                            <table class="table agente-transactionR-table">
+                                <tbody>
+                                <tr>
+                                    <th>Nombres</th>
+                                    <th>Fecha</th>
+                                    <th>Credito</th>
+                                    <th>Cuota</th>
+                                    <th>Saldo</th>
+                                    <th>Valor</th>
+                                </tr>
+                                @foreach($summary as $sum)
+                                    <tr>
+                                        <td><span class="value">{{$sum->name}} {{$sum->last_name}}</span></td>
+                                        <td><span class="value">{{$sum->created_at}}</span></td>
+                                        <td><span class="value">{{$sum->id_credit}}</span></td>
+                                        <td><span class="value">{{$sum->number_index}}</span></td>
+                                        <td><span class="value">{{($sum->amount_neto)}}</span></td>
+                                        <td><span class="value">{{$sum->amount}}</span></td>
+                                    </tr>
+                                @endforeach
+
+                                </tbody></table>
+                            <footer class="widget-footer">
+                                <p><b>Total: </b><span class="text-success">{{$total_summary}}</span></p>
+                            </footer>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
@@ -57,33 +92,9 @@
                                 @endforeach
 
                                 </tbody></table>
-                        </div><!-- .widget -->
-                    </div>
-                </div><!-- .row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="widget p-lg">
-                            <h4 class="m-b-lg">Pagos Recibidos</h4>
-                            <table class="table agente-transactionR-table">
-                                <tbody>
-                                <tr>
-                                    <th>Nombres</th>
-                                    <th>Credito</th>
-                                    <th>Cuota</th>
-                                    <th>Valor</th>
-                                    <th>Saldo</th>
-                                </tr>
-                                @foreach($summary as $sum)
-                                    <tr>
-                                        <td><span class="value">{{$sum->name}} {{$sum->last_name}}</span></td>
-                                        <td><span class="value">{{$sum->id_credit}}</span></td>
-                                        <td><span class="value">{{$sum->number_index}}</span></td>
-                                        <td><span class="value">{{$sum->amount}}</span></td>
-                                        <td><span class="value">{{($sum->amount_neto+($sum->amount_neto*$sum->utility))-($sum->total_payment)}}</span></td>
-                                    </tr>
-                                @endforeach
-
-                                </tbody></table>
+                            <footer class="widget-footer">
+                                <p><b>Total: </b><span class="text-success">{{$total_bills}}</span></p>
+                            </footer>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->

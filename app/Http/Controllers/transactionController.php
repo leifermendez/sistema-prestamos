@@ -57,10 +57,17 @@ class transactionController extends Controller
                 'credit.id as id_credit',
                 'summary.number_index',
                 'summary.amount',
+                'summary.created_at',
                 DB::raw('SUM(summary.amount) as total_payment')
                 )
             ->groupBy('summary.id')
             ->get();
+
+        foreach ($data_summary as $d){
+            $f= floatval(($d->amount_neto+($d->amount_neto*$d->utility))-($d->total_payment));
+            $f = round($f,2);
+            $d->setAttribute('amount_neto',$f);
+        }
 
         $data_credit = db_credit::whereDate('credit.created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
             ->where('credit.id_agent',Auth::id())
@@ -77,14 +84,27 @@ class transactionController extends Controller
                 'credit.amount_neto')
             ->get();
 
+        foreach($data_credit as $d){
+
+            $d->setAttribute('amount_neto',(($d->amount_neto*$d->utility)+$d->amount_neto));
+
+        }
+
         $data_bill = db_bills::whereDate('created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
             ->where('id_agent',Auth::id())
             ->get();
 
+        $total_summary = $data_summary->sum('amount');
+        $total_credit = $data_credit->sum('amount_neto');
+        $total_bills = $data_bill->sum('amount');
+
         $data = array(
             'summary' => $data_summary,
             'credit' => $data_credit,
-            'bills' => $data_bill
+            'bills' => $data_bill,
+            'total_summary' => $total_summary,
+            'total_bills' => $total_bills,
+            'total_credit' => $total_credit,
         );
 
         return view('transaction.index',$data);

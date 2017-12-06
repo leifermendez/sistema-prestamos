@@ -10,7 +10,7 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
                             <table class="table supervisor-route-table">
-                                <tbody>
+                                <thead>
                                 <tr>
                                     <th>Credito</th>
                                     <th>Nombres</th>
@@ -23,6 +23,22 @@
                                     <th>Status</th>
                                     <th></th>
                                 </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Credito</th>
+                                    <th>Nombres</th>
+                                    <th>Fecha de prestamos</th>
+                                    <th>Cuota diaria</th>
+                                    <th>Dias sin pagar</th>
+                                    <th>Valor</th>
+                                    <th>Saldo</th>
+                                    <th>Barrio</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
                                 @foreach($clients as $client)
                                     <tr>
                                         <td>{{$client->id}}</td>

@@ -119,6 +119,8 @@ class paymentController extends Controller
             ->sum('amount');
         $amount_neto = $data->amount_neto;
         $amount_neto += floatval($amount_neto*$data->utility);
+        $data->amount_neto = $amount_neto;
+
 
         $data->credit_data = array(
             'positive' => $tmp_amount,

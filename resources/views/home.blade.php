@@ -24,7 +24,7 @@
                         <div class="widget stats-widget">
                             <div class="widget-body clearfix bg-primary">
                                 <div class="pull-left">
-                                    <h3 class="widget-title text-white">Mostar clientes</h3>
+                                    <h3 class="widget-title text-white">Mostrar clientes</h3>
                                 </div>
                                 <span class="pull-right big-icon watermark"><i class="fa fa-th-list"></i></span>
                             </div>
@@ -71,7 +71,7 @@
                         </a>
 
                     </div>
-                    <div class="col-md-3 col-sm-6">
+                    <div class="col-md-3 col-sm-6 hidden">
                         <a href="{{url('history')}}">
                             <div class="widget stats-widget">
                                 <div class="widget-body clearfix bg-danger">

@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/core.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}">
+
     <meta name="theme-color" content="#42A5F5">
 
     <!-- endbuild -->

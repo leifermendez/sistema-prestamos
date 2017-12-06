@@ -10,7 +10,7 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
                             <table class="table agente-route-table">
-                                <tbody>
+                                <thead>
                                 <tr>
                                     <th>Credito</th>
                                     <th>Nombres</th>
@@ -23,6 +23,9 @@
                                     <th>Status</th>
                                     <th></th>
                                 </tr>
+                                </thead>
+
+                                <tbody>
                                 @foreach($clients as $client)
                                     <tr>
                                         <td>{{$client->id}}</td>

@@ -10,7 +10,7 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Creditos Otorgados</h4>
                             <table class="table supervisor-editC-table">
-                                <tbody>
+                                <thead>
                                 <tr>
                                     <th>Nombres</th>
                                     <th>Credito</th>
@@ -21,6 +21,9 @@
                                     <th>Valor</th>
                                     <th></th>
                                 </tr>
+                                </thead>
+
+                                <tbody>
                                 @foreach($credit as $cred)
                                     <tr>
                                         <td><span class="value">{{$cred->name}} {{$cred->last_name}}</span></td>
@@ -46,13 +49,16 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Gastos del Agente</h4>
                             <table class="table supervisor-editG-table">
-                                <tbody>
+                                <thead>
                                 <tr>
                                     <th>Gasto</th>
                                     <th>Detalle</th>
                                     <th>Valor</th>
                                     <th></th>
                                 </tr>
+                                </thead>
+
+                                <tbody>
                                 @foreach($bills as $bill)
                                     <tr>
                                         <td><span class="value">{{$bill->type}}</span></td>
@@ -73,7 +79,7 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Pagos Recibidos</h4>
                             <table class="table supervisor-editP-table">
-                                <tbody>
+                                <thead>
                                 <tr>
                                     <th>Nombres</th>
                                     <th>Credito</th>
@@ -82,6 +88,9 @@
                                     <th>Saldo</th>
                                     <th></th>
                                 </tr>
+                                </thead>
+
+                                <tbody>
                                 @foreach($summary as $sum)
                                     <tr>
                                         <td><span class="value">{{$sum->name}} {{$sum->last_name}}</span></td>
