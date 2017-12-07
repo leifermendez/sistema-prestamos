@@ -2,21 +2,35 @@
 
     <!-- navbar header -->
     <div class="navbar-header">
-        <a href="{{url('/home')}}" class="navbar-toggle visible-xs-inline-block navbar-toggle-left hamburger hamburger--collapse js-hamburger">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="hamburger-box"><i class="fa fa-home fa-2x"></i></span>
+
+        <a href="{{url('logout')}}" class="navbar-toggle navbar-toggle-right collapsed">
+            <i class="fa fa-2x fa-sign-out"></i>
         </a>
 
-        <a href="{{url('logout')}}" class="navbar-toggle navbar-toggle-right collapsed" aria-expanded="false">
-            <i class="fa fa-sign-out fa-2x"></i>
+        <a href="{{url('/')}}" class="navbar-brand">
+            {{Auth::user()->name}}
         </a>
-
-
-
-        <a href="{{url('home')}}" class="navbar-brand">
-            <span class="brand-icon">{{Auth::user()->name}}</span>
-        </a>
-
     </div><!-- .navbar-header -->
 
+    <div class="navbar-container container-fluid">
+        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+            <ul class="nav navbar-toolbar navbar-toolbar-left navbar-left">
+                <li class="hidden-float hidden-menubar-top">
+                    <a href="javascript:void(0)" role="button" id="menubar-fold-btn" class="hamburger hamburger--arrowalt is-active js-hamburger">
+                        <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+                    </a>
+                </li>
+                <li>
+                    <h5 class="page-title hidden-menubar-top">Dashboard</h5>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-toolbar navbar-toolbar-right navbar-right">
+
+                <li class="dropdown">
+                    <a href="{{url('logout')}}"><i class="fa fa-sign-out fa-2x"></i></a>
+                </li>
+            </ul>
+
+    </div><!-- navbar-container -->
 </nav>

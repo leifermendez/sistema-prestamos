@@ -3430,3 +3430,23 @@ only screen and (max-width: 760px),
     margin: 1% !important;
   }
 }
+
+table.dataTable thead th, table.dataTable thead td,table.dataTable.no-footer{
+  border-bottom: 1px solid #d2d2d2 !important;
+}
+input[type="search"] {
+  -webkit-appearance: none !important;
+  border: solid 1px #d4d4d4 !important;
+  border-radius: 3px !important;
+}
+
+@media (min-width: 1200px){
+  body.menubar-top .menubar, body.menubar-top .app-main {
+    padding-right: calc((75% - 1200px) / 2 + 30px);
+    padding-left: calc((75% - 1200px) / 2 + 30px);
+  }
+}
+
+tr:first-child .arw-up,tr:last-child .arw-down{
+  visibility: hidden !important;
+}

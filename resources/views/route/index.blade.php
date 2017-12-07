@@ -9,9 +9,18 @@
                     <div class="col-md-12">
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
+                            @if(app('request')->input('hide'))
+                                <div class="alert alert-warning alert-custom alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    <h4 class="alert-title">Informacion</h4>
+                                    <p>Orden cambiado por encima/debajo de un usuario que saltaste el dia de hoy.</p>
+                                </div>
+                            @endif
+
                             <table class="table agente-route-table">
                                 <thead>
                                 <tr>
+                                    <th class="hidden_">Orden</th>
                                     <th>Credito</th>
                                     <th>Nombres</th>
                                     <th>Días en mora</th>
@@ -27,7 +36,9 @@
 
                                 <tbody>
                                 @foreach($clients as $client)
-                                    <tr>
+
+                                    <tr id="td_{{$client->id}}">
+                                        <td class="hidden_">{{$client->order_list}}</td>
                                         <td>{{$client->id}}</td>
                                         <td>{{$client->user->name}} {{$client->user->last_name}}</td>
                                         <td>{{$client->days_rest}}</td>
@@ -49,9 +60,11 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{url('payment')}}/{{$client->id_user}}/edit?id_credit={{$client->id}}" class="btn btn-warning btn-xs"><i class="fa fa-archive"></i> Saltar</a>
+                                            <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up" class="btn btn-default btn-xs arw-up"><i class="fa fa-arrow-up"></i></a>
+                                            <a href="javascript:void(0)" id_user="{{$client->id_user}}" id_credit="{{$client->id}}" class="btn btn-warning btn-xs ajax-btn"><i class="fa fa-archive "></i> Saltar</a>
                                             <a href="{{url('payment')}}/{{$client->id}}" class="btn btn-success btn-xs"><i class="fa fa-money"></i> Pagar</a>
                                             <a href="{{url('summary')}}?id_credit={{$client->id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
+                                            <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down" class="btn btn-default btn-xs arw-down"><i class="fa fa-arrow-down"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

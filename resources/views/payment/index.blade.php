@@ -11,7 +11,7 @@
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
                             <table class="table agente-payments-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Nombres</th>
                                     <th>Credito</th>
                                     <th>Valor</th>

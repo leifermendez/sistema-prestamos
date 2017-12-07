@@ -27,7 +27,22 @@
 
     $('table').DataTable(
         {
-            "pageLength": 50
+            "pageLength": 50,
+            "language": {
+                "lengthMenu": "",
+                "zeroRecords": "No hay registros",
+                "info": "",
+                "infoEmpty": "No hay registros",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search":  "Buscar:",
+                "paginate": {
+                    "first":      "Primero",
+                    "last":       "Ultimo",
+                    "next":       "Siguiente",
+                    "previous":   "Anterior"
+                },
+                "order": [[ 1, "asc" ]]
+            }
         }
     );
 </script>

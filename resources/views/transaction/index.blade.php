@@ -11,7 +11,7 @@
                             <h4 class="m-b-lg">Ventas realizadas</h4>
                             <table class="table agente-transactionV-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Nombres</th>
                                     <th>Credito</th>
                                     <th>Barrio</th>
@@ -46,7 +46,7 @@
                             <h4 class="m-b-lg">Pagos Recibidos</h4>
                             <table class="table agente-transactionR-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Nombres</th>
                                     <th>Fecha</th>
                                     <th>Credito</th>
@@ -78,7 +78,7 @@
                             <h4 class="m-b-lg">Gastos</h4>
                             <table class="table agente-transactionG-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Gasto</th>
                                     <th>Detalle</th>
                                     <th>Valor</th>

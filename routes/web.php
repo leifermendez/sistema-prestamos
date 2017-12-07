@@ -15,6 +15,7 @@ Route::get('/', function () {
     return redirect('/home');
 });
 Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/cron','closeController@close_automatic');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

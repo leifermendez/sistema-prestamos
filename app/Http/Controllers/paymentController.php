@@ -153,7 +153,15 @@ class paymentController extends Controller
 
         db_not_pay::insert($values);
 
-        return redirect('route');
+        if($request->ajax){
+            $response = array(
+                'status' => 'success'
+            );
+            return response()->json($response);
+        }else{
+            return redirect('route');
+        }
+
     }
 
     /**

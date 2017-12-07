@@ -33,34 +33,11 @@ class routeController extends Controller
     {
         $data = db_credit::where('id_agent',Auth::id())
             ->where('status','inprogress')
+            ->orderBy('order_list','asc')
             ->get();
         $data_filter = array();
         $dt = Carbon::now();
         foreach ($data as $d){
-            /*if(db_summary::where('id_credit',$d->id)->exists()) {
-                $tmp = db_summary::where('id_credit', $d->id)->orderBy('id', 'desc')->first();
-                $end =Carbon::parse($tmp->created_at)->addDay();
-                if($end->lt(Carbon::now())){
-                    $d->user=User::find($d->id_user);
-                    $d->amount_total = ($d->amount_neto)+($d->amount_neto*$d->utility);
-                    $d->days_rest = $dt->diffInDays(Carbon::parse($d->created_at));
-                    $d->saldo = $d->amount_total-(db_summary::where('id_credit',$d->id)->sum('amount'));
-                    $d->quote = (floatval($d->amount_neto*$d->utility)+floatval($d->amount_neto))/floatval($d->payment_number);
-                    $d->lsat_pay = db_summary::where('id_credit',$d->id)->orderBy('created_at','desc')->first()->created_at;
-                    if(!db_not_pay::whereDate('created_at','=',Carbon::now()->toDateString())->exists()){
-                        $data_filter[]=$d;
-                    }
-
-                }
-            }else{
-                    $d->user=User::find($d->id_user);
-                    $d->quote = (floatval($d->amount_neto*$d->utility)+floatval($d->amount_neto))/floatval($d->payment_number);
-                    $d->days_rest = $dt->diffInDays(Carbon::parse($d->created_at));
-                    $d->amount_total = ($d->amount_neto)+($d->amount_neto*$d->utility);
-                    $d->saldo = $d->amount_total-(db_summary::where('id_credit',$d->id)->sum('amount'));
-
-                    $data_filter[]=$d;
-            }*/
 
             $d->user=User::find($d->id_user);
             $d->amount_total = ($d->amount_neto)+($d->amount_neto*$d->utility);
@@ -117,9 +94,47 @@ class routeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        //
+        $id_credit = $request->id_credit;
+        $direction = $request->direction;
+
+        if(!isset($direction)){return 'Direction';};
+        if($direction == 'up'){
+            $direction = '<';
+            $order = 'DESC';
+        };
+        if($direction == 'down'){
+            $direction = '>';
+            $order = 'ASC';
+        };
+
+
+        $data = db_credit::where('id_agent',Auth::id())
+            ->orderBy('order_list',$order)
+            ->where('order_list',$direction,$id)
+            ->where('status','inprogress')
+            ->first();
+
+        $no_pay = db_not_pay::whereDate('created_at',Carbon::now()->toDateString())
+            ->where('id_credit',$data->id)
+            ->exists();
+
+        db_credit::where('id',$id_credit)->update([
+            'order_list' => ($data->order_list)
+        ]);
+
+        db_credit::where('id',$data->id)->update([
+            'order_list' => ($id)
+        ]);
+
+        if($no_pay){
+            return redirect('/route?hide=true');
+        }else{
+            return redirect('/route');
+        }
+
+
     }
 
     /**
@@ -131,7 +146,8 @@ class routeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+
     }
 
     /**

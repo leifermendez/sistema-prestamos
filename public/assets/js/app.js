@@ -620,6 +620,22 @@
 		}
 	});
 
+    $('body').on('click','.ajax-btn',function(){
+    	var id_user = $(this).attr('id_user');
+    	var id_credit = $(this).attr('id_credit');
+		$(this).prop("disabled", true);
+        $.get( "/payment/"+id_user+"/edit",
+			{
+				id_credit: id_credit,
+				ajax: true }
+			)
+            .done(function( data ) {
+                $('#td_'+id_credit).addClass('hidden');
+            });
+	});
+
+    $('body table').addClass('table-striped');
+
 }(jQuery, window);
 
 //= public function for adding themes

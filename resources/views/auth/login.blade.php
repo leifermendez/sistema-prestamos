@@ -55,10 +55,9 @@
 
                 <div class="form-group">
                     <div class="col-md-12">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                            </label>
+                        <div class="checkbox checkbox-primary">
+                            <input type="checkbox" id="keep_me_logged_in" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <label for="keep_me_logged_in">Mantener Sesion</label>
                         </div>
                     </div>
                 </div>

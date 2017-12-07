@@ -138,7 +138,7 @@ class userController extends Controller
         }
 
 
-
+        $last_order=db_credit::orderBy('order_list','DESC')->first()->order_list;
         $values = array(
             'created_at'=> Carbon::now(),
             'payment_number' => $payment_number,
@@ -146,6 +146,7 @@ class userController extends Controller
             'amount_neto' => $amount,
             'id_user' => $id,
             'id_agent' => Auth::id(),
+            'order_list' => ($last_order)+1
         );
         db_credit::insert($values);
         return redirect('/client?status=success&msg=Agregado');
