@@ -13,7 +13,7 @@
                             </header><!-- .widget-header -->
                             <hr class="widget-separator">
                             <div class="widget-body">
-                                <form method="POST" action="{{url('client')}}" enctype="multipart/form-data">
+                                <form method="POST" action="{{url('client')}}" class="new-register" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <label for="nit_number">Nº Identificacion:</label>

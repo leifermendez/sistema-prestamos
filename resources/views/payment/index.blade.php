@@ -10,8 +10,8 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
                             <table class="table agente-payments-table">
-                                <tbody>
-                                <tr class="visible-lg">
+                                <thead>
+                                <tr>
                                     <th>Nombres</th>
                                     <th>Credito</th>
                                     <th>Valor</th>
@@ -19,6 +19,9 @@
                                     <th>Cuota</th>
                                     <th></th>
                                 </tr>
+                                </thead>
+
+                                <tbody>
                                 @foreach($clients as $client)
                                     <tr>
                                         <td>{{$client->name}} {{$client->last_name}}</td>
@@ -33,7 +36,8 @@
                                     </tr>
                                 @endforeach
 
-                                </tbody></table>
+                                </tbody>
+                            </table>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->

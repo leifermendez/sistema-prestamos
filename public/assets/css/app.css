@@ -3450,3 +3450,7 @@ input[type="search"] {
 tr:first-child .arw-up,tr:last-child .arw-down{
   visibility: hidden !important;
 }
+
+.widget-body .form-control{
+  text-transform: uppercase !important;
+}

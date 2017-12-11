@@ -45,18 +45,16 @@ class subReportController extends Controller
             ->get();
 
         foreach ($data as $datum){
-            $datum->summary_total = db_summary::whereDate('created_at','=',Carbon::parse($datum->created_at))
+            $datum->summary_total = db_summary::whereDate('created_at','=',Carbon::parse($datum->created_at)->toDateString())
                 ->where('id_agent',$datum->id_agent)
                 ->sum('amount');
-            $datum->bills_total = db_bills::whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
-                ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
+            $datum->bills_total = db_bills::whereDate('created_at','=',Carbon::parse($datum->created_at)->toDateString())
                 ->where('id_agent',$datum->id_agent)
                 ->sum('amount');
-            $datum->credit_total = db_credit::whereDate('created_at','=',Carbon::parse($datum->created_at))
+            $datum->credit_total = db_credit::whereDate('created_at','=',Carbon::parse($datum->created_at)->toDateString())
                 ->where('id_agent',$datum->id_agent)
                 ->sum('amount_neto');
-            $datum->supervisor_bills = db_bills::whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
-                ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
+            $datum->supervisor_bills = db_bills::whereDate('created_at','=',Carbon::parse($datum->created_at)->toDateString())
                 ->where('id_wallet',$id_wallet)->whereNull('id_agent')
                 ->sum('amount');
             $datum->base_wallet = ($datum->base_before+$datum->summary_total)-($datum->credit_total+$datum->bills_total+$datum->supervisor_bills);

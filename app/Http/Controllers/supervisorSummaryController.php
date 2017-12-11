@@ -107,8 +107,10 @@ class supervisorSummaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        db_summary::where('id',$id)->delete();
+
+        return redirect('/supervisor/menu/edit/'.$id.'?date_start='.urlencode($request->date_start));
     }
 }

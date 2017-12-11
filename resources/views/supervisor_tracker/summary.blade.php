@@ -18,7 +18,7 @@
                                     <th>Hora</th>
                                     <th>Tasa</th>
                                     <th>Cuotas</th>
-                                    <th>Valor</th>
+                                    <th>Valor neto</th>
                                 </tr>
                                 @foreach($credit as $cred)
                                     <tr>
@@ -28,12 +28,15 @@
                                         <td><span class="value">{{$cred->created_at}}</span></td>
                                         <td><span class="value">{{$cred->utility}}</span></td>
                                         <td><span class="value">{{$cred->payment_number}}</span></td>
-                                        <td><span class="value">{{($cred->amount_neto)+($cred->amount_neto*$cred->utility)}}</span></td>
+                                        <td><span class="value">{{$cred->amount_neto}}</span></td>
 
                                     </tr>
                                 @endforeach
 
                                 </tbody></table>
+                            <footer class="widget-footer">
+                                <p><b>Total: </b><span class="text-success">{{$total_credit}}</span></p>
+                            </footer>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
@@ -61,6 +64,9 @@
                                 @endforeach
 
                                 </tbody></table>
+                            <footer class="widget-footer">
+                                <p><b>Total: </b><span class="text-success">{{$total_summary}}</span></p>
+                            </footer>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->

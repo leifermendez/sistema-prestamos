@@ -104,7 +104,8 @@ class subEditController extends Controller
             'summary' => $data_summary,
             'credit' => $data_credit,
             'bills' => $data_bill,
-            'id_wallet'=>$id
+            'id_wallet'=>$id,
+            'date_start' => $date_start
         );
 
         return view('submenu.edit.index',$data);

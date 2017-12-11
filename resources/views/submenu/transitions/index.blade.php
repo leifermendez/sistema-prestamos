@@ -18,7 +18,7 @@
                                     <th>Hora</th>
                                     <th>Tasa</th>
                                     <th>Cuotas</th>
-                                    <th>Valor</th>
+                                    <th>Valor neto</th>
                                 </tr>
                                 @foreach($credit as $cred)
                                     <tr>
@@ -28,33 +28,13 @@
                                         <td><span class="value">{{$cred->created_at}}</span></td>
                                         <td><span class="value">{{$cred->utility}}</span></td>
                                         <td><span class="value">{{$cred->payment_number}}</span></td>
-                                        <td><span class="value">{{($cred->amount_neto)+($cred->utility*$cred->amount_neto)}}</span></td>
+                                        <td><span class="value">{{($cred->amount_neto)}}</span></td>
                                     </tr>
                                 @endforeach
                                 </tbody></table>
-                        </div><!-- .widget -->
-                    </div>
-                </div><!-- .row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="widget p-lg">
-                            <h4 class="m-b-lg">Gastos del Agente</h4>
-                            <table class="table supervisor-gas-table">
-                                <tbody>
-                                <tr>
-                                    <th>Gasto</th>
-                                    <th>Detalle</th>
-                                    <th>Valor</th>
-                                </tr>
-                                @foreach($bills as $bill)
-                                    <tr>
-                                        <td><span class="value">{{$bill->type}}</span></td>
-                                        <td><span class="value">{{$bill->description}}</span></td>
-                                        <td><span class="value">{{$bill->amount}}</span></td>
-                                    </tr>
-                                @endforeach
-
-                                </tbody></table>
+                            <footer class="widget-footer">
+                                <p><b>Total: </b><span class="text-success">{{$total_credit}}</span></p>
+                            </footer>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
@@ -82,6 +62,35 @@
                                 @endforeach
 
                                 </tbody></table>
+                            <footer class="widget-footer">
+                                <p><b>Total: </b><span class="text-success">{{$total_summary}}</span></p>
+                            </footer>
+                        </div><!-- .widget -->
+                    </div>
+                </div><!-- .row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="widget p-lg">
+                            <h4 class="m-b-lg">Gastos del Agente</h4>
+                            <table class="table supervisor-gas-table">
+                                <tbody>
+                                <tr>
+                                    <th>Gasto</th>
+                                    <th>Detalle</th>
+                                    <th>Valor</th>
+                                </tr>
+                                @foreach($bills as $bill)
+                                    <tr>
+                                        <td><span class="value">{{$bill->type}}</span></td>
+                                        <td><span class="value">{{$bill->description}}</span></td>
+                                        <td><span class="value">{{$bill->amount}}</span></td>
+                                    </tr>
+                                @endforeach
+
+                                </tbody></table>
+                            <footer class="widget-footer">
+                                <p><b>Total: </b><span class="text-success">{{$total_bills}}</span></p>
+                            </footer>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->

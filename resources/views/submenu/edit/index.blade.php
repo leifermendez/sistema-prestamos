@@ -99,7 +99,14 @@
                                         <td><span class="value">{{$sum->amount}}</span></td>
                                         <td><span class="value">{{(($sum->amount_neto)+($sum->amount_neto*$sum->utility))-($sum->total_payment)}}</span></td>
                                         <td class="text-right">
-                                            <a href="{{url('supervisor/summary')}}/{{$sum->id_summary}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
+
+                                            <form action="{{url('supervisor/summary')}}/{{$sum->id_summary}}?date_start={{$date_start}}" method="POST">
+                                                <a href="{{url('supervisor/summary')}}/{{$sum->id_summary}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
+                                                {{csrf_field()}}
+                                                {{ method_field('DELETE') }}
+                                                <button class="btn btn-xs btn-danger" type="submit">Eliminar</button>
+                                            </form>
+
                                         </td>
                                     </tr>
                                 @endforeach

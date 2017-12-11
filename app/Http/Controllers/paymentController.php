@@ -36,6 +36,7 @@ class paymentController extends Controller
         $data_user = db_agent_has_user::where('id_agent',Auth::id())
             ->join('users','id','=','id_client')
             ->get();
+
         foreach ($data_user as $data){
             if(db_credit::where('id_user',$data->id)->where('id_agent',Auth::id())->exists()){
                 $data_tmp= db_credit::where('id_user',$data->id)
@@ -54,6 +55,7 @@ class paymentController extends Controller
         $data = array(
             'clients' => $data_user
         );
+
         return view('payment.index',$data);
     }
 

@@ -63,11 +63,6 @@ class transactionController extends Controller
             ->groupBy('summary.id')
             ->get();
 
-        foreach ($data_summary as $d){
-            $f= floatval(($d->amount_neto+($d->amount_neto*$d->utility))-($d->total_payment));
-            $f = round($f,2);
-            $d->setAttribute('amount_neto',$f);
-        }
 
         $data_credit = db_credit::whereDate('credit.created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
             ->where('credit.id_agent',Auth::id())
@@ -84,11 +79,6 @@ class transactionController extends Controller
                 'credit.amount_neto')
             ->get();
 
-        foreach($data_credit as $d){
-
-            $d->setAttribute('amount_neto',(($d->amount_neto*$d->utility)+$d->amount_neto));
-
-        }
 
         $data_bill = db_bills::whereDate('created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
             ->where('id_agent',Auth::id())

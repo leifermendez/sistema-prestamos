@@ -34,6 +34,7 @@
 
                                 </tbody></table>
                         </div><!-- .widget -->
+
                     </div>
                 </div><!-- .row -->
             </section>

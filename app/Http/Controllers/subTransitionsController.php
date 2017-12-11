@@ -113,7 +113,10 @@ class subTransitionsController extends Controller
         $data = array(
             'summary' => $data_summary,
             'credit' => $data_credit,
-            'bills' => $data_bill
+            'bills' => $data_bill,
+            'total_summary' => $data_summary->sum('amount'),
+            'total_credit' => $data_credit->sum('amount_neto'),
+            'total_bills' => $data_credit->sum('amount'),
         );
 
         return view('submenu.transitions.index',$data);

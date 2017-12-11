@@ -70,7 +70,7 @@ class trackerController extends Controller
 
         if(!isset($date)){return 'Fecha Vacia';};
 
-        $data_summary = db_summary::whereDate('credit.created_at','=',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
+        $data_summary = db_summary::whereDate('summary.created_at','=',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
             ->where('credit.id_agent',$id)
             ->join('credit','summary.id_credit','=','credit.id')
             ->join('users','credit.id_user','=','users.id')
@@ -112,7 +112,9 @@ class trackerController extends Controller
         $data = array(
             'summary' => $data_summary,
             'credit' => $data_credit,
-            'bills' => $data_bill
+            'bills' => $data_bill,
+            'total_summary' => $data_summary->sum('amount'),
+            'total_credit' => $data_credit->sum('amount_neto')
         );
 
         return view('supervisor_tracker.summary',$data);

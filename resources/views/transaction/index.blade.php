@@ -18,7 +18,7 @@
                                     <th>Hora</th>
                                     <th>Tasa</th>
                                     <th>Cuotas</th>
-                                    <th>Valor</th>
+                                    <th>Valor neto</th>
                                 </tr>
                                 @foreach($credit as $cred)
                                     <tr>
@@ -52,7 +52,7 @@
                                     <th>Credito</th>
                                     <th>Cuota</th>
                                     <th>Saldo</th>
-                                    <th>Valor</th>
+                                    <th>Valor neto</th>
                                 </tr>
                                 @foreach($summary as $sum)
                                     <tr>
@@ -81,7 +81,7 @@
                                 <tr class="visible-lg">
                                     <th>Gasto</th>
                                     <th>Detalle</th>
-                                    <th>Valor</th>
+                                    <th>Valor neto</th>
                                 </tr>
                                 @foreach($bills as $bill)
                                     <tr>
