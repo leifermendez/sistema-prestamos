@@ -45,9 +45,9 @@ class subReportController extends Controller
             ->get();
 
         foreach ($data as $datum){
-            $datum->summary_total = db_summary::whereDate('created_at','=',Carbon::parse($datum->created_at)->toDateString())
+            $datum->summary_total = round(db_summary::whereDate('created_at','=',Carbon::parse($datum->created_at)->toDateString())
                 ->where('id_agent',$datum->id_agent)
-                ->sum('amount');
+                ->sum('amount'),2);
             $datum->bills_total = db_bills::whereDate('created_at','=',Carbon::parse($datum->created_at)->toDateString())
                 ->where('id_agent',$datum->id_agent)
                 ->sum('amount');
@@ -63,7 +63,8 @@ class subReportController extends Controller
         $data = array(
             'credit' => $data,
             'date_start' => $date_start,
-            'date_end' => $date_end
+            'date_end' => $date_end,
+            'id_wallet' => $id_wallet
         );
 //(base+recaudo)-(creditos+gastos)
         return view('submenu.report.index',$data);

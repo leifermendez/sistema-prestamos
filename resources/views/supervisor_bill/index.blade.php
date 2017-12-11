@@ -24,7 +24,7 @@
                             <br class="clearfix">
                             <table class="table supervisor-billS-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Fecha</th>
                                     <th>Cartera</th>
                                     <th>Gasto</th>

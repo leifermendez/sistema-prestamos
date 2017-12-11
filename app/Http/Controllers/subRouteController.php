@@ -71,7 +71,8 @@ class subRouteController extends Controller
         }
 
         $data_all = array(
-            'clients' => $data_filter
+            'clients' => $data_filter,
+            'id_wallet' => $id_wallet
         );
         return view('submenu.route.index',$data_all);
 

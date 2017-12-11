@@ -12,7 +12,7 @@
                             <table class="table supervisor-history-table">
 
                                 <thead>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Nombres</th>
                                     <th>Credito</th>
                                     <th>Valor</th>
@@ -21,16 +21,6 @@
                                     <th></th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Nombres</th>
-                                    <th>Credito</th>
-                                    <th>Valor</th>
-                                    <th>Saldo</th>
-                                    <th>Cuota</th>
-                                    <th></th>
-                                </tr>
-                                </tfoot>
                                 <tbody>
                                 @foreach($clients as $client)
                                     <tr>
@@ -50,6 +40,9 @@
                                     <p><b>Falta cobrar </b> <span class="text-primary">{{$total_rest}}</span> de <span class="text-success">{{$total_credit}}</span></p>
                                 </footer>
                         </div><!-- .widget -->
+                        <div class="col-lg-12 text-right">
+                            <a href="{{url('supervisor/review/')}}/{{$id_wallet}}" class="btn btn-inverse"><i class="fa fa-arrow-left"></i> Regresar</a>
+                        </div>
                     </div>
                 </div><!-- .row -->
             </section>

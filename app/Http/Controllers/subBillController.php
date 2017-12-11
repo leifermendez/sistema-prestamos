@@ -74,7 +74,7 @@ class subBillController extends Controller
 
         $data = array(
             'id'=>$id,
-            'clients' => $data
+            'clients' => $data,
         );
 
         return view('submenu.bill.index',$data);

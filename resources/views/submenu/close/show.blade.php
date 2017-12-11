@@ -44,6 +44,9 @@
                         </div><!-- .widget -->
                     </div><!-- END column -->
                 </div><!-- .row -->
+                <div class="col-lg-12 text-right">
+                    <a href="{{url('supervisor/review/')}}/{{$id_wallet}}" class="btn btn-inverse"><i class="fa fa-arrow-left"></i> Regresar</a>
+                </div>
             </section>
         </div>
     </main>

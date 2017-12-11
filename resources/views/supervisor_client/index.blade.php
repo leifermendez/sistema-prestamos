@@ -11,7 +11,7 @@
                             <h4 class="m-b-lg">Clientes</h4>
                             <table class="table supervisor-clientes-table">
 
-                                <thead>
+                                <thead class="visible-lg">
                                 <tr>
                                     <th>Nombres</th>
                                     <th>Barrio</th>
@@ -22,17 +22,6 @@
                                     <th></th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Nombres</th>
-                                    <th>Barrio</th>
-                                    <th>Total</th>
-                                    <th>Pagados</th>
-                                    <th>Vigentes</th>
-                                    <th>Tipo</th>
-                                    <th></th>
-                                </tr>
-                                </tfoot>
                                 <tbody>
                                 @foreach($clients as $client)
                                     <tr>

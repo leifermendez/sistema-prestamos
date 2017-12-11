@@ -95,7 +95,8 @@ class subCloseController extends Controller
             'today_sell' => $today_sell,
             'bills' => $bills,
             'total' => $total,
-            'average' => $average
+            'average' => $average,
+            'id_wallet' => $id
         );
 
         return view('submenu.close.show',$data);

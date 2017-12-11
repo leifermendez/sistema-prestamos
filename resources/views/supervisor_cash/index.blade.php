@@ -12,7 +12,7 @@
                             <h4 class="m-b-lg">Cartera</h4>
                             <table class="table supervisor-cash-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Cartera</th>
                                     <th>Detalle</th>
                                     <th>Valor inicial</th>
@@ -39,7 +39,7 @@
                             <h4 class="m-b-lg">Historial Caja</h4>
                             <table class="table client-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Fecha</th>
                                     <th>Saldo Base</th>
                                 </tr>

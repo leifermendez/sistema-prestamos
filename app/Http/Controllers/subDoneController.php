@@ -51,7 +51,8 @@ class subDoneController extends Controller
         $data = array(
             'credit' => $data,
             'date_start' => $date_start,
-            'date_end' => $date_end
+            'date_end' => $date_end,
+            'id_wallet' => $id_wallet
         );
 
         return view('submenu.done.index',$data);

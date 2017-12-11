@@ -11,7 +11,7 @@
                             <h4 class="m-b-lg">Movimientos desde {{$date_start}} hasta {{$date_end}}</h4>
                             <table class="table supervisor-report-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Fecha cierre</th>
                                     <th>Base</th>
                                     <th>Recaudo</th>
@@ -41,6 +41,9 @@
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
+                <div class="col-lg-12 text-right">
+                    <a href="{{url('supervisor/review/')}}/{{$id_wallet}}" class="btn btn-inverse"><i class="fa fa-arrow-left"></i> Regresar</a>
+                </div>
             </section>
         </div>
     </main>

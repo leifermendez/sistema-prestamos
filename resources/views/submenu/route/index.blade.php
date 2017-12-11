@@ -11,7 +11,7 @@
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
                             <table class="table supervisor-route-table">
                                 <thead>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Credito</th>
                                     <th>Nombres</th>
                                     <th>Fecha de prestamos</th>
@@ -24,20 +24,6 @@
                                     <th></th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Credito</th>
-                                    <th>Nombres</th>
-                                    <th>Fecha de prestamos</th>
-                                    <th>Cuota diaria</th>
-                                    <th>Dias sin pagar</th>
-                                    <th>Valor</th>
-                                    <th>Saldo</th>
-                                    <th>Barrio</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                                </tfoot>
                                 <tbody>
                                 @foreach($clients as $client)
                                     <tr>
@@ -67,6 +53,9 @@
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
+                <div class="col-lg-12 text-right">
+                    <a href="{{url('supervisor/review/')}}/{{$id_wallet}}" class="btn btn-inverse"><i class="fa fa-arrow-left"></i> Regresar</a>
+                </div>
             </section>
         </div>
     </main>

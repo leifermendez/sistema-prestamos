@@ -11,7 +11,7 @@
                             <h4 class="m-b-lg">Creditos Otorgados</h4>
                             <table class="table supervisor-creditos-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Nombres</th>
                                     <th>Credito</th>
                                     <th>Barrio</th>
@@ -44,7 +44,7 @@
                             <h4 class="m-b-lg">Pagos Recibidos</h4>
                             <table class="table supervisor-payments-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Nombres</th>
                                     <th>Credito</th>
                                     <th>Cuota</th>
@@ -74,7 +74,7 @@
                             <h4 class="m-b-lg">Gastos del Agente</h4>
                             <table class="table supervisor-gas-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Gasto</th>
                                     <th>Detalle</th>
                                     <th>Valor</th>
@@ -94,6 +94,9 @@
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
+                <div class="col-lg-12 text-right">
+                    <a href="{{url('supervisor/review/')}}/{{$id_wallet}}" class="btn btn-inverse"><i class="fa fa-arrow-left"></i> Regresar</a>
+                </div>
             </section>
         </div>
     </main>

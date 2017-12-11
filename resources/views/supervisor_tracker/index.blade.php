@@ -11,7 +11,7 @@
                             <h4 class="m-b-lg">Agentes</h4>
                             <table class="table supervisor-tracker-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Nombre</th>
                                     <th>Cartera</th>
                                     <th>Pais</th>

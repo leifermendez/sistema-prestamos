@@ -55,6 +55,7 @@ class subHistoryController extends Controller
             'total' => $total_summary,
             'total_rest' => $total_rest,
             'total_credit' => $total_credit_amount,
+            'id_wallet' => $data_wallet->id
         );
 
         return view('submenu.history.index',$data);

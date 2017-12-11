@@ -3454,3 +3454,9 @@ tr:first-child .arw-up,tr:last-child .arw-down{
 .widget-body .form-control{
   text-transform: uppercase !important;
 }
+.widget-footer{
+  background: #FFC107;
+  color: white;
+  font-size: 20px;
+  padding: 5px 15px 0 15px;
+}
