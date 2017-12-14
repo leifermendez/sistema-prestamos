@@ -46,6 +46,7 @@
                                     <div class="form-group">
                                         <label for="utility">Utilidad:</label>
                                         <select name="utility" class="form-control" id="utility">
+                                            <option value="0.0">0%</option>
                                             <option value="0.05">5%</option>
                                             <option value="0.1">10%</option>
                                             <option value="0.15">15%</option>

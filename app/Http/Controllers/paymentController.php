@@ -33,26 +33,26 @@ class paymentController extends Controller
     public function index()
     {
 
-        $data_user = db_agent_has_user::where('id_agent',Auth::id())
-            ->join('users','id','=','id_client')
+        $data_user = db_credit::where('credit.id_agent',Auth::id())
+            ->join('users','credit.id_user','=','users.id')
+            ->select('credit.*','users.id as id_user',
+            'users.name','users.last_name'
+            )
             ->get();
 
         foreach ($data_user as $data){
-            if(db_credit::where('id_user',$data->id)->where('id_agent',Auth::id())->exists()){
-                $data_tmp= db_credit::where('id_user',$data->id)
-                    ->where('id_agent',Auth::id())
-                    ->first();
-                $data->credit_id = $data_tmp->id;
-                $data->amount_neto = ($data_tmp->amount_neto)+($data_tmp->amount_neto*$data_tmp->utility);
-                $data->payment_number = $data_tmp->payment_number;
-                $data->positive = $data->amount_neto-(db_summary::where('id_credit',$data_tmp->id)
-                    ->where('id_agent',Auth::id())
-                    ->sum('amount'));
-                $data->payment_current = db_summary::where('id_credit',$data_tmp->id)->count();
+            if(db_credit::where('id_user',$data->id_user)->where('id_agent',Auth::id())->exists()){
+
+                $data->setAttribute('credit_id',$data->id);
+                $data->setAttribute('amount_neto',($data->amount_neto)+($data->amount_neto*$data->utility));
+                $data->setAttribute('positive',$data->amount_neto-(db_summary::where('id_credit',$data->id)
+                        ->where('id_agent',Auth::id())
+                        ->sum('amount')));
+                $data->setAttribute('payment_current',db_summary::where('id_credit',$data->id)->count());
             }
 
         }
-        $data = array(
+       $data = array(
             'clients' => $data_user
         );
 
@@ -103,7 +103,7 @@ class paymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
         if(!db_credit::where('id',$id)->exists()){
             return 'No existe creido';
@@ -132,7 +132,17 @@ class paymentController extends Controller
 
         );
 
-        return view('payment.create',$data);
+        if($request->input('format')==='json'){
+            $response = array(
+                'status' => 'success',
+                'data' => $data,
+                'code' => 0
+            );
+            return response()->json($response);
+        }else{
+            return view('payment.create',$data);
+        }
+
     }
 
     /**

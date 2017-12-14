@@ -28,7 +28,10 @@ class reviewController extends Controller
     public function create()
     {
         $data = array(
-            'wallet' => db_wallet::all(),
+            'wallet' => db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor',Auth::id())
+                ->join('wallet','agent_has_supervisor.id_wallet','=','wallet.id')
+                ->get()
+        ,
             'agents' => db_supervisor_has_agent::where('id_supervisor',Auth::id())
                 ->join('users','id_user_agent','=','users.id')->get(),
             'countries' => db_countries::all(),

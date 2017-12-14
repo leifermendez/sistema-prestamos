@@ -56,7 +56,7 @@ class summaryController extends Controller
             $data_credit->total = floatval($data_credit->utility_amount+$data_credit->amount_neto);
             $amount_last = 0;
             if(db_summary::where($sql)->exists()){
-                $amount_last = db_summary::where($sql)->first()->amount;
+                $amount_last = db_summary::where($sql)->orderBy('id','desc')->first()->amount;
             }
             $last = array(
                 'recent' => $amount_last,
@@ -115,7 +115,32 @@ class summaryController extends Controller
             db_credit::where('id',$id_credit)->update(['status'=>'close']);
         }
 
-        return redirect('summary?id_credit='.$id_credit.'&show=last');
+
+        $sql[]=['id_agent','=',Auth::id()];
+        if(isset($id_credit)){
+            $sql[]=['id_credit','=',$id_credit];
+        }
+        $amount_last = 0;
+        if(db_summary::where($sql)->exists()){
+            $amount_last = db_summary::where($sql)->orderBy('id','desc')->first()->amount;
+        }
+        $data_credit = db_credit::find($id_credit);
+        $data_credit->setAttribute('total',floatval(($data_credit->utility*$data_credit->amount_neto)+($data_credit->amount_neto)));
+        $last = array(
+            'recent' => $amount_last,
+            'rest' => round(($data_credit->total)-(db_summary::where($sql)->sum('amount')),2),
+        );
+
+        if($request->input('format')==='json'){
+            $response = array(
+                'status' => 'success',
+                'data' => $last,
+                'code' => 0
+            );
+            return response()->json($response);
+        }else {
+            return redirect('summary?id_credit=' . $id_credit . '&show=last');
+        }
     }
 
     /**

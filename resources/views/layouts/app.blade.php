@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="theme-color" content="#42A5F5">
 
     <!-- endbuild -->

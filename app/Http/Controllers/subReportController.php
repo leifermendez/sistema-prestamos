@@ -8,6 +8,7 @@ use App\db_credit;
 use App\db_summary;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class subReportController extends Controller
@@ -29,6 +30,7 @@ class subReportController extends Controller
 
         $data = db_close_day::whereDate('close_day.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
             ->whereDate('close_day.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
+            ->where('id_supervisor',Auth::id())
             ->join('users','close_day.id_agent','=','users.id')
             ->join('credit','users.id','=','credit.id_agent')
             ->select(

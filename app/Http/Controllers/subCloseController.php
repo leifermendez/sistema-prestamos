@@ -10,6 +10,7 @@ use App\db_supervisor_has_agent;
 use App\db_wallet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class subCloseController extends Controller
 {
@@ -77,10 +78,13 @@ class subCloseController extends Controller
 
         $bills = db_bills::whereDate('created_at',Carbon::createFromFormat('d/m/Y', $date_start)
             ->toDateString())
+            ->where('id_agent',$data_agent->id_user_agent)
             ->sum('amount');
 
         $base_amount = false;
-        if(db_close_day::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())->exists()){
+        if(db_close_day::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
+            ->where('id_supervisor',Auth::id())
+            ->exists()){
             $base_amount = db_close_day::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())->first()->base_before;
         }
 

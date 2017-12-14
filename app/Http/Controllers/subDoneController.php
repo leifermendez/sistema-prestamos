@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\db_credit;
 use App\db_summary;
+use App\db_supervisor_has_agent;
+use App\db_wallet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -23,9 +25,12 @@ class subDoneController extends Controller
         if(!isset($date_start)){return 'Fecha Inicio';};
         if(!isset($date_end)){return 'Fecha Final';};
         if(!isset($id_wallet)){return 'ID wallet';};
+        if(!db_supervisor_has_agent::where('id_wallet',$id_wallet)->exists()){return 'No existe relacion wallet';};
+        $id_agent = db_supervisor_has_agent::where('id_wallet',$id_wallet)->first();
 
         $data = db_credit::whereDate('credit.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
             ->whereDate('credit.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
+            ->where('id_agent',$id_agent->id_user_agent)
             ->where('credit.status','=','close')
             ->join('users','credit.id_user','=','users.id')
             ->select('credit.id as credit_id',

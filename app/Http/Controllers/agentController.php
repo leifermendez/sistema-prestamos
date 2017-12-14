@@ -74,7 +74,7 @@ class agentController extends Controller
      */
     public function edit($id)
     {
-        $data = User::find($id)->join('agent_has_supervisor','users.id','=','agent_has_supervisor.id_user_agent')
+        $data = User::where('users.id',$id)->join('agent_has_supervisor','users.id','=','agent_has_supervisor.id_user_agent')
             ->join('wallet','agent_has_supervisor.id_wallet','=','wallet.id')
             ->select(
                 'users.name',
@@ -86,7 +86,6 @@ class agentController extends Controller
                 'agent_has_supervisor.base as base_current'
             )
             ->first();
-
 
         return view('supervisor_agent.edit',$data);
     }

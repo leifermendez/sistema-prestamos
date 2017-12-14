@@ -636,6 +636,67 @@
 
     $('body table').addClass('table-striped');
 
+    $('#modal_pay').on('show.bs.modal', function (e) {
+        $('body .modal-pay .msg-success .text-success').val(0);
+        $('body .modal-pay .msg-success .text-primary').val(0);
+        $('body .modal-pay .main-body').removeClass('hidden');
+        $('body .modal-pay .msg-success').addClass('hidden');
+        $('body .modal-pay #name').val('');
+        $('body .modal-pay #credit_id').val('');
+        $('body .modal-pay #amount_value').val('');
+        $('body .modal-pay #done').val('');
+        $('body .modal-pay #saldo').val('');
+        $('body .modal-pay #payment_quote').val('');
+        $('body .modal-pay #done_payment').val('');
+        $('body .modal-pay #amount').attr('max','');
+        $('body .modal-pay #amount').val('')
+    	var attr = e.relatedTarget.attributes;
+		for(var a in attr){
+			if(a==3){
+				$.get("/payment/"+attr[a].nodeValue,{
+					format:'json'
+				})
+					.done(function(res){
+						$('body .modal-pay #name').val(res.data.user.name+' '+res.data.user.last_name);
+						$('body .modal-pay #credit_id').val(res.data.id);
+						$('body .modal-pay #amount_value').val(res.data.amount_neto+' en '+res.data.payment_number);
+						$('body .modal-pay #done').val(res.data.credit_data.positive);
+						$('body .modal-pay #saldo').val(res.data.credit_data.rest);
+						$('body .modal-pay #payment_quote').val(res.data.credit_data.payment_quote);
+						$('body .modal-pay #done_payment').val(res.data.credit_data.payment_done);
+						$('body .modal-pay #amount').attr('max',res.data.credit_data.rest);
+						$('body .modal-pay #amount').val(res.data.credit_data.payment_quote)
+					});
+			}
+		}
+    });
+
+    $('body .modal-pay').submit(function(event){
+
+    	console.log(event);
+        event.preventDefault();
+		var data = {
+			_token:$('meta[name="csrf-token"]').attr('content'),
+            credit_id:$('body .modal-pay #credit_id').val(),
+			amount:$('body .modal-pay #amount').val(),
+			format:'json'
+		};
+        var actionurl = event.currentTarget.action;
+        console.log(data);
+        //do your own request an handle the results
+        $.post(actionurl,
+			data,function(res){
+        		if(res.status==='success'){
+        			var id_credit = $('body .modal-pay #credit_id').val();
+        			$('body .agente-route-table #td_'+id_credit).addClass('hidden');
+                    $('body .modal-pay .msg-success .text-success').html(res.data.recent);
+                    $('body .modal-pay .msg-success .text-primary').html(res.data.rest);
+                    $('body .modal-pay .main-body').addClass('hidden');
+                    $('body .modal-pay .msg-success').removeClass('hidden');
+				}
+			})
+	});
+
 }(jQuery, window);
 
 //= public function for adding themes

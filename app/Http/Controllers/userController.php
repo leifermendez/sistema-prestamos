@@ -137,8 +137,12 @@ class userController extends Controller
                 'id_wallet'=>db_supervisor_has_agent::where('id_user_agent',Auth::id())->first()->id_wallet]);
         }
 
+        if(db_credit::orderBy('order_list','DESC')->first()===null){
+            $last_order=0;
+        }else{
+            $last_order=db_credit::orderBy('order_list','DESC')->first()->order_list;
+        }
 
-        $last_order=db_credit::orderBy('order_list','DESC')->first()->order_list;
         $values = array(
             'created_at'=> Carbon::now(),
             'payment_number' => $payment_number,
