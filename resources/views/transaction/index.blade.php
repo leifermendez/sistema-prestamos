@@ -52,7 +52,7 @@
                                     <th>Credito</th>
                                     <th>Cuota</th>
                                     <th>Saldo</th>
-                                    <th>Valor neto</th>
+                                    <th>Última cuota</th>
                                 </tr>
                                 @foreach($summary as $sum)
                                     <tr>
@@ -60,7 +60,7 @@
                                         <td><span class="value">{{$sum->created_at}}</span></td>
                                         <td><span class="value">{{$sum->id_credit}}</span></td>
                                         <td><span class="value">{{$sum->number_index}}</span></td>
-                                        <td><span class="value">{{($sum->amount_neto)}}</span></td>
+                                        <td><span class="value">{{($sum->total_payment)}}</span></td>
                                         <td><span class="value">{{$sum->amount}}</span></td>
                                     </tr>
                                 @endforeach

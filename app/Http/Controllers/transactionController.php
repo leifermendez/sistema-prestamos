@@ -57,12 +57,10 @@ class transactionController extends Controller
                 'credit.id as id_credit',
                 'summary.number_index',
                 'summary.amount',
-                'summary.created_at',
-                DB::raw('SUM(summary.amount) as total_payment')
+                'summary.created_at'
                 )
             ->groupBy('summary.id')
             ->get();
-
 
         $data_credit = db_credit::whereDate('credit.created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
             ->where('credit.id_agent',Auth::id())
@@ -83,6 +81,11 @@ class transactionController extends Controller
         $data_bill = db_bills::whereDate('created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
             ->where('id_agent',Auth::id())
             ->get();
+
+        foreach ($data_summary as $d){
+            $total = db_summary::where('id_credit',$d->id_credit)->sum('amount');
+            $d->setAttribute('total_payment',$total);
+        }
 
         $total_summary = $data_summary->sum('amount');
         $total_credit = $data_credit->sum('amount_neto');
