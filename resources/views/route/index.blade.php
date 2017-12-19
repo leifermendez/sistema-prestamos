@@ -108,7 +108,7 @@
                                         <td>{{$client->amount_total}}</td>
                                         <td id="saldo">{{$client->saldo}}</td>
                                         @if($client->last_pay)
-                                            <td>{{$client->last_pay}}</td>
+                                            <td>{{$client->last_pay->created_at}}</td>
                                         @else
                                             <td>No hay pagos</td>
                                         @endif
@@ -123,9 +123,9 @@
                                         </td>
                                         <td>
                                             <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up" class="btn btn-default btn-xs arw-up"><i class="fa fa-arrow-up"></i></a>
-                                            <a href="javascript:void(0)" id_user="{{$client->id_user}}" id_credit="{{$client->id}}" class="btn btn-warning btn-xs ajax-btn"><i class="fa fa-archive "></i> Saltar</a>
                                             <a href="{{url('payment')}}/{{$client->id}}" class="btn btn-success btn-xs hidden"><i class="fa fa-money"></i> Pagar</a>
                                             <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-id="{{$client->id}}" data-target="#modal_pay">Pagar</button>
+                                            <a href="javascript:void(0)" id_user="{{$client->id_user}}" id_credit="{{$client->id}}" class="btn btn-warning btn-xs ajax-btn"><i class="fa fa-archive "></i> Saltar</a>
                                             <a href="{{url('summary')}}?id_credit={{$client->id}}" class="btn btn-info btn-xs hidden"><i class="fa fa-history"></i> Ver</a>
                                             <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down" class="btn btn-default btn-xs arw-down"><i class="fa fa-arrow-down"></i></a>
                                         </td>

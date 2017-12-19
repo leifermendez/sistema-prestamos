@@ -106,12 +106,12 @@ class userController extends Controller
         }
 
         $values = array(
-            'name' => $name,
-            'last_name' => $last_name,
+            'name' => strtoupper($name),
+            'last_name' => strtoupper($last_name),
             'email' => $nit,
             'level' => 'user',
-            'address' => $address,
-            'province' => $province,
+            'address' => strtoupper($address),
+            'province' => strtoupper($province),
             'phone' => $phone,
             'password' => str_random(5),
             'nit' => $nit
@@ -153,7 +153,7 @@ class userController extends Controller
             'order_list' => ($last_order)+1
         );
         db_credit::insert($values);
-        return redirect('/client?status=success&msg=Agregado');
+        return redirect('/');
     }
 
     /**

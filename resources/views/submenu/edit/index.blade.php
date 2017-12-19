@@ -34,7 +34,13 @@
                                         <td><span class="value">{{$cred->payment_number}}</span></td>
                                         <td><span class="value">{{($cred->amount_neto)+($cred->amount_neto*$cred->utility)}}</span></td>
                                         <td class="text-right">
-                                            <a href="{{url('supervisor/credit')}}/{{$cred->credit_id}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
+                                            <form action="{{url('supervisor/credit')}}/{{$cred->credit_id}}?date_start={{$date_start}}&id_wallet={{$id_wallet}}" method="POST">
+                                                <a href="{{url('supervisor/credit')}}/{{$cred->credit_id}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
+                                                {{csrf_field()}}
+                                                {{ method_field('DELETE') }}
+                                                <button class="btn btn-xs btn-danger" type="submit">Eliminar</button>
+                                            </form>
+
                                         </td>
 
                                     </tr>
@@ -65,7 +71,12 @@
                                         <td><span class="value">{{$bill->description}}</span></td>
                                         <td><span class="value">{{$bill->amount}}</span></td>
                                         <td class="text-right">
-                                            <a href="{{url('supervisor/bill')}}/{{$bill->id}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
+                                            <form action="{{url('supervisor/bill')}}/{{$bill->id}}?date_start={{$date_start}}&id_wallet={{$id_wallet}}" method="POST">
+                                                <a href="{{url('supervisor/bill')}}/{{$bill->id}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
+                                                {{csrf_field()}}
+                                                {{ method_field('DELETE') }}
+                                                <button class="btn btn-xs btn-danger" type="submit">Eliminar</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

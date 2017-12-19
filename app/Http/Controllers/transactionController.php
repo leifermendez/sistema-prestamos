@@ -84,6 +84,10 @@ class transactionController extends Controller
 
         foreach ($data_summary as $d){
             $total = db_summary::where('id_credit',$d->id_credit)->sum('amount');
+            $total_credit = db_credit::where('id',$d->id_credit)->sum('amount_neto');
+            $total_credit = $total_credit+($total_credit*$d->utility);
+            $total = $total_credit-$total;
+
             $d->setAttribute('total_payment',$total);
         }
 

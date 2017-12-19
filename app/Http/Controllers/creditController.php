@@ -93,8 +93,18 @@ class creditController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $date_start = $request->date_start;
+        $id_wallet = $request->id_wallet;
+
+
+        if(!isset($id)){return 'ID vacio';};
+        if(!db_credit::where('id',$id)->exists()){
+            return 'No existe ID';
+        }
+        db_credit::where('id',$id)->delete();
+
+        return redirect('supervisor/menu/edit/'.$id_wallet.'?date_start='.$date_start);
     }
 }
