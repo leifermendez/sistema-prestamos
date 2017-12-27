@@ -34,7 +34,8 @@ class billController extends Controller
             ->select('bills.*','wallet.name as wallet_name')
             ->get();
         $data = array(
-            'clients' => $data
+            'clients' => $data,
+            'total' => $data->sum('amount')
         );
 
         return view('bill.index',$data);

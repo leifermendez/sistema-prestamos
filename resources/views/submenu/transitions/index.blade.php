@@ -46,6 +46,7 @@
                                 <tbody>
                                 <tr class="visible-lg">
                                     <th>Nombres</th>
+                                    <th>Fecha</th>
                                     <th>Credito</th>
                                     <th>Cuota</th>
                                     <th>Valor</th>
@@ -54,6 +55,7 @@
                                 @foreach($summary as $sum)
                                     <tr>
                                         <td><span class="value">{{$sum->name}} {{$sum->last_name}}</span></td>
+                                        <td><span class="value">{{$sum->created_at}}</span></td>
                                         <td><span class="value">{{$sum->credit_id}}</span></td>
                                         <td><span class="value">{{$sum->number_index}}</span></td>
                                         <td><span class="value">{{$sum->amount}}</span></td>

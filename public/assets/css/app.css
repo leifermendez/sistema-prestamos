@@ -3426,10 +3426,14 @@ only screen and (max-width: 760px),
     font-size: 5vw !important;
   }
   .btn {
-    width: 99% !important;
+    width: 99%;
     padding: 3px !important;
     font-size: 5vw !important;
     margin: 1% !important;
+  }
+
+  .btn-pagar,.btn-saltar{
+    width: 45% !important;
   }
 }
 
@@ -3461,4 +3465,11 @@ tr:first-child .arw-up,tr:last-child .arw-down{
   color: white;
   font-size: 20px;
   padding: 5px 15px 0 15px;
+}
+
+.btn-center-arrow{
+  width: 25%;
+    display: grid;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }

@@ -27,7 +27,7 @@
                                 <tr class="visible-lg">
                                     <th>Fecha</th>
                                     <th>Cartera</th>
-                                    <th>Gasto</th>
+
                                     <th>Valor</th>
                                     <th>Detalle</th>
                                 </tr>
@@ -35,7 +35,7 @@
                                     <tr>
                                         <td>{{$client->created_at}}</td>
                                         <td>{{$client->wallet_name}}</td>
-                                        <td>{{$client->type}}</td>
+
                                         <td>{{$client->amount}}</td>
                                         <td>{{$client->description}}</td>
                                     </tr>
@@ -43,7 +43,7 @@
 
                                 </tbody></table>
                             <footer class="widget-footer">
-                                <p class="text-success"><b>Total: </b> {{$sum}}</p>
+                                <p><b>Total: </b><span class="text-success">{{$sum}}</span></p>
                             </footer>
                         </div><!-- .widget -->
 

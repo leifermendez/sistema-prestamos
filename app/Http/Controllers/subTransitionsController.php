@@ -116,7 +116,7 @@ class subTransitionsController extends Controller
             'bills' => $data_bill,
             'total_summary' => $data_summary->sum('amount'),
             'total_credit' => $data_credit->sum('amount_neto'),
-            'total_bills' => $data_credit->sum('amount'),
+            'total_bills' => $data_bill->sum('amount'),
             'id_wallet' => $id
         );
 

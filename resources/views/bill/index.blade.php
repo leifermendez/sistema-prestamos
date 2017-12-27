@@ -29,7 +29,6 @@
                                 <tr>
                                     <th>Cartera</th>
                                     <th>Fecha</th>
-                                    <th>Gasto</th>
                                     <th>Valor</th>
                                     <th>Detalle</th>
                                     <th></th>
@@ -38,7 +37,7 @@
                                     <tr>
                                         <td>{{$client->wallet_name}}</td>
                                         <td>{{$client->created_at}}</td>
-                                        <td>{{$client->type}}</td>
+
                                         <td>{{$client->amount}}</td>
                                         <td>{{$client->description}}</td>
                                         <td></td>
@@ -46,6 +45,9 @@
                                 @endforeach
 
                                 </tbody></table>
+                            <footer class="widget-footer">
+                                <p><b>Total: </b><span class="text-success">{{$total}}</span></p>
+                            </footer>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->

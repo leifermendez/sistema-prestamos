@@ -31,13 +31,15 @@ class routeController extends Controller
      */
     public function index()
     {
-        $data = db_credit::where('id_agent',Auth::id())
-            ->where('status','inprogress')
-            ->orderBy('order_list','asc')
+        $data = db_credit::where('credit.id_agent',Auth::id())
+            ->where('credit.status','inprogress')
+            ->orderBy('credit.order_list','asc')
             ->get();
         $data_filter = array();
         $dt = Carbon::now();
-        foreach ($data as $d){
+
+        foreach ($data as $k => $d){
+
 
             $d->user=User::find($d->id_user);
             $d->amount_total = ($d->amount_neto)+($d->amount_neto*$d->utility);
@@ -45,9 +47,15 @@ class routeController extends Controller
             $d->saldo = $d->amount_total-(db_summary::where('id_credit',$d->id)->sum('amount'));
             $d->quote = (floatval($d->amount_neto*$d->utility)+floatval($d->amount_neto))/floatval($d->payment_number);
             $d->setAttribute('last_pay',db_summary::where('id_credit',$d->id)->orderBy('id','desc')->first());
-            if(!db_not_pay::whereDate('created_at','=',Carbon::now()->toDateString())->where('id_credit',$d->id)->exists()){
-                $data_filter[]=$d;
+
+            if(!db_summary::where('id_credit',$d->id)->whereDate('created_at','=',Carbon::now()->toDateString())->exists()){
+                if(!db_not_pay::whereDate('created_at','=',Carbon::now()->toDateString())->where('id_credit',$d->id)->exists()){
+                    $data_filter[]=$d;
+                }
+
             }
+
+
         }
 
         $data_all = array(
