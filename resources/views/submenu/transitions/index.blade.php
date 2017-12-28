@@ -80,12 +80,14 @@
                                     <th>Gasto</th>
                                     <th>Detalle</th>
                                     <th>Valor</th>
+                                    <th>Fecha</th>
                                 </tr>
                                 @foreach($bills as $bill)
                                     <tr>
                                         <td><span class="value">{{$bill->type}}</span></td>
                                         <td><span class="value">{{$bill->description}}</span></td>
                                         <td><span class="value">{{$bill->amount}}</span></td>
+                                        <td><span class="value">{{$bill->created_at}}</span></td>
                                     </tr>
                                 @endforeach
 

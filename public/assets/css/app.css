@@ -3420,7 +3420,15 @@ only screen and (max-width: 760px),
     padding-top: 60px;
   }
 }
-
+@media (max-width: 768px){
+  .ui-datepicker-calendar tr{
+    display: inline-flex !important;
+    width: 100%;
+  }
+  .ui-datepicker-calendar td{
+    width: 15%;
+  }
+}
 @media (max-width: 425px) {
   .navbar-brand .brand-icon{
     font-size: 5vw !important;
@@ -3435,6 +3443,7 @@ only screen and (max-width: 760px),
   .btn-pagar,.btn-saltar{
     width: 45% !important;
   }
+
 }
 
 table.dataTable thead th, table.dataTable thead td,table.dataTable.no-footer{
@@ -3473,3 +3482,4 @@ tr:first-child .arw-up,tr:last-child .arw-down{
     margin-left: auto !important;
     margin-right: auto !important;
 }
+

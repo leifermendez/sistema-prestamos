@@ -16,7 +16,7 @@
                                 <form method="GET" action="{{url('supervisor/menu/close')}}/{{ app('request')->input('id_wallet') }}" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="nit_number"> Selecciona fecha:</label>
-                                        <input type="text" name="date_start"  class="form-control datepicker-trigger" id="date_start" required>
+                                        <input type="text" name="date_start"  class="form-control datepicker-trigger" id="date_start" data-role="date" required>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-success btn-block btn-md">Buscar</button>
