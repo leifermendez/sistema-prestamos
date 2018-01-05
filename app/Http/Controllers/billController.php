@@ -27,6 +27,8 @@ class billController extends Controller
         if(isset($date_start) && isset($date_end)){
             $sql[]=['bills.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)];
             $sql[]=['bills.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)];
+        }else{
+            $sql[]=['bills.created_at','=',Carbon::now()];
         }
 
         $data=db_bills::where($sql)

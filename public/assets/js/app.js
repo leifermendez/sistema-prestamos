@@ -607,6 +607,7 @@
     $( ".datepicker-trigger" ).datepicker({
 		"dateFormat":"dd/mm/yy"
 	});
+	$('body .datepicker-trigger').prop("readonly", true);
     $('body').on('change','.supervisor-client #wallet',function(){
     	$('#link_client_audit').attr('disabled',false);
     	$('#link_client_audit').attr('href',$('#link_client_audit').attr('href')+'/'+$(this).val());
@@ -693,6 +694,8 @@
                     $('body .modal-pay .msg-success .text-primary').html(res.data.rest);
                     $('body .modal-pay .main-body').addClass('hidden');
                     $('body .modal-pay .msg-success').removeClass('hidden');
+				}else{
+        			alert(res.msj)
 				}
 			})
 	});

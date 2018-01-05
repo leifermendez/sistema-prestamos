@@ -10,23 +10,23 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Gastos</h4>
                             <form class="form-inline" action="{{url('bill')}}" method="GET">
-                                <div class="form-group">
+                                <div class="form-group hidden">
                                     <label for="nit_number"> Fecha Inicial:</label>
                                     <input type="text" name="date_start"  class="form-control datepicker-trigger" id="date_start" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group hidden">
                                     <label for="nit_number"> Fecha Final:</label>
                                     <input type="text" name="date_end"  class="form-control datepicker-trigger" id="date_end" required>
                                 </div>
 
-                                 <button class="btn btn-info" type="submit">Buscar</button>
+                                 <button class="btn btn-info hidden" type="submit">Buscar</button>
                                 <a href="{{url('bill/create')}}" class="btn btn-success">Agregar</a>
 
                             </form>
                             <br class="clearfix">
                             <table class="table agente-g-table">
                                 <tbody>
-                                <tr>
+                                <tr class="visible-lg">
                                     <th>Cartera</th>
                                     <th>Fecha</th>
                                     <th>Valor</th>

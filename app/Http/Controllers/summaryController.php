@@ -95,6 +95,17 @@ class summaryController extends Controller
         $amount = $request->amount;
         $id_credit = $request->credit_id;
 
+        if(db_summary::whereDate('created_at',Carbon::now()->toDateString())
+            ->where('id_credit',$id_credit)->exists()){
+            $response = array(
+                'status' => 'fail',
+                'msj' => 'Ya existe un pago hoy',
+                'code' => 0
+            );
+
+            return response()->json($response);
+        }
+
         $redirect_error = '/summary?msg=Fields_Null&status=error';
         if(!isset($amount)){return redirect($redirect_error);};
         if(!isset($id_credit)){return redirect($redirect_error);};
