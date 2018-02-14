@@ -6,7 +6,7 @@
             <section class="app-content">
                     <div class="row">
                         <div class="col-md-3 col-sm-6">
-                            <a href="{{url('supervisor/menu/history/')}}">
+                            <a href="{{url('supervisor/menu/history/')}}?id_wallet={{$id}}">
                                 <div class="widget stats-widget">
                                     <div class="widget-body clearfix bg-info">
                                         <div class="pull-left">

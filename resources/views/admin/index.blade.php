@@ -29,6 +29,7 @@
                                         <td>{{$client->wallet_name}}</td>
                                         <td>{{$client->supervisor}}</td>
                                         <td>
+                                            <a href="{{url('admin/user')}}/{{$client->id}}/edit" class="btn btn-danger btn-xs">Eliminar</a>
                                             <a href="{{url('admin/user')}}/{{$client->id}}/edit" class="btn btn-info btn-xs">Editar</a>
                                             @if($client->level == 'supervisor')
                                                 <a href="{{url('admin/user')}}/{{$client->id}}" class="btn btn-warning btn-xs">Asignar agente</a>

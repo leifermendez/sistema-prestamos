@@ -17,9 +17,14 @@ class subHistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if(!isset($request->id_wallet)){
+            return 'No existe ID Wallet';
+        }
+        
         $data = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor',Auth::id())
+            ->where('agent_has_supervisor.id_wallet',$request->id_wallet)
             ->join('credit','agent_has_supervisor.id_user_agent','=','credit.id_agent')
             ->join('users','credit.id_user','=','users.id')
             ->select('users.name',
@@ -31,6 +36,7 @@ class subHistoryController extends Controller
             ->groupBy('users.id')
             ->get();
 
+
         foreach ($data as $datum){
             $datum->setAttribute('amount_neto',($datum->amount_neto)+($datum->amount_neto*$datum->utility));
             $datum->summary_total = $datum->amount_neto-(db_summary::where('id_credit',$datum->credit_id)
@@ -40,7 +46,9 @@ class subHistoryController extends Controller
                     ->count();
         }
 
-        $data_wallet = db_supervisor_has_agent::where('id_supervisor',Auth::id())->first();
+        $data_wallet = db_supervisor_has_agent::where('id_supervisor',Auth::id())
+        ->where('agent_has_supervisor.id_wallet',$request->id_wallet)
+        ->first();
         $total_summary = db_summary::where('id_agent',$data_wallet->id_user_agent)->sum('amount');
         $total_credit = db_credit::where('id_agent',$data_wallet->id_user_agent)->get();
         $total_credit_amount = 0;

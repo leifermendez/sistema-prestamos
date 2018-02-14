@@ -86,6 +86,7 @@
 
                                 <tbody>
                                 @foreach($clients as $client)
+                                    @if($client->positive>0)
                                     <tr id="credit_{{$client->credit_id}}">
                                         <td>{{$client->name}} {{$client->last_name}}</td>
                                         <td>{{$client->credit_id}}</td>
@@ -101,6 +102,8 @@
                                             <a href="{{url('summary')}}?id_credit={{$client->credit_id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
                                         </td>
                                     </tr>
+                                    @endif
+
                                 @endforeach
 
                                 </tbody>

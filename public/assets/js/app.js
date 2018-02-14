@@ -638,6 +638,9 @@
     $('body table').addClass('table-striped');
 
     $('#modal_pay').on('show.bs.modal', function (e) {
+		$('body form').submit(function(event){
+			$(this).find(":submit").prop( "disabled", false );
+		});
         $('body .modal-pay .msg-success .text-success').val(0);
         $('body .modal-pay .msg-success .text-primary').val(0);
         $('body .modal-pay .main-body').removeClass('hidden');
@@ -672,6 +675,10 @@
 		}
     });
 
+	$('body form').submit(function(event){
+		$(this).find(":submit").prop( "disabled", true );
+	});
+
     $('body .modal-pay').submit(function(event){
 
     	console.log(event);
@@ -695,7 +702,32 @@
                     $('body .modal-pay .main-body').addClass('hidden');
                     $('body .modal-pay .msg-success').removeClass('hidden');
 				}else{
-        			alert(res.msj)
+					var conf = confirm('Ya realizo un pago hoy, deseas realizar otro?');
+				
+					if(conf){
+						var data = {
+							_token:$('meta[name="csrf-token"]').attr('content'),
+							credit_id:$('body .modal-pay #credit_id').val(),
+							amount:$('body .modal-pay #amount').val(),
+							format:'json',
+							rev:true
+						};
+						var actionurl = event.currentTarget.action;
+						$.post(actionurl,
+							data,function(res){
+								if(res.status==='success'){
+									var id_credit = $('body .modal-pay #credit_id').val();
+									$('body .agente-route-table #td_'+id_credit).addClass('hidden');
+									$('body .modal-pay .msg-success .text-success').html(res.data.recent);
+									$('body .modal-pay .msg-success .text-primary').html(res.data.rest);
+									$('body .modal-pay .main-body').addClass('hidden');
+									$('body .modal-pay .msg-success').removeClass('hidden');
+								}else{
+									alert('Algo sucedio');
+								}
+							});
+					}
+
 				}
 			})
 	});

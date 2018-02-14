@@ -30,6 +30,9 @@ class reviewController extends Controller
         $data = array(
             'wallet' => db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor',Auth::id())
                 ->join('wallet','agent_has_supervisor.id_wallet','=','wallet.id')
+                ->join('users','agent_has_supervisor.id_user_agent','=','users.id')
+                ->select('wallet.*','users.name as user_name'
+                ,'users.id as user_id')
                 ->get()
         ,
             'agents' => db_supervisor_has_agent::where('id_supervisor',Auth::id())
