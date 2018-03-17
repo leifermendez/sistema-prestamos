@@ -98,7 +98,7 @@
 
 
 
-                                            <a href="{{url('payment')}}/{{$client->credit_id}}" class="btn btn-success btn-xs"><i class="fa fa-money"></i> Pagar</a>
+                                            <a href="{{url('payment')}}/{{$client->credit_id}}?rev=true" class="btn btn-success btn-xs"><i class="fa fa-money"></i> Pagar</a>
                                             <a href="{{url('summary')}}?id_credit={{$client->credit_id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
                                         </td>
                                     </tr>

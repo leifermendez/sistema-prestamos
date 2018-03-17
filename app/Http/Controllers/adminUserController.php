@@ -226,6 +226,32 @@ class adminUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!isset($id)){
+            $response = array(
+                'status' => 'fail',
+                'msj' => 'Id vacio',
+                'code' => 5
+            );
+
+            return response()->json($response);
+        }
+
+        if(!User::where('id',$id)->exists()){
+            $response = array(
+                'status' => 'fail',
+                'msj' => 'ID user no existe',
+                'code' => 5
+            );
+
+            return response()->json($response);
+        }
+
+        User::where('id',$id)->update([
+                'active_user'=>'disabled',
+                'password' => str_random(15),
+            ]);
+
+        return redirect('admin/user');
+
     }
 }

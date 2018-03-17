@@ -19,6 +19,7 @@
                                         <label for="name">Nombres:</label>
                                         <input type="text" name="name" value ="{{$user->name}} {{$user->last_name}}" readonly class="form-control" id="name">
                                     </div>
+                                    <input type="hidden" name="rev" value="{{ app('request')->input('rev') }}">
                                     <div class="form-group">
                                         <label for="address">Número de credito:</label>
                                         <input type="text" name="credit_id" value="{{$id}}" readonly class="form-control" id="address">

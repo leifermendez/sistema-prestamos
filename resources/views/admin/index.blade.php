@@ -21,6 +21,7 @@
                                     <th></th>
                                 </tr>
                                 @foreach($clients as $client)
+                                    @if($client->active_user=='enabled')
                                     <tr>
                                         <td>{{$client->id}}</td>
                                         <td>{{$client->email}}</td>
@@ -29,13 +30,19 @@
                                         <td>{{$client->wallet_name}}</td>
                                         <td>{{$client->supervisor}}</td>
                                         <td>
-                                            <a href="{{url('admin/user')}}/{{$client->id}}/edit" class="btn btn-danger btn-xs">Eliminar</a>
+                                            <form action="{{url('admin/user')}}/{{$client->id}}" method="POST" class="pull-left">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <button type="submit" class="btn btn-danger btn-xs">Eliminar</button>
+                                            </form>
+
                                             <a href="{{url('admin/user')}}/{{$client->id}}/edit" class="btn btn-info btn-xs">Editar</a>
                                             @if($client->level == 'supervisor')
                                                 <a href="{{url('admin/user')}}/{{$client->id}}" class="btn btn-warning btn-xs">Asignar agente</a>
                                             @endif
                                         </td>
                                     </tr>
+                                    @endif
                                 @endforeach
 
                                 </tbody></table>
