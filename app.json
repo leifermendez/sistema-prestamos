@@ -1,0 +1,11 @@
+{
+  "name": "Sistema de Prestamos",
+  "description": "Sistema de préstamos con roles de usuarios, desarrollado en Laravel + Blade.",
+  "repository": "https://github.com/leifermendez/sistema-prestamos",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": [
+    "php",
+    "laravel",
+    "blade"
+  ]
+}
