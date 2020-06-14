@@ -19,11 +19,11 @@
 <body class="simple-page">
 <div class="simple-page-wrap">
     <div class="simple-page-form animated flipInY" id="login-form">
-        <div class="simple-page-logo animated swing">
-            <a href="{{config("app.url")}}">
-                <span><img src="{{asset('assets/images/zeus-logo.png')}}" alt=""></span>
-            </a>
-        </div><!-- logo -->
+{{--        <div class="simple-page-logo animated swing">--}}
+{{--            <a href="{{config("app.url")}}">--}}
+{{--                <span><img src="{{asset('assets/images/zeus-logo.png')}}" alt=""></span>--}}
+{{--            </a>--}}
+{{--        </div><!-- logo -->--}}
         <h4 class="form-title m-b-xl text-center">Iniciar Sesion</h4>
         <div class="panel-body">
             <form class="form-horizontal" method="POST" action="{{ route('login') }}">

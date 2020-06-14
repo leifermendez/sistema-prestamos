@@ -15,12 +15,13 @@ class adminUserController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            if(Auth::user()->level!='admin'){
+            if (Auth::user()->level != 'admin') {
                 die('No tienes permisos');
             }
             return $next($request);
         });
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,9 +29,9 @@ class adminUserController extends Controller
      */
     public function index()
     {
-        $data = User::where('users.level','<>','user')
-            ->leftJoin('agent_has_supervisor','users.id','=','id_user_agent')
-            ->leftJoin('wallet','agent_has_supervisor.id_wallet','=','wallet.id')
+        $data = User::where('users.level', '<>', 'user')
+            ->leftJoin('agent_has_supervisor', 'users.id', '=', 'id_user_agent')
+            ->leftJoin('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
             ->select(
                 'users.*',
                 'wallet.name as wallet_name',
@@ -38,9 +39,10 @@ class adminUserController extends Controller
             )
             ->get();
 
-        foreach ($data as $datum){
-            if(User::where('id',$datum->id_supervisor)->exists()){
-                $datum->supervisor = User::where('id',$datum->id_supervisor)->first()->name;
+
+        foreach ($data as $datum) {
+            if (User::where('id', $datum->id_supervisor)->exists()) {
+                $datum->supervisor = User::where('id', $datum->id_supervisor)->first()->name;
             }
 
         }
@@ -48,7 +50,10 @@ class adminUserController extends Controller
         $data = array(
             'clients' => $data
         );
-        return view('admin.index',$data);
+
+
+
+        return view('admin.index', $data);
     }
 
     /**
@@ -62,13 +67,13 @@ class adminUserController extends Controller
         $data = array(
             'countries' => $data
         );
-        return view('admin.create',$data);
+        return view('admin.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -78,12 +83,20 @@ class adminUserController extends Controller
         $pwd = $request->pwd;
         $level = $request->level;
 
-        if(!isset($username)){return 'Username vacio';};
-        if(!isset($name)){return 'Nombre vacio';};
-        if(!isset($pwd)){return 'Contraseña vacio';};
-        if(!isset($level)){return 'Nivel vacio';};
+        if (!isset($username)) {
+            return 'Username vacio';
+        };
+        if (!isset($name)) {
+            return 'Nombre vacio';
+        };
+        if (!isset($pwd)) {
+            return 'Contraseña vacio';
+        };
+        if (!isset($level)) {
+            return 'Nivel vacio';
+        };
 
-        if(User::where('email',$username)->exists()){
+        if (User::where('email', $username)->exists()) {
             return 'Ya existe Username';
         }
 
@@ -102,25 +115,25 @@ class adminUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $data_agent = User::where('level','agent')->get();
-        foreach ($data_agent as $agent){
-            if(db_supervisor_has_agent::where('id_user_agent',$agent->id)->exists()){
+        $data_agent = User::where('level', 'agent')->get();
+        foreach ($data_agent as $agent) {
+            if (db_supervisor_has_agent::where('id_user_agent', $agent->id)->exists()) {
                 $agent->ocuped = true;
-            }else{
+            } else {
                 $agent->ocuped = false;
             }
         }
 
         $data_wallets = db_wallet::all();
-        foreach ($data_wallets as $wallet){
-            if(db_supervisor_has_agent::where('id_wallet',$wallet->id)->exists()){
+        foreach ($data_wallets as $wallet) {
+            if (db_supervisor_has_agent::where('id_wallet', $wallet->id)->exists()) {
                 $wallet->ocuped = true;
-            }else{
+            } else {
                 $wallet->ocuped = false;
             }
         }
@@ -131,13 +144,13 @@ class adminUserController extends Controller
             'wallets' => $data_wallets
         );
 
-        return view('admin.show',$data);
+        return view('admin.show', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -148,36 +161,39 @@ class adminUserController extends Controller
             'countries' => db_countries::all()
         );
 
-        return view('admin.edit',$data);
+        return view('admin.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $act = $request->act;
-        switch ($act){
+        switch ($act) {
             case 'assign':
                 $id_agent = $request->id_agent;
                 $id_wallet = $request->id_wallet;
-                $address = $request->address;
 
-                $data_wallet = db_wallet::where('id',$id_wallet)->first();
+                $data_wallet = db_wallet::where('id', $id_wallet)->first();
 
-                if(db_countries::where('id',$data_wallet->country)->exists()){
-                    $country = db_countries::where('id',$data_wallet->country)->first()->name;
+                if (db_countries::where('id', $data_wallet->country)->exists()) {
+                    $country = db_countries::where('id', $data_wallet->country)->first()->name;
                 }
 
-               $address = $data_wallet->address;
+                $address = $data_wallet->address;
 
 
-                if(!isset($id_agent)){return 'ID agent';};
-                if(!isset($id_wallet)){return 'ID wallet';};
+                if (!isset($id_agent)) {
+                    return 'ID agent';
+                };
+                if (!isset($id_wallet)) {
+                    return 'ID wallet';
+                };
 
                 $values = array(
                     'id_user_agent' => $id_agent,
@@ -186,7 +202,7 @@ class adminUserController extends Controller
                     'id_wallet' => $id_wallet
                 );
 
-                User::where('id',$id_agent)->update(['country'=>$country,'address'=>$address]);
+                User::where('id', $id_agent)->update(['country' => $country, 'address' => $address]);
 
                 db_supervisor_has_agent::insert($values);
                 break;
@@ -196,9 +212,15 @@ class adminUserController extends Controller
                 $pwd = $request->pwd;
                 $level = $request->level;
 
-                if(!isset($username)){return 'Username vacio';};
-                if(!isset($name)){return 'Nombre vacio';};
-                if(!isset($pwd)){return 'Contraseña vacio';};
+                if (!isset($username)) {
+                    return 'Username vacio';
+                };
+                if (!isset($name)) {
+                    return 'Nombre vacio';
+                };
+                if (!isset($pwd)) {
+                    return 'Contraseña vacio';
+                };
 
                 $values = array(
                     'email' => $username,
@@ -206,11 +228,11 @@ class adminUserController extends Controller
                     'password' => bcrypt($pwd)
                 );
 
-                if(User::find($id)->level!='admin'){
-                    $values['level']= $level;
+                if (User::find($id)->level != 'admin') {
+                    $values['level'] = $level;
                 }
 
-                User::where('id',$id)->update($values);
+                User::where('id', $id)->update($values);
                 break;
         }
 
@@ -221,12 +243,12 @@ class adminUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        if(!isset($id)){
+        if (!isset($id)) {
             $response = array(
                 'status' => 'fail',
                 'msj' => 'Id vacio',
@@ -236,7 +258,7 @@ class adminUserController extends Controller
             return response()->json($response);
         }
 
-        if(!User::where('id',$id)->exists()){
+        if (!User::where('id', $id)->exists()) {
             $response = array(
                 'status' => 'fail',
                 'msj' => 'ID user no existe',
@@ -246,10 +268,10 @@ class adminUserController extends Controller
             return response()->json($response);
         }
 
-        User::where('id',$id)->update([
-                'active_user'=>'disabled',
-                'password' => str_random(15),
-            ]);
+        User::where('id', $id)->update([
+            'active_user' => 'disabled',
+            'password' => str_random(15),
+        ]);
 
         return redirect('admin/user');
 

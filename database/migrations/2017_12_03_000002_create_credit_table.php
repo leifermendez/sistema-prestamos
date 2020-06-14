@@ -25,6 +25,7 @@ class CreateCreditTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->float('amount_neto')->nullable()->default('0');
+            $table->integer('order_list')->nullable();
             $table->integer('id_user')->nullable()->default(null);
             $table->integer('id_agent')->nullable()->default(null);
             $table->integer('payment_number')->nullable()->default(null);
