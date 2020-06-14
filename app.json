@@ -7,5 +7,21 @@
     "php",
     "laravel",
     "blade"
-  ]
+  ],
+  "addons": [
+    "cleardb:ignite"
+  ],
+  "scripts": {
+    "postdeploy": [
+      "php artisan db:seed"
+    ]
+  },
+  "env": {
+    "APP_NAME": "my-laravel-app",
+    "APP_ENV": "review",
+    "APP_KEY": {
+      "generator": "secret"
+    },
+    "APP_DEBUG": "true"
+  }
 }
