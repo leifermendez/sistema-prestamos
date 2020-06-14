@@ -42,16 +42,8 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
         ],
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan storage:link",
-            "@php artisan cache:clear",
-            "@php artisan config:clear",
-            "@php artisan view:clear",
-            "chmod -R 775 storage",
-            "chmod -R 775 bootstrap"
-        ]
+
+
     },
     "config": {
         "preferred-install": "dist",
