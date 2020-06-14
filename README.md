@@ -2,7 +2,7 @@
 
 Sistema de préstamos con roles de usuarios, desarrollado en Laravel + Blade. Puede administrar bóvedas, rutas, agente, supervisores, cierres de ruta, histórico de pagos, estadística de agente, reporte de gastos, perfil de cliente, entre otras cosas.
 
-##### ¿Que puedo hacer con este sistema?
+#### ¿Que puedo hacer con este sistema?
 
 Gestionar roles de usuarios:
 - Usuario
@@ -10,20 +10,20 @@ Gestionar roles de usuarios:
 - Supervisor
 - Admin
 
-##### Usuario
+#### Usuario
 Hace referencia de una persona a quien se presta el dinero esta persona puede elegir entre N número de cuotas a pagar su préstamo con un % de interés.
 
-##### Agente
+#### Agente
 Será el encargado de buscar nuevos clientes, registrar pagos, realizar la ruta de cobro siempre bajo el mando de un supervisor
 
 ![](https://i.imgur.com/kbvwudQ.gif)
 
-##### Supervisor
+#### Supervisor
 Tiene bajo su control una bóveda de cual posee un historial de transacciones con un monto base y a su vez puede asignar sub montos a los agentes los cuales deben realizar préstamos y cobros.
 
 ![](https://i.imgur.com/DdkdJds.gif)
 
-##### Admin
+#### Admin
 Encargado de crear las bóvedas, supervisor y agente. Siempre tiene el control de todos los otros módulos
 
 ![](https://i.imgur.com/KAX76ui.gif)
