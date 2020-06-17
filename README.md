@@ -50,5 +50,7 @@ composer install
 php artisan key:generate
 ```
 ```cmd
-php artisan migrate && php artisan db:seed
+php artisan migrate
+```cmd
+php artisan db:seed
 ```
