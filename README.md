@@ -51,6 +51,7 @@ php artisan key:generate
 ```
 ```cmd
 php artisan migrate
+```
 ```cmd
 php artisan db:seed
 ```
