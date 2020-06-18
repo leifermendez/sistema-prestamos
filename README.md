@@ -46,9 +46,16 @@ cd sistema-prestamos
 ```cmd
 composer install
 ```
+Seguidamente recuerda que por seguridad el archivo <b>"<em>.env</em>"</b> no se copia, para ello dispones del mismo pero con el nombre
+<b>"<em>.env.example</em>"</b> el cual deberás renombrar a <b>"<em>.env</em>"</b> solamente.
+
+Recuerda también ingresar en el archivo <b>"<em>.env</b>"</em> los datos de conexión a la base de datos que deberas haber creado previamente, esto es importante para poder continuar con el siguiente paso y generar el <b>"<em>key</b>"</em>.
 ```cmd
 php artisan key:generate
 ```
 ```cmd
-php artisan migrate && php artisan db:seed
+php artisan migrate
+```
+```cmd
+php artisan db:seed
 ```
