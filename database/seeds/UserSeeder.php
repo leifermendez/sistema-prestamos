@@ -17,9 +17,21 @@ class UserSeeder extends Seeder
         $this->faker = $faker = Faker\Factory::create();
         $tests = array(
             [
-                'name' => $this->faker->name,
+                'name' => 'Administrador',
                 'email' => 'admin@admin.com',
                 'level' => 'admin',
+                'password' => bcrypt('12345678')
+            ],
+            [
+                'name' => 'Supervisor',
+                'email' => 'supervisor@supervisor.com',
+                'level' => 'supervisor',
+                'password' => bcrypt('12345678')
+            ],
+            [
+                'name' => 'Agente',
+                'email' => 'agente@agente.com',
+                'level' => 'agent',
                 'password' => bcrypt('12345678')
             ]
         );
