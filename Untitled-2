@@ -1,7 +1,0 @@
-preg_split('/[\s,]+/', $message, 3)
- 
-heroku config:set CLEARDB_DATABASE_URL=$(php -r "echo explode(':', 'CLEARDB_DATABASE_URL: mysql://bc752319c91169:0a65910c@us-cdbr-east-05.cleardb.net/heroku_9437a9e7cd329ed?reconnect=true', 2)[1];")
-
-
-
-heroku config:set CLEARDB_DATABASE_URL=$(php -r "echo explode(':','CLEARDB_DATABASE_URL:111')[0];")
