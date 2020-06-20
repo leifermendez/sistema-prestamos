@@ -12,7 +12,7 @@
     "cleardb:ignite"
   ],
   "scripts": {
-    "postdeploy": "php artisan migrate:fresh --force && php artisan db:seed --force"
+    "postdeploy": "php artisan migrate --force && php artisan db:seed --force"
   },
   "buildpacks": [
     {
