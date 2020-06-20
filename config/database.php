@@ -4,7 +4,7 @@
  * Fix for Heroku deployment
  */
 
-$url = parse_url(getenv("CLEARDB_PUCE_URL"));
+$url = (getenv("CLEARDB_PUCE_URL")) ? parse_url(getenv("CLEARDB_PUCE_URL")) : parse_url(getenv("CLEARDB_DATABASE_URL")) ;
 
 $host = (isset($url["host"])) ? $url["host"] : 'host';
 $username = (isset($url["user"])) ? $url["user"] : 'user';
