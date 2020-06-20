@@ -13,9 +13,15 @@
   ],
   "scripts": {
     "postdeploy": [
+      "heroku config:set APP_KEY=$(php artisan --no-ansi key:generate --show)",
       "php artisan db:seed"
     ]
   },
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    }
+  ],
   "env": {
     "APP_NAME": "my-laravel-app",
     "APP_ENV": "review",
