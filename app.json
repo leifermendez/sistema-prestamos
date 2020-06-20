@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "postdeploy": [
-      "heroku config:set APP_KEY=$(php artisan --no-ansi key:generate --show) && php artisan migrate && php artisan db:seed"
+      "php artisan key:generate && php artisan migrate && php artisan db:seed"
     ]
   },
   "buildpacks": [
