@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Admin, Dashboard, Bootstrap" />
+    <meta name="description" content="Leifer Mendez, github, sistema prestamos, https://github.com/leifermendez" />
+    <meta name="author" content="https://github.com/leifermendez" />
     <link rel="shortcut icon" sizes="196x196" href="../assets/images/logo.png">
-    <title>{{config("app.name")}}</title>
+    <title>{{config("app.name")}} | Sistema de reporte (Leifer Mendez)  https://github.com/leifermendez</title>
 
     <link rel="stylesheet" href="{{ asset('libs/bower/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css') }}">
