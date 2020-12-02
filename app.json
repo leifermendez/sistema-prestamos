@@ -21,7 +21,7 @@
   ],
   "env": {
     "APP_NAME": "my-laravel-app",
-    "APP_ENV": "review",
+    "APP_ENV": "production",
     "APP_KEY": {
       "description": "This should be changed with `heroku config:set APP_KEY=xxx` after the initial deploy. Run `heroku run php artisan key:generate --show` to generate a new app key.",
       "value": "base64:4tLwD4XBdiP0SmHjbR08bkbl7S/itIi9Xj+X6+W93eo="
