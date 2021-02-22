@@ -57,10 +57,10 @@ Recuerda también ingresar en el archivo <b>"<em>.env</b>"</em> los datos de con
 php artisan key:generate
 ```
 ```cmd
-php artisan key:generate
+php artisan migrate:install
 ```
 ```cmd
-php artisan migrate:install
+php artisan migrate
 ```
 ```cmd
 php artisan db:seed
