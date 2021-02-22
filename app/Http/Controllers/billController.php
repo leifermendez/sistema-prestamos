@@ -22,25 +22,30 @@ class billController extends Controller
         $date_end = $request->date_end;
 
         $sql = array(
-            ['id_agent','=',Auth::id()]
+            ['id_agent', '=', Auth::id()]
         );
-        if(isset($date_start) && isset($date_end)){
-            $sql[]=['bills.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)];
-            $sql[]=['bills.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)];
-        }else{
-            $sql[]=['bills.created_at','=',Carbon::now()];
+        if (isset($date_start) && isset($date_end)) {
+            $sql[] = ['bills.created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)];
+            $sql[] = ['bills.created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)];
+        } else {
+            $sql[] = ['bills.created_at', '>=', Carbon::now()->startOfDay()];
+            $sql[] = ['bills.created_at', '<=', Carbon::now()->endOfDay()];
+
         }
 
-        $data=db_bills::where($sql)
-            ->join('wallet','bills.id_wallet','=','wallet.id')
-            ->select('bills.*','wallet.name as wallet_name')
+
+        $data = db_bills::where($sql)
+            ->join('wallet', 'bills.id_wallet', '=', 'wallet.id')
+            ->select('bills.*', 'wallet.name as wallet_name')
             ->get();
+
+
         $data = array(
             'clients' => $data,
             'total' => $data->sum('amount')
         );
 
-        return view('bill.index',$data);
+        return view('bill.index', $data);
     }
 
     /**
@@ -51,13 +56,13 @@ class billController extends Controller
     public function create()
     {
         $data = db_list_bills::all();
-        return view('bill.create',array('bills' => $data));
+        return view('bill.create', array('bills' => $data));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -65,7 +70,7 @@ class billController extends Controller
         $amount = $request->amount;
         $description = $request->description;
         $type = $request->type_bill;
-        $wallet = db_supervisor_has_agent::where('id_user_agent',Auth::id())->first();
+        $wallet = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first();
         $values = array(
             'description' => $description,
             'id_agent' => Auth::id(),
@@ -83,7 +88,7 @@ class billController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -94,7 +99,7 @@ class billController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -105,8 +110,8 @@ class billController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -117,7 +122,7 @@ class billController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
