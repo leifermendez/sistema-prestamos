@@ -7,6 +7,8 @@ Sistema de préstamos con roles de usuarios, desarrollado en Laravel + Blade. Pu
 #### Ver demo
 [DEMO](https://sistema-prestamos-youtube.herokuapp.com/login)
 
+> Los datos se borran automaticamente cada 60 minutos
+
 #### ¿Que puedo hacer con este sistema?
 
 Gestionar roles de usuarios:
@@ -64,6 +66,15 @@ php artisan migrate
 ```
 ```cmd
 php artisan db:seed
+```
+
+Optimiza el funcionamiento de las fechas estableciendo tu zona horaria [Ver zonas horarias](https://www.php.net/manual/es/timezones.php)
+
+__config/app.php__
+```php
+    ....
+    'timezone' => 'Europe/Madrid',
+    ....
 ```
 
 ### Usurios
