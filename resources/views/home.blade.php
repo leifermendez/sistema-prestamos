@@ -287,14 +287,16 @@
                         </div>
 
                         <div class="col-12 row m-0 p-0">
-                            <hr>
-                            <h5 class="font-weight-bold p-3">Agente</h5>
+                            <div class="d-block col-12">
+                                <h6 class="font-weight-bold p-1">Agente</h6>
+                            </div>
                             @yield('agent-section')
                             <hr>
                         </div>
                         <div class="col-12 row m-0 p-0">
-                            <hr>
-                            <h5>Supervisor</h5>
+                            <div class="d-block col-12">
+                                <h6 class="font-weight-bold p-1">Supervisor</h6>
+                            </div>
                             @yield('supervisor-section')
                             <hr>
 
