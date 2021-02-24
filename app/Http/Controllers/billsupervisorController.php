@@ -21,63 +21,56 @@ class billsupervisorController extends Controller
     {
         $date_star = $request->date_start;
         $date_end = $request->date_end;
+        $category = $request->category;
 
-        if (isset($date_star) && ($date_end)) {
-            $data = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
-                ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
-                ->join('bills', 'wallet.id', '=', 'bills.id_wallet')
-                ->join('list_bill', 'bills.type', '=', 'list_bill.id')
-                ->join('users', 'bills.id_agent', '=', 'users.id')
-                ->where('bills.created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_star)->toDateString())
-                ->where('bills.created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString())
-                ->select(
-                    'bills.created_at as created_at',
-                    'wallet.name as wallet_name',
-                    'bills.type as type',
-                    'bills.description',
-                    'list_bill.name as category_name',
-                    'users.name as user_name',
-                    DB::raw('SUM(bills.amount) as amount')
-                )
-                ->groupBy('bills.id')
-                ->get();
-            $sum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
-                ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
-                ->join('bills', 'wallet.id', '=', 'bills.id_wallet')
-                ->where('bills.created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_star)->toDateString())
-                ->where('bills.created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString())
-                ->sum('bills.amount');
-            $data = array(
-                'clients' => $data,
-                'sum' => $sum
-            );
-        } else {
-            $data = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
-                ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
-                ->join('bills', 'wallet.id', '=', 'bills.id_wallet')
-                ->join('list_bill', 'bills.type', '=', 'list_bill.id')
-                ->join('users', 'bills.id_agent', '=', 'users.id')
-                ->select(
-                    'bills.created_at as created_at',
-                    'wallet.name as wallet_name',
-                    'bills.type as type',
-                    'bills.description',
-                    'list_bill.name as category_name',
-                    'users.name as user_name',
-                    DB::raw('SUM(bills.amount) as amount')
-                )
-                ->groupBy('bills.id')
-                ->get();
+        $list_categories = db_list_bills::all();
 
-            $sum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
-                ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
-                ->join('bills', 'wallet.id', '=', 'bills.id_wallet')
-                ->sum('bills.amount');
-            $data = array(
-                'clients' => $data,
-                'sum' => $sum
+        $ormQry = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
+            ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
+            ->join('bills', 'wallet.id', '=', 'bills.id_wallet')
+            ->join('list_bill', 'bills.type', '=', 'list_bill.id')
+            ->join('users', 'bills.id_agent', '=', 'users.id')
+            ->select(
+                'bills.created_at as created_at',
+                'wallet.name as wallet_name',
+                'bills.type as type',
+                'bills.description',
+                'list_bill.name as category_name',
+                'users.name as user_name',
+                DB::raw('SUM(bills.amount) as amount')
             );
+
+        $ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
+            ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
+            ->join('bills', 'wallet.id', '=', 'bills.id_wallet');
+
+        if (isset($date_star)) {
+            $ormQry = $ormQry->where('bills.created_at', '>=',
+                Carbon::createFromFormat('d/m/Y', $date_star)->toDateString());
+            $ormSum = $ormSum
+                ->where('bills.created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_star)->toDateString());
         }
+
+        if (isset($date_end)) {
+            $ormQry = $ormQry->where('bills.created_at', '<=',
+                Carbon::createFromFormat('d/m/Y', $date_end)->toDateString());
+            $ormSum = $ormSum
+                ->where('bills.created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString());
+        }
+
+        if (isset($category)) {
+            $ormQry = $ormQry->where('bills.type', $category);
+        }
+        $sum = $ormSum->sum('bills.amount');
+
+        $data = $ormQry->groupBy('bills.id')->get();
+
+
+        $data = array(
+            'clients' => $data,
+            'sum' => $sum,
+            'list_categories' => $list_categories,
+        );
 
 
         return view('supervisor_bill.index', $data);

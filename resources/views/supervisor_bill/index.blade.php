@@ -13,11 +13,21 @@
                             <form class="form-inline" method="GET" {{url('supervisor/bill')}}>
                                 <div class="form-group">
                                     <label for="email">Feacha Inicio:</label>
-                                    <input type="text" class="form-control datepicker-trigger" name="date_start" id="date_start">
+                                    <input type="text" required class="form-control datepicker-trigger" name="date_start" id="date_start">
                                 </div>
+
                                 <div class="form-group">
                                     <label for="pwd">Fecha Final:</label>
-                                    <input type="text" class="form-control datepicker-trigger" name="date_end" id="pwd">
+                                    <input type="text" required class="form-control datepicker-trigger" name="date_end" id="pwd">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Categoria:</label>
+                                    <select name="category" required id="" class="form-control">
+                                        @foreach($list_categories  as $category)
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                            <option value="">Todos</option>
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-success">Buscar</button>
                             </form>
