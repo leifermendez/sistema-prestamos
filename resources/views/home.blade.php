@@ -264,7 +264,57 @@
 
 @endsection
 
+@section('agent-resume')
+    <div class="col-12 pb-2">
+        <small>Los montos siguientes son el total del día actual</small>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <a href="{{url('client/create')}}">
+            <div class="widget stats-widget widget-resume">
+                <div class="widget-body clearfix h-100 bg-white">
+                    <div class="pull-left">
+                        <h3 class="widget-title text-dark">DISPONIBLE (CAJA)</h3>
+                        <h3 class="widget-title text-dark"><b>{{$base_agent}}</b></h3>
+                    </div>
+                    <span class="pull-right big-icon text-danger watermark"><i class="fa fa-arrow-down"></i></span>
+                </div>
+            </div><!-- .widget -->
+        </a>
 
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <a href="{{url('client/create')}}">
+            <div class="widget stats-widget widget-resume">
+                <div class="widget-body h-100 clearfix bg-white">
+                    <div class="pull-left">
+                        <h3 class="widget-title text-dark">RECAUDADO</h3>
+                        <h3 class="widget-title text-dark"><b>{{$total_summary}}</b></h3>
+                    </div>
+                    <span class="pull-right big-icon text-success watermark"><i class="fa fa-arrow-up"></i></span>
+                </div>
+            </div><!-- .widget -->
+        </a>
+
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <a href="{{url('client/create')}}">
+            <div class="widget stats-widget widget-resume">
+                <div class="widget-body h-100 clearfix bg-white">
+                    <div class="pull-left">
+                        <h3 class="widget-title text-dark">GASTOS</h3>
+                        <h3 class="widget-title text-dark"><b>{{$total_bill}}</b></h3>
+                    </div>
+                    <span class="pull-right big-icon text-warning watermark"><i class="fa fa-arrow-right"></i></span>
+                </div>
+            </div><!-- .widget -->
+        </a>
+
+    </div>
+    <div class="clearfix"></div>
+    <div class="row m-0 d-block col-12 pb-4">
+        <hr>
+    </div>
+@endsection
 
 @section('content')
     <main id="app-main" class="app-main in">
@@ -272,6 +322,7 @@
             <section class="app-content">
                 @if(in_array(Auth::user()->level,['agent']))
                     <div class="row">
+                        @yield('agent-resume')
                         @yield('agent-section')
                     </div>
 

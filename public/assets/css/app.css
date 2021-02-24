@@ -11,6 +11,15 @@ body {
     padding: 0 !important;
 }
 
+.widget {
+    box-shadow: 0 0px 15px #4343430a !important;
+    border: solid 2px #ffffff99;
+}
+
+.widget-resume {
+    background-color: transparent !important;
+}
+
 .hamburger {
     padding: 0 0;
     display: inline-block;
@@ -2283,7 +2292,9 @@ body.menubar-top .menubar.dark .app-menu .submenu {
 .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
     background-color: transparent;
 }
-
+.navbar-header{
+    height: 4rem;
+}
 @media (max-width: 767px) {
     .navbar-inverse .navbar-collapse {
         background: #fff;

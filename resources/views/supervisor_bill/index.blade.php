@@ -27,9 +27,10 @@
                                 <tr class="visible-lg">
                                     <th>Fecha</th>
                                     <th>Cartera</th>
-
                                     <th>Valor</th>
                                     <th>Detalle</th>
+                                    <th>Categoría</th>
+                                    <th>Agente</th>
                                 </tr>
                                 @foreach($clients as $client)
                                     <tr>
@@ -38,6 +39,8 @@
 
                                         <td>{{$client->amount}}</td>
                                         <td>{{$client->description}}</td>
+                                        <td>{{$client->category_name}}</td>
+                                        <td>{{$client->user_name}}</td>
                                     </tr>
                                 @endforeach
 

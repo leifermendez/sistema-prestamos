@@ -43,6 +43,7 @@ class userController extends Controller
             }
 
         }
+
         $user_has_agent = array(
             'clients' => $user_has_agent,
         );

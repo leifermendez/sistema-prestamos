@@ -33,10 +33,11 @@
                                     </tr>
                                 @endforeach
 
-                                </tbody></table>
-                                <footer class="widget-footer">
-                                    <p><b>Total: </b><span class="text-success">{{$total_credit}}</span></p>
-                                </footer>
+                                </tbody>
+                            </table>
+                            <footer class="widget-footer">
+                                <p><b>Total: </b><span class="text-success">{{$total_credit}}</span></p>
+                            </footer>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
@@ -65,7 +66,8 @@
                                     </tr>
                                 @endforeach
 
-                                </tbody></table>
+                                </tbody>
+                            </table>
                             <footer class="widget-footer">
                                 <p><b>Total: </b><span class="text-success">{{$total_summary}}</span></p>
                             </footer>
@@ -91,7 +93,8 @@
                                     </tr>
                                 @endforeach
 
-                                </tbody></table>
+                                </tbody>
+                            </table>
                             <footer class="widget-footer">
                                 <p><b>Total: </b><span class="text-success">{{$total_bills}}</span></p>
                             </footer>
