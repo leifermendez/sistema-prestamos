@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\db_agent_has_user;
 use App\db_credit;
+use App\db_summary;
 use App\db_supervisor_has_agent;
 use App\User;
 use Carbon\Carbon;
@@ -40,6 +41,18 @@ class userController extends Controller
                 $user->closed = db_credit::where('status', 'close')->where('id_user', $user->id)->count();
                 $user->inprogress = db_credit::where('status', 'inprogress')->where('id_user', $user->id)->count();
                 $user->credit_count = db_credit::where('id_user', $user->id)->count();
+                $user->amount_net = db_credit::where('id_user', $user->id)
+                    ->where('status', 'inprogress')
+                    ->first();
+
+                $user->summary_net = db_summary::where('id_credit', $user->amount_net->id)
+                    ->sum('amount');
+
+                $tmp_credit = $user->amount_net->amount_neto ?? 0;
+
+                $tmp_rest = $tmp_credit - $user->summary_net;
+
+
             }
 
         }
@@ -47,6 +60,7 @@ class userController extends Controller
         $user_has_agent = array(
             'clients' => $user_has_agent,
         );
+//        dd($user_has_agent);
         return view('client.index', $user_has_agent);
     }
 

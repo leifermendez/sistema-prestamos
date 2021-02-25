@@ -18,6 +18,8 @@
                                     <th>Total</th>
                                     <th>Pagados</th>
                                     <th>Vigentes</th>
+                                    <th>Monto Prestado</th>
+                                    <th>Monto Restante</th>
                                     <th>Tipo</th>
                                     <th>Accion</th>
                                 </tr>
@@ -31,6 +33,8 @@
                                         <td><span class="value">{{$client->credit_count}}</span></td>
                                         <td><span class="value">{{$client->closed}}</span></td>
                                         <td><span class="value">{{$client->inprogress}}</span></td>
+                                        <td><span class="value">{{isset($client->amount_net) ? $client->amount_net->amount_neto : 0}}</span></td>
+                                        <td><span class="value">{{$client->summary_net}}</span></td>
                                         <td>
                                             @if($client->status=='good')
                                                 <span class="badge-info badge">BUENO</span>
