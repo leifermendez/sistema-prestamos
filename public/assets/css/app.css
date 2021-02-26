@@ -2270,6 +2270,19 @@ body.menubar-top .menubar.dark .app-menu .submenu {
     background-color: #3b3e47;
 }
 
+.form-control{
+    border-color: #ebebeb !important;
+    background-color: #fbfbfb !important;
+    border-radius: .15rem !important;
+}
+
+
+.map-google{
+    height: 20rem;
+    width: 100%;
+    background: lightgray;
+}
+
 .navbar {
     border: none;
     opacity: 0;

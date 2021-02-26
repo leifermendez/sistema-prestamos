@@ -29,7 +29,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="address">Direccion:</label>
-                                        <input type="text" name="address"  value="{{isset($user) ? $user->address : ''}}"  class="form-control" id="address" required>
+                                        <input type="text" name="address"  value="{{isset($user) ? $user->address : ''}}" placeholder=""  class="form-control g-autoplaces-address" id="address" required>
+                                    </div>
+                                    <div class="form-group d-none over-change-display">
+                                        <label for="address">Mapa:</label>
+                                        <div id="map" class="map-google"></div>
                                     </div>
                                     <div class="form-group">
                                         <label for="province">Barrio:</label>
