@@ -108,6 +108,8 @@ function initialize() {
 
 function toggleBounce(event){
 	// initMap({lat:event.latLng.lat(), lng:event.latLng.lng()})
+	$('body .new-register #lat').val(event.latLng.lat());
+	$('body .new-register #lng').val(event.latLng.lng());
 
 }
 
@@ -125,6 +127,9 @@ function initMap({lat, lng}) {
         map: map,
         draggable: true
     });
+
+	$('body .new-register #lat').val(lat);
+	$('body .new-register #lng').val(lng);
 
 	marker.addListener("dragend", toggleBounce);
 }

@@ -36,6 +36,8 @@ class CreateUsersTable extends Migration
             $table->string('phone', 45)->nullable()->default(null);
             $table->string('nit', 45)->nullable()->default(null);
             $table->enum('status', ['bad', 'good'])->nullable()->default('good');
+            $table->text('lng')->nullable()->default(null);
+            $table->text('lat')->nullable()->default(null);
             $table->text('country')->nullable()->default(null);
             $table->nullableTimestamps();
         });

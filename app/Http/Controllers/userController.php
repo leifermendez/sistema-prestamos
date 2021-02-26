@@ -101,6 +101,8 @@ class userController extends Controller
         $utility = $request->utility;
         $payment_number = $request->payment_number;
         $amount = $request->amount;
+        $lat = $request->lat;
+        $lng = $request->lng;
 
         $redirect_error = '/client?msg=Fields_Null&status=error';
         if (!isset($name)) {
@@ -150,6 +152,8 @@ class userController extends Controller
             'province' => strtoupper($province),
             'phone' => $phone,
             'password' => Str::random(5),
+            'lat' => $lat,
+            'lng' => $lng,
             'nit' => $nit
         );
 
