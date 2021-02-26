@@ -52,6 +52,8 @@ class userController extends Controller
 
                 $tmp_rest = $tmp_credit - $user->summary_net;
 
+                $user->summary_net = $tmp_rest;
+
 
             }
 
