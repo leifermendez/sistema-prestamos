@@ -46,6 +46,10 @@
                                         <td>
                                             <a href="{{url('client/create')}}?id={{$client->id}}" class="btn btn-success btn-xs">Venta</a>
                                             <a href="{{url('client')}}/{{$client->id}}" class="btn btn-info btn-xs">Datos</a>
+                                            @if(isset($client->lat) && isset($client->lng))
+                                                <a href="http://www.google.com/maps/place/{{$client->lat}},{{$client->lng}}" target="_blank" class="btn btn-info btn-xs">Ver Mapa</a>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach

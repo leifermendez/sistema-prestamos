@@ -45,8 +45,8 @@ class userController extends Controller
                     ->where('status', 'inprogress')
                     ->first();
 
-                $user->summary_net = db_summary::where('id_credit', $user->amount_net->id)
-                    ->sum('amount');
+                $user->summary_net = ($user->amount_net) ? db_summary::where('id_credit', $user->amount_net->id)
+                    ->sum('amount') : 0;
 
                 $tmp_credit = $user->amount_net->amount_neto ?? 0;
 
