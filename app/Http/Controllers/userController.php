@@ -33,9 +33,17 @@ class userController extends Controller
 
     public function index()
     {
+        $user_current = Auth::user();
+
         $user_has_agent = db_agent_has_user::where('id_agent', Auth::id())
             ->join('users', 'id_client', '=', 'users.id')
             ->get();
+
+        if ($user_current->level === 'admin') {
+            $user_has_agent = db_agent_has_user::join('users', 'id_client', '=', 'users.id')
+                ->get();
+        }
+
         foreach ($user_has_agent as $user) {
             if (db_credit::where('id_user', $user->id)->exists()) {
                 $user->closed = db_credit::where('status', 'close')->where('id_user', $user->id)->count();

@@ -78,6 +78,14 @@ __config/app.php__
     ....
 ```
 
+__NOTA:__ Recuerda para un optimo funcionamiento en modo PRODUCCION en el archivo `.env` establece
+ los siguientes valores de esta manera se desactiva los logs.
+```
+APP_ENV=production
+APP_DEBUG=false
+```
+
+
 ### Usurios
 Luego de correr con exito la migracion y los seeders, el sistema crea varios usuarios para comenzar a probar
 

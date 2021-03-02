@@ -48,7 +48,7 @@ class HomeController extends Controller
             ->groupBy('summary.id')
             ->get();
 
-        $base = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base;
+        $base = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base ?? 0;
         $base_credit = db_credit::whereDate('created_at', Carbon::now()->toDateString())
             ->where('id_agent', Auth::id())
             ->sum('amount_neto');
