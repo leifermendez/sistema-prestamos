@@ -18,15 +18,15 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/cron', 'closeController@close_automatic');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('client', 'userController');
-Route::resource('payment', 'paymentController');
-Route::resource('summary', 'summaryController');
-Route::resource('simulator', 'simulatorController');
-Route::resource('route', 'routeController');
-Route::resource('history', 'historyController');
-Route::resource('transaction', 'transactionController');
-Route::resource('bill', 'billController');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::resource('client', 'userController')->middleware('auth');
+Route::resource('payment', 'paymentController')->middleware('auth');
+Route::resource('summary', 'summaryController')->middleware('auth');
+Route::resource('simulator', 'simulatorController')->middleware('auth');
+Route::resource('route', 'routeController')->middleware('auth');
+Route::resource('history', 'historyController')->middleware('auth');
+Route::resource('transaction', 'transactionController')->middleware('auth');
+Route::resource('bill', 'billController')->middleware('auth');
 
 Route::prefix('supervisor')->group(function () {
     Route::resource('agent', 'agentController');
@@ -52,7 +52,9 @@ Route::prefix('supervisor')->group(function () {
         Route::resource('done', 'subDoneController');
     });
 });
-Route::prefix('admin')->group(function () {
+
+Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::resource('user', 'adminUserController');
+    Route::resource('session', 'sessionController');
     Route::resource('route', 'adminRouteController');
 });

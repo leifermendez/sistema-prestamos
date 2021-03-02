@@ -15,12 +15,7 @@ class adminUserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(function ($request, $next) {
-            if (Auth::user()->level != 'admin') {
-                die('No tienes permisos');
-            }
-            return $next($request);
-        });
+
     }
 
     /**

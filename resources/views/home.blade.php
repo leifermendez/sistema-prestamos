@@ -337,21 +337,21 @@
                             <hr>
                         </div>
 
-                        <div class="col-12 row m-0 p-0">
-                            <div class="d-block col-12">
-                                <h6 class="font-weight-bold p-1">Agente</h6>
-                            </div>
-                            @yield('agent-section')
-                            <hr>
-                        </div>
-                        <div class="col-12 row m-0 p-0">
-                            <div class="d-block col-12">
-                                <h6 class="font-weight-bold p-1">Supervisor</h6>
-                            </div>
-                            @yield('supervisor-section')
-                            <hr>
+{{--                        <div class="col-12 row m-0 p-0">--}}
+{{--                            <div class="d-block col-12">--}}
+{{--                                <h6 class="font-weight-bold p-1">Agente</h6>--}}
+{{--                            </div>--}}
+{{--                            @yield('agent-section')--}}
+{{--                            <hr>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-12 row m-0 p-0">--}}
+{{--                            <div class="d-block col-12">--}}
+{{--                                <h6 class="font-weight-bold p-1">Supervisor</h6>--}}
+{{--                            </div>--}}
+{{--                            @yield('supervisor-section')--}}
+{{--                            <hr>--}}
 
-                        </div>
+{{--                        </div>--}}
 
 
                     </div>
