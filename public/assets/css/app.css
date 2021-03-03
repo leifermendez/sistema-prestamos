@@ -2270,14 +2270,14 @@ body.menubar-top .menubar.dark .app-menu .submenu {
     background-color: #3b3e47;
 }
 
-.form-control{
+.form-control {
     border-color: #ebebeb !important;
     background-color: #fbfbfb !important;
     border-radius: .15rem !important;
 }
 
 
-.map-google{
+.map-google {
     height: 20rem;
     width: 100%;
     background: lightgray;
@@ -2302,12 +2302,25 @@ body.menubar-top .menubar.dark .app-menu .submenu {
     color: #fff;
 }
 
+.section-session {
+    background: #ffffff;
+    padding: .25rem;
+    font-size: .85rem;
+    text-align: center;
+    font-weight: 500;
+    display: flex;
+    border-bottom: solid 1px #e2e2e2;
+    justify-content: center;
+}
+
 .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
     background-color: transparent;
 }
-.navbar-header{
+
+.navbar-header {
     height: 4rem;
 }
+
 @media (max-width: 767px) {
     .navbar-inverse .navbar-collapse {
         background: #fff;

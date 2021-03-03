@@ -41,7 +41,7 @@ Route::prefix('supervisor')->group(function () {
     Route::resource('summary', 'supervisorSummaryController');
 
     /*-----Sub Menu-----*/
-    Route::prefix('menu')->group(function () {
+    Route::prefix('menu')->middleware(['auth'])->group(function () {
         Route::resource('history', 'subHistoryController');
         Route::resource('transitions', 'subTransitionsController');
         Route::resource('route', 'subRouteController');
@@ -53,8 +53,17 @@ Route::prefix('supervisor')->group(function () {
     });
 });
 
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::resource('session', 'sessionController')->only([
+        'store'
+    ]);
+});
+
+
 Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::resource('user', 'adminUserController');
-    Route::resource('session', 'sessionController');
+    Route::resource('session', 'sessionController')->only([
+        'update'
+    ]);
     Route::resource('route', 'adminRouteController');
 });

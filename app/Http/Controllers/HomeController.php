@@ -25,9 +25,10 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $data_summary = db_summary::whereDate('summary.created_at',
             Carbon::now()->toDateString())
@@ -71,7 +72,7 @@ class HomeController extends Controller
         $data = [
             'base_agent' => $base,
             'total_bill' => $bill->sum('amount'),
-            'total_summary' => $total_summary,
+            'total_summary' => $total_summary
         ];
 
         return view('home',$data);

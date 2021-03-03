@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Crypt;
 
 class sessionController extends Controller
 {
@@ -35,7 +38,12 @@ class sessionController extends Controller
      */
     public function store(Request $request)
     {
-
+        $cookie = Cookie::get('forward_session');
+        $decrypted = Crypt::decryptString($cookie);
+        $parse_decrypted= explode('-',$decrypted);
+        $user = $parse_decrypted[0];
+        Auth::loginUsingId($user);
+        return redirect('/')->cookie('forward_session', '', -1);
     }
 
     /**
@@ -71,7 +79,9 @@ class sessionController extends Controller
     {
         $current = Auth::id();
         Auth::loginUsingId($id);
-        return redirect('/')->cookie('forward_session', $current, 15);
+        $time = Carbon::now()->addMinutes(30)->timestamp;
+        $token_session = Crypt::encryptString($current.'-'.$time);
+        return redirect('/')->cookie('forward_session', $token_session, 30);
     }
 
     /**

@@ -274,7 +274,7 @@
                 <div class="widget-body clearfix h-100 bg-white">
                     <div class="pull-left">
                         <h3 class="widget-title text-dark">DISPONIBLE (CAJA)</h3>
-                        <h3 class="widget-title text-dark"><b>{{$base_agent}}</b></h3>
+                        <h3 class="widget-title text-dark"><b>{{$base_agent - $total_bill}}</b></h3>
                     </div>
                     <span class="pull-right big-icon text-danger watermark"><i class="fa fa-arrow-down"></i></span>
                 </div>
@@ -283,7 +283,7 @@
 
     </div>
     <div class="col-md-4 col-sm-6">
-        <a href="{{url('client/create')}}">
+        <a href="{{url('transaction')}}">
             <div class="widget stats-widget widget-resume">
                 <div class="widget-body h-100 clearfix bg-white">
                     <div class="pull-left">
@@ -297,7 +297,7 @@
 
     </div>
     <div class="col-md-4 col-sm-6">
-        <a href="{{url('client/create')}}">
+        <a href="{{url('bill')}}">
             <div class="widget stats-widget widget-resume">
                 <div class="widget-body h-100 clearfix bg-white">
                     <div class="pull-left">

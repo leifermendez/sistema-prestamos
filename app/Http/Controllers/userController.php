@@ -57,10 +57,10 @@ class userController extends Controller
                     ->sum('amount') : 0;
 
                 $tmp_credit = $user->amount_net->amount_neto ?? 0;
-
                 $tmp_rest = $tmp_credit - $user->summary_net;
-
                 $user->summary_net = $tmp_rest;
+
+                $user->gap_credit = $tmp_credit * $user->amount_net->utility;
 
 
             }
