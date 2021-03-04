@@ -2321,6 +2321,18 @@ body.menubar-top .menubar.dark .app-menu .submenu {
     height: 4rem;
 }
 
+.ui-datepicker-prev .ui-icon {
+    background-image: url("../images/angle-double-left.svg") !important;
+    background-size: contain;
+    background-position: center;
+}
+
+.ui-datepicker-next .ui-icon {
+    background-image: url("../images/angle-double-right.svg") !important;
+    background-size: contain;
+    background-position: center;
+}
+
 @media (max-width: 767px) {
     .navbar-inverse .navbar-collapse {
         background: #fff;

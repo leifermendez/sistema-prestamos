@@ -106,9 +106,15 @@ class subTransitionsController extends Controller
         }
 
         $data_bill = db_bills::whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
+            ->join('list_bill','bills.type','=','list_bill.id')
             ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
             ->where('id_wallet',$id)
+            ->select(
+                'bills.*',
+                'list_bill.name as type_bill'
+            )
             ->get();
+
 
         $data = array(
             'summary' => $data_summary,
