@@ -37,7 +37,7 @@ class subCloseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,49 +48,53 @@ class subCloseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show(Request $request, $id)
     {
 
         $id_wallet = $id;
         $date_start = $request->date_start;
 
-        if(!isset($date_start)){return 'Fecha inicial vacia';};
-        if(!db_supervisor_has_agent::where('id_wallet',$id_wallet)->exists()){
+        if (!isset($date_start)) {
+            return 'Fecha inicial vacia';
+        };
+        if (!db_supervisor_has_agent::where('id_wallet', $id_wallet)->exists()) {
             return 'No existe agente con esta ruta';
         }
 
-        $data_agent = db_supervisor_has_agent::where('id_wallet',$id_wallet)->first();
-        if(!isset($id_wallet)){return 'ID wallet vacio';};
+        $data_agent = db_supervisor_has_agent::where('id_wallet', $id_wallet)->first();
+        if (!isset($id_wallet)) {
+            return 'ID wallet vacio';
+        };
 
 
-        $today_amount = db_summary::whereDate('created_at',  Carbon::createFromFormat('d/m/Y', $date_start)
+
+        $today_amount = db_summary::whereDate('created_at', Carbon::createFromFormat('d/m/Y', $date_start)
             ->toDateString())
-            ->where('id_agent',$data_agent->id_user_agent)
+            ->where('id_agent', $data_agent->id_user_agent)
             ->sum('amount');
 
-        $today_sell = db_credit::whereDate('created_at',Carbon::createFromFormat('d/m/Y', $date_start)
+        $today_sell = db_credit::whereDate('created_at', Carbon::createFromFormat('d/m/Y', $date_start)
             ->toDateString())
-            ->where('id_agent',$data_agent->id_user_agent)
+            ->where('id_agent', $data_agent->id_user_agent)
             ->sum('amount_neto');
 
-        $bills = db_bills::whereDate('created_at',Carbon::createFromFormat('d/m/Y', $date_start)
+        $bills = db_bills::whereDate('created_at', Carbon::createFromFormat('d/m/Y', $date_start)
             ->toDateString())
-            ->where('id_agent',$data_agent->id_user_agent)
+            ->where('id_agent', $data_agent->id_user_agent)
             ->sum('amount');
 
         $base_amount = false;
-        if(db_close_day::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
-            ->where('id_supervisor',Auth::id())
-            ->exists()){
-            $base_amount = db_close_day::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())->first()->base_before;
+        if (db_close_day::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
+            ->where('id_supervisor', Auth::id())
+            ->exists()) {
+            $base_amount = db_close_day::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())->first()->base_before;
         }
 
-        $total = floatval($base_amount+$today_amount)-floatval($today_sell+$bills);
+        $total = floatval($base_amount + $today_amount) - floatval($today_sell + $bills);
         $average = 1000;
-
 
 
         $data = array(
@@ -103,13 +107,13 @@ class subCloseController extends Controller
             'id_wallet' => $id
         );
 
-        return view('submenu.close.show',$data);
+        return view('submenu.close.show', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -120,8 +124,8 @@ class subCloseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -132,7 +136,7 @@ class subCloseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

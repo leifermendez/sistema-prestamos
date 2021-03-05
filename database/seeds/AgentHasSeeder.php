@@ -17,12 +17,6 @@ class AgentHasSeeder extends Seeder
         $this->faker = $faker = Faker\Factory::create();
         $tests = array(
             [
-                'id_user_agent' => '1',
-                'id_supervisor' => '1',
-                'id_wallet' => '1',
-                'base' => '100000'
-            ],
-            [
                 'id_user_agent' => '3',
                 'id_supervisor' => '2',
                 'id_wallet' => '1',

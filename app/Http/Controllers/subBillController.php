@@ -56,6 +56,7 @@ class subBillController extends Controller
         }
 
         $data_agent = db_supervisor_has_agent::where('id_wallet',$id)->first();
+//        dd($data_agent);
         $sql = array(
             ['id_agent','=',$data_agent->id_user_agent]
         );

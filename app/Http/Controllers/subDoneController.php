@@ -22,17 +22,25 @@ class subDoneController extends Controller
         $date_end = $request->date_end;
         $id_wallet = $request->id_wallet;
 
-        if(!isset($date_start)){return 'Fecha Inicio';};
-        if(!isset($date_end)){return 'Fecha Final';};
-        if(!isset($id_wallet)){return 'ID wallet';};
-        if(!db_supervisor_has_agent::where('id_wallet',$id_wallet)->exists()){return 'No existe relacion wallet';};
-        $id_agent = db_supervisor_has_agent::where('id_wallet',$id_wallet)->first();
+        if (!isset($date_start)) {
+            return 'Fecha Inicio';
+        };
+        if (!isset($date_end)) {
+            return 'Fecha Final';
+        };
+        if (!isset($id_wallet)) {
+            return 'ID wallet';
+        };
+        if (!db_supervisor_has_agent::where('id_wallet', $id_wallet)->exists()) {
+            return 'No existe relacion wallet';
+        };
+        $id_agent = db_supervisor_has_agent::where('id_wallet', $id_wallet)->first();
 
-        $data = db_credit::whereDate('credit.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
-            ->whereDate('credit.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
-            ->where('id_agent',$id_agent->id_user_agent)
-            ->where('credit.status','=','close')
-            ->join('users','credit.id_user','=','users.id')
+        $data = db_credit::whereDate('credit.created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
+            ->whereDate('credit.created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString())
+            ->where('id_agent', $id_agent->id_user_agent)
+            ->where('credit.status', '=', 'close')
+            ->join('users', 'credit.id_user', '=', 'users.id')
             ->select('credit.id as credit_id',
                 'users.name',
                 'users.last_name',
@@ -42,14 +50,16 @@ class subDoneController extends Controller
                 'credit.payment_number')
             ->get();
 
-        foreach ($data as $datum){
-            $datum->summary_lasted = db_summary::where('id_credit',$datum->credit_id)
-                ->orderBy('id','desc')
+
+
+        foreach ($data as $datum) {
+            $datum->summary_lasted = db_summary::where('id_credit', $datum->credit_id)
+                ->orderBy('id', 'desc')
                 ->first()->created_at;
-            $datum->summary_amount = db_summary::where('id_credit',$datum->credit_id)
-                ->orderBy('id','desc')
+            $datum->summary_amount = db_summary::where('id_credit', $datum->credit_id)
+                ->orderBy('id', 'desc')
                 ->first()->amount;
-            $datum->summary_number_pay=db_summary::where('id_credit',$datum->credit_id)
+            $datum->summary_number_pay = db_summary::where('id_credit', $datum->credit_id)
                 ->count();
         }
 
@@ -60,7 +70,7 @@ class subDoneController extends Controller
             'id_wallet' => $id_wallet
         );
 
-        return view('submenu.done.index',$data);
+        return view('submenu.done.index', $data);
     }
 
     /**
@@ -76,7 +86,7 @@ class subDoneController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -87,18 +97,18 @@ class subDoneController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return view('submenu.done.create',array('id_wallet'=>$id));
+        return view('submenu.done.create', array('id_wallet' => $id));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -109,8 +119,8 @@ class subDoneController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -121,7 +131,7 @@ class subDoneController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

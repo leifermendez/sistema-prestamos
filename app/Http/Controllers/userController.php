@@ -44,6 +44,7 @@ class userController extends Controller
                 ->get();
         }
 
+
         foreach ($user_has_agent as $user) {
             if (db_credit::where('id_user', $user->id)->exists()) {
                 $user->closed = db_credit::where('status', 'close')->where('id_user', $user->id)->count();
@@ -60,7 +61,10 @@ class userController extends Controller
                 $tmp_rest = $tmp_credit - $user->summary_net;
                 $user->summary_net = $tmp_rest;
 
-                $user->gap_credit = $tmp_credit * $user->amount_net->utility;
+
+                if($user->amount_net){
+                    $user->gap_credit = $tmp_credit * $user->amount_net->utility;
+                }
 
 
             }
