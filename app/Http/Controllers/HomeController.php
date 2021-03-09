@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\db_bills;
+use App\db_close_day;
 use App\db_credit;
 use App\db_summary;
 use App\db_supervisor_has_agent;
@@ -49,6 +50,10 @@ class HomeController extends Controller
             ->groupBy('summary.id')
             ->get();
 
+        $close_day = db_close_day::whereDate('created_at', Carbon::now()->toDateString())
+            ->where('id_agent', Auth::id())
+            ->first();
+
         $base = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base ?? 0;
         $base_credit = db_credit::whereDate('created_at', Carbon::now()->toDateString())
             ->where('id_agent', Auth::id())
@@ -72,7 +77,8 @@ class HomeController extends Controller
         $data = [
             'base_agent' => $base,
             'total_bill' => $bill->sum('amount'),
-            'total_summary' => $total_summary
+            'total_summary' => $total_summary,
+            'close_day' => $close_day
         ];
 
         return view('home',$data);

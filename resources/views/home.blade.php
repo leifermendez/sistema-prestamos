@@ -274,7 +274,15 @@
                 <div class="widget-body clearfix h-100 bg-white">
                     <div class="pull-left">
                         <h3 class="widget-title text-dark">DISPONIBLE (CAJA)</h3>
-                        <h3 class="widget-title text-dark"><b>{{$base_agent - $total_bill}}</b></h3>
+                        <h3 class="widget-title text-dark">
+                            <b>{{$base_agent - $total_bill}}</b>
+                            @if($total_summary>0)
+                                <span>+</span>
+                                <span class=""> {{$total_summary}}</span>
+                                <span class="text-success">= {{($base_agent - $total_bill) + $total_summary}}</span>
+                            @endif
+
+                        </h3>
                     </div>
                     <span class="pull-right big-icon text-danger watermark"><i class="fa fa-arrow-down"></i></span>
                 </div>
@@ -318,50 +326,58 @@
 
 @section('content')
     <main id="app-main" class="app-main in">
+        <div class="close-wrapper"></div>
         <div class="wrap">
-            <section class="app-content">
-                @if(in_array(Auth::user()->level,['agent']))
-                    <div class="row">
-                        @yield('agent-resume')
-                        @yield('agent-section')
-                    </div>
-
-                @elseif(in_array(Auth::user()->level,['supervisor']))
-                    <div class="row">
-                        @yield('supervisor-section')
-                    </div>
-                @elseif(in_array(Auth::user()->level,['admin']))
-                    <div class="row">
-                        <div class="col-12 row m-0 p-0">
-                            @yield('admin-section')
-                            <hr>
+            @if(!$close_day)
+                <section class="app-content">
+                    @if(in_array(Auth::user()->level,['agent']))
+                        <div class="row">
+                            @yield('agent-resume')
+                            @yield('agent-section')
                         </div>
 
-{{--                        <div class="col-12 row m-0 p-0">--}}
-{{--                            <div class="d-block col-12">--}}
-{{--                                <h6 class="font-weight-bold p-1">Agente</h6>--}}
-{{--                            </div>--}}
-{{--                            @yield('agent-section')--}}
-{{--                            <hr>--}}
-{{--                        </div>--}}
-{{--                        <div class="col-12 row m-0 p-0">--}}
-{{--                            <div class="d-block col-12">--}}
-{{--                                <h6 class="font-weight-bold p-1">Supervisor</h6>--}}
-{{--                            </div>--}}
-{{--                            @yield('supervisor-section')--}}
-{{--                            <hr>--}}
+                    @elseif(in_array(Auth::user()->level,['supervisor']))
+                        <div class="row">
+                            @yield('supervisor-section')
+                        </div>
+                    @elseif(in_array(Auth::user()->level,['admin']))
+                        <div class="row">
+                            <div class="col-12 row m-0 p-0">
+                                @yield('admin-section')
+                                <hr>
+                            </div>
 
-{{--                        </div>--}}
+                            {{--                        <div class="col-12 row m-0 p-0">--}}
+                            {{--                            <div class="d-block col-12">--}}
+                            {{--                                <h6 class="font-weight-bold p-1">Agente</h6>--}}
+                            {{--                            </div>--}}
+                            {{--                            @yield('agent-section')--}}
+                            {{--                            <hr>--}}
+                            {{--                        </div>--}}
+                            {{--                        <div class="col-12 row m-0 p-0">--}}
+                            {{--                            <div class="d-block col-12">--}}
+                            {{--                                <h6 class="font-weight-bold p-1">Supervisor</h6>--}}
+                            {{--                            </div>--}}
+                            {{--                            @yield('supervisor-section')--}}
+                            {{--                            <hr>--}}
+
+                            {{--                        </div>--}}
 
 
+                        </div>
+                    @else
+                        <div>No tienes permisos</div>
+                    @endif
+                </section>
+            @else
+                <section class="app-content">
+                    <div class="col-12 text-center p-4">
+                        <b>Cierre del día realizado. Vuelve mañana</b>
                     </div>
-                @else
-                    <div>No tienes permisos</div>
-                @endif
-            </section><!-- #dash-content -->
-        </div><!-- .wrap -->
-        <!-- APP FOOTER -->
+                </section>
+            @endif
 
-        <!-- /#app-footer -->
+        </div>
+
     </main>
 @endsection
