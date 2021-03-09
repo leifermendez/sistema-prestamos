@@ -9,17 +9,13 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class adminUserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(function ($request, $next) {
-            if (Auth::user()->level != 'admin') {
-                die('No tienes permisos');
-            }
-            return $next($request);
-        });
+
     }
 
     /**
@@ -270,7 +266,7 @@ class adminUserController extends Controller
 
         User::where('id', $id)->update([
             'active_user' => 'disabled',
-            'password' => str_random(15),
+            'password' => Str::random(15),
         ]);
 
         return redirect('admin/user');

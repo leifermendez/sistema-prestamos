@@ -84,7 +84,7 @@
                                 </tr>
                                 @foreach($bills as $bill)
                                     <tr>
-                                        <td><span class="value">{{$bill->type}}</span></td>
+                                        <td><span class="value">{{$bill->type_bill}}</span></td>
                                         <td><span class="value">{{$bill->description}}</span></td>
                                         <td><span class="value">{{$bill->amount}}</span></td>
                                         <td><span class="value">{{$bill->created_at}}</span></td>

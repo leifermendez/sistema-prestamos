@@ -1,4 +1,5 @@
 ## Sistema de préstamos
+#### Actualizado
 
 Sistema de préstamos con roles de usuarios, desarrollado en Laravel + Blade. Puede gestionar bóvedas, rutas de cobro, agentes, supervisores, cierres de ruta, histórico de pagos, estadística de agente, reporte de gastos, perfil de cliente, entre otras cosas.
 
@@ -66,6 +67,8 @@ php artisan migrate
 ```
 ```cmd
 php artisan db:seed
+
+php artisan migrate:fresh --seed
 ```
 
 Optimiza el funcionamiento de las fechas estableciendo tu zona horaria [Ver zonas horarias](https://www.php.net/manual/es/timezones.php)
@@ -76,6 +79,14 @@ __config/app.php__
     'timezone' => 'Europe/Madrid',
     ....
 ```
+
+__NOTA:__ Recuerda para un optimo funcionamiento en modo PRODUCCION en el archivo `.env` establece
+ los siguientes valores de esta manera se desactiva los logs.
+```
+APP_ENV=production
+APP_DEBUG=false
+```
+
 
 ### Usurios
 Luego de correr con exito la migracion y los seeders, el sistema crea varios usuarios para comenzar a probar

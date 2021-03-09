@@ -21,57 +21,59 @@ class billsupervisorController extends Controller
     {
         $date_star = $request->date_start;
         $date_end = $request->date_end;
+        $category = $request->category;
 
-        if(isset($date_star) && ($date_end)){
-            $data = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor',Auth::id())
-                ->join('wallet','agent_has_supervisor.id_wallet','=','wallet.id')
-                ->join('bills','wallet.id','=','bills.id_wallet')
-                ->where('bills.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_star)->toDateString())
-                ->where('bills.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
-                ->select(
-                    'bills.created_at as created_at',
-                    'wallet.name as wallet_name',
-                    'bills.type as type',
-                    'bills.description',
-                    DB::raw('SUM(bills.amount) as amount')
-                )
-                ->groupBy('bills.id')
-                ->get();
-            $sum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor',Auth::id())
-                ->join('wallet','agent_has_supervisor.id_wallet','=','wallet.id')
-                ->join('bills','wallet.id','=','bills.id_wallet')
-                ->where('bills.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_star)->toDateString())
-                ->where('bills.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
-                ->sum('bills.amount');
-            $data = array(
-                'clients' => $data,
-                'sum' => $sum
+        $list_categories = db_list_bills::all();
+
+        $ormQry = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
+            ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
+            ->join('bills', 'wallet.id', '=', 'bills.id_wallet')
+            ->join('list_bill', 'bills.type', '=', 'list_bill.id')
+            ->join('users', 'bills.id_agent', '=', 'users.id')
+            ->select(
+                'bills.created_at as created_at',
+                'wallet.name as wallet_name',
+                'bills.type as type',
+                'bills.description',
+                'list_bill.name as category_name',
+                'users.name as user_name',
+                DB::raw('SUM(bills.amount) as amount')
             );
-        }else{
-            $data = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor',Auth::id())
-                ->join('wallet','agent_has_supervisor.id_wallet','=','wallet.id')
-                ->join('bills','wallet.id','=','bills.id_wallet')
-                ->select(
-                    'bills.created_at as created_at',
-                    'wallet.name as wallet_name',
-                    'bills.type as type',
-                    'bills.description',
-                    DB::raw('SUM(bills.amount) as amount')
-                )
-                ->groupBy('bills.id')
-                ->get();
-            $sum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor',Auth::id())
-                ->join('wallet','agent_has_supervisor.id_wallet','=','wallet.id')
-                ->join('bills','wallet.id','=','bills.id_wallet')
-                ->sum('bills.amount');
-            $data = array(
-                'clients' => $data,
-                'sum' => $sum
-            );
+
+        $ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
+            ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
+            ->join('bills', 'wallet.id', '=', 'bills.id_wallet');
+
+        if (isset($date_star)) {
+            $ormQry = $ormQry->where('bills.created_at', '>=',
+                Carbon::createFromFormat('d/m/Y', $date_star)->toDateString());
+            $ormSum = $ormSum
+                ->where('bills.created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_star)->toDateString());
         }
 
+        if (isset($date_end)) {
+            $ormQry = $ormQry->where('bills.created_at', '<=',
+                Carbon::createFromFormat('d/m/Y', $date_end)->toDateString());
+            $ormSum = $ormSum
+                ->where('bills.created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString());
+        }
 
-        return view('supervisor_bill.index',$data);
+        if (isset($category)) {
+            $ormQry = $ormQry->where('bills.type', $category);
+        }
+        $sum = $ormSum->sum('bills.amount');
+
+        $data = $ormQry->groupBy('bills.id')->get();
+
+
+        $data = array(
+            'clients' => $data,
+            'sum' => $sum,
+            'list_categories' => $list_categories,
+        );
+
+
+        return view('supervisor_bill.index', $data);
 
     }
 
@@ -82,8 +84,8 @@ class billsupervisorController extends Controller
      */
     public function create()
     {
-        $data = db_supervisor_has_agent::where('id_supervisor',Auth::id())
-            ->join('wallet','id_wallet','=','wallet.id')
+        $data = db_supervisor_has_agent::where('id_supervisor', Auth::id())
+            ->join('wallet', 'id_wallet', '=', 'wallet.id')
             ->get();
 
         $data = array(
@@ -91,13 +93,13 @@ class billsupervisorController extends Controller
             'list_bill' => db_list_bills::all(),
         );
 
-        return view('supervisor_bill.create',$data);
+        return view('supervisor_bill.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -106,9 +108,15 @@ class billsupervisorController extends Controller
         $amount = $request->amount;
         $bill = $request->bill;
         $description = $request->description;
-        if(!isset($id_wallet)){return 'ID wallet vacio';};
-        if(!isset($amount)){return 'Monto vacio';};
-        if(!isset($bill)){return 'Bill vacio';};
+        if (!isset($id_wallet)) {
+            return 'ID wallet vacio';
+        };
+        if (!isset($amount)) {
+            return 'Monto vacio';
+        };
+        if (!isset($bill)) {
+            return 'Bill vacio';
+        };
 
         $values = array(
             'created_at' => Carbon::now(),
@@ -127,7 +135,7 @@ class billsupervisorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -138,21 +146,21 @@ class billsupervisorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $data = db_bills::where('id',$id)->first();
+        $data = db_bills::where('id', $id)->first();
 
-        return view('submenu.bill.edit',$data);
+        return view('submenu.bill.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -162,38 +170,46 @@ class billsupervisorController extends Controller
         $description = $request->description;
         $id_wallet = $request->id_wallet;
 
-        if(!isset($type)){return 'Type ';};
-        if(!isset($amount)){ return 'Amount ';};
-        if(!isset($id_wallet)){ return 'ID wallet ';};
+        if (!isset($type)) {
+            return 'Type ';
+        };
+        if (!isset($amount)) {
+            return 'Amount ';
+        };
+        if (!isset($id_wallet)) {
+            return 'ID wallet ';
+        };
 
         $values = array(
-            'amount'=>$amount,
+            'amount' => $amount,
             'description' => $description,
             'type' => $type
         );
-        db_bills::where('id',$id)->update($values);
+        db_bills::where('id', $id)->update($values);
 
-        return redirect('supervisor/menu/edit/create?id_wallet='.$id_wallet);
+        return redirect('supervisor/menu/edit/create?id_wallet=' . $id_wallet);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
         $date_start = $request->date_start;
         $id_wallet = $request->id_wallet;
 
 
-        if(!isset($id)){return 'ID vacio';};
-        if(!db_bills::where('id',$id)->exists()){
+        if (!isset($id)) {
+            return 'ID vacio';
+        };
+        if (!db_bills::where('id', $id)->exists()) {
             return 'No existe ID';
         }
-        db_bills::where('id',$id)->delete();
+        db_bills::where('id', $id)->delete();
 
-        return redirect('supervisor/menu/edit/'.$id_wallet.'?date_start='.$date_start);
+        return redirect('supervisor/menu/edit/' . $id_wallet . '?date_start=' . $date_start);
     }
 }

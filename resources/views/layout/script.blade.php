@@ -19,9 +19,12 @@
 <script src="{{asset('/assets/js/dropzone.js')}}"></script>
 <script src="{{asset('/assets/js/datatable.js')}}"></script>
 
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env("GOOGLE_KEY") }}&libraries=places"></script>
+
+
 <script type="text/javascript">
     Dropzone.options.imageUpload = {
-        maxFilesize:1,
+        maxFilesize: 1,
         acceptedFiles: ".jpeg,.jpg,.png,.gif"
     };
 
@@ -34,15 +37,25 @@
                 "info": "",
                 "infoEmpty": "No hay registros",
                 "infoFiltered": "(filtered from _MAX_ total records)",
-                "search":  "Buscar:",
+                "search": "Buscar:",
                 "paginate": {
-                    "first":      "Primero",
-                    "last":       "Ultimo",
-                    "next":       "Siguiente",
-                    "previous":   "Anterior"
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
                 },
-                "order": [[ 1, "asc" ]]
+                "order": [[1, "asc"]]
             }
         }
     );
+
+    /**
+     * Script GOOGLE Autoplaces
+     */
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+
 </script>

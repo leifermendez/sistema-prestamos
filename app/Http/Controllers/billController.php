@@ -20,10 +20,16 @@ class billController extends Controller
     {
         $date_start = $request->date_start;
         $date_end = $request->date_end;
+        $category = $request->category;
+        $user_current = Auth::user();
+        $list_categories = db_list_bills::all();
+        $sql = [];
+        if ($user_current->level !== 'admin') {
+            $sql = array(
+                ['id_agent', '=', Auth::id()]
+            );
+        }
 
-        $sql = array(
-            ['id_agent', '=', Auth::id()]
-        );
         if (isset($date_start) && isset($date_end)) {
             $sql[] = ['bills.created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)];
             $sql[] = ['bills.created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)];
@@ -36,13 +42,24 @@ class billController extends Controller
 
         $data = db_bills::where($sql)
             ->join('wallet', 'bills.id_wallet', '=', 'wallet.id')
-            ->select('bills.*', 'wallet.name as wallet_name')
-            ->get();
+            ->join('list_bill', 'bills.type', '=', 'list_bill.id')
+            ->join('users', 'bills.id_agent', '=', 'users.id')
+            ->select('bills.*', 'wallet.name as wallet_name',
+                'list_bill.name as category_name',
+                'users.name as user_name'
+            );
+
+        if (isset($category)) {
+            $data = $data->where('bills.type', $category);
+        }
+
+        $data = $data->get();
 
 
         $data = array(
             'clients' => $data,
-            'total' => $data->sum('amount')
+            'total' => $data->sum('amount'),
+            'list_categories' => $list_categories
         );
 
         return view('bill.index', $data);

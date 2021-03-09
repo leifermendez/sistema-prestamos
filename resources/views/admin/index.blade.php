@@ -31,19 +31,29 @@
                                             <td>{{$client->supervisor}}</td>
                                             <td>
                                                 <form action="{{url('admin/user')}}/{{$client->id}}" method="POST"
-                                                      class="pull-left">
+                                                      class="pull-left px-1">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
                                                     <button type="submit" class="btn btn-danger btn-xs">Eliminar
                                                     </button>
                                                 </form>
 
+
+
                                                 <a href="{{url('admin/user')}}/{{$client->id}}/edit"
-                                                   class="btn btn-info btn-xs">Editar</a>
+                                                   class="btn btn-info btn-xs px-1">Editar</a>
                                                 @if($client->level == 'supervisor')
                                                     <a href="{{url('admin/user')}}/{{$client->id}}"
                                                        class="btn btn-warning btn-xs">Asignar agente</a>
                                                 @endif
+
+                                                <form action="{{url('admin/session')}}/{{$client->id}}" method="POST"
+                                                      class="pull-left px-1">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('PUT') }}
+                                                    <button type="submit" class="btn btn-inverse btn-xs">Session
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endif

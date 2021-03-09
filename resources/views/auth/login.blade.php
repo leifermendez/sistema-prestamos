@@ -72,7 +72,7 @@
                 </div>
             </form>
         </div>
-        <form class="hidden" action="#">
+        <form class="d-none" action="#">
             <div class="form-group">
                 <input id="sign-in-email" type="email" class="form-control" placeholder="Email">
             </div>

@@ -6,7 +6,7 @@
         <div class="wrap">
             <section class="app-content">
                 <div class="row">
-                    <div class="col-md-12 col-lg-8 col-lg-offset-2">
+                    <div class="col-md-12 col-lg-8 offset-lg-2">
                         <div class="widget">
                             <hr class="widget-separator">
                             <div class="widget-body">

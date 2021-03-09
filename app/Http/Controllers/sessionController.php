@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\db_countries;
-use App\db_supervisor_has_agent;
-use App\db_wallet;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Crypt;
 
-class reviewController extends Controller
+class sessionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,22 +27,7 @@ class reviewController extends Controller
      */
     public function create()
     {
-        $user_current = Auth::user();
-        $ormSqlWallet = db_supervisor_has_agent::join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
-            ->join('users', 'agent_has_supervisor.id_user_agent', '=', 'users.id')
-            ->select('wallet.*', 'users.name as user_name', 'users.id as user_id');
-
-        if($user_current->level !== 'admin'){
-            $ormSqlWallet = $ormSqlWallet->where('agent_has_supervisor.id_supervisor', Auth::id());
-        }
-
-        $data = array(
-            'wallet' => $ormSqlWallet->get(),
-            'agents' => db_supervisor_has_agent::where('id_supervisor', Auth::id())
-                ->join('users', 'id_user_agent', '=', 'users.id')->get(),
-            'countries' => db_countries::all(),
-        );
-        return view('supervisor_review.create', $data);
+        //
     }
 
     /**
@@ -53,7 +38,12 @@ class reviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cookie = Cookie::get('forward_session');
+        $decrypted = Crypt::decryptString($cookie);
+        $parse_decrypted= explode('-',$decrypted);
+        $user = $parse_decrypted[0];
+        Auth::loginUsingId($user);
+        return redirect('/')->cookie('forward_session', '', -1);
     }
 
     /**
@@ -64,7 +54,7 @@ class reviewController extends Controller
      */
     public function show($id)
     {
-        return view('supervisor_review.show', array('id' => $id));
+        //
     }
 
     /**
@@ -87,7 +77,11 @@ class reviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $current = Auth::id();
+        Auth::loginUsingId($id);
+        $time = Carbon::now()->addMinutes(30)->timestamp;
+        $token_session = Crypt::encryptString($current.'-'.$time);
+        return redirect('/')->cookie('forward_session', $token_session, 30);
     }
 
     /**

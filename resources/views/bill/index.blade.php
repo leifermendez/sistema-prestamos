@@ -18,7 +18,15 @@
                                     <label for="nit_number"> Fecha Final:</label>
                                     <input type="text" name="date_end"  class="form-control datepicker-trigger" id="date_end" required>
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="pwd">Categoria:</label>
+                                    <select name="category" required id="" class="form-control">
+                                        @foreach($list_categories  as $category)
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                        <option value="">Todos</option>
+                                    </select>
+                                </div>
                                  <button class="btn btn-info hidden" type="submit">Buscar</button>
                                 <a href="{{url('bill/create')}}" class="btn btn-success">Agregar</a>
 
@@ -31,6 +39,8 @@
                                     <th>Fecha</th>
                                     <th>Valor</th>
                                     <th>Detalle</th>
+                                    <th>Categoría</th>
+                                    <th>Agente</th>
                                     <th></th>
                                 </tr>
                                 @foreach($clients as $client)
@@ -40,6 +50,9 @@
 
                                         <td>{{$client->amount}}</td>
                                         <td>{{$client->description}}</td>
+                                        <td>{{$client->category_name}}</td>
+                                        <td>{{$client->user_name}}</td>
+
                                         <td></td>
                                     </tr>
                                 @endforeach
