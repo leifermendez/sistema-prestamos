@@ -163,7 +163,7 @@ function initMap({lat, lng}) {
             var self = this;
 
             $(window).on('load', function (e) {
-                // initialize();
+                initialize();
 
                 var current = Breakpoints.current();
 
