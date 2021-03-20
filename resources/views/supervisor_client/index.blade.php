@@ -15,7 +15,7 @@
                                 <tr>
                                     <th>Nombres</th>
                                     <th>Barrio</th>
-                                    <th>Total</th>
+                                    <th>Total</th> 
                                     <th>Pagados</th>
                                     <th>Vigentes</th>
                                     <th>Tipo</th>
