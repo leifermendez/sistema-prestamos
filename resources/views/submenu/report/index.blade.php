@@ -11,7 +11,7 @@
                             <h4 class="m-b-lg">Movimientos desde {{$date_start}} hasta {{$date_end}}</h4>
                             <table class="table supervisor-report-table">
                                 <tbody>
-                                <tr class="visible-lg">
+                                <tr class="d-none d-lg-block">
                                     <th>Fecha cierre</th>
                                     <th>Base</th>
                                     <th>Recaudo</th>

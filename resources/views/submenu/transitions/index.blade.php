@@ -11,7 +11,7 @@
                             <h4 class="m-b-lg">Creditos Otorgados</h4>
                             <table class="table supervisor-creditos-table">
                                 <tbody>
-                                <tr class="visible-lg">
+                                <tr class="d-none d-lg-block">
                                     <th>Nombres</th>
                                     <th>Credito</th>
                                     <th>Barrio</th>
@@ -44,7 +44,7 @@
                             <h4 class="m-b-lg">Pagos Recibidos</h4>
                             <table class="table supervisor-payments-table">
                                 <tbody>
-                                <tr class="visible-lg">
+                                <tr class="d-none d-lg-block">
                                     <th>Nombres</th>
                                     <th>Fecha</th>
                                     <th>Credito</th>
@@ -76,7 +76,7 @@
                             <h4 class="m-b-lg">Gastos del Agente</h4>
                             <table class="table supervisor-gas-table">
                                 <tbody>
-                                <tr class="visible-lg">
+                                <tr class="d-none d-lg-block">
                                     <th>Gasto</th>
                                     <th>Detalle</th>
                                     <th>Valor</th>

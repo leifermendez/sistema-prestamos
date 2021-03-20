@@ -11,7 +11,7 @@
                             <h4 class="m-b-lg">Clientes</h4>
                             <table class="table supervisor-clientes-table">
 
-                                <thead class="visible-lg">
+                                <thead class="d-none d-lg-block">
                                 <tr>
                                     <th>Nombres</th>
                                     <th>Barrio</th>

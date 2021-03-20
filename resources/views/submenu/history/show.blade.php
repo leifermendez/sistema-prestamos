@@ -32,7 +32,7 @@
                             <h4 class="m-b-lg">Historial</h4>
                             <table class="table supervisor-show-table">
                                 <tbody>
-                                <tr class="visible-lg">
+                                <tr class="d-none d-lg-blockg">
                                     <th>Fecha</th>
                                     <th>No</th>
                                     <th>Valor</th>

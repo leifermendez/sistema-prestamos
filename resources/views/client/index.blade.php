@@ -10,7 +10,7 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Detalles Clientes y Ventas</h4>
                             <table class="table client-table">
-                                <thead class="visible-lg">
+                                <thead class="d-none d-lg-block">
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Apellidos</th>

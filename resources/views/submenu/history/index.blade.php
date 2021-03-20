@@ -12,7 +12,7 @@
                             <table class="table supervisor-history-table">
 
                                 <thead>
-                                <tr class="visible-lg">
+                                <tr class="d-none d-lg-block">
                                     <th>Nombres</th>
                                     <th>Credito</th>
                                     <th>Valor</th>

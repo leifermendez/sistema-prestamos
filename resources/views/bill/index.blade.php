@@ -34,7 +34,7 @@
                             <br class="clearfix">
                             <table class="table agente-g-table">
                                 <tbody>
-                                <tr class="visible-lg">
+                                <tr class="d-none d-lg-block">
                                     <th>Cartera</th>
                                     <th>Fecha</th>
                                     <th>Valor</th>

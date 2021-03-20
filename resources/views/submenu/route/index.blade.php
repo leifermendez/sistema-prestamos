@@ -11,7 +11,7 @@
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
                             <table class="table supervisor-route-table">
                                 <thead>
-                                <tr class="visible-lg">
+                                <tr class="d-none d-lg-block">
                                     <th>Credito</th>
                                     <th>Nombres</th>
                                     <th>Fecha de prestamos</th>

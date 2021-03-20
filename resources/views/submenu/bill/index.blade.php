@@ -25,7 +25,7 @@
                             <br class="clearfix">
                             <table class="table supervisor-gastos-table">
                                 <tbody>
-                                <tr class="visible-lg">
+                                <tr class="d-none d-lg-block">
                                     <th>Cartera</th>
                                     <th>Fecha</th>
                                     <th>Agente</th>
