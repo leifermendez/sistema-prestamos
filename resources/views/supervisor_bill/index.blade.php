@@ -32,29 +32,62 @@
                                 <button type="submit" class="btn btn-success">Buscar</button>
                             </form>
                             <br class="clearfix">
-                            <table class="table supervisor-billS-table">
-                                <tbody>
-                                <tr class="visible-lg">
-                                    <th>Fecha</th>
-                                    <th>Cartera</th>
-                                    <th>Valor</th>
-                                    <th>Detalle</th>
-                                    <th>Categoría</th>
-                                    <th>Agente</th>
-                                </tr>
-                                @foreach($clients as $client)
-                                    <tr>
-                                        <td>{{$client->created_at}}</td>
-                                        <td>{{$client->wallet_name}}</td>
+                            <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
+                                <table class="table supervisor-billS-table">
+                                    <tbody>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Cartera</th>
+                                                <th>Valor</th>
+                                                <th>Detalle</th>
+                                                <th>Categoría</th>
+                                                <th>Agente</th>
+                                            </tr>
+                                    
+                                    @foreach($clients as $client)
+                                        <tr>
+                                            <td>{{$client->created_at}}</td>
+                                            <td>{{$client->wallet_name}}</td>
 
-                                        <td>{{$client->amount}}</td>
-                                        <td>{{$client->description}}</td>
-                                        <td>{{$client->category_name}}</td>
-                                        <td>{{$client->user_name}}</td>
-                                    </tr>
-                                @endforeach
+                                            <td>{{$client->amount}}</td>
+                                            <td>{{$client->description}}</td>
+                                            <td>{{$client->category_name}}</td>
+                                            <td>{{$client->user_name}}</td>
+                                        </tr>
+                                    @endforeach
 
-                                </tbody></table>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- FOR MOBILE -->
+                            <div class=" d-lg-none d-xl-none d-md-none">
+                                <table class="table supervisor-billS-table">
+                                    <tbody>
+                                            <!-- <tr>
+                                                <th>Fecha</th>
+                                                <th>Cartera</th>
+                                                <th>Valor</th>
+                                                <th>Detalle</th>
+                                                <th>Categoría</th>
+                                                <th>Agente</th>
+                                            </tr> -->
+                                    
+                                    @foreach($clients as $client)
+                                        <tr>
+                                            <td>{{$client->created_at}}</td>
+                                            <td>{{$client->wallet_name}}</td>
+
+                                            <td>{{$client->amount}}</td>
+                                            <td>{{$client->description}}</td>
+                                            <td>{{$client->category_name}}</td>
+                                            <td>{{$client->user_name}}</td>
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
                             <footer class="widget-footer">
                                 <p><b>Total: </b><span class="text-success">{{$sum}}</span></p>
                             </footer>

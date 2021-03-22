@@ -10,18 +10,20 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Clientes</h4>
                             <table class="table supervisor-clientes-table">
-
-                                <thead class="visible-lg">
-                                <tr>
-                                    <th>Nombres</th>
-                                    <th>Barrio</th>
-                                    <th>Total</th>
-                                    <th>Pagados</th>
-                                    <th>Vigentes</th>
-                                    <th>Tipo</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
+                                <div class="d-none d-lg-block d-xl-block">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombres</th>
+                                        <th>Barrio</th>
+                                        <th>Total</th> 
+                                        <th>Pagados</th>
+                                        <th>Vigentes</th>
+                                        <th>Tipo</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                </div>
+                                
                                 <tbody>
                                 @foreach($clients as $client)
                                     <tr>

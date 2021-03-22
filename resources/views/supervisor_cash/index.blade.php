@@ -10,22 +10,48 @@
 
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Cartera</h4>
-                            <table class="table supervisor-cash-table">
-                                <tbody>
-                                <tr class="visible-lg">
-                                    <th>Cartera</th>
-                                    <th>Detalle</th>
-                                    <th>Valor inicial</th>
-                                </tr>
-                                @foreach($clients as $client)
-                                    <tr>
-                                        <td>{{$client->name}}</td>
-                                        <td>{{$client->created_at}}</td>
-                                        <td>{{$client->base}}</td>
-                                    </tr>
-                                @endforeach
+                            <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
+                                <table class="table supervisor-cash-table">
+                                    <tbody>
+                                            <tr>
+                                                <th>Cartera</th>
+                                                <th>Detalle</th>
+                                                <th>Valor inicial</th>
+                                            </tr> 
+                                    
+                                    @foreach($clients as $client)
+                                        <tr>
+                                            <td>{{$client->name}}</td>
+                                            <td>{{$client->created_at}}</td>
+                                            <td>{{$client->base}}</td>
+                                        </tr>
+                                    @endforeach
 
-                                </tbody></table>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- FOR MOBILE -->
+                            <div class=" d-lg-none d-xl-none d-md-none">
+                                <table class="table supervisor-cash-table">
+                                    <tbody>
+                                            <!-- <tr>
+                                                <th>Cartera</th>
+                                                <th>Detalle</th>
+                                                <th>Valor inicial</th>
+                                            </tr>  -->
+                                    
+                                    @foreach($clients as $client)
+                                        <tr>
+                                            <td>{{$client->name}}</td>
+                                            <td>{{$client->created_at}}</td>
+                                            <td>{{$client->base}}</td>
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
                             <footer class="widget-footer">
                                 <p class="text-success"><b>Total: </b> {{$sum}}</p>
                             </footer>
@@ -37,20 +63,44 @@
                     <div class="col-md-12">
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Historial Caja</h4>
-                            <table class="table client-table">
-                                <tbody>
-                                <tr class="visible-lg">
-                                    <th>Fecha</th>
-                                    <th>Saldo Base</th>
-                                </tr>
-                                @foreach($report as $r)
-                                    <tr>
-                                        <td>{{$r->created_at}}</td>
-                                        <td>{{$r->total}}</td>
-                                    </tr>
-                                @endforeach
+                            <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
+                                <table class="table client-table">
+                                    <tbody>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Saldo Base</th>
+                                            </tr>  
+                                    
+                                    @foreach($report as $r)
+                                        <tr>
+                                            <td>{{$r->created_at}}</td>
+                                            <td>{{$r->total}}</td>
+                                        </tr>
+                                    @endforeach
 
-                                </tbody></table>
+                                    </tbody>
+                                </table>   
+                            </div>
+
+                            <!-- FOR MOBILE -->
+                            <div class=" d-lg-none d-xl-none d-md-none">
+                                <table class="table client-table">
+                                    <tbody>
+                                            <!-- <tr>
+                                                <th>Fecha</th>
+                                                <th>Saldo Base</th>
+                                            </tr>   -->
+                                    
+                                    @foreach($report as $r)
+                                        <tr>
+                                            <td>{{$r->created_at}}</td>
+                                            <td>{{$r->total}}</td>
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>   
+                            </div>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->

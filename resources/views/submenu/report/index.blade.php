@@ -9,35 +9,74 @@
                     <div class="col-md-12">
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Movimientos desde {{$date_start}} hasta {{$date_end}}</h4>
-                            <table class="table supervisor-report-table">
-                                <tbody>
-                                <tr class="visible-lg">
-                                    <th>Fecha cierre</th>
-                                    <th>Base</th>
-                                    <th>Recaudo</th>
-                                    <th>Creditos</th>
-                                    <th>Gasto Agente</th>
-                                    <th>Cierre</th>
-                                    <th>Gasto Supervisor</th>
-                                    <th>Valor Cartera</th>
+                            <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
+                                <table class="table supervisor-report-table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Fecha cierre</th>
+                                            <th>Base</th>
+                                            <th>Recaudo</th>
+                                            <th>Creditos</th>
+                                            <th>Gasto Agente</th>
+                                            <th>Cierre</th>
+                                            <th>Gasto Supervisor</th>
+                                            <th>Valor Cartera</th>
 
-                                </tr>
-                                @foreach($credit as $cred)
-                                    <tr>
-                                        <td><span class="value">{{$cred->created_at}}</span></td>
-                                        <td><span class="value">{{$cred->base_before}}</span></td>
-                                        <td><span class="value">{{$cred->summary_total}}</span></td>
-                                        <td><span class="value">{{$cred->credit_total}}</span></td>
-                                        <td><span class="value">{{$cred->bills_total}}</span></td>
-                                        <td><span class="value">{{$cred->total_day}}</span></td>
-                                        <td><span class="value">{{$cred->supervisor_bills}}</span></td>
-                                        <td><span class="value">{{$cred->base_wallet}}</span></td>
+                                        </tr>
+                                    
+                                    @foreach($credit as $cred)
+                                        <tr>
+                                            <td><span class="value">{{$cred->created_at}}</span></td>
+                                            <td><span class="value">{{$cred->base_before}}</span></td>
+                                            <td><span class="value">{{$cred->summary_total}}</span></td>
+                                            <td><span class="value">{{$cred->credit_total}}</span></td>
+                                            <td><span class="value">{{$cred->bills_total}}</span></td>
+                                            <td><span class="value">{{$cred->total_day}}</span></td>
+                                            <td><span class="value">{{$cred->supervisor_bills}}</span></td>
+                                            <td><span class="value">{{$cred->base_wallet}}</span></td>
 
 
-                                    </tr>
-                                @endforeach
+                                        </tr>
+                                    @endforeach
 
-                                </tbody></table>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- FOR MOBILE -->
+                            <div class=" d-lg-none d-xl-none d-md-none">
+                                <table class="table supervisor-report-table">
+                                    <tbody>
+                                        <!-- <tr>
+                                            <th>Fecha cierre</th>
+                                            <th>Base</th>
+                                            <th>Recaudo</th>
+                                            <th>Creditos</th>
+                                            <th>Gasto Agente</th>
+                                            <th>Cierre</th>
+                                            <th>Gasto Supervisor</th>
+                                            <th>Valor Cartera</th>
+
+                                        </tr> -->
+                                    
+                                    @foreach($credit as $cred)
+                                        <tr>
+                                            <td><span class="value">{{$cred->created_at}}</span></td>
+                                            <td><span class="value">{{$cred->base_before}}</span></td>
+                                            <td><span class="value">{{$cred->summary_total}}</span></td>
+                                            <td><span class="value">{{$cred->credit_total}}</span></td>
+                                            <td><span class="value">{{$cred->bills_total}}</span></td>
+                                            <td><span class="value">{{$cred->total_day}}</span></td>
+                                            <td><span class="value">{{$cred->supervisor_bills}}</span></td>
+                                            <td><span class="value">{{$cred->base_wallet}}</span></td>
+
+
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->

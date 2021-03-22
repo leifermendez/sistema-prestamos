@@ -7,23 +7,26 @@
             <section class="app-content">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="widget p-lg">
+                        <div class="widget p-lg overflow-auto">
                             <h4 class="m-b-lg">Detalles Clientes y Ventas</h4>
                             <table class="table client-table">
-                                <thead class="visible-lg">
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Apellidos</th>
-                                    <th>Barrio</th>
-                                    <th>Total</th>
-                                    <th>Pagados</th>
-                                    <th>Vigentes</th>
-                                    <th>Monto Prestado</th>
-                                    <th>Monto Restante</th>
-                                    <th>Tipo</th>
-                                    <th>Accion</th>
-                                </tr>
-                                </thead>
+                                <div class="d-none d-lg-block d-xl-block d-md-block">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Apellidos</th>
+                                            <th>Barrio</th>
+                                            <th>Total</th>
+                                            <th>Pagados</th>
+                                            <th>Vigentes</th>
+                                            <th>Monto Prestado</th>
+                                            <th>Monto Restante</th>
+                                            <th>Tipo</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                </div>
+                                
                                 <tbody>
                                 @foreach($clients as $client)
                                     <tr>
