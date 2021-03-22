@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\db_bills;
 use App\db_close_day;
 use App\db_credit;
 use App\db_summary;
 use App\db_supervisor_has_agent;
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -82,6 +83,6 @@ class HomeController extends Controller
             'close_day' => $close_day
         ];
 
-        return view('home',$data);
+        return response()->json($data);
     }
 }
