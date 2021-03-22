@@ -7,23 +7,26 @@
             <section class="app-content">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="widget p-lg">
+                        <div class="widget p-lg overflow-auto">
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
                             <table class="table supervisor-route-table">
-                                <thead>
-                                <tr class="d-none d-lg-block">
-                                    <th>Credito</th>
-                                    <th>Nombres</th>
-                                    <th>Fecha de prestamos</th>
-                                    <th>Cuota diaria</th>
-                                    <th>Dias sin pagar</th>
-                                    <th>Valor</th>
-                                    <th>Saldo</th>
-                                    <th>Barrio</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
+                                <div class="d-none d-lg-block d-xl-block d-md-block">
+                                    <thead>
+                                        <tr>
+                                            <th>Credito</th>
+                                            <th>Nombres</th>
+                                            <th>Fecha de prestamos</th>
+                                            <th>Cuota diaria</th>
+                                            <th>Dias sin pagar</th>
+                                            <th>Valor</th>
+                                            <th>Saldo</th>
+                                            <th>Barrio</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                </div>
+                                
                                 <tbody>
                                 @foreach($clients as $client)
                                     <tr>

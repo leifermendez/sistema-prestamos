@@ -69,7 +69,7 @@
             <section class="app-content">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="widget p-lg">
+                        <div class="widget p-lg overflow-auto">
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
                             @if(app('request')->input('hide'))
                                 <div class="alert alert-warning alert-custom alert-dismissible">

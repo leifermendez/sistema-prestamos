@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route::post('api/login', 'Api\sessionController@store');
+// Route::group(['prefix' => 'api', 'middleware' => ['geoip']], function () {
+//     Route::resource('login', 'Api\sessionController@store');
+// });
