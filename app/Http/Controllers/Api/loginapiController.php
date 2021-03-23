@@ -11,10 +11,10 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Session;
 
-class loginapiController extends Controller
+class loginApiController extends Controller
 {
 
-    public function login_api(Request $request, response $response)
+    public function loginApi(Request $request, response $response)
     {
             $credentials = $request->only('email', 'password');
             try {

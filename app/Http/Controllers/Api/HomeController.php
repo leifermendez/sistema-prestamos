@@ -32,57 +32,71 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $data_summary = db_summary::whereDate('summary.created_at',
-            Carbon::now()->toDateString())
-            ->where('credit.id_agent', Auth::id())
-            ->join('credit', 'summary.id_credit', '=', 'credit.id')
-            ->join('users', 'credit.id_user', '=', 'users.id')
-            ->select(
-                'users.name',
-                'users.last_name',
-                'credit.payment_number',
-                'credit.utility',
-                'credit.amount_neto',
-                'credit.id as id_credit',
-                'summary.number_index',
-                'summary.amount',
-                'summary.created_at'
-            )
-            ->groupBy('summary.id')
-            ->get();
+        try {
+            $data_summary = db_summary::whereDate('summary.created_at',
+                Carbon::now()->toDateString())
+                ->where('credit.id_agent', Auth::id())
+                ->join('credit', 'summary.id_credit', '=', 'credit.id')
+                ->join('users', 'credit.id_user', '=', 'users.id')
+                ->select(
+                    'users.name',
+                    'users.last_name',
+                    'credit.payment_number',
+                    'credit.utility',
+                    'credit.amount_neto',
+                    'credit.id as id_credit',
+                    'summary.number_index',
+                    'summary.amount',
+                    'summary.created_at'
+                )
+                ->groupBy('summary.id')
+                ->get();
 
-        $close_day = db_close_day::whereDate('created_at', Carbon::now()->toDateString())
-            ->where('id_agent', Auth::id())
-            ->first();
+            $close_day = db_close_day::whereDate('created_at', Carbon::now()->toDateString())
+                ->where('id_agent', Auth::id())
+                ->first();
 
-        $base = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base ?? 0;
-        $base_credit = db_credit::whereDate('created_at', Carbon::now()->toDateString())
-            ->where('id_agent', Auth::id())
-            ->sum('amount_neto');
-        $base -= $base_credit;
+            $base = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base ?? 0;
+            $base_credit = db_credit::whereDate('created_at', Carbon::now()->toDateString())
+                ->where('id_agent', Auth::id())
+                ->sum('amount_neto');
+            $base -= $base_credit;
 
-        $total_summary = $data_summary->sum('amount');
+            $total_summary = $data_summary->sum('amount');
 
-        $sql = array(
-            ['id_agent', '=', Auth::id()]
-        );
-        $sql[] = ['bills.created_at', '>=', Carbon::now()->startOfDay()];
-        $sql[] = ['bills.created_at', '<=', Carbon::now()->endOfDay()];
-
-
-        $bill = db_bills::where($sql)
-            ->join('wallet', 'bills.id_wallet', '=', 'wallet.id')
-            ->select('bills.*', 'wallet.name as wallet_name')
-            ->get();
+            $sql = array(
+                ['id_agent', '=', Auth::id()]
+            );
+            $sql[] = ['bills.created_at', '>=', Carbon::now()->startOfDay()];
+            $sql[] = ['bills.created_at', '<=', Carbon::now()->endOfDay()];
 
 
-        $data = [
-            'base_agent' => $base,
-            'total_bill' => $bill->sum('amount'),
-            'total_summary' => $total_summary,
-            'close_day' => $close_day
-        ];
+            $bill = db_bills::where($sql)
+                ->join('wallet', 'bills.id_wallet', '=', 'wallet.id')
+                ->select('bills.*', 'wallet.name as wallet_name')
+                ->get();
 
-        return response()->json($data);
+
+            $data = [
+                'base_agent' => $base,
+                'total_bill' => $bill->sum('amount'),
+                'total_summary' => $total_summary,
+                'close_day' => $close_day
+            ];
+            $response = array(
+                'status' => 'success',
+                'data' => $data,
+                'code' => 0
+            );
+            return response()->json($response);
+        
+        } catch (\Exception $e) {
+            $response = array(
+                'status' => 'fail',
+                'msj' => $e->getMessage(),
+                'code' => 5
+            );
+            return response()->json($response);
+        }
     }
 }

@@ -30,4 +30,4 @@ Route::group(['prefix' => 'agente', 'middleware' => ['jwt.auth', 'jwt.refresh']]
     Route::resource('bill', 'Api\billController')->middleware('close');
 });
 
-Route::post('login', 'Api\loginapiController@login_api');
+Route::post('login', 'Api\loginApiController@loginApi');

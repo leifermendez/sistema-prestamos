@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\db_bills;
 use App\db_credit;
 use App\db_summary;
 use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -40,71 +41,93 @@ class transactionController extends Controller
      */
     public function store(Request $request)
     {
-        $date = $request->date_start;
+        try {
+            $date = $request->date_start;
 
-        if(!isset($date)){return 'Fecha Vacia';};
+            if(!isset($date)){
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'Fecha Vacia',
+                    'code' => 5
+                );
+                return response()->json($response);
+            };
 
-        $data_summary = db_summary::whereDate('summary.created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
-            ->where('credit.id_agent',Auth::id())
-            ->join('credit','summary.id_credit','=','credit.id')
-            ->join('users','credit.id_user','=','users.id')
-            ->select(
-                'users.name',
-                'users.last_name',
-                'credit.payment_number',
-                'credit.utility',
-                'credit.amount_neto',
-                'credit.id as id_credit',
-                'summary.number_index',
-                'summary.amount',
-                'summary.created_at'
-                )
-            ->groupBy('summary.id')
-            ->get();
+            $data_summary = db_summary::whereDate('summary.created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
+                ->where('credit.id_agent',Auth::id())
+                ->join('credit','summary.id_credit','=','credit.id')
+                ->join('users','credit.id_user','=','users.id')
+                ->select(
+                    'users.name',
+                    'users.last_name',
+                    'credit.payment_number',
+                    'credit.utility',
+                    'credit.amount_neto',
+                    'credit.id as id_credit',
+                    'summary.number_index',
+                    'summary.amount',
+                    'summary.created_at'
+                    )
+                ->groupBy('summary.id')
+                ->get();
 
-        $data_credit = db_credit::whereDate('credit.created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
-            ->where('credit.id_agent',Auth::id())
-            ->join('users','credit.id_user','=','users.id')
-            ->select(
-                'credit.id as credit_id',
-                'users.id',
-                'users.name',
-                'users.last_name',
-                'users.province',
-                'credit.created_at',
-                'credit.utility',
-                'credit.payment_number',
-                'credit.amount_neto')
-            ->get();
+            $data_credit = db_credit::whereDate('credit.created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
+                ->where('credit.id_agent',Auth::id())
+                ->join('users','credit.id_user','=','users.id')
+                ->select(
+                    'credit.id as credit_id',
+                    'users.id',
+                    'users.name',
+                    'users.last_name',
+                    'users.province',
+                    'credit.created_at',
+                    'credit.utility',
+                    'credit.payment_number',
+                    'credit.amount_neto')
+                ->get();
 
 
-        $data_bill = db_bills::whereDate('created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
-            ->where('id_agent',Auth::id())
-            ->get();
+            $data_bill = db_bills::whereDate('created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
+                ->where('id_agent',Auth::id())
+                ->get();
 
-        foreach ($data_summary as $d){
-            $total = db_summary::where('id_credit',$d->id_credit)->sum('amount');
-            $total_credit = db_credit::where('id',$d->id_credit)->sum('amount_neto');
-            $total_credit = $total_credit+($total_credit*$d->utility);
-            $total = $total_credit-$total;
+            foreach ($data_summary as $d){
+                $total = db_summary::where('id_credit',$d->id_credit)->sum('amount');
+                $total_credit = db_credit::where('id',$d->id_credit)->sum('amount_neto');
+                $total_credit = $total_credit+($total_credit*$d->utility);
+                $total = $total_credit-$total;
 
-            $d->setAttribute('total_payment',$total);
+                $d->setAttribute('total_payment',$total);
+            }
+
+            $total_summary = $data_summary->sum('amount');
+            $total_credit = $data_credit->sum('amount_neto');
+            $total_bills = $data_bill->sum('amount');
+
+            $data = array(
+                'summary' => $data_summary,
+                'credit' => $data_credit,
+                'bills' => $data_bill,
+                'total_summary' => $total_summary,
+                'total_bills' => $total_bills,
+                'total_credit' => $total_credit,
+            );
+
+            $response = array(
+                'status' => 'success',
+                'data' => $data,
+                'code' => 0
+            );
+            return response()->json($response);
+        
+        } catch (\Exception $e) {
+            $response = array(
+                'status' => 'fail',
+                'msj' => $e->getMessage(),
+                'code' => 5
+            );
+            return response()->json($response);
         }
-
-        $total_summary = $data_summary->sum('amount');
-        $total_credit = $data_credit->sum('amount_neto');
-        $total_bills = $data_bill->sum('amount');
-
-        $data = array(
-            'summary' => $data_summary,
-            'credit' => $data_credit,
-            'bills' => $data_bill,
-            'total_summary' => $total_summary,
-            'total_bills' => $total_bills,
-            'total_credit' => $total_credit,
-        );
-
-        return view('transaction.index',$data);
     }
 
     /**

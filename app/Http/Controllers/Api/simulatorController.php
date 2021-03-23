@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\db_supervisor_has_agent;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -27,8 +28,23 @@ class simulatorController extends Controller
      */
     public function index()
     {
-        $payment_number = DB::table('payment_number')->get();
-        return view('simulator.index',array('payment'=>$payment_number));
+        try {
+            $data = DB::table('payment_number')->get();
+            $response = array(
+                'status' => 'success',
+                'data' => $data_all,
+                'code' => 0
+            );
+            return response()->json($response);
+        
+        } catch (\Exception $e) {
+            $response = array(
+                'status' => 'fail',
+                'msj' => $e->getMessage(),
+                'code' => 5
+            );
+            return response()->json($response);
+        }
     }
 
     /**

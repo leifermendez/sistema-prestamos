@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\db_agent_has_user;
 use App\db_credit;
 use App\db_summary;
 use App\db_supervisor_has_agent;
+use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -33,49 +34,62 @@ class userController extends Controller
 
     public function index()
     {
-        $user_current = Auth::user();
+        try {
+            $user_current = Auth::user();
 
-        $user_has_agent = db_agent_has_user::where('id_agent', Auth::id())
-            ->join('users', 'id_client', '=', 'users.id')
-            ->get();
-
-        if ($user_current->level === 'admin') {
-            $user_has_agent = db_agent_has_user::join('users', 'id_client', '=', 'users.id')
+            $user_has_agent = db_agent_has_user::where('id_agent', Auth::id())
+                ->join('users', 'id_client', '=', 'users.id')
                 ->get();
-        }
+
+            if ($user_current->level === 'admin') {
+                $user_has_agent = db_agent_has_user::join('users', 'id_client', '=', 'users.id')
+                    ->get();
+            }
+
+            foreach ($user_has_agent as $user) {
+                if (db_credit::where('id_user', $user->id)->exists()) {
+                    $user->closed = db_credit::where('status', 'close')->where('id_user', $user->id)->count();
+                    $user->inprogress = db_credit::where('status', 'inprogress')->where('id_user', $user->id)->count();
+                    $user->credit_count = db_credit::where('id_user', $user->id)->count();
+                    $user->amount_net = db_credit::where('id_user', $user->id)
+                        ->where('status', 'inprogress')
+                        ->first();
+
+                    $user->summary_net = ($user->amount_net) ? db_summary::where('id_credit', $user->amount_net->id)
+                        ->sum('amount') : 0;
+
+                    $tmp_credit = $user->amount_net->amount_neto ?? 0;
+                    $tmp_rest = $tmp_credit - $user->summary_net;
+                    $user->summary_net = $tmp_rest;
 
 
-        foreach ($user_has_agent as $user) {
-            if (db_credit::where('id_user', $user->id)->exists()) {
-                $user->closed = db_credit::where('status', 'close')->where('id_user', $user->id)->count();
-                $user->inprogress = db_credit::where('status', 'inprogress')->where('id_user', $user->id)->count();
-                $user->credit_count = db_credit::where('id_user', $user->id)->count();
-                $user->amount_net = db_credit::where('id_user', $user->id)
-                    ->where('status', 'inprogress')
-                    ->first();
-
-                $user->summary_net = ($user->amount_net) ? db_summary::where('id_credit', $user->amount_net->id)
-                    ->sum('amount') : 0;
-
-                $tmp_credit = $user->amount_net->amount_neto ?? 0;
-                $tmp_rest = $tmp_credit - $user->summary_net;
-                $user->summary_net = $tmp_rest;
+                    if($user->amount_net){
+                        $user->gap_credit = $tmp_credit * $user->amount_net->utility;
+                    }
 
 
-                if($user->amount_net){
-                    $user->gap_credit = $tmp_credit * $user->amount_net->utility;
                 }
-
 
             }
 
+            $data = array(
+                'clients' => $user_has_agent,
+            );
+            $response = array(
+                'status' => 'success',
+                'data' => $data,
+                'code' => 0
+            );
+            return response()->json($response);
+        
+        } catch (\Exception $e) {
+            $response = array(
+                'status' => 'fail',
+                'msj' => $e->getMessage(),
+                'code' => 5
+            );
+            return response()->json($response);
         }
-
-        $user_has_agent = array(
-            'clients' => $user_has_agent,
-        );
-//        dd($user_has_agent);
-        return view('client.index', $user_has_agent);
     }
 
     /**
@@ -85,12 +99,27 @@ class userController extends Controller
      */
     public function create(Request $request)
     {
-        $id = $request->id;
-        $data = array(
-            'user' => User::find($id),
-            'payment_number' => DB::table('payment_number')->orderBy('name', 'asc')->get()
-        );
-        return view('client.create', $data);
+        try {
+            $id = $request->id;
+            $data = array(
+                'user' => User::find($id),
+                'payment_number' => DB::table('payment_number')->orderBy('name', 'asc')->get()
+            );
+            $response = array(
+                'status' => 'success',
+                'data' => $data,
+                'code' => 0
+            );
+            return response()->json($response);
+        
+        } catch (\Exception $e) {
+            $response = array(
+                'status' => 'fail',
+                'msj' => $e->getMessage(),
+                'code' => 5
+            );
+            return response()->json($response);
+        }
     }
 
     /**
@@ -118,31 +147,40 @@ class userController extends Controller
 
         $redirect_error = '/client?msg=Fields_Null&status=error';
         if (!isset($name)) {
-            return redirect($redirect_error);
+            
+            return response()->json($redirect_error);
         };
         if (!isset($last_name)) {
-            return redirect($redirect_error);
+            
+            return response()->json($redirect_error);
         };
         if (!isset($address)) {
-            return redirect($redirect_error);
+            
+            return response()->json($redirect_error);
         };
         if (!isset($province)) {
-            return redirect($redirect_error);
+            
+            return response()->json($redirect_error);
         };
         if (!isset($phone)) {
-            return redirect($redirect_error);
+            
+            return response()->json($redirect_error);
         };
         if (!isset($nit)) {
-            return redirect($redirect_error);
+            
+            return response()->json($redirect_error);
         };
         if (!isset($utility)) {
-            return redirect($redirect_error);
+            
+            return response()->json($redirect_error);
         };
         if (!isset($payment_number)) {
-            return redirect($redirect_error);
+            
+            return response()->json($redirect_error);
         };
         if (!isset($amount)) {
-            return redirect($redirect_error);
+            
+            return response()->json($redirect_error);
         };
 
         $base = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base;
@@ -219,7 +257,8 @@ class userController extends Controller
         $data = array(
             'user' => User::find($id),
         );
-        return view('client.show', $data);
+        
+        return response()->json($data);
     }
 
     /**

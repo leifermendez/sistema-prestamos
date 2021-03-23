@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\db_credit;
 use App\db_not_pay;
 use App\db_summary;
 use App\db_supervisor_has_agent;
+use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -29,40 +30,50 @@ class routeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $data = db_credit::where('credit.id_agent', Auth::id())
-            ->where('credit.status', 'inprogress')
-            ->orderBy('credit.order_list', 'asc')
-            ->get();
-        $data_filter = array();
-        $dt = Carbon::now();
+    public function index() {
+        try {
+            $data = db_credit::where('credit.id_agent', Auth::id())
+                ->where('credit.status', 'inprogress')
+                ->orderBy('credit.order_list', 'asc')
+                ->get();
+            $data_filter = array();
+            $dt = Carbon::now();
 
-        foreach ($data as $k => $d) {
+            foreach ($data as $k => $d) {
 
+                $d->user = User::find($d->id_user);
+                $d->amount_total = ($d->amount_neto) + ($d->amount_neto * $d->utility);
+                $d->days_rest = $dt->diffInDays(Carbon::parse($d->created_at));
+                $d->saldo = $d->amount_total - (db_summary::where('id_credit', $d->id)->sum('amount'));
+                $d->quote = (floatval($d->amount_neto * $d->utility) + floatval($d->amount_neto)) / floatval($d->payment_number);
+                $d->setAttribute('last_pay', db_summary::where('id_credit', $d->id)->orderBy('id', 'desc')->first());
 
-            $d->user = User::find($d->id_user);
-            $d->amount_total = ($d->amount_neto) + ($d->amount_neto * $d->utility);
-            $d->days_rest = $dt->diffInDays(Carbon::parse($d->created_at));
-            $d->saldo = $d->amount_total - (db_summary::where('id_credit', $d->id)->sum('amount'));
-            $d->quote = (floatval($d->amount_neto * $d->utility) + floatval($d->amount_neto)) / floatval($d->payment_number);
-            $d->setAttribute('last_pay', db_summary::where('id_credit', $d->id)->orderBy('id', 'desc')->first());
+                if (!db_summary::where('id_credit', $d->id)->whereDate('created_at', '=', Carbon::now()->toDateString())->exists()) {
+                    if (!db_not_pay::whereDate('created_at', '=', Carbon::now()->toDateString())->where('id_credit', $d->id)->exists()) {
+                        $data_filter[] = $d;
+                    }
 
-            if (!db_summary::where('id_credit', $d->id)->whereDate('created_at', '=', Carbon::now()->toDateString())->exists()) {
-                if (!db_not_pay::whereDate('created_at', '=', Carbon::now()->toDateString())->where('id_credit', $d->id)->exists()) {
-                    $data_filter[] = $d;
                 }
-
             }
 
-
+            $data_all = array(
+                'clients' => $data_filter
+            );
+            $response = array(
+                'status' => 'success',
+                'data' => $data_all,
+                'code' => 0
+            );
+            return response()->json($response);
+        
+        } catch (\Exception $e) {
+            $response = array(
+                'status' => 'fail',
+                'msj' => $e->getMessage(),
+                'code' => 5
+            );
+            return response()->json($response);
         }
-
-        $data_all = array(
-            'clients' => $data_filter
-        );
-
-        return view('route.index', $data_all);
     }
 
     /**
@@ -105,44 +116,60 @@ class routeController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $id_credit = $request->id_credit;
-        $direction = $request->direction;
+        try {
+            $id_credit = $request->id_credit;
+            $direction = $request->direction;
 
-        if (!isset($direction)) {
-            return 'Direction';
-        };
-        if ($direction == 'up') {
-            $direction = '<';
-            $order = 'DESC';
-        };
-        if ($direction == 'down') {
-            $direction = '>';
-            $order = 'ASC';
-        };
+            if (!isset($direction)) {
+                return response()->json(array('Direction'));
+            };
+            if ($direction == 'up') {
+                $direction = '<';
+                $order = 'DESC';
+            };
+            if ($direction == 'down') {
+                $direction = '>';
+                $order = 'ASC';
+            };
 
 
-        $data = db_credit::where('id_agent', Auth::id())
-            ->orderBy('order_list', $order)
-            ->where('order_list', $direction, $id)
-            ->where('status', 'inprogress')
-            ->first();
+            $data = db_credit::where('id_agent', Auth::id())
+                ->orderBy('order_list', $order)
+                ->where('order_list', $direction, $id)
+                ->where('status', 'inprogress')
+                ->first();
 
-        $no_pay = db_not_pay::whereDate('created_at', Carbon::now()->toDateString())
-            ->where('id_credit', $data->id)
-            ->exists();
+            $no_pay = db_not_pay::whereDate('created_at', Carbon::now()->toDateString())
+                ->where('id_credit', $data->id)
+                ->exists();
 
-        db_credit::where('id', $id_credit)->update([
-            'order_list' => ($data->order_list)
-        ]);
+            db_credit::where('id', $id_credit)->update([
+                'order_list' => ($data->order_list)
+            ]);
 
-        db_credit::where('id', $data->id)->update([
-            'order_list' => ($id)
-        ]);
+            db_credit::where('id', $data->id)->update([
+                'order_list' => ($id)
+            ]);
+            $response = array(
+                'status' => 'success',
+                'data' => $data,
+                'code' => 0
+            );
+            return response()->json($response);
+    
+        } catch (\Exception $e) {
+            $response = array(
+                'status' => 'fail',
+                'msj' => $e->getMessage(),
+                'code' => 5
+            );
+            return response()->json($response);
+        }
 
         if ($no_pay) {
-            return redirect('/route?hide=true');
+           return response()->json(array('/route?hide=true'));
         } else {
-            return redirect('/route');
+           return response()->json(array('/route'));
         }
 
 
