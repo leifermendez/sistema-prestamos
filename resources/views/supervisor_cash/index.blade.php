@@ -68,12 +68,14 @@
                                     <tbody>
                                             <tr>
                                                 <th>Fecha</th>
+                                                <th>Cartera</th>
                                                 <th>Saldo Base</th>
                                             </tr>  
                                     
                                     @foreach($report as $r)
                                         <tr>
                                             <td>{{$r->created_at}}</td>
+                                            <td>{{$r->wallet_name}}</td>
                                             <td>{{$r->total}}</td>
                                         </tr>
                                     @endforeach
