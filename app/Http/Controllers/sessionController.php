@@ -77,11 +77,12 @@ class sessionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $time_session = 60;
         $current = Auth::id();
         Auth::loginUsingId($id);
-        $time = Carbon::now()->addMinutes(30)->timestamp;
+        $time = Carbon::now()->addMinutes($time_session)->timestamp;
         $token_session = Crypt::encryptString($current.'-'.$time);
-        return redirect('/')->cookie('forward_session', $token_session, 30);
+        return redirect('/')->cookie('forward_session', $token_session, $time_session);
     }
 
     /**
