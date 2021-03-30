@@ -86,6 +86,10 @@
 }(jQuery, window);
 
 function initialize() {
+	var options = {
+	types: ['(cities)'],
+	componentRestrictions: {country: "ec"}
+	};
     const input = document.querySelector('.g-autoplaces-address');
     const autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.addListener('place_changed', function () {
