@@ -56,6 +56,18 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                <tr>
+                                    <td><span class="value">Total</span></td>
+                                    <td><span class="value"></span></td>
+                                    <td><span class="value"></span></td>
+                                    <td><span class="value"></span></td>
+                                    <td><span class="value"></span></td>
+                                    <td><span class="value"></span></td>
+                                    <td><span class="value"></span></td>
+                                    <td><span class="value"><b>{{$total_pending}}</b></span></td>
+                                    <td><span class="value"></span></td>
+                                    <td><span class="value"></span></td>
+                                </tr>
 
                                 </tbody></table>
                         </div><!-- .widget -->

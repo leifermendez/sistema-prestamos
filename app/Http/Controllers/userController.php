@@ -71,8 +71,10 @@ class userController extends Controller
 
         }
 
+        $total_pending = floatval($user_has_agent->sum('summary_net') + $user_has_agent->sum('gap_credit')) ;
         $user_has_agent = array(
             'clients' => $user_has_agent,
+            'total_pending' => $total_pending
         );
 //        dd($user_has_agent);
         return view('client.index', $user_has_agent);
