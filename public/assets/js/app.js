@@ -86,8 +86,11 @@
 }(jQuery, window);
 
 function initialize() {
+
+    const options = optionsMaps || null;
+
     const input = document.querySelector('.g-autoplaces-address');
-    const autocomplete = new google.maps.places.Autocomplete(input);
+    const autocomplete = new google.maps.places.Autocomplete(input, options);
     autocomplete.addListener('place_changed', function () {
         const place = autocomplete.getPlace();
         console.log(place)
@@ -106,10 +109,10 @@ function initialize() {
     });
 }
 
-function toggleBounce(event){
-	// initMap({lat:event.latLng.lat(), lng:event.latLng.lng()})
-	$('body .new-register #lat').val(event.latLng.lat());
-	$('body .new-register #lng').val(event.latLng.lng());
+function toggleBounce(event) {
+    // initMap({lat:event.latLng.lat(), lng:event.latLng.lng()})
+    $('body .new-register #lat').val(event.latLng.lat());
+    $('body .new-register #lng').val(event.latLng.lng());
 
 }
 
@@ -128,10 +131,10 @@ function initMap({lat, lng}) {
         draggable: true
     });
 
-	$('body .new-register #lat').val(lat);
-	$('body .new-register #lng').val(lng);
+    $('body .new-register #lat').val(lat);
+    $('body .new-register #lng').val(lng);
 
-	marker.addListener("dragend", toggleBounce);
+    marker.addListener("dragend", toggleBounce);
 }
 
 

@@ -50,7 +50,7 @@
 @if(isset($valid) && $valid)
     <div class="section-session">
         <div>
-            Estás haciendo uso de la cuenta administradora, recuerda que la sesión es válida por 15 min
+            Estás haciendo uso de la cuenta administradora, recuerda que la sesión es válida por 60 min
         </div>
         <form action="{{url('admin/session')}}" method="POST"
               class="pull-left px-1">
