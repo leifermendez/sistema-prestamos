@@ -57,7 +57,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="w-75 mx-auto mt-4 alert alert-info d-flex justify-content-between"> 
+                            <div class="w-100 mx-auto mt-4 alert alert-info d-flex justify-content-between"> 
                                 <p class="m-0">Total Monto Restante</p>
                                 <h5 class="m-0">{{$total_pending}}</h5>
                             </div>
