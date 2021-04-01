@@ -51,24 +51,24 @@ class userController extends Controller
                 $user->inprogress = db_credit::where('status', 'inprogress')->where('id_user', $user->id)->count();
                 $user->credit_count = db_credit::where('id_user', $user->id)->count();
                 $user->amount_net = db_credit::where('id_user', $user->id)
-                    ->where('status', 'inprogress')
-                    ->first();
-
-                $user->summary_net = ($user->amount_net) ? db_summary::where('id_credit', $user->amount_net->id)
-                    ->sum('amount') : 0;
-
-                $tmp_credit = $user->amount_net->amount_neto ?? 0;
-                $tmp_rest = $tmp_credit - $user->summary_net;
-                $user->summary_net = $tmp_rest;
-
-
-                if($user->amount_net){
-                    $user->gap_credit = $tmp_credit * $user->amount_net->utility;
+                    ->where('status', 'inprogress')->get()->toArray();
+                if(sizeOf($user->amount_net)) {
+                    $tmp_credit = 0;
+                    $user->gap_credit = 0;
+                    $user->summary_net = 0;
+                    foreach ($user->amount_net as $key => $value) {
+                        $user->summary_net += db_summary::where('id_credit', $value['id'])
+                        ->sum('amount');
+                        $tmp_credit += $value['amount_neto'] ?? 0;
+                        $user->gap_credit += $value['amount_neto'] * $value['utility'];
+                    }
+                    $user->sum_amount_gap = $tmp_credit + $user->gap_credit;
+                    $tmp_rest = $tmp_credit - $user->summary_net;
+                    $user->summary_net = $tmp_rest;
+                } else {
+                    $user->summary_net = 0;
                 }
-
-
             }
-
         }
 
         $total_pending = floatval($user_has_agent->sum('summary_net') + $user_has_agent->sum('gap_credit')) ;
