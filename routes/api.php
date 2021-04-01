@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::group(['prefix' => 'agente', 'middleware' => ['jwt.auth', 'jwt.refresh']], function () {
+Route::group(['prefix' => 'agente', 'middleware' => ['jwt.auth']], function () {
     /** Rutas Protegidas */
     Route::get('/home', 'Api\HomeController@index')->name('home');
     Route::resource('client', 'Api\userController', ['only' => ['create', 'show']])->middleware('close');

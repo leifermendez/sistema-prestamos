@@ -130,120 +130,188 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Auth::user()->level == 'agent') {
-            return 'No tienes permisos';
-        }
-        $name = $request->name;
-        $last_name = $request->last_name;
-        $address = $request->address;
-        $province = $request->province;
-        $phone = $request->phone;
-        $nit = $request->nit_number;
-        $utility = $request->utility;
-        $payment_number = $request->payment_number;
-        $amount = $request->amount;
-        $lat = $request->lat;
-        $lng = $request->lng;
+        try {
+            if (!Auth::user()->level == 'agent') {
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'No tienes permisos',
+                    'code' => 5
+                );
+                return response()->json($response);
+            }
+            
+            $name = $request->name;
+            $last_name = $request->last_name;
+            $address = $request->address;
+            $province = $request->province;
+            $phone = $request->phone;
+            $nit = $request->nit_number;
+            $utility = $request->utility;
+            $payment_number = $request->payment_number;
+            $amount = $request->amount;
+            $lat = $request->lat;
+            $lng = $request->lng;
 
-        $redirect_error = '/client?msg=Fields_Null&status=error';
-        if (!isset($name)) {
-            
-            return response()->json($redirect_error);
-        };
-        if (!isset($last_name)) {
-            
-            return response()->json($redirect_error);
-        };
-        if (!isset($address)) {
-            
-            return response()->json($redirect_error);
-        };
-        if (!isset($province)) {
-            
-            return response()->json($redirect_error);
-        };
-        if (!isset($phone)) {
-            
-            return response()->json($redirect_error);
-        };
-        if (!isset($nit)) {
-            
-            return response()->json($redirect_error);
-        };
-        if (!isset($utility)) {
-            
-            return response()->json($redirect_error);
-        };
-        if (!isset($payment_number)) {
-            
-            return response()->json($redirect_error);
-        };
-        if (!isset($amount)) {
-            
-            return response()->json($redirect_error);
-        };
+            $redirect_error = '/client?msg=Fields_Null&status=error';
+            if (!isset($name)) {
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'Empty - name',
+                    'code' => 5
+                );
+                return response()->json($response);
+            };
+            if (!isset($last_name)) {
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'Empty - last_name',
+                    'code' => 5
+                );
+                return response()->json($response);
+            };
+            if (!isset($address)) {
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'Empty - address',
+                    'code' => 5
+                );
+                return response()->json($response);
+            };
+            if (!isset($province)) {
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'Empty - province',
+                    'code' => 5
+                );
+                return response()->json($response);
+            };
+            if (!isset($phone)) {
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'Empty - phone',
+                    'code' => 5
+                );
+                return response()->json($response);
+            };
+            if (!isset($nit)) {
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'Empty - nit',
+                    'code' => 5
+                );
+                return response()->json($response);
+            };
+            if (!isset($utility)) {
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'Empty - utility',
+                    'code' => 5
+                );
+                return response()->json($response);
+            };
+            if (!isset($payment_number)) {
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'Empty - payment_number',
+                    'code' => 5
+                );
+                return response()->json($response);
+            };
+            if (!isset($amount)) {
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'Empty - amount',
+                    'code' => 5
+                );
+                return response()->json($response);
+            };
 
-        $base = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base;
-        $base_credit = db_credit::whereDate('created_at', Carbon::now()->toDateString())
-            ->where('id_agent', Auth::id())
-            ->sum('amount_neto');
-        $base -= $base_credit;
+            $base = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base;
+            $base_credit = db_credit::whereDate('created_at', Carbon::now()->toDateString())
+                ->where('id_agent', Auth::id())
+                ->sum('amount_neto');
+            $base -= $base_credit;
 
-        if ($amount > $base) {
-            return 'No tienes dinero suficiente';
-        }
+            if ($amount > $base) {
+                $response = array(
+                    'status' => 'fail',
+                    'msj' => 'No tienes dinero suficiente',
+                    'code' => 5
+                );
+                return response()->json($response);
+            }
 
-        $values = array(
-            'name' => strtoupper($name),
-            'last_name' => strtoupper($last_name),
-            'email' => $nit,
-            'level' => 'user',
-            'address' => strtoupper($address),
-            'province' => strtoupper($province),
-            'phone' => $phone,
-            'password' => Str::random(5),
-            'lat' => $lat,
-            'lng' => $lng,
-            'nit' => $nit
-        );
+            $values = array(
+                'name' => strtoupper($name),
+                'last_name' => strtoupper($last_name),
+                'email' => $nit,
+                'level' => 'user',
+                'address' => strtoupper($address),
+                'province' => strtoupper($province),
+                'phone' => $phone,
+                'password' => Str::random(5),
+                'lat' => $lat,
+                'lng' => $lng,
+                'nit' => $nit
+            );
 
-        if (!User::where('nit', $nit)->exists()) {
-            $id = User::insertGetId($values);
-        } else {
-            $id = User::where('nit', $nit)->first()->id;
+            if (!User::where('nit', $nit)->exists()) {
+                $id = User::insertGetId($values);
+            } else {
+                $id = User::where('nit', $nit)->first()->id;
 
-            if (db_agent_has_user::where('id_client', $id)->exists()) {
-                $agent_data = db_agent_has_user::where('id_client', $id)->first();
-                if ($agent_data->id_agent != Auth::id()) {
-                    return 'Este usuario ya esta asignado a otro Agente';
+                if (db_agent_has_user::where('id_client', $id)->exists()) {
+                    $agent_data = db_agent_has_user::where('id_client', $id)->first();
+                    if ($agent_data->id_agent != Auth::id()) {
+                        $response = array(
+                            'status' => 'fail',
+                            'msj' => 'Este usuario ya esta asignado a otro Agente',
+                            'code' => 5
+                        );
+                        return response()->json($response);
+                    }
                 }
             }
-        }
 
-        if (!db_agent_has_user::where('id_agent', Auth::id())->where('id_client', $id)->exists()) {
-            db_agent_has_user::insert([
+            if (!db_agent_has_user::where('id_agent', Auth::id())->where('id_client', $id)->exists()) {
+                db_agent_has_user::insert([
+                    'id_agent' => Auth::id(),
+                    'id_client' => $id,
+                    'id_wallet' => db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->id_wallet]);
+            }
+
+            if (db_credit::orderBy('order_list', 'DESC')->first() === null) {
+                $last_order = 0;
+            } else {
+                $last_order = db_credit::orderBy('order_list', 'DESC')->first()->order_list;
+            }
+
+            $values = array(
+                'created_at' => Carbon::now(),
+                'payment_number' => $payment_number,
+                'utility' => $utility,
+                'amount_neto' => $amount,
+                'id_user' => $id,
                 'id_agent' => Auth::id(),
-                'id_client' => $id,
-                'id_wallet' => db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->id_wallet]);
-        }
+                'order_list' => ($last_order) + 1
+            );
+            $data = db_credit::insert($values);
 
-        if (db_credit::orderBy('order_list', 'DESC')->first() === null) {
-            $last_order = 0;
-        } else {
-            $last_order = db_credit::orderBy('order_list', 'DESC')->first()->order_list;
+            $response = array(
+                'status' => 'success',
+                'data' => $data,
+                'code' => 0
+            );
+            return response()->json($response);
+        
+        } catch (\Exception $e) {
+            $response = array(
+                'status' => 'fail',
+                'msj' => $e->getMessage(),
+                'code' => 5
+            );
+            return response()->json($response);
         }
-
-        $values = array(
-            'created_at' => Carbon::now(),
-            'payment_number' => $payment_number,
-            'utility' => $utility,
-            'amount_neto' => $amount,
-            'id_user' => $id,
-            'id_agent' => Auth::id(),
-            'order_list' => ($last_order) + 1
-        );
-        db_credit::insert($values);
-        return redirect('/');
     }
 
     /**
