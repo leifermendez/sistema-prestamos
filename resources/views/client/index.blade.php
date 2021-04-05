@@ -26,7 +26,6 @@
                                         </tr>
                                     </thead>
                                 </div>
-                                
                                 <tbody>
                                 @foreach($clients as $client)
                                     <tr>
@@ -36,7 +35,7 @@
                                         <td><span class="value">{{$client->credit_count}}</span></td>
                                         <td><span class="value">{{$client->closed}}</span></td>
                                         <td><span class="value">{{$client->inprogress}}</span></td>
-                                        <td><span class="value">{{isset($client->amount_net) ? $client->amount_net->amount_neto +$client->gap_credit : 0}}</span></td>
+                                        <td><span class="value">{{sizeOf($client->amount_net) ? $client->sum_amount_gap : 0}}</span></td>
                                         <td><span class="value">{{$client->summary_net + $client->gap_credit}}</span></td>
                                         <td>
                                             @if($client->status=='good')
@@ -56,20 +55,12 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                <tr>
-                                    <td><span class="value">Total</span></td>
-                                    <td><span class="value"></span></td>
-                                    <td><span class="value"></span></td>
-                                    <td><span class="value"></span></td>
-                                    <td><span class="value"></span></td>
-                                    <td><span class="value"></span></td>
-                                    <td><span class="value"></span></td>
-                                    <td><span class="value"><b>{{$total_pending}}</b></span></td>
-                                    <td><span class="value"></span></td>
-                                    <td><span class="value"></span></td>
-                                </tr>
-
-                                </tbody></table>
+                                </tbody>
+                            </table>
+                            <div class="w-100 mx-auto mt-4 alert alert-info d-flex justify-content-between"> 
+                                <p class="m-0">Cartera total</p>
+                                <h5 class="m-0">{{$total_pending}}</h5>
+                            </div>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
