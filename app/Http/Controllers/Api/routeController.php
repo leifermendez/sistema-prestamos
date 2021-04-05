@@ -41,8 +41,22 @@ class routeController extends Controller
 
             foreach ($data as $k => $d) {
 
+                $tmp_amount = db_summary::where('id_credit', $d->id)
+                ->where('id_agent', Auth::id())
+                ->sum('amount');
+                $amount_neto = ($d->amount_neto) + ($d->amount_neto * $d->utility);
+                
+                $tmp_quote = round(floatval(($amount_neto / $d->payment_number)), 2);
+                $tmp_rest = round(floatval($amount_neto - $tmp_amount), 2);
+                $d->setAttribute('credit_data', array(
+                    'positive' => $tmp_amount,
+                    'rest' => $tmp_rest,
+                    'payment_done' => db_summary::where('id_credit', $d->id)->count(),
+                    'payment_quote' => ($tmp_rest > $tmp_quote) ? $tmp_rest : $tmp_quote
+                ));
+
                 $d->user = User::find($d->id_user);
-                $d->amount_total = ($d->amount_neto) + ($d->amount_neto * $d->utility);
+                $d->amount_total = $amount_neto;
                 $d->days_rest = $dt->diffInDays(Carbon::parse($d->created_at));
                 $d->saldo = $d->amount_total - (db_summary::where('id_credit', $d->id)->sum('amount'));
                 $d->quote = (floatval($d->amount_neto * $d->utility) + floatval($d->amount_neto)) / floatval($d->payment_number);
@@ -138,6 +152,8 @@ class routeController extends Controller
                 ->where('order_list', $direction, $id)
                 ->where('status', 'inprogress')
                 ->first();
+
+            
 
             $no_pay = db_not_pay::whereDate('created_at', Carbon::now()->toDateString())
                 ->where('id_credit', $data->id)

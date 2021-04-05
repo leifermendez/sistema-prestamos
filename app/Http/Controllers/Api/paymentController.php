@@ -43,12 +43,22 @@ class paymentController extends Controller
 
             foreach ($data_user as $data) {
                 if (db_credit::where('id_user', $data->id_user)->where('id_agent', Auth::id())->exists()) {
-
+                    
+                    $tmp_amount = db_summary::where('id_credit', $data->id)
+                    ->where('id_agent', Auth::id())
+                    ->sum('amount');
+                    $amount_neto = ($data->amount_neto) + ($data->amount_neto * $data->utility);
+                    $tmp_quote = round(floatval(($amount_neto / $data->payment_number)), 2);
+                    $tmp_rest = round(floatval($amount_neto - $tmp_amount), 2);
+                    $data->setAttribute('credit_data', array(
+                        'positive' => $tmp_amount,
+                        'rest' => $tmp_rest,
+                        'payment_done' => db_summary::where('id_credit', $data->id)->count(),
+                        'payment_quote' => ($tmp_rest > $tmp_quote) ? $tmp_rest : $tmp_quote
+                    ));
                     $data->setAttribute('credit_id', $data->id);
-                    $data->setAttribute('amount_neto', ($data->amount_neto) + ($data->amount_neto * $data->utility));
-                    $data->setAttribute('positive', $data->amount_neto - (db_summary::where('id_credit', $data->id)
-                            ->where('id_agent', Auth::id())
-                            ->sum('amount')));
+                    $data->setAttribute('amount_neto', $amount_neto);
+                    $data->setAttribute('positive', $data->amount_neto - $tmp_amount);
                     $data->setAttribute('payment_current', db_summary::where('id_credit', $data->id)->count());
                 }
 
