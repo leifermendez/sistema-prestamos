@@ -7,23 +7,25 @@
             <section class="app-content">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="widget p-lg">
+                        <div class="widget p-lg overflow-auto">
                             <h4 class="m-b-lg">Detalles Clientes y Ventas</h4>
                             <table class="table client-table">
-                                <thead class="visible-lg">
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Apellidos</th>
-                                    <th>Barrio</th>
-                                    <th>Total</th>
-                                    <th>Pagados</th>
-                                    <th>Vigentes</th>
-                                    <th>Monto Prestado</th>
-                                    <th>Monto Restante</th>
-                                    <th>Tipo</th>
-                                    <th>Accion</th>
-                                </tr>
-                                </thead>
+                                <div class="d-none d-lg-block d-xl-block d-md-block">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Apellidos</th>
+                                            <th>Barrio</th>
+                                            <th>Total</th>
+                                            <th>Pagados</th>
+                                            <th>Vigentes</th>
+                                            <th>Monto Prestado</th>
+                                            <th>Monto Restante</th>
+                                            <th>Tipo</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                </div>
                                 <tbody>
                                 @foreach($clients as $client)
                                     <tr>
@@ -33,7 +35,7 @@
                                         <td><span class="value">{{$client->credit_count}}</span></td>
                                         <td><span class="value">{{$client->closed}}</span></td>
                                         <td><span class="value">{{$client->inprogress}}</span></td>
-                                        <td><span class="value">{{isset($client->amount_net) ? $client->amount_net->amount_neto +$client->gap_credit : 0}}</span></td>
+                                        <td><span class="value">{{sizeOf($client->amount_net) ? $client->sum_amount_gap : 0}}</span></td>
                                         <td><span class="value">{{$client->summary_net + $client->gap_credit}}</span></td>
                                         <td>
                                             @if($client->status=='good')
@@ -53,8 +55,12 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
-                                </tbody></table>
+                                </tbody>
+                            </table>
+                            <div class="w-100 mx-auto mt-4 alert alert-info d-flex justify-content-between"> 
+                                <p class="m-0">Cartera total</p>
+                                <h5 class="m-0">{{$total_pending}}</h5>
+                            </div>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->

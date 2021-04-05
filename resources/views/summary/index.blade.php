@@ -52,26 +52,56 @@
                     <div class="col-md-12">
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Historial</h4>
-                            <table class="table agente-paymentsH-table">
-                                <tbody>
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>No</th>
-                                    <th>Valor</th>
-                                    <th>Saldo</th>
-                                    <th></th>
-                                </tr>
-                                @foreach($clients as $client)
+                            
+                            <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
+                                <table class="table agente-paymentsH-table">
+                                    <tbody>
                                     <tr>
-                                        <td>{{$client->created_at}}</td>
-                                        <td>{{$client->number_index}}</td>
-                                        <td>{{$client->amount}}</td>
-                                        <td>{{$client->rest}}</td>
-                                        <td></td>
+                                        <th>Fecha</th>
+                                        <th>No</th>
+                                        <th>Valor</th>
+                                        <th>Saldo</th>
+                                        <th></th>
                                     </tr>
-                                @endforeach
+                                    @foreach($clients as $client)
+                                        <tr>
+                                            <td>{{$client->created_at}}</td>
+                                            <td>{{$client->number_index}}</td>
+                                            <td>{{$client->amount}}</td>
+                                            <td>{{$client->rest}}</td>
+                                            <td></td>
+                                        </tr>
+                                    @endforeach
 
-                                </tbody></table>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            
+                            <!-- FOR MOBILE -->
+                            <div class=" d-lg-none d-xl-none d-md-none">
+                            <table class="table agente-paymentsH-table">
+                                    <tbody>
+                                    <!-- <tr>
+                                        <th>Fecha</th>
+                                        <th>No</th>
+                                        <th>Valor</th>
+                                        <th>Saldo</th>
+                                        <th></th>
+                                    </tr> -->
+                                    @foreach($clients as $client)
+                                        <tr>
+                                            <td>{{$client->created_at}}</td>
+                                            <td>{{$client->number_index}}</td>
+                                            <td>{{$client->amount}}</td>
+                                            <td>{{$client->rest}}</td>
+                                            <td></td>
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
