@@ -11,19 +11,16 @@
                             <h4 class="m-b-lg">Detalles Clientes y Ventas</h4>
                             <table class="table supervisor-history-table">
 
-                                <div class="d-none d-lg-block d-xl-block d-md-block">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombres</th>
-                                            <th>Credito</th>
-                                            <th>Valor</th>
-                                            <th>Saldo</th>
-                                            <th>Cuota</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                </div>
-                                
+                                <thead>
+                                <tr class="visible-lg">
+                                    <th>Nombres</th>
+                                    <th>Credito</th>
+                                    <th>Valor</th>
+                                    <th>Saldo</th>
+                                    <th>Cuota</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
                                 <tbody>
                                 @foreach($clients as $client)
                                     <tr>

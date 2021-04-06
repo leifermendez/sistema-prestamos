@@ -85,8 +85,6 @@ __NOTA:__ Recuerda para un optimo funcionamiento en modo PRODUCCION en el archiv
 ```
 APP_ENV=production
 APP_DEBUG=false
-COUNTRY_INITIAL=ec <----- Inicial de pais
-GOOGLE_KEY=TU_KEY_GOOGLE_MAPS
 ```
 
 

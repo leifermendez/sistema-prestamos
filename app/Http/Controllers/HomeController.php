@@ -74,7 +74,6 @@ class HomeController extends Controller
             ->select('bills.*', 'wallet.name as wallet_name')
             ->get();
 
-
         $data = [
             'base_agent' => $base,
             'total_bill' => $bill->sum('amount'),

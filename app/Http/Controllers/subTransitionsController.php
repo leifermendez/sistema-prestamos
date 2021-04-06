@@ -37,7 +37,7 @@ class subTransitionsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,26 +48,22 @@ class subTransitionsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request,$id)
     {
         $date_start = $request->date_start;
         $date_end = $request->date_end;
 
-        if (!isset($date_start)) {
-            return 'Fecha Inicio Vacia';
-        };
-        if (!isset($date_end)) {
-            return 'Fecha Final Vacia';
-        };
+        if(!isset($date_start)){return 'Fecha Inicio Vacia';};
+        if(!isset($date_end)){return 'Fecha Final Vacia';};
 
-        $data_credit = db_supervisor_has_agent::where('id_wallet', $id)
-            ->join('credit', 'agent_has_supervisor.id_user_agent', '=', 'credit.id_agent')
-            ->join('users', 'credit.id_user', '=', 'users.id')
-            ->whereDate('credit.created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
-            ->whereDate('credit.created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString())
+        $data_credit = db_supervisor_has_agent::where('id_wallet',$id)
+            ->join('credit','agent_has_supervisor.id_user_agent','=','credit.id_agent')
+            ->join('users','credit.id_user','=','users.id')
+            ->whereDate('credit.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
+            ->whereDate('credit.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
             ->select(
                 'users.name',
                 'users.last_name',
@@ -80,16 +76,16 @@ class subTransitionsController extends Controller
             )
             ->get();
 
-        foreach ($data_credit as $d) {
-            $d->valor = (($d->amount_neto) + ($d->amount_neto * $d->utility) - db_summary::where('id_credit', $d->credit_id)->sum('amount'));
+        foreach ($data_credit as $d){
+            $d->valor = (($d->amount_neto)+($d->amount_neto*$d->utility)-db_summary::where('id_credit',$d->credit_id)->sum('amount'));
         }
 
-        $data_summary = db_supervisor_has_agent::where('id_wallet', $id)
-            ->join('summary', 'agent_has_supervisor.id_user_agent', '=', 'summary.id_agent')
-            ->join('credit', 'summary.id_credit', '=', 'credit.id')
-            ->join('users', 'credit.id_user', '=', 'users.id')
-            ->whereDate('summary.created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
-            ->whereDate('summary.created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString())
+        $data_summary = db_supervisor_has_agent::where('id_wallet',$id)
+            ->join('summary','agent_has_supervisor.id_user_agent','=','summary.id_agent')
+            ->join('credit','summary.id_credit','=','credit.id')
+            ->join('users','credit.id_user','=','users.id')
+            ->whereDate('summary.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
+            ->whereDate('summary.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
             ->select(
                 'credit.id as credit_id',
                 'users.id',
@@ -102,17 +98,17 @@ class subTransitionsController extends Controller
                 'credit.utility',
                 'summary.created_at',
                 'credit.id as credit_id'
-            )
+                )
             ->get();
 
-        foreach ($data_summary as $data) {
-            $data->total_summary = db_summary::where('id_credit', $data->credit_id)->sum('amount');
+        foreach ($data_summary as $data){
+            $data->total_summary = db_summary::where('id_credit',$data->credit_id)->sum('amount');
         }
 
-        $data_bill = db_bills::whereDate('created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
-            ->join('list_bill', 'bills.type', '=', 'list_bill.id')
-            ->whereDate('created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString())
-            ->where('id_wallet', $id)
+        $data_bill = db_bills::whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
+            ->join('list_bill','bills.type','=','list_bill.id')
+            ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
+            ->where('id_wallet',$id)
             ->select(
                 'bills.*',
                 'list_bill.name as type_bill'
@@ -130,13 +126,13 @@ class subTransitionsController extends Controller
             'id_wallet' => $id
         );
 
-        return view('submenu.transitions.index', $data);
+        return view('submenu.transitions.index',$data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -147,8 +143,8 @@ class subTransitionsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -159,7 +155,7 @@ class subTransitionsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

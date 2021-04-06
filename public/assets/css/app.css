@@ -3193,8 +3193,8 @@ h3.widget-title {
 
 /* statistics widgets */
 .stats-widget .big-icon {
-    font-size: 32px;
     color: #cccer;
+    font-size: 32px;
 }
 
 .stats-widget .widget-footer {
@@ -4850,14 +4850,6 @@ td.mail-right {
         content: "Detalle";
     }
 
-    .supervisor-billS-table td:nth-of-type(5):before {
-        content: "Categoría";
-    }
-
-    .supervisor-billS-table td:nth-of-type(6):before {
-        content: "Agente";
-    }
-
     /* Agente:*/
     /* -Mostrar clientes:*/
     .client-table td:nth-of-type(1):before {
@@ -4885,18 +4877,10 @@ td.mail-right {
     }
 
     .client-table td:nth-of-type(7):before {
-        content: "Monto Prestado";
-    }
-
-    .client-table td:nth-of-type(8):before {
-        content: "Monto Restante";
-    }
-
-    .client-table td:nth-of-type(9):before {
         content: "Tipo";
     }
 
-    .client-table td:nth-of-type(10):before {
+    .client-table td:nth-of-type(8):before {
         content: "Acción";
     }
 
@@ -5062,14 +5046,6 @@ td.mail-right {
 
     .agente-g-table td:nth-of-type(4):before {
         content: "Detalle";
-    }
-
-    .agente-g-table td:nth-of-type(5):before {
-        content: "Categoria";
-    }
-
-    .agente-g-table td:nth-of-type(6):before {
-        content: "Agente";
     }
 
     /*FIn Luis*/
