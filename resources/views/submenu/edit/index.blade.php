@@ -10,22 +10,18 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Creditos Otorgados</h4>
                             <table class="table supervisor-editC-table">
-                                
-                                <div class="d-none d-lg-block d-xl-block d-md-block">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombres</th>
-                                            <th>Credito</th>
-                                            <th>Barrio</th>
-                                            <th>Hora</th>
-                                            <th>Tasa</th>
-                                            <th>Cuotas</th>
-                                            <th>Valor</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                </div>
-                                
+                                <thead>
+                                <tr class="visible-lg">
+                                    <th>Nombres</th>
+                                    <th>Credito</th>
+                                    <th>Barrio</th>
+                                    <th>Hora</th>
+                                    <th>Tasa</th>
+                                    <th>Cuotas</th>
+                                    <th>Valor</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
 
                                 <tbody>
                                 @foreach($credit as $cred)
@@ -59,16 +55,15 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Gastos del Agente</h4>
                             <table class="table supervisor-editG-table">
-                                <div class="d-none d-lg-block d-xl-block d-md-block">
-                                    <thead>
-                                        <tr>
-                                            <th>Gasto</th>
-                                            <th>Detalle</th>
-                                            <th>Valor</th>
-                                            <th></th>
-                                        </tr>                                
-                                    </thead>
-                                </div>
+                                <thead>
+                                <tr class="visible-lg">
+                                    <th>Gasto</th>
+                                    <th>Detalle</th>
+                                    <th>Valor</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+
                                 <tbody>
                                 @foreach($bills as $bill)
                                     <tr>
@@ -95,18 +90,17 @@
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Pagos Recibidos</h4>
                             <table class="table supervisor-editP-table">
-                                <div class="d-none d-lg-block d-xl-block d-md-block">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombres</th>
-                                            <th>Credito</th>
-                                            <th>Cuota</th>
-                                            <th>Valor</th>
-                                            <th>Saldo</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                </div>
+                                <thead>
+                                <tr class="visible-lg">
+                                    <th>Nombres</th>
+                                    <th>Credito</th>
+                                    <th>Cuota</th>
+                                    <th>Valor</th>
+                                    <th>Saldo</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+
                                 <tbody>
                                 @foreach($summary as $sum)
                                     <tr>

@@ -23,65 +23,30 @@
 
                             </form>
                             <br class="clearfix">
-                            <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
-                                <table class="table supervisor-gastos-table">
-                                    <tbody>
-                                            <tr>
-                                                <th>Cartera</th>
-                                                <th>Fecha</th>
-                                                <th>Agente</th>
+                            <table class="table supervisor-gastos-table">
+                                <tbody>
+                                <tr class="visible-lg">
+                                    <th>Cartera</th>
+                                    <th>Fecha</th>
+                                    <th>Agente</th>
 
-                                                <th>Valor</th>
-                                                <th>Detalle</th>
-                                                <th></th>
-                                            </tr>
-                                    
-                                    @foreach($clients as $client)
-                                        <tr>
-                                            <td>{{$client->wallet_name}}</td>
-                                            <td>{{$client->created_at}}</td>
-                                            <td>{{$client->user_name}} {{$client->user_lastname}}</td>
+                                    <th>Valor</th>
+                                    <th>Detalle</th>
+                                    <th></th>
+                                </tr>
+                                @foreach($clients as $client)
+                                    <tr>
+                                        <td>{{$client->wallet_name}}</td>
+                                        <td>{{$client->created_at}}</td>
+                                        <td>{{$client->user_name}} {{$client->user_lastname}}</td>
 
-                                            <td>{{$client->amount}}</td>
-                                            <td>{{$client->description}}</td>
-                                            <td></td>
-                                        </tr>
-                                    @endforeach
+                                        <td>{{$client->amount}}</td>
+                                        <td>{{$client->description}}</td>
+                                        <td></td>
+                                    </tr>
+                                @endforeach
 
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- FOR MOBIL -->
-                            <div class=" d-lg-none d-xl-none d-md-none">
-                                <table class="table supervisor-gastos-table">
-                                    <tbody>
-                                            <!-- <tr>
-                                                <th>Cartera</th>
-                                                <th>Fecha</th>
-                                                <th>Agente</th>
-
-                                                <th>Valor</th>
-                                                <th>Detalle</th>
-                                                <th></th>
-                                            </tr> -->
-                                    
-                                    @foreach($clients as $client)
-                                        <tr>
-                                            <td>{{$client->wallet_name}}</td>
-                                            <td>{{$client->created_at}}</td>
-                                            <td>{{$client->user_name}} {{$client->user_lastname}}</td>
-
-                                            <td>{{$client->amount}}</td>
-                                            <td>{{$client->description}}</td>
-                                            <td></td>
-                                        </tr>
-                                    @endforeach
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            
+                                </tbody></table>
                             <footer class="widget-footer">
                                 <p><b>Total: </b><span class="text-success">{{$total}}</span></p>
                             </footer>

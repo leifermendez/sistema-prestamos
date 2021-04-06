@@ -24,12 +24,8 @@ class billsupervisorController extends Controller
         $category = $request->category;
 
         $list_categories = db_list_bills::all();
-        $current_role = Auth::user()->level;
-        $current_user = Auth::id();
 
-        //Login Agent
-
-        $ormQry = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $current_user)
+        $ormQry = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
             ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
             ->join('bills', 'wallet.id', '=', 'bills.id_wallet')
             ->join('list_bill', 'bills.type', '=', 'list_bill.id')
@@ -44,27 +40,7 @@ class billsupervisorController extends Controller
                 DB::raw('SUM(bills.amount) as amount')
             );
 
-//        if($current_role === 'supervisor'){
-//
-//            $ormQry = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $current_user)
-//                ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
-//                ->join('bills', 'wallet.id', '=', 'bills.id_wallet')
-//                ->join('list_bill', 'bills.type', '=', 'list_bill.id')
-//                ->join('users', 'bills.id_agent', '=', 'users.id')
-//                ->select(
-//                    'bills.created_at as created_at',
-//                    'wallet.name as wallet_name',
-//                    'bills.type as type',
-//                    'bills.description',
-//                    'list_bill.name as category_name',
-//                    'users.name as user_name',
-//                    DB::raw('SUM(bills.amount) as amount')
-//                );
-//        }
-
-
-
-        $ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $current_user)
+        $ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
             ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
             ->join('bills', 'wallet.id', '=', 'bills.id_wallet');
 
@@ -90,14 +66,12 @@ class billsupervisorController extends Controller
         $data = $ormQry->groupBy('bills.id')->get();
 
 
-
         $data = array(
             'clients' => $data,
             'sum' => $sum,
             'list_categories' => $list_categories,
         );
 
-//        dd($data);
 
         return view('supervisor_bill.index', $data);
 
@@ -148,8 +122,7 @@ class billsupervisorController extends Controller
             'created_at' => Carbon::now(),
             'description' => $description,
             'id_wallet' => $id_wallet,
-            'type' => $bill,
-            'id_agent' => Auth::id(),
+            'type' => db_list_bills::find($bill)->name,
             'amount' => $amount
         );
 

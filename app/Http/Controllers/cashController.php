@@ -18,16 +18,13 @@ class cashController extends Controller
      */
     public function index()
     {
-        $data = db_supervisor_has_agent::where('id_supervisor', Auth::id())
-            ->join('wallet', 'id_wallet', '=', 'wallet.id')
+        $data = db_supervisor_has_agent::where('id_supervisor',Auth::id())
+            ->join('wallet','id_wallet','=','wallet.id')
             ->get();
-        $sum = db_supervisor_has_agent::where('id_supervisor', Auth::id())
-            ->join('wallet', 'id_wallet', '=', 'wallet.id')
+        $sum = db_supervisor_has_agent::where('id_supervisor',Auth::id())
+            ->join('wallet','id_wallet','=','wallet.id')
             ->sum('agent_has_supervisor.base');
-        $report = db_close_day::where('id_supervisor', Auth::id())
-            ->join('wallet', 'wallet.id', '=', 'id_wallet')
-            ->select('close_day.*', 'wallet.name as wallet_name')
-            ->orderBy('id', 'desc')->get();
+        $report = db_close_day::where('id_supervisor',Auth::id())->orderBy('id','desc')->get();
 
         $data = array(
             'clients' => $data,
@@ -35,7 +32,7 @@ class cashController extends Controller
             'sum' => $sum
         );
 
-        return view('supervisor_cash.index', $data);
+        return view('supervisor_cash.index',$data);
     }
 
     /**
@@ -45,21 +42,21 @@ class cashController extends Controller
      */
     public function create()
     {
-        $data = db_supervisor_has_agent::where('id_supervisor', Auth::id())
-            ->join('wallet', 'id_wallet', '=', 'wallet.id')
+        $data = db_supervisor_has_agent::where('id_supervisor',Auth::id())
+            ->join('wallet','id_wallet','=','wallet.id')
             ->get();
 
         $data = array(
             'wallet' => $data
         );
 
-        return view('supervisor_cash.create', $data);
+        return view('supervisor_cash.create',$data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -70,7 +67,7 @@ class cashController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -81,7 +78,7 @@ class cashController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -92,8 +89,8 @@ class cashController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -104,7 +101,7 @@ class cashController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

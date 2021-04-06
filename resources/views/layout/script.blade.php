@@ -8,14 +8,6 @@
 <script src="{{asset('/libs/bower/PACE/pace.min.js')}}"></script>
 <!-- endbuild -->
 
-<script type="text/javascript">
-    const optionsMaps = {
-        types: ['(cities)'],
-        componentRestrictions: {country: "{{ env('COUNTRY_INITIAL') }}"}
-    };
-
-</script>
-
 <!-- build:js ../assets/js/app.min.js -->
 <script src="{{asset('/assets/js/library.js')}}"></script>
 <script src="{{asset('/assets/js/plugins.js')}}"></script>
@@ -62,6 +54,8 @@
      */
 
     google.maps.event.addDomListener(window, 'load', initialize);
+
+
 
 
 </script>

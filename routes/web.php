@@ -14,26 +14,19 @@
 Route::get('/', function () {
     return redirect('/home');
 });
-
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/cron', 'closeController@close_automatic');
-
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::resource('client', 'userController', ['only' => ['create', 'show']])->middleware('close');
-    Route::resource('client', 'userController', ['except' => ['create', 'show']]);
-    Route::resource('payment', 'paymentController')->middleware('close');
-    Route::resource('summary', 'summaryController')->middleware('close');
-    Route::resource('simulator', 'simulatorController');
-    Route::resource('route', 'routeController')->middleware('close');
-    Route::resource('history', 'historyController');
-    Route::resource('transaction', 'transactionController');
-    Route::resource('bill', 'billController')->middleware('close');
-});
-
-
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::resource('client', 'userController')->middleware('auth');
+Route::resource('payment', 'paymentController')->middleware('auth');
+Route::resource('summary', 'summaryController')->middleware('auth');
+Route::resource('simulator', 'simulatorController')->middleware('auth');
+Route::resource('route', 'routeController')->middleware('auth');
+Route::resource('history', 'historyController')->middleware('auth');
+Route::resource('transaction', 'transactionController')->middleware('auth');
+Route::resource('bill', 'billController')->middleware('auth');
 
 Route::prefix('supervisor')->group(function () {
     Route::resource('agent', 'agentController');
