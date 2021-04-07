@@ -129,7 +129,7 @@ class billsupervisorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         $id_wallet = $request->id_wallet;
         $amount = $request->amount;
         $bill = $request->bill;
