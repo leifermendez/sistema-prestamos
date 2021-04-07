@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\db_bills;
+use App\db_close_day;
 use App\db_credit;
 use App\db_summary;
 use App\db_supervisor_has_agent;
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class historyController extends Controller
 {
@@ -54,29 +55,41 @@ class historyController extends Controller
     {
         try {
             $date = $request->date_start;
-            $base_amount = db_supervisor_has_agent::where('id_user_agent',Auth::id())->first()->base;
+    
+            $base_raw = db_close_day::where('id_agent', Auth::id())
+                ->whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date))
+                ->first();
+    
+            if (!$base_raw) {
+                die('No existe cierre');
+            }
+            $base_amount_before = $base_raw->base_before;
+            $base_amount_total = $base_raw->total;
+    
+    //        $base_amount = db_supervisor_has_agent::where('id_user_agent',Auth::id())->first()->base;
             $today_amount = db_summary::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date)
                 ->toDateString())
-                ->where('id_agent',Auth::id())
+                ->where('id_agent', Auth::id())
                 ->sum('amount');
-            $today_sell = db_credit::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date)
+            $today_sell = db_credit::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date)
                 ->toDateString())
-                ->where('id_agent',Auth::id())
+                ->where('id_agent', Auth::id())
                 ->sum('amount_neto');
-            $bills = db_bills::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date)
+            $bills = db_bills::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date)
                 ->toDateString())
                 ->sum('amount');
-            $total = floatval($base_amount+$today_amount)-floatval($today_sell+$bills);
+            $total = floatval($base_amount_before + $today_amount) - floatval($today_sell + $bills);
             $average = 1000;
-
+    
             $data = array(
-                'base' => $base_amount,
+                'base' => $base_amount_before,
                 'today_amount' => $today_amount,
                 'today_sell' => $today_sell,
                 'bills' => $bills,
                 'total' => $total,
                 'average' => $average
             );
+    
             $response = array(
                 'status' => 'success',
                 'data' => $data,
