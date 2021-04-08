@@ -83,7 +83,7 @@ class subCloseController extends Controller
 
         $bills = db_bills::whereDate('created_at', Carbon::createFromFormat('d/m/Y', $date_start)
             ->toDateString())
-            ->where('id_agent', $data_agent->id_user_agent)
+            ->where('id_wallet', $id)
             ->sum('amount');
 
         $base_amount = false;

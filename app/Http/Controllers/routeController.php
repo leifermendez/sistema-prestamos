@@ -32,9 +32,12 @@ class routeController extends Controller
     public function index()
     {
         $data = db_credit::where('credit.id_agent', Auth::id())
+            ->join('users','credit.id_user','=','users.id')
             ->where('credit.status', 'inprogress')
+            ->select('credit.*')
             ->orderBy('credit.order_list', 'asc')
             ->get();
+
         $data_filter = array();
         $dt = Carbon::now();
 
