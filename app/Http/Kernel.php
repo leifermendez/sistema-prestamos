@@ -47,7 +47,7 @@ class Kernel extends HttpKernel
     /**
      * The application's route middleware.
      * 
-     * These middleware may be assigned to groups or used individually.
+     * These  middleware may be assigned to groups or used individually.
      *
      * @var array
      */
