@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\db_credit;
+use App\db_agent_has_user;
 use App\db_summary;
 use App\db_supervisor_has_agent;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class subHistoryController extends Controller
 {
@@ -22,6 +25,9 @@ class subHistoryController extends Controller
         if(!isset($request->id_wallet)){
             return 'No existe ID Wallet';
         }
+        $user_has_agent = db_agent_has_user::where('id_agent', Auth::id())
+        ->join('users', 'id_client', '=', 'users.id')
+        ->get();
         
         $data = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor',Auth::id())
             ->where('agent_has_supervisor.id_wallet',$request->id_wallet)
@@ -36,7 +42,37 @@ class subHistoryController extends Controller
             ->groupBy('users.id')
             ->get();
 
-
+            foreach ($user_has_agent as $user) {
+                if (db_credit::where('id_user', $user->id)->exists()) {
+                    $user->closed = db_credit::where('status', 'close')->where('id_user', $user->id)->count();
+                    $user->inprogress = db_credit::where('status', 'inprogress')->where('id_user', $user->id)->count();
+                    $user->credit_count = db_credit::where('id_user', $user->id)->count();
+                    $user->amount_net = db_credit::where('id_user', $user->id)
+                        ->where('status', 'inprogress')->get()->toArray();
+                    if(sizeOf($user->amount_net)) {
+                        $tmp_credit = 0;
+                        $user->gap_credit = 0;
+                        $user->summary_net = 0;
+                        foreach ($user->amount_net as $key => $value) {
+                            $user->summary_net += db_summary::where('id_credit', $value['id'])
+                            ->sum('amount');
+                            $tmp_credit += $value['amount_neto'] ?? 0;
+                            $user->gap_credit += $value['amount_neto'] * $value['utility'];
+                        }
+                        $user->sum_amount_gap = $tmp_credit + $user->gap_credit;
+                        $tmp_rest = $tmp_credit - $user->summary_net;
+                        $user->summary_net = $tmp_rest;
+                    } else {
+                        $user->summary_net = 0;
+                    }
+                }
+            }
+    
+            $total_pending = floatval($user_has_agent->sum('summary_net') + $user_has_agent->sum('gap_credit')) ;
+            $user_has_agent = array(
+                'clients' => $user_has_agent,
+                'total_pending' => $total_pending
+            );
         foreach ($data as $datum){
             $datum->setAttribute('amount_neto',($datum->amount_neto)+($datum->amount_neto*$datum->utility));
             $datum->summary_total = $datum->amount_neto-(db_summary::where('id_credit',$datum->credit_id)
@@ -57,12 +93,14 @@ class subHistoryController extends Controller
         }
         $total_rest = ($total_credit_amount-$total_summary);
 
-
+        $id = $request->id;
         $data = array(
             'clients' => $data,
             'total' => $total_summary,
             'total_rest' => $total_rest,
             'total_credit' => $total_credit_amount,
+            'user' => User::find($id),
+            'payment_number' => DB::table('payment_number')->orderBy('name', 'asc')->get(),
             'id_wallet' => $data_wallet->id
         );
 

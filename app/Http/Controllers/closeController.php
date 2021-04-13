@@ -106,6 +106,10 @@ class closeController extends Controller
             ->where('id_agent', $id)
             ->sum('amount_neto');
         $bills = db_bills::whereDate('created_at', '=', Carbon::now()->toDateString())
+<<<<<<< Updated upstream
+=======
+            ->where('id_agent',$id)
+>>>>>>> Stashed changes
             ->sum('amount');
         $total = floatval($base_amount + $today_amount) - floatval($today_sell + $bills);
         $average = 1000;

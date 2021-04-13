@@ -17,19 +17,19 @@
                                     {{ csrf_field() }}
                                     {{ method_field('PUT') }}
                                     <div class="form-group">
-                                        <label for="base_amount">Agente:</label>
+                                        <label for="base_amount">Cobrador:</label>
                                         <input type="text" name="base_amount" value="{{$user->name}} {{$user->last_name}}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="base_amount">Base del cobro:</label>
+                                        <label for="base_amount">Caja del cobro:</label>
                                         <input type="text" name="base_amount_total" value="{{$base}}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="base_amount">Recaudo:</label>
+                                        <label for="base_amount">Cobrado:</label>
                                         <input type="text" name="today" value="{{$today_amount}}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="base_amount">Ventas:</label>
+                                        <label for="base_amount">Prestado:</label>
                                         <input type="text" name="today" value="{{$today_sell}}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="base_amount">Efectividad:</label>
-                                        <input type="text" name="today" value="{{$average}}" readonly class="form-control" id="base_amount" required>
+                                        <input type="text" name="today" value="100%" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-success btn-block btn-md">Cerrar</button>

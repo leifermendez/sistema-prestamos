@@ -4321,7 +4321,7 @@ td.mail-right {
     }
 
     .supervisor-table td:nth-of-type(3):before {
-        content: "Barrio";
+        content: "Tipo de Negocio";
     }
 
     .supervisor-table td:nth-of-type(4):before {
@@ -4363,7 +4363,7 @@ td.mail-right {
 
     /* -Cierre diario:*/
     .supervisor-close-table td:nth-of-type(2):before {
-        content: "Cartera";
+        content: "Cobro";
     }
 
     .supervisor-close-table td:nth-of-type(3):before {
@@ -4389,7 +4389,7 @@ td.mail-right {
     }
 
     .supervisor-clientes-table td:nth-of-type(2):before {
-        content: "Barrio";
+        content: "Tipo de Negocio";
     }
 
     .supervisor-clientes-table td:nth-of-type(3):before {
@@ -4408,13 +4408,13 @@ td.mail-right {
         content: "Tipo";
     }
 
-    /* -Rastro agente:*/
+    /* -Rastro Cobrador:*/
     .supervisor-tracker-table td:nth-of-type(1):before {
         content: "Nombre";
     }
 
     .supervisor-tracker-table td:nth-of-type(2):before {
-        content: "Cartera";
+        content: "Cobro";
     }
 
     .supervisor-tracker-table td:nth-of-type(3):before {
@@ -4440,7 +4440,7 @@ td.mail-right {
     }
 
     .supervisor-ventas-table td:nth-of-type(3):before {
-        content: "Barrio";
+        content: "Tipo de Negocio";
     }
 
     .supervisor-ventas-table td:nth-of-type(4):before {
@@ -4530,7 +4530,7 @@ td.mail-right {
     }
 
     .supervisor-creditos-table td:nth-of-type(3):before {
-        content: "Barrio";
+        content: "Tipo de Negocio";
     }
 
     .supervisor-creditos-table td:nth-of-type(4):before {
@@ -4549,7 +4549,7 @@ td.mail-right {
         content: "Valor";
     }
 
-    /* °Gastos del agente:*/
+    /* °Gastos del Cobrador:*/
     .supervisor-gas-table td:nth-of-type(1):before {
         content: "Gasto";
     }
@@ -4593,7 +4593,7 @@ td.mail-right {
 
     /* +Ruta:*/
     .supervisor-route-table td:nth-of-type(1):before {
-        content: "Credito";
+        content: "# Credito";
     }
 
     .supervisor-route-table td:nth-of-type(2):before {
@@ -4609,7 +4609,7 @@ td.mail-right {
     }
 
     .supervisor-route-table td:nth-of-type(5):before {
-        content: "Dias sin pagar";
+        content: "Cuotas Atrasadas";
     }
 
     .supervisor-route-table td:nth-of-type(6):before {
@@ -4621,7 +4621,7 @@ td.mail-right {
     }
 
     .supervisor-route-table td:nth-of-type(8):before {
-        content: "Barrio";
+        content: "Tipo de Negocio";
     }
 
     .supervisor-route-table td:nth-of-type(9):before {
@@ -4630,7 +4630,7 @@ td.mail-right {
 
     /* +Gastos:*/
     .supervisor-gastos-table td:nth-of-type(1):before {
-        content: "Cartera";
+        content: "Cobro";
     }
 
     .supervisor-gastos-table td:nth-of-type(2):before {
@@ -4638,14 +4638,18 @@ td.mail-right {
     }
 
     .supervisor-gastos-table td:nth-of-type(3):before {
-        content: "Agente";
+        content: "Cobrador";
     }
 
     .supervisor-gastos-table td:nth-of-type(4):before {
-        content: "Valor";
+        content: "Tipo de Gasto";
     }
 
     .supervisor-gastos-table td:nth-of-type(5):before {
+        content: "Valor";
+    }
+
+    .supervisor-gastos-table td:nth-of-type(6):before {
         content: "Detalle";
     }
 
@@ -4661,7 +4665,7 @@ td.mail-right {
     }
 
     .supervisor-editC-table td:nth-of-type(3):before {
-        content: "Barrio";
+        content: "Tipo de Negocio";
     }
 
     .supervisor-editC-table td:nth-of-type(4):before {
@@ -4680,7 +4684,7 @@ td.mail-right {
         content: "Valor";
     }
 
-    /* °Gastos del Agente:*/
+    /* °Gastos del Cobrador:*/
     .supervisor-editG-table td:nth-of-type(1):before {
         content: "Gasto";
     }
@@ -4720,19 +4724,19 @@ td.mail-right {
     }
 
     .supervisor-report-table td:nth-of-type(2):before {
-        content: "Base";
+        content: "Caja";
     }
 
     .supervisor-report-table td:nth-of-type(3):before {
-        content: "Recaudo";
+        content: "Cobrado";
     }
 
     .supervisor-report-table td:nth-of-type(4):before {
-        content: "Creditos";
+        content: "Prestado";
     }
 
     .supervisor-report-table td:nth-of-type(5):before {
-        content: "Gasto Agente";
+        content: "Gasto Cobrador";
     }
 
     .supervisor-report-table td:nth-of-type(6):before {
@@ -4855,7 +4859,11 @@ td.mail-right {
     }
 
     .supervisor-billS-table td:nth-of-type(6):before {
+<<<<<<< Updated upstream
         content: "Agente";
+=======
+        content: "Cobrador";
+>>>>>>> Stashed changes
     }
 
     /* Agente:*/
@@ -4869,19 +4877,19 @@ td.mail-right {
     }
 
     .client-table td:nth-of-type(3):before {
-        content: "Barrio";
+        content: "Tipo de Negocio";
     }
 
     .client-table td:nth-of-type(4):before {
-        content: "Total";
+        content: "Total Prestamos";
     }
 
     .client-table td:nth-of-type(5):before {
-        content: "Pagados";
+        content: "Prestamos Terminados";
     }
 
     .client-table td:nth-of-type(6):before {
-        content: "Vigentes";
+        content: "Prestamos Vigentes";
     }
 
     .client-table td:nth-of-type(7):before {
@@ -4893,7 +4901,11 @@ td.mail-right {
     }
 
     .client-table td:nth-of-type(9):before {
+<<<<<<< Updated upstream
         content: "Tipo";
+=======
+        content: "Status";
+>>>>>>> Stashed changes
     }
 
     .client-table td:nth-of-type(10):before {
@@ -4906,7 +4918,7 @@ td.mail-right {
     }
 
     .agente-payments-table td:nth-of-type(2):before {
-        content: "Credito";
+        content: "# Credito";
     }
 
     .agente-payments-table td:nth-of-type(3):before {
@@ -4940,11 +4952,11 @@ td.mail-right {
 
     /* -Iniciar Ruta:*/
     .agente-route-table td:nth-of-type(1):before {
-        content: "";
+        content: "Orden";
     }
 
     .agente-route-table td:nth-of-type(2):before {
-        content: "Credito";
+        content: "# Credito";
     }
 
     .agente-route-table td:nth-of-type(3):before {
@@ -4952,7 +4964,7 @@ td.mail-right {
     }
 
     .agente-route-table td:nth-of-type(4):before {
-        content: "Días en mora";
+        content: "Cuotas Atrasadas";
     }
 
     .agente-route-table td:nth-of-type(5):before {
@@ -4972,7 +4984,7 @@ td.mail-right {
     }
 
     .agente-route-table td:nth-of-type(9):before {
-        content: "Barrio";
+        content: "Tipo de Negocio";
     }
 
     .agente-route-table td:nth-of-type(10):before {
@@ -4986,11 +4998,11 @@ td.mail-right {
     }
 
     .agente-transactionV-table td:nth-of-type(2):before {
-        content: "Credito";
+        content: "# Credito";
     }
 
     .agente-transactionV-table td:nth-of-type(3):before {
-        content: "Barrio";
+        content: "Tipo de Negocio";
     }
 
     .agente-transactionV-table td:nth-of-type(4):before {
@@ -5032,7 +5044,7 @@ td.mail-right {
     }
 
     .agente-transactionR-table td:nth-of-type(3):before {
-        content: "Credito";
+        content: "# Credito";
     }
 
     .agente-transactionR-table td:nth-of-type(4):before {
@@ -5069,7 +5081,11 @@ td.mail-right {
     }
 
     .agente-g-table td:nth-of-type(6):before {
+<<<<<<< Updated upstream
         content: "Agente";
+=======
+        content: "Cobrador";
+>>>>>>> Stashed changes
     }
 
     /*FIn Luis*/

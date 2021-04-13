@@ -8,13 +8,21 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
+<<<<<<< Updated upstream
                             <h4 class="m-b-lg">Agentes</h4>
+=======
+                            <h4 class="m-b-lg">Cobradores</h4>
+>>>>>>> Stashed changes
                             <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
                                 <table class="table supervisor-close-table">
                                     <tbody>
                                         <tr>
                                             <th>Nombre</th>
+<<<<<<< Updated upstream
                                             <th>Cartera</th>
+=======
+                                            <th>Cobro</th>
+>>>>>>> Stashed changes
                                             <th>Fecha</th>
                                             <th>Ciudad</th>
                                             <th>Accion</th>

@@ -8,13 +8,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
-                            <h4 class="m-b-lg">Ventas realizadas</h4>
+                            <h4 class="m-b-lg">Prestamos realizados</h4>
                             <table class="table supervisor-ventas-table">
                                 <tbody>
                                 <tr>
                                     <th>Nombres</th>
                                     <th>Credito</th>
-                                    <th>Barrio</th>
+                                    <th>Tipo de Negocio</th>
                                     <th>Hora</th>
                                     <th>Tasa</th>
                                     <th>Cuotas</th>

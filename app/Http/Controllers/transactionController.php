@@ -79,7 +79,13 @@ class transactionController extends Controller
 
 
         $data_bill = db_bills::whereDate('created_at',Carbon::createFromFormat('d/m/Y',$date)->toDateString())
+            ->join('list_bill', 'bills.type', '=', 'list_bill.id')
+            ->whereDate('created_at', '<=', Carbon::createFromFormat('d/m/Y', $date)->toDateString())
             ->where('id_agent',Auth::id())
+            ->select(
+                'bills.*',
+                'list_bill.name as type_bill'
+            )
             ->get();
 
         foreach ($data_summary as $d){

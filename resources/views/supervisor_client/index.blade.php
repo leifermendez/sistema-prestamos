@@ -14,8 +14,13 @@
                                     <thead>
                                     <tr>
                                         <th>Nombres</th>
+<<<<<<< Updated upstream
                                         <th>Barrio</th>
                                         <th>Total</th> 
+=======
+                                        <th>Tipo de Negocio</th>
+                                        <th>Total Creditos</th> 
+>>>>>>> Stashed changes
                                         <th>Pagados</th>
                                         <th>Vigentes</th>
                                         <th>Tipo</th>

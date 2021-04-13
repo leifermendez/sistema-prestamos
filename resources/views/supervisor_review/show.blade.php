@@ -87,7 +87,7 @@
                                 <div class="widget stats-widget">
                                     <div class="widget-body clearfix bg-info">
                                         <div class="pull-left">
-                                            <h3 class="widget-title text-white">Movimiento</h3>
+                                            <h3 class="widget-title text-white">Liquidacion</h3>
                                         </div>
                                         <span class="pull-right big-icon watermark"><i class="fa fa-list-ol"></i></span>
                                     </div>

@@ -18,7 +18,7 @@
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <label for="nit_number">Nº Identificacion:</label>
-                                        <input type="text" name="nit_number" value="{{isset($user) ? $user->nit : ''}}"
+                                        <input type="number" name="nit_number" value="{{isset($user) ? $user->nit : ''}}"
                                                class="form-control" id="nit_number" required>
                                     </div>
                                     <div class="form-group">
@@ -47,7 +47,7 @@
                                     <input type="hidden" name="lng" value="{{isset($user) ? $user->lng : ''}}"
                                            class="form-control" id="lng">
                                     <div class="form-group">
-                                        <label for="province">Barrio:</label>
+                                        <label for="province">Tipo de Negocio:</label>
                                         <input type="text" name="province"
                                                value="{{isset($user) ? $user->province : ''}}" class="form-control"
                                                id="province" required>
@@ -63,28 +63,24 @@
                                                class="form-control amount-input" id="amount" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="utility">Utilidad:</label>
+                                        <label for="utility">Interes:</label>
                                         <select name="utility" class="form-control" id="utility">
-                                            <option value="0.0">0%</option>
-                                            <option value="0.05">5%</option>
-                                            <option value="0.1">10%</option>
-                                            <option value="0.15">15%</option>
                                             <option value="0.2" selected>20%</option>
-                                            <option value="0.25">25%</option>
-                                            <option value="0.30">30%</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="payment_number">Cuotas:</label>
                                         <select name="payment_number" class="form-control" id="payment_number">
-                                            @foreach($payment_number as $p)
-                                                <option {{($p->selected) ? 'selected':'' }} value="{{$p->name}}">{{$p->name}}</option>
-                                            @endforeach
+                                        <option value="30" selected>30</option>
+                                        <option value="24" >24
+                                        </option>
                                         </select>
                                     </div>
                                     <div class="form-group text-center total-box hidden">
-                                        <h4>Total + Utilidad</h4>
-                                        <h2 id="total_show"></h2>
+                                        <h4>Total + Interes</h4>
+                                     <h2 id="total_show"></h2>
+                                     <h4>Cuota Diaria</h4>
+                                        <h2 id="quote"></h2>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-success btn-block btn-md">Guardar</button>

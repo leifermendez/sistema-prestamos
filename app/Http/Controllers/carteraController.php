@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class paymentController extends Controller
+class carteraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,10 +39,12 @@ class paymentController extends Controller
                 'users.name', 'users.last_name'
             )
             ->get();
-
+      $suma = 0;
         foreach ($data_user as $data) {
             if (db_credit::where('id_user', $data->id_user)->where('id_agent', Auth::id())->exists()) {
-
+                $suma+=  $data->amount_neto + $data->amount_neto * $data->utility  - (db_summary::where('id_credit', $data->id)
+                        ->where('id_agent', Auth::id())
+                        ->sum('amount'));
                 $data->setAttribute('credit_id', $data->id);
                 $data->setAttribute('amount_neto', ($data->amount_neto) + ($data->amount_neto * $data->utility));
                 $data->setAttribute('positive', $data->amount_neto - (db_summary::where('id_credit', $data->id)
@@ -53,10 +55,11 @@ class paymentController extends Controller
 
         }
         $data = array(
-            'clients' => $data_user
+            'clients' => $data_user,
+            'suma' => $suma
         );
 
-        return view('payment.index', $data);
+        return view('cartera.index', $data);
     }
 
     /**
@@ -80,7 +83,7 @@ class paymentController extends Controller
         $amount = $request->amount;
         $credit_id = $request->credit_id;
 
-        $redirect_error = '/payment?msg=Fields_Null&status=error';
+        $redirect_error = '/cartera?msg=Fields_Null&status=error';
         if (!isset($credit_id)) {
             return redirect($redirect_error);
         };
@@ -137,7 +140,7 @@ class paymentController extends Controller
             'positive' => $tmp_amount,
             'rest' => round(floatval($amount_neto - $tmp_amount), 2),
             'payment_done' => db_summary::where('id_credit', $id)->count(),
-            'payment_quote' => $tmp_quote
+            'payment_quote' => ($tmp_rest > $tmp_quote) ? $tmp_rest : $tmp_quote
     );
 
 
@@ -149,7 +152,7 @@ class paymentController extends Controller
             );
             return response()->json($response);
         } else {
-            return view('payment.create', $data);
+            return view('cartera.create', $data);
         }
 
     }

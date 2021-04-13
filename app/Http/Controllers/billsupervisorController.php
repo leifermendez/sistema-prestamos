@@ -27,9 +27,15 @@ class billsupervisorController extends Controller
         $current_role = Auth::user()->level;
         $current_user = Auth::id();
 
+<<<<<<< Updated upstream
         //Login Agent
 
         $ormQry = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $current_user)
+=======
+   //Login Agent
+
+   $ormQry = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $current_user)
+>>>>>>> Stashed changes
             ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
             ->join('bills', 'wallet.id', '=', 'bills.id_wallet')
             ->join('list_bill', 'bills.type', '=', 'list_bill.id')
@@ -44,7 +50,11 @@ class billsupervisorController extends Controller
                 DB::raw('SUM(bills.amount) as amount')
             );
 
+<<<<<<< Updated upstream
 //        if($current_role === 'supervisor'){
+=======
+        //        if($current_role === 'supervisor'){
+>>>>>>> Stashed changes
 //
 //            $ormQry = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $current_user)
 //                ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
@@ -64,7 +74,11 @@ class billsupervisorController extends Controller
 
 
 
+<<<<<<< Updated upstream
         $ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $current_user)
+=======
+$ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $current_user)
+>>>>>>> Stashed changes
             ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
             ->join('bills', 'wallet.id', '=', 'bills.id_wallet');
 

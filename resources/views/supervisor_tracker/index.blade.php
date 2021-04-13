@@ -8,13 +8,21 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg  overflow-auto">
+<<<<<<< Updated upstream
                             <h4 class="m-b-lg">Agentes</h4>
+=======
+                            <h4 class="m-b-lg">Cobradores</h4>
+>>>>>>> Stashed changes
                             <table class="table supervisor-tracker-table">
                                 <tbody>
                                         <tr>
                                                 
                                             <th>Nombre</th>
+<<<<<<< Updated upstream
                                             <th>Cartera</th>
+=======
+                                            <th>Cobro</th>
+>>>>>>> Stashed changes
                                             <th>País</th>
                                             <th>Ciudad</th>
                                             <th>Acción</th>
@@ -43,13 +51,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
-                            <h4 class="m-b-lg">Agentes</h4>
+                            <h4 class="m-b-lg">Cobradores</h4>
                             <table class="table supervisor-tracker-table">
                                 <tbody>
                                         <!-- <tr>
                                                 
                                             <th>Nombre</th>
+<<<<<<< Updated upstream
                                             <th>Cartera</th>
+=======
+                                            <th>Cobro</th>
+>>>>>>> Stashed changes
                                             <th>Pais</th>
                                             <th>Ciudad</th>
                                             <th>Accion</th>

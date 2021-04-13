@@ -97,7 +97,12 @@ class subEditController extends Controller
         }
 
         $data_bill = db_bills::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
+         ->join('list_bill', 'bills.type', '=', 'list_bill.id')
             ->where('id_wallet',$id)
+            ->select(
+                'bills.*',
+                'list_bill.name as type_bill'
+            )
             ->get();
 
         $data = array(

@@ -20,14 +20,9 @@
                                         <input type="number" step="any" min="1" name="amount" class="form-control amount-input" id="amount" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="utility">Utilidad:</label>
+                                        <label for="utility">Interes:</label>
                                         <select name="utility" class="form-control" id="utility">
-                                            <option value="0.05">5%</option>
-                                            <option value="0.1">10%</option>
-                                            <option value="0.15">15%</option>
                                             <option value="0.2">20%</option>
-                                            <option value="0.25">25%</option>
-                                            <option value="0.30">30%</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -40,9 +35,9 @@
                                         </select>
                                     </div>
                                     <div class="form-group text-center total-box hidden">
-                                        <h4>Total + Utilidad</h4>
+                                        <h4>Total + Interes</h4>
                                         <h2 id="total_show"></h2>
-                                        <h4>Cuota</h4>
+                                        <h4>Cuota Diaria</h4>
                                         <h2 id="quote"></h2>
                                     </div>
                                 </form>

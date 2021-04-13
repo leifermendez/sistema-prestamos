@@ -49,16 +49,20 @@ class HomeController extends Controller
             )
             ->groupBy('summary.id')
             ->get();
-
+            $now = Carbon::now();
+            $current_date = $now->format('d-m-Y');
         $close_day = db_close_day::whereDate('created_at', Carbon::now()->toDateString())
             ->where('id_agent', Auth::id())
             ->first();
 
         $base = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base ?? 0;
+        $base_final = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base ?? 0;
         $base_credit = db_credit::whereDate('created_at', Carbon::now()->toDateString())
             ->where('id_agent', Auth::id())
             ->sum('amount_neto');
         $base -= $base_credit;
+        $base_final = $base_final;
+        $base_credit = $base_credit;
 
         $total_summary = $data_summary->sum('amount');
 
@@ -77,8 +81,11 @@ class HomeController extends Controller
 
         $data = [
             'base_agent' => $base,
+            'base_final' => $base_final,
             'total_bill' => $bill->sum('amount'),
             'total_summary' => $total_summary,
+            'base_credit' => $base_credit,
+            'current_date' => $current_date,
             'close_day' => $close_day
         ];
 

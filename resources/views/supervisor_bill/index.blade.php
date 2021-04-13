@@ -37,11 +37,19 @@
                                     <tbody>
                                             <tr>
                                                 <th>Fecha</th>
+<<<<<<< Updated upstream
                                                 <th>Cartera</th>
                                                 <th>Valor</th>
                                                 <th>Detalle</th>
                                                 <th>Categoría</th>
                                                 <th>Agente</th>
+=======
+                                                <th>Cobro</th>
+                                                <th>Valor</th>
+                                                <th>Detalle</th>
+                                                <th>Categoría</th>
+                                                <th>Cobrador</th>
+>>>>>>> Stashed changes
                                             </tr>
                                     
                                     @foreach($clients as $client)

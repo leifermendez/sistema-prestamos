@@ -15,15 +15,15 @@
                             <div class="widget-body">
                                 <form method="GET" action="{{url('history')}}" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label for="base_amount">Base del cobro:</label>
+                                        <label for="base_amount">Caja del cobro:</label>
                                         <input type="text" name="base_amount" value="{{($base) ? $base : 'No existe cierre del día'}}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="base_amount">Recaudo:</label>
+                                        <label for="base_amount">Cobrado:</label>
                                         <input type="text" name="today" value="{{($base) ? $today_amount : 'No existe cierre del día'}}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="base_amount">Ventas:</label>
+                                        <label for="base_amount">Prestado:</label>
                                         <input type="text" name="today" value="{{($base) ? $today_sell : 'No existe cierre del día' }}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                     <div class="form-group">
@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="base_amount">Efectividad:</label>
-                                        <input type="text" name="today" value="{{($base) ? $average : 'No existe cierre del día'}}" readonly class="form-control" id="base_amount" required>
+                                        <input type="text" name="today" value="{{($base) ? '100%' : 'No existe cierre del día'}}" readonly class="form-control" id="base_amount" required>
                                     </div>
                                 </form>
 
