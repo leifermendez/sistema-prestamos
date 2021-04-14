@@ -23,8 +23,6 @@ class closeController extends Controller
      */
     public function index()
     {
-
-
         $data = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
             ->join('users', 'agent_has_supervisor.id_user_agent', '=', 'users.id')
             ->get();
