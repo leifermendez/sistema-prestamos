@@ -48,7 +48,7 @@
                         <input name="password" 
                         onkeyup="limpiarNumero(this)"
                         onchange="limpiarNumero(this)"
-                        maxlength="4" pattern="[0-9]{7,15}" required id="password" type="password" class="form-control" placeholder="Contraseña">
+                        maxlength="4" required id="password" type="password" class="form-control" placeholder="Contraseña">
                         <div class="input-group-append" id="button-addon4">
                             <button onclick="viewPassword()" class="btn" type="button">
                                 <img width="30" src="{{ asset('assets/images/eye_open.svg') }}" alt="">
