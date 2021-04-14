@@ -95,6 +95,8 @@ class closeController extends Controller
      */
     public function show($id)
     {
+        $id_wallet = db_bills::whereDate('created_at', '=', Carbon::now()->toDateString())
+            ->where('id_agent', $id)->first()->id_wallet;
 
         $base_amount = db_supervisor_has_agent::where('id_user_agent', $id)->first()->base;
         $today_amount = db_summary::whereDate('created_at', '=', Carbon::now()->toDateString())
@@ -104,10 +106,7 @@ class closeController extends Controller
             ->where('id_agent', $id)
             ->sum('amount_neto');
         $bills = db_bills::whereDate('created_at', '=', Carbon::now()->toDateString())
-<<<<<<< Updated upstream
-=======
-            ->where('id_agent',$id)
->>>>>>> Stashed changes
+            ->where('id_wallet', $id_wallet)
             ->sum('amount');
         $total = floatval($base_amount + $today_amount) - floatval($today_sell + $bills);
         $average = 1000;
