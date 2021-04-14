@@ -25,9 +25,17 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('client', 'userController', ['only' => ['create', 'show']])->middleware('close');
     Route::resource('client', 'userController', ['except' => ['create', 'show']]);
     Route::resource('payment', 'paymentController')->middleware('close');
+<<<<<<< Updated upstream
     Route::resource('summary', 'summaryController')->middleware('close');
     Route::resource('simulator', 'simulatorController');
     Route::resource('route', 'routeController')->middleware('close');
+=======
+    Route::resource('cartera', 'carteraController')->middleware('close');
+    Route::resource('summary', 'summaryController')->middleware('close');
+    Route::resource('simulator', 'simulatorController');
+    Route::resource('route', 'routeController')->middleware('close');
+    Route::resource('statistics', 'statisticsUserController');
+>>>>>>> Stashed changes
     Route::resource('history', 'historyController');
     Route::resource('transaction', 'transactionController');
     Route::resource('bill', 'billController')->middleware('close');

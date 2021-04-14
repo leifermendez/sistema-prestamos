@@ -18,11 +18,11 @@
                             <input type="text" readonly class="form-control" id="name">
                         </div>
                         <div class="form-group">
-                            <label for="credit_id">Número de prestamo:</label>
+                            <label for="credit_id">Número de credito:</label>
                             <input type="text" readonly class="form-control" id="credit_id">
                         </div>
                         <div class="form-group">
-                            <label for="amount_value">Valor de Prestamo:</label>
+                            <label for="amount_value">Valor de venta:</label>
                             <input type="text" readonly class="form-control" id="amount_value">
                         </div>
                         <div class="form-group">
@@ -76,10 +76,10 @@
                                 <thead>
                                 <tr>
                                     <th>Nombres</th>
-                                    <th>#Credito</th>
+                                    <th>Credito</th>
                                     <th>Valor</th>
-                                    <th>Saldo Actual</th>
-                                    <th>Cuotas Pagadas</th>
+                                    <th>Saldo</th>
+                                    <th>Cuota</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -98,16 +98,18 @@
 
 
 
-                                            <a href="{{url('payment')}}/{{$client->credit_id}}?rev=true" class="btn btn-success btn-xs"><i class="fa fa-money"></i> Pagar</a>
                                             <a href="{{url('summary')}}?id_credit={{$client->credit_id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
                                         </td>
                                     </tr>
                                     @endif
 
                                 @endforeach
-
                                 </tbody>
                             </table>
+                            <div class="w-100 mx-auto mt-4 alert alert-success d-flex justify-content-between"> 
+                               <b> <p class="m-0">CARTERA TOTAL</p> </b>
+                                <h5 class="m-0">{{$suma}}</h5>
+                            </div>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->

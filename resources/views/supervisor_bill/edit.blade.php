@@ -16,7 +16,7 @@
                                 <form method="POST" action="{{url('supervisor/bill')}}" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="form-group">
-                                        <label for="name">Cartera:</label>
+                                        <label for="name">Cobro:</label>
                                         <select name="id_wallet" id="" required class="form-control">
                                             @foreach($wallet as $w)
                                                 <option value="{{$w->id}}">{{$w->name}}</option>

@@ -77,7 +77,11 @@ class sessionController extends Controller
      */
     public function update(Request $request, $id)
     {
+<<<<<<< Updated upstream
         $time_session = 60;
+=======
+        $time_session = 600;
+>>>>>>> Stashed changes
         $current = Auth::id();
         Auth::loginUsingId($id);
         $time = Carbon::now()->addMinutes($time_session)->timestamp;

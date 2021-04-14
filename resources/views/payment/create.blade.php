@@ -21,11 +21,11 @@
                                     </div>
                                     <input type="hidden" name="rev" value="{{ app('request')->input('rev') }}">
                                     <div class="form-group">
-                                        <label for="address">Número de credito:</label>
+                                        <label for="address">Número de prestamo:</label>
                                         <input type="text" name="credit_id" value="{{$id}}" readonly class="form-control" id="address">
                                     </div>
                                     <div class="form-group">
-                                        <label for="province">Valor de venta:</label>
+                                        <label for="province">Valor de Prestamo:</label>
                                         <input type="text" name="province" value="{{$amount_neto}} en {{$payment_number}} cuotas" readonly class="form-control" id="province">
                                     </div>
                                     <div class="form-group">

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\db_bills;
+use App\db_list_bills;
 use App\db_supervisor_has_agent;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class subBillController extends Controller
@@ -50,6 +52,15 @@ class subBillController extends Controller
     {
         $date_start = $request->date_start;
         $date_end = $request->date_end;
+        $category = $request->category;
+        $user_current = Auth::user();
+        $list_categories = db_list_bills::all();
+        $sql = [];
+        if ($user_current->level !== 'admin') {
+            $sql = array(
+                ['id_agent', '=', Auth::id()]
+            );
+        }
 
         if(!db_supervisor_has_agent::where('id_wallet',$id)->exists()){
             return 'No existe agente con esta ruta';
@@ -67,15 +78,21 @@ class subBillController extends Controller
 
         $data=db_bills::where($sql)
             ->join('wallet','bills.id_wallet','=','wallet.id')
+            ->join('list_bill', 'bills.type', '=', 'list_bill.id')
             ->join('users','bills.id_agent','=','users.id')
             ->select('bills.*','wallet.name as wallet_name',
                 'users.name as user_name',
+                'list_bill.name as category_name',
                 'users.last_name as user_lastname')
             ->get();
+            if (isset($category)) {
+                $data = $data->where('bills.type', $category);
+            }
 
         $data = array(
             'id'=>$id,
             'clients' => $data,
+            'list_categories' => $list_categories,
             'total' => $data->sum('amount')
         );
 

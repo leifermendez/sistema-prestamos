@@ -34,10 +34,10 @@
                                 <h4 class="panel-title">{{$user->name}} {{$user->last_name}}</h4>
                             </div>
                             <ul class="list-group">
-                                <li class="list-group-item">Credito: <span class="text-purple">{{$credit_data->id}}</span></li>
-                                <li class="list-group-item">Fecha de venta: <span class="text-purple">{{$credit_data->created_at}}</span></li>
+                                <li class="list-group-item"># Credito: <span class="text-purple">{{$credit_data->id}}</span></li>
+                                <li class="list-group-item">Fecha de Prestamo: <span class="text-purple">{{$credit_data->created_at}}</span></li>
                                 <li class="list-group-item">Tasa de interés: <span class="text-purple">{{$credit_data->utility}}%</span></li>
-                                <li class="list-group-item">Cuotas pactadas: <span class="text-purple">{{$credit_data->payment_number}}</span></li>
+                                <li class="list-group-item">Numero de Cuotas: <span class="text-purple">{{$credit_data->payment_number}}</span></li>
                                 <li class="list-group-item">Valor cuota: <span class="text-purple">{{$credit_data->payment_amount}}</span></li>
                                 <li class="list-group-item">Capital: <span class="text-purple">{{$credit_data->amount_neto}}</span></li>
                                 <li class="list-group-item">Intereses: <span class="text-purple">{{$credit_data->utility_amount}}</span></li>
@@ -108,7 +108,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
-                            <h4 class="m-b-lg">Ultimos creditos</h4>
+                            <h4 class="m-b-lg">Ultimos Prestamos</h4>
                             @foreach($other_credit as $c)
                                 @if((app('request')->input('id_credit'))!=$c->id)
                                     <a href="{{url('summary')}}/?id_credit={{$c->id}}" class="btn btn-info">{{$c->id}}</a>

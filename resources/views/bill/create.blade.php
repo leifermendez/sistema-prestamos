@@ -26,11 +26,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="amount"> Valor:</label>
-                                        <input type="text" name="amount"  class="form-control" id="amount" required>
+                                        <input type="number" name="amount"  class="form-control" id="amount" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Detalle</label>
-                                        <textarea name="description" id="description" class="form-control" id="" maxlength="100" cols="30" rows="4"></textarea>
+                                        <textarea name="description" id="description" class="form-control" required id="" maxlength="100" cols="30" rows="4"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-success btn-block btn-md">Guardar</button>

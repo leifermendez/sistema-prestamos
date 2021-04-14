@@ -76,7 +76,7 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-primary">
-                            Login
+                            Entrar
                         </button>
 
                     </div>
@@ -103,7 +103,7 @@
     </div><!-- #login-form -->
 
     <div class="simple-page-footer">
-        <p><a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a></p>
+        <p><a href="{{ route('password.request') }}"></a></p>
     </div><!-- .simple-page-footer -->
 
 
