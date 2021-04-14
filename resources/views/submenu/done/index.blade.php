@@ -30,11 +30,7 @@
                                             <td><span class="value">{{$cred->credit_id}}</span></td>
                                             <td><span class="value">{{$cred->name}} {{$cred->last_name}}</span></td>
                                             <td><span class="value">{{$cred->credit_date}}</span></td>
-<<<<<<< Updated upstream
-                                            <td><span class="value">{{$cred->amount_neto}}</span></td>
-=======
                                             <td><span class="value">{{($cred->amount_neto)*($cred->utility)+($cred->amount_neto)}}</span></td>
->>>>>>> Stashed changes
                                             <td><span class="value">{{$cred->utility}}</span></td>
                                             <td><span class="value">{{($cred->amount_neto)*($cred->utility)}}</span></td>
                                             <td><span class="value">{{$cred->payment_number}}</span></td>

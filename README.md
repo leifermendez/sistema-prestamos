@@ -95,15 +95,15 @@ Luego de correr con exito la migracion y los seeders, el sistema crea varios usu
 
 __Rol__: `admin`
 __User__:`admin@admin.com`
-__Contraseña__:`12345678`
+__Contraseña__:`1234`
 
 
 __Rol__: `supervisor`
 __User__:`supervisor@supervisor.com`
-__Contraseña__:`12345678`
+__Contraseña__:`1234`
 
 
 __Rol__: `agente`
 __User__:`agente@agente.com`
-__Contraseña__:`12345678`
+__Contraseña__:`1234`
 

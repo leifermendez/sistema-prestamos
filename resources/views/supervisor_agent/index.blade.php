@@ -8,27 +8,16 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
-<<<<<<< Updated upstream
-                            <h4 class="m-b-lg">Agentes</h4>
-=======
                             <h4 class="m-b-lg">Cobradores</h4>
->>>>>>> Stashed changes
                             <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
                                 <table class="table supervisor-agent-table">
                                     <tbody>
                                         <tr>
                                             <th>Nombre</th>
-<<<<<<< Updated upstream
-                                            <th>Cartera</th>
-                                            <th>Pais</th>
-                                            <th>Ciudad</th>
-                                            <th>Base</th>
-=======
                                             <th>Cobro</th>
                                             <th>Pais</th>
                                             <th>Ciudad</th>
                                             <th>Caja</th>
->>>>>>> Stashed changes
                                             <th>Accion</th>
                                         </tr>
                                     
@@ -40,11 +29,7 @@
                                             <td><span class="value">{{$client->address}}</span></td>
                                             <td><span class="value">{{$client->base_total}}</span></td>
                                             <td>
-<<<<<<< Updated upstream
-                                                <a href="{{url('supervisor/agent')}}/{{$client->id}}/edit" class="btn btn-success btn-xs">Base</a>
-=======
                                                 <a href="{{url('supervisor/agent')}}/{{$client->id}}/edit" class="btn btn-success btn-xs">Asignar Caja</a>
->>>>>>> Stashed changes
                                             </td>
                                         </tr>
                                     @endforeach

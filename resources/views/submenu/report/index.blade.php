@@ -17,11 +17,7 @@
                                             <th>Base</th>
                                             <th>Recaudo</th>
                                             <th>Creditos</th>
-<<<<<<< Updated upstream
-                                            <th>Gasto Agente</th>
-=======
                                             <th>Gasto Cobrador</th>
->>>>>>> Stashed changes
                                             <th>Cierre</th>
                                             <th>Gasto Supervisor</th>
                                             <th>Valor Cartera</th>
@@ -56,11 +52,7 @@
                                             <th>Base</th>
                                             <th>Recaudo</th>
                                             <th>Creditos</th>
-<<<<<<< Updated upstream
-                                            <th>Gasto Agente</th>
-=======
                                             <th>Gasto Cobrador</th>
->>>>>>> Stashed changes
                                             <th>Cierre</th>
                                             <th>Gasto Supervisor</th>
                                             <th>Valor Cartera</th>

@@ -8,26 +8,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg overflow-auto">
-<<<<<<< Updated upstream
-                            <h4 class="m-b-lg">Detalles Clientes y Ventas</h4>
-=======
                             <h4 class="m-b-lg">Detalles Clientes y Prestamos</h4>
->>>>>>> Stashed changes
                             <table class="table client-table">
                                 <div class="d-none d-lg-block d-xl-block d-md-block">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Apellidos</th>
-<<<<<<< Updated upstream
-                                            <th>Barrio</th>
-                                            <th>Total</th>
-                                            <th>Pagados</th>
-                                            <th>Vigentes</th>
-                                            <th>Monto Prestado</th>
-                                            <th>Monto Restante</th>
-                                            <th>Tipo</th>
-=======
                                             <th>Tipo de Negocio</th>
                                             <th>Total Prestamos</th>
                                             <th>Prestamos Terminados</th>
@@ -35,7 +22,6 @@
                                             <th>Monto Prestado</th>
                                             <th>Saldo Actual</th>
                                             <th>Status</th>
->>>>>>> Stashed changes
                                             <th>Acción</th>
                                         </tr>
                                     </thead>
@@ -49,11 +35,7 @@
                                         <td><span class="value">{{$client->credit_count}}</span></td>
                                         <td><span class="value">{{$client->closed}}</span></td>
                                         <td><span class="value">{{$client->inprogress}}</span></td>
-<<<<<<< Updated upstream
-                                        <td><span class="value">{{sizeOf($client->amount_net) ? $client->sum_amount_gap : 0}}</span></td>
-=======
                                         <td><span class="value">{{($client->amount_net) ? $client->sum_amount_gap : 0}}</span></td>
->>>>>>> Stashed changes
                                         <td><span class="value">{{$client->summary_net + $client->gap_credit}}</span></td>
                                         <td>
                                             @if($client->status=='good')

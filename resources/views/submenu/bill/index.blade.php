@@ -30,11 +30,7 @@
                                                 <th>Cartera</th>
                                                 <th>Fecha</th>
                                                 <th>Agente</th>
-<<<<<<< Updated upstream
-
-=======
                                                 <th>Tipo de Gasto</th>
->>>>>>> Stashed changes
                                                 <th>Valor</th>
                                                 <th>Detalle</th>
                                                 <th></th>
@@ -45,11 +41,7 @@
                                             <td>{{$client->wallet_name}}</td>
                                             <td>{{$client->created_at}}</td>
                                             <td>{{$client->user_name}} {{$client->user_lastname}}</td>
-<<<<<<< Updated upstream
-
-=======
                                             <td>{{$client->category_name}}</td>
->>>>>>> Stashed changes
                                             <td>{{$client->amount}}</td>
                                             <td>{{$client->description}}</td>
                                             <td></td>
@@ -68,11 +60,7 @@
                                                 <th>Cartera</th>
                                                 <th>Fecha</th>
                                                 <th>Agente</th>
-<<<<<<< Updated upstream
-
-=======
                                                 <th>Tipo de Gasto</th> 
->>>>>>> Stashed changes
                                                 <th>Valor</th>
                                                 <th>Detalle</th>
                                                 <th></th>
@@ -83,11 +71,7 @@
                                             <td>{{$client->wallet_name}}</td>
                                             <td>{{$client->created_at}}</td>
                                             <td>{{$client->user_name}} {{$client->user_lastname}}</td>
-<<<<<<< Updated upstream
-
-=======
                                             <td>{{$client->category_name}}</td>
->>>>>>> Stashed changes
                                             <td>{{$client->amount}}</td>
                                             <td>{{$client->description}}</td>
                                             <td></td>
