@@ -16,6 +16,7 @@
                                 <form method="POST" action="{{url('client')}}" class="new-register"
                                       enctype="multipart/form-data">
                                     {{ csrf_field() }}
+                                    <input type="hidden" name="id" id="id" value="{{isset($user) ? $user->id : ''}}">
                                     <div class="form-group">
                                         <label for="nit_number">Nº Identificacion:</label>
                                         <input type="text" name="nit_number" value="{{isset($user) ? $user->nit : ''}}"

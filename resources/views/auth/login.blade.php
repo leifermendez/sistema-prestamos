@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/core.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/misc-pages.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
+    <script src="{{asset('/assets/js/app.js')}}"></script>
 </head>
 <body class="simple-page">
 <div class="simple-page-wrap">
@@ -42,9 +43,19 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <div class="col-md-12">
-                        <input id="password" type="password" class="form-control" placeholder="Contraseña" name="password" required>
+                    
+                    <div class="input-group col-md-12">
+                        <input name="password" 
+                        onkeyup="limpiarNumero(this)"
+                        onchange="limpiarNumero(this)"
+                        maxlength="4" pattern="[0-9]{7,15}" required id="password" type="password" class="form-control" placeholder="Contraseña">
+                        <div class="input-group-append" id="button-addon4">
+                            <button onclick="viewPassword()" class="btn" type="button">
+                                <img width="30" src="{{ asset('assets/images/eye_open.svg') }}" alt="">
+                            </button>
+                        </div>
 
+                        
                         @if ($errors->has('password'))
                             <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>

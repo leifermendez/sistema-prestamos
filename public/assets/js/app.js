@@ -449,6 +449,22 @@ function initMap({lat, lng}) {
 }(jQuery, window);
 
 
+    
+function viewPassword(){
+    var input = document.getElementById("password");
+    if(input.type == "password"){
+        input.type = "text";
+    }else{
+        input.type = "password";
+    }
+}
+
+function limpiarNumero(obj) {
+    /* El evento "change" sólo saltará si son diferentes */
+    obj.value = obj.value.replace(/\D/g, '');
+}
+
+
 // NAVBAR MODULE
 // =====================
 
@@ -665,7 +681,10 @@ function initMap({lat, lng}) {
         return calc();
     });
     $(".datepicker-trigger").datepicker({
-        "dateFormat": "dd/mm/yy"
+        "dateFormat": "dd/mm/yy",
+        "dayNames": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        "dayNamesMin": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+        "monthNames": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
     });
     $('body .datepicker-trigger').prop("readonly", true);
     $('body').on('change', '.supervisor-client #wallet', function () {
