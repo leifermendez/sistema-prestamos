@@ -139,6 +139,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
+<<<<<<< Updated upstream
                             <h4 class="m-b-lg">Gastos del Agente</h4>
 
                             <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
@@ -186,6 +187,55 @@
                                         </tr>
                                     @endforeach
 
+=======
+                            <h4 class="m-b-lg">Gastos del Cobrador</h4>
+
+                            <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
+                                <table class="table supervisor-gas-table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Gasto</th>
+                                            <th>Detalle</th>
+                                            <th>Categoría</th>
+                                            <th>Valor</th>
+                                            <th>Fecha</th>
+                                        </tr>
+                                    
+                                    @foreach($bills as $bill)
+                                        <tr>
+                                            <td><span class="value">{{$bill->type_bill}}</span></td>
+                                            <td><span class="value">{{$bill->description}}</span></td>
+                                            <td><span class="value">{{$bill->type_bill}}</span></td>
+                                            <td><span class="value">{{$bill->amount}}</span></td>
+                                            <td><span class="value">{{$bill->created_at}}</span></td>
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- FOR MOBILE -->
+                            <div class=" d-lg-none d-xl-none d-md-none">
+                                <table class="table supervisor-gas-table">
+                                    <tbody>
+                                        <!-- <tr>
+                                            <th>Gasto</th>
+                                            <th>Detalle</th>
+                                            <th>Valor</th>
+                                            <th>Fecha</th>
+                                        </tr> -->
+                                    
+                                    @foreach($bills as $bill)
+                                        <tr>
+                                            <td><span class="value">{{$bill->type_bill}}</span></td>
+                                            <td><span class="value">{{$bill->description}}</span></td>
+                                            <td><span class="value">{{$bill->amount}}</span></td>
+                                            <td><span class="value">{{$bill->created_at}}</span></td>
+                                        </tr>
+                                    @endforeach
+
+>>>>>>> Stashed changes
                                     </tbody>
                                 </table>
                             </div>

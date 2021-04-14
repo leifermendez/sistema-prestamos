@@ -21,6 +21,8 @@
 
         <a href="{{url('/')}}" class="navbar-brand text-white">
             {{Auth::user()->name}}
+        
+
         </a>
     </div><!-- .navbar-header -->
 

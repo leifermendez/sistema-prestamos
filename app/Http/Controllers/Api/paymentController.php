@@ -43,6 +43,7 @@ class paymentController extends Controller
 
             foreach ($data_user as $data) {
                 if (db_credit::where('id_user', $data->id_user)->where('id_agent', Auth::id())->exists()) {
+<<<<<<< Updated upstream
                     
                     $tmp_amount = db_summary::where('id_credit', $data->id)
                     ->where('id_agent', Auth::id())
@@ -59,6 +60,14 @@ class paymentController extends Controller
                     $data->setAttribute('credit_id', $data->id);
                     $data->setAttribute('amount_neto', $amount_neto);
                     $data->setAttribute('positive', $data->amount_neto - $tmp_amount);
+=======
+
+                    $data->setAttribute('credit_id', $data->id);
+                    $data->setAttribute('amount_neto', ($data->amount_neto) + ($data->amount_neto * $data->utility));
+                    $data->setAttribute('positive', $data->amount_neto - (db_summary::where('id_credit', $data->id)
+                            ->where('id_agent', Auth::id())
+                            ->sum('amount')));
+>>>>>>> Stashed changes
                     $data->setAttribute('payment_current', db_summary::where('id_credit', $data->id)->count());
                 }
 

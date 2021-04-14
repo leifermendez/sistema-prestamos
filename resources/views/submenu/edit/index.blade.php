@@ -57,7 +57,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
-                            <h4 class="m-b-lg">Gastos del Agente</h4>
+                            <h4 class="m-b-lg">Gastos del Cobrador</h4>
                             <table class="table supervisor-editG-table">
                                 <div class="d-none d-lg-block d-xl-block d-md-block">
                                     <thead>
@@ -72,7 +72,7 @@
                                 <tbody>
                                 @foreach($bills as $bill)
                                     <tr>
-                                        <td><span class="value">{{$bill->type}}</span></td>
+                                        <td><span class="value">{{$bill->type_bill}}</span></td>
                                         <td><span class="value">{{$bill->description}}</span></td>
                                         <td><span class="value">{{$bill->amount}}</span></td>
                                         <td class="text-right">
@@ -117,7 +117,7 @@
                                         <td><span class="value">{{(($sum->amount_neto)+($sum->amount_neto*$sum->utility))-($sum->total_payment)}}</span></td>
                                         <td class="text-right">
 
-                                            <form action="{{url('supervisor/summary')}}/{{$sum->id_summary}}?date_start={{$date_start}}" method="POST">
+                                            <form action="{{url('supervisor/summary')}}/{{$sum->id_summary}}?id_wallet={{$id_wallet}}&date_start={{$date_start}}" method="POST">
                                                 <a href="{{url('supervisor/summary')}}/{{$sum->id_summary}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
                                                 {{csrf_field()}}
                                                 {{ method_field('DELETE') }}

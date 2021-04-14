@@ -30,7 +30,7 @@
                                     <div class="form-group">
                                         <label for="level">Nivel:</label>
                                         <select name="level"  class="form-control" id="level">
-                                            <option value="agent">Agente</option>
+                                            <option value="agent">Cobrador</option>
                                             <option value="supervisor">Supervisor</option>
                                         </select>
                                     </div>

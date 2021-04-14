@@ -16,15 +16,15 @@
                                 <form method="POST" action="{{url('history')}}" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="form-group">
-                                        <label for="wallet"> Cobro:</label>
+                                        <label for="wallet"> Cartera:</label>
                                         <input type="text" name="wallet" value="{{$wallet->name}}" readonly class="form-control" id="wallet" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="average">Promedio Cobrado:</label>
+                                        <label for="average">Promedio Recaudado:</label>
                                         <input type="text" name="average" value="{{$summary}}" readonly class="form-control" id="average" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="sell">Promedio Prestado:</label>
+                                        <label for="sell">Promedio Ventas:</label>
                                         <input type="text" name="sell" readonly value="{{$credit}}" class="form-control" id="sell" required>
                                     </div>
                                     <div class="form-group">

@@ -33,6 +33,9 @@ class userController extends Controller
 
     public function index()
     {
+        $payment_number = DB::table('payment_number')->get();
+        array(
+        $paymente_number = 'payment_number');
         $user_current = Auth::user();
 
         $user_has_agent = db_agent_has_user::where('id_agent', Auth::id())
@@ -153,10 +156,7 @@ class userController extends Controller
             ->sum('amount_neto');
         $base -= $base_credit;
 
-        if ($amount > $base) {
-            return 'No tienes dinero suficiente';
-        }
-
+      
         $values = array(
             'name' => strtoupper($name),
             'last_name' => strtoupper($last_name),

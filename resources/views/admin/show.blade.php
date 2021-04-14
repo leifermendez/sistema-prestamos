@@ -21,7 +21,7 @@
                                         <input type="text" class="form-control" value="{{$user->name}}" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="country">Agente:</label>
+                                        <label for="country">Cobrador:</label>
                                         <select name="id_agent"  class="form-control" id="country">
                                             @foreach($agents as $agent)
                                                 @if(!$agent->ocuped)

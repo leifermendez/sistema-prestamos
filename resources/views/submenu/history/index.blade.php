@@ -37,15 +37,13 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
-                                </tbody></table>
-                                <footer class="widget-footer">
-                                    <p><b>Falta cobrar </b> <span class="text-primary">{{$total_rest}}</span> de <span class="text-success">{{$total_credit}}</span></p>
-                                </footer>
+                                </tbody>
+                            </table>
+                            <div class="w-100 mx-auto mt-4 alert alert-success d-flex justify-content-between"> 
+                               <b> <p class="m-0">CARTERA TOTAL = ${{$total_rest}} </p> </b>
+                                <h5 class="m-0"></h5>
+                            </div>
                         </div><!-- .widget -->
-                        <div class="col-lg-12 text-right">
-                            <a href="{{url('supervisor/review/')}}/{{$id_wallet}}" class="btn btn-inverse"><i class="fa fa-arrow-left"></i> Regresar</a>
-                        </div>
                     </div>
                 </div><!-- .row -->
             </section>

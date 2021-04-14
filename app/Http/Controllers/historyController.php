@@ -75,6 +75,7 @@ class historyController extends Controller
             ->sum('amount_neto');
         $bills = db_bills::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date)
             ->toDateString())
+             ->where('id_agent', Auth::id())
             ->sum('amount');
         $total = floatval($base_amount_before + $today_amount) - floatval($today_sell + $bills);
         $average = 1000;

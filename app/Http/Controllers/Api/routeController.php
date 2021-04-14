@@ -41,6 +41,7 @@ class routeController extends Controller
 
             foreach ($data as $k => $d) {
 
+<<<<<<< Updated upstream
                 $tmp_amount = db_summary::where('id_credit', $d->id)
                 ->where('id_agent', Auth::id())
                 ->sum('amount');
@@ -57,6 +58,10 @@ class routeController extends Controller
 
                 $d->user = User::find($d->id_user);
                 $d->amount_total = $amount_neto;
+=======
+                $d->user = User::find($d->id_user);
+                $d->amount_total = ($d->amount_neto) + ($d->amount_neto * $d->utility);
+>>>>>>> Stashed changes
                 $d->days_rest = $dt->diffInDays(Carbon::parse($d->created_at));
                 $d->saldo = $d->amount_total - (db_summary::where('id_credit', $d->id)->sum('amount'));
                 $d->quote = (floatval($d->amount_neto * $d->utility) + floatval($d->amount_neto)) / floatval($d->payment_number);
@@ -153,8 +158,11 @@ class routeController extends Controller
                 ->where('status', 'inprogress')
                 ->first();
 
+<<<<<<< Updated upstream
             
 
+=======
+>>>>>>> Stashed changes
             $no_pay = db_not_pay::whereDate('created_at', Carbon::now()->toDateString())
                 ->where('id_credit', $data->id)
                 ->exists();

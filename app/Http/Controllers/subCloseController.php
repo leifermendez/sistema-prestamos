@@ -55,11 +55,18 @@ class subCloseController extends Controller
     {
 
         $id_wallet = $id;
-        $date_start = $request->date_start;
+        $date = $request->date_start;
 
-        if (!isset($date_start)) {
-            return 'Fecha inicial vacia';
-        };
+        $base_raw = db_close_day::where('id_supervisor', Auth::id())
+            ->whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date))
+            ->first();
+
+        if (!$base_raw) {
+            die('No existe cierre');
+        }
+        $base_amount_before = $base_raw->base_before;
+        $base_amount_total = $base_raw->total;
+
         if (!db_supervisor_has_agent::where('id_wallet', $id_wallet)->exists()) {
             return 'No existe agente con esta ruta';
         }
@@ -71,34 +78,34 @@ class subCloseController extends Controller
 
 
 
-        $today_amount = db_summary::whereDate('created_at', Carbon::createFromFormat('d/m/Y', $date_start)
+        $today_amount = db_summary::whereDate('created_at', Carbon::createFromFormat('d/m/Y', $date)
             ->toDateString())
             ->where('id_agent', $data_agent->id_user_agent)
             ->sum('amount');
 
-        $today_sell = db_credit::whereDate('created_at', Carbon::createFromFormat('d/m/Y', $date_start)
+        $today_sell = db_credit::whereDate('created_at', Carbon::createFromFormat('d/m/Y', $date)
             ->toDateString())
             ->where('id_agent', $data_agent->id_user_agent)
             ->sum('amount_neto');
 
-        $bills = db_bills::whereDate('created_at', Carbon::createFromFormat('d/m/Y', $date_start)
+        $bills = db_bills::whereDate('created_at', Carbon::createFromFormat('d/m/Y', $date)
             ->toDateString())
             ->where('id_wallet', $id)
             ->sum('amount');
 
         $base_amount = false;
-        if (db_close_day::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
+        if (db_close_day::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date)->toDateString())
             ->where('id_supervisor', Auth::id())
             ->exists()) {
-            $base_amount = db_close_day::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())->first()->base_before;
+            $base_amount = db_close_day::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date)->toDateString())->first()->base_before;
         }
 
-        $total = floatval($base_amount + $today_amount) - floatval($today_sell + $bills);
+        $total = floatval($base_amount_before + $today_amount) - floatval($today_sell + $bills);
         $average = 1000;
 
 
         $data = array(
-            'base' => $base_amount,
+            'base' => $base_amount_before,
             'today_amount' => $today_amount,
             'today_sell' => $today_sell,
             'bills' => $bills,

@@ -37,7 +37,11 @@ class routeController extends Controller
             ->select('credit.*')
             ->orderBy('credit.order_list', 'asc')
             ->get();
+<<<<<<< Updated upstream
 
+=======
+            
+>>>>>>> Stashed changes
         $data_filter = array();
         $dt = Carbon::now();
 

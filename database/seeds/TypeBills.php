@@ -16,13 +16,52 @@ class TypeBills extends Seeder
         $this->faker = $faker = Faker\Factory::create();
         $tests = array(
             [
-                'name' => 'Combustible'
+                'name' => 'Gasolina'
             ],
             [
-                'name' => 'Comida'
+                'name' => 'Almuerzo'
             ],
             [
-                'name' => 'Transporte'
+                'name' => 'Sueldo'
+            ],
+            [
+                'name' => 'Sueldo Supervisor'
+            ],
+            [
+                'name' => 'Recarga'
+            ],
+            [
+                'name' => 'Aceite'
+            ],
+            [
+                'name' => 'Moto'
+            ],
+            [
+                'name' => 'Sistema'
+            ],
+            [
+                'name' => 'Transito'
+            ],
+            [
+                'name' => 'Arriendo'
+            ],
+            [
+                'name' => 'Servicios'
+            ],
+            [
+                'name' => 'Retiro de Caja'
+            ],
+            [
+                'name' => 'Para otro Cobro'
+            ],
+            [
+                'name' => 'Ajuste de Caja'
+            ],
+            [
+                'name' => 'Deposito'
+            ],
+            [
+                'name' => 'Policia'
             ]
         );
 
