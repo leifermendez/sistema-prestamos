@@ -41,11 +41,7 @@
                                                 <th>Valor</th>
                                                 <th>Detalle</th>
                                                 <th>Categoría</th>
-<<<<<<< Updated upstream
-                                                <th>Agente</th>
-=======
                                                 <th>Cobrador</th>
->>>>>>> Stashed changes
                                                 <th></th>
                                             </tr>
                                     
@@ -77,11 +73,7 @@
                                                 <th>Valor</th>
                                                 <th>Detalle</th>
                                                 <th>Categoría</th>
-<<<<<<< Updated upstream
-                                                <th>Agente</th>
-=======
                                                 <th>Cobrador</th>
->>>>>>> Stashed changes
                                                 <th></th>
                                             </tr> -->
                                     

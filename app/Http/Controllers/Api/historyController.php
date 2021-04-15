@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\db_bills;
-<<<<<<< Updated upstream
 use App\db_close_day;
 use App\db_credit;
 use App\db_summary;
@@ -12,15 +11,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-=======
-use App\db_credit;
-use App\db_summary;
-use App\db_supervisor_has_agent;
-use App\Http\Controllers\Controller;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
->>>>>>> Stashed changes
 
 class historyController extends Controller
 {
@@ -65,7 +55,6 @@ class historyController extends Controller
     {
         try {
             $date = $request->date_start;
-<<<<<<< Updated upstream
     
             $base_raw = db_close_day::where('id_agent', Auth::id())
                 ->whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date))
@@ -94,35 +83,13 @@ class historyController extends Controller
     
             $data = array(
                 'base' => $base_amount_before,
-=======
-            $base_amount = db_supervisor_has_agent::where('id_user_agent',Auth::id())->first()->base;
-            $today_amount = db_summary::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date)
-                ->toDateString())
-                ->where('id_agent',Auth::id())
-                ->sum('amount');
-            $today_sell = db_credit::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date)
-                ->toDateString())
-                ->where('id_agent',Auth::id())
-                ->sum('amount_neto');
-            $bills = db_bills::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date)
-                ->toDateString())
-                ->sum('amount');
-            $total = floatval($base_amount+$today_amount)-floatval($today_sell+$bills);
-            $average = 1000;
-
-            $data = array(
-                'base' => $base_amount,
->>>>>>> Stashed changes
                 'today_amount' => $today_amount,
                 'today_sell' => $today_sell,
                 'bills' => $bills,
                 'total' => $total,
                 'average' => $average
             );
-<<<<<<< Updated upstream
     
-=======
->>>>>>> Stashed changes
             $response = array(
                 'status' => 'success',
                 'data' => $data,

@@ -8,23 +8,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
-<<<<<<< Updated upstream
-                            <h4 class="m-b-lg">Ventas realizadas</h4>
-=======
                             <h4 class="m-b-lg">Prestamos realizados</h4>
->>>>>>> Stashed changes
                             <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
                                 <table class="table agente-transactionV-table">
                                     <tbody>
                                         <tr class="">
                                             <th>Nombres</th>
-<<<<<<< Updated upstream
-                                            <th>Credito</th>
-                                            <th>Barrio</th>
-=======
                                             <th># Credito</th>
                                             <th>Tipo de Negocio</th>
->>>>>>> Stashed changes
                                             <th>Hora</th>
                                             <th>Tasa</th>
                                             <th>Cuotas</th>
@@ -164,11 +155,7 @@
                                     
                                     @foreach($bills as $bill)
                                         <tr>
-<<<<<<< Updated upstream
-                                            <td><span class="value">{{$bill->type}}</span></td>
-=======
                                             <td><span class="value">{{$bill->type_bill}}</span></td>
->>>>>>> Stashed changes
                                             <td><span class="value">{{$bill->description}}</span></td>
                                             <td><span class="value">{{$bill->amount}}</span></td>
                                         </tr>

@@ -6,6 +6,7 @@
   "type": "project",
   "require": {
     "php": ">=7.0",
+    "fruitcake/laravel-cors": "^2.0",
     "fzaninotto/faker": "~1.4",
     "laravel/framework": "^7.0",
     "laravel/tinker": "^2.0",

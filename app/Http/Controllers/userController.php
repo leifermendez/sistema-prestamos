@@ -110,6 +110,7 @@ class userController extends Controller
             return 'No tienes permisos';
         }
         $name = $request->name;
+        $_id = $request->id;
         $last_name = $request->last_name;
         $address = $request->address;
         $province = $request->province;
@@ -175,12 +176,15 @@ class userController extends Controller
             $id = User::insertGetId($values);
         } else {
             $id = User::where('nit', $nit)->first()->id;
-
-            if (db_agent_has_user::where('id_client', $id)->exists()) {
-                $agent_data = db_agent_has_user::where('id_client', $id)->first();
-                if ($agent_data->id_agent != Auth::id()) {
-                    return 'Este usuario ya esta asignado a otro Agente';
+            if($_id == $id) {
+                if (db_agent_has_user::where('id_client', $id)->exists()) {
+                    $agent_data = db_agent_has_user::where('id_client', $id)->first();
+                    if ($agent_data->id_agent != Auth::id()) {
+                        return 'Este usuario ya esta asignado a otro Agente';
+                    }
                 }
+            } else {
+                return 'Ya existe un ususario con el mismo nit';
             }
         }
 

@@ -5178,3 +5178,67 @@ tr:first-child .arw-up, tr:last-child .arw-down {
 hr {
     border-top: 1px solid #e7e7e7;
 }
+
+/* .modal-new-content{
+    background-color:aqua;
+    width:50%;
+    padding: 10px 20px;
+    margin: 20% auto;
+    position: relative;
+    overflow: auto;
+  }
+  .modal-new{
+    background-color: rgba(0, 0, 0, 0.288);
+    position:fixed;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    pointer-events:none;
+  } */
+
+  .modalDialog {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.438);
+	z-index: 99999;
+
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+.modalDialog:target {
+	opacity:1;
+	pointer-events: auto;
+}
+.modalDialog > div {
+	width: 50%;
+    height: 84%;
+    overflow-y: auto;
+	position: relative;
+	margin: 3% auto;
+	padding: 10px 30px;
+	border-radius: 10px;
+	background: #fff;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+}
+.close {
+	background: #ffffff;
+	color: #555555;
+	line-height: 25px;
+	position: absolute;
+	right: 3px;
+	text-align: center;
+	top: 3px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+}
+.close:hover { background: #c5c5c5; }
