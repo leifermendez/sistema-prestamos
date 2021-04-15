@@ -95,8 +95,14 @@ class closeController extends Controller
      */
     public function show($id)
     {
-        $id_wallet = db_bills::whereDate('created_at', '=', Carbon::now()->toDateString())
-            ->where('id_agent', $id)->first()->id_wallet;
+        $wallet = db_bills::whereDate('created_at', '=', Carbon::now()->toDateString())
+            ->where('id_agent', $id)->first();
+
+        if(isset($wallet->id_wallet)) {
+            $bills = db_bills::whereDate('created_at', '=', Carbon::now()->toDateString())
+            ->where('id_wallet', $wallet->id_wallet)
+            ->sum('amount');
+        } else {$bills = 0;}
 
         $base_amount = db_supervisor_has_agent::where('id_user_agent', $id)->first()->base;
         $today_amount = db_summary::whereDate('created_at', '=', Carbon::now()->toDateString())
@@ -105,9 +111,7 @@ class closeController extends Controller
         $today_sell = db_credit::whereDate('created_at', '=', Carbon::now()->toDateString())
             ->where('id_agent', $id)
             ->sum('amount_neto');
-        $bills = db_bills::whereDate('created_at', '=', Carbon::now()->toDateString())
-            ->where('id_wallet', $id_wallet)
-            ->sum('amount');
+        
         $total = floatval($base_amount + $today_amount) - floatval($today_sell + $bills);
         $average = 1000;
 

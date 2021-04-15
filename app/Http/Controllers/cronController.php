@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\db_agent_has_user;
 use App\db_bills;
 use App\db_close_day;
