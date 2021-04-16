@@ -153,11 +153,6 @@ class routeController extends Controller
                 ->where('status', 'inprogress')
                 ->first();
 
-<<<<<<< Updated upstream
-            
-
-=======
->>>>>>> Stashed changes
             $no_pay = db_not_pay::whereDate('created_at', Carbon::now()->toDateString())
                 ->where('id_credit', $data->id)
                 ->exists();
