@@ -5,11 +5,12 @@
     <title>{{config("app.name")}}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Admin, Dashboard, Bootstrap" />
+    <meta name="description" content="Admin, Dashboard, Bootstrap"/>
     <link rel="shortcut icon" sizes="196x196" href="../assets/images/logo.png">
 
     <link rel="stylesheet" href="{{ asset('libs/bower/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.min.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/bower/animate.css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/core.css') }}">
@@ -20,11 +21,11 @@
 <body class="simple-page">
 <div class="simple-page-wrap">
     <div class="simple-page-form animated flipInY" id="login-form">
-{{--        <div class="simple-page-logo animated swing">--}}
-{{--            <a href="{{config("app.url")}}">--}}
-{{--                <span><img src="{{asset('assets/images/zeus-logo.png')}}" alt=""></span>--}}
-{{--            </a>--}}
-{{--        </div><!-- logo -->--}}
+        {{--        <div class="simple-page-logo animated swing">--}}
+        {{--            <a href="{{config("app.url")}}">--}}
+        {{--                <span><img src="{{asset('assets/images/zeus-logo.png')}}" alt=""></span>--}}
+        {{--            </a>--}}
+        {{--        </div><!-- logo -->--}}
         <h4 class="form-title m-b-xl text-center">Iniciar Sesion</h4>
         <div class="panel-body">
             <form class="form-horizontal" method="POST" action="{{ route('login') }}">
@@ -32,7 +33,8 @@
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     <div class="col-md-12">
-                        <input id="email" type="text" class="form-control" name="email" placeholder="Usuario" value="{{ old('email') }}" required autofocus>
+                        <input id="email" type="text" class="form-control" name="email" placeholder="Usuario"
+                               value="{{ old('email') }}" required autofocus>
 
                         @if ($errors->has('email'))
                             <span class="help-block">
@@ -43,19 +45,20 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    
+
                     <div class="input-group col-md-12">
-                        <input name="password" 
-                        onkeyup="limpiarNumero(this)"
-                        onchange="limpiarNumero(this)"
-                        maxlength="4" required id="password" type="password" class="form-control" placeholder="Contraseña">
+                        <input name="password"
+                               onkeyup="limpiarNumero(this)"
+                               onchange="limpiarNumero(this)"
+                               maxlength="8" required id="password" type="password" class="form-control"
+                               placeholder="Contraseña">
                         <div class="input-group-append" id="button-addon4">
                             <button onclick="viewPassword()" class="btn" type="button">
                                 <img width="30" src="{{ asset('assets/images/eye_open.svg') }}" alt="">
                             </button>
                         </div>
 
-                        
+
                         @if ($errors->has('password'))
                             <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
@@ -67,7 +70,8 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <div class="checkbox checkbox-primary">
-                            <input type="checkbox" id="keep_me_logged_in" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <input type="checkbox" id="keep_me_logged_in"
+                                   name="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label for="keep_me_logged_in">Mantener Sesion</label>
                         </div>
                     </div>

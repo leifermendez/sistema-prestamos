@@ -7,7 +7,7 @@
     <meta name="description" content="Leifer Mendez, github, sistema prestamos, https://github.com/leifermendez" />
     <meta name="author" content="https://github.com/leifermendez" />
     <link rel="shortcut icon" sizes="196x196" href="../assets/images/logo.png">
-    <title>{{config("app.name")}} | .:APPHERCULES:.</title>
+    <title>{{config("app.name")}}</title>
 
     <link rel="stylesheet" href="{{ asset('libs/bower/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css') }}">
