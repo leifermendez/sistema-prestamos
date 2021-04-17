@@ -161,7 +161,8 @@ class summaryController extends Controller
             );
             return response()->json($response);
         } else {
-            return redirect('summary?id_credit=' . $id_credit . '&show=last');
+            // return redirect('summary?id_credit=' . $id_credit . '&show=last');
+            return redirect('route');
         }
     }
 
