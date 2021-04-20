@@ -34,6 +34,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('history', 'historyController');
     Route::resource('transaction', 'transactionController');
     Route::resource('bill', 'billController')->middleware('close');
+    Route::resource('not-pay', 'NotPaymentController')->middleware('auth');
+    Route::get('export', 'NotPaymentController@export')->middleware('auth');
 });
 
 
