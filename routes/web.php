@@ -21,12 +21,15 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::resource('client', 'userController')->middleware('auth');
 Route::resource('payment', 'paymentController')->middleware('auth');
+Route::get('payment-export', 'paymentController@export')->middleware('auth');
 Route::resource('summary', 'summaryController')->middleware('auth');
 Route::resource('simulator', 'simulatorController')->middleware('auth');
 Route::resource('route', 'routeController')->middleware('auth');
 Route::resource('history', 'historyController')->middleware('auth');
 Route::resource('transaction', 'transactionController')->middleware('auth');
 Route::resource('bill', 'billController')->middleware('auth');
+Route::resource('not-pay', 'NotPaymentController')->middleware('auth');
+Route::get('export', 'NotPaymentController@export')->middleware('auth');
 
 Route::prefix('supervisor')->group(function () {
     Route::resource('agent', 'agentController');
