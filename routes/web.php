@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('client', 'userController', ['only' => ['create', 'show']])->middleware('close');
     Route::resource('client', 'userController', ['except' => ['create', 'show']]);
     Route::resource('payment', 'paymentController')->middleware('close');
+    Route::get('payment-export', 'paymentController@export')->middleware('auth');
     Route::resource('cartera', 'carteraController')->middleware('close');
     Route::resource('summary', 'summaryController')->middleware('close');
     Route::resource('simulator', 'simulatorController');
