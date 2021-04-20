@@ -71,6 +71,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
+                         <a href="{{ url('payment-export') }} " class="btn btn-sm btn-primary float-right">Exportar
+                            Excel</a>
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
                             <table class="table agente-payments-table">
                                 <thead>
