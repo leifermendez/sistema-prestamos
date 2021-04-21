@@ -8,12 +8,12 @@
       <div class="row">
         <div class="col-md-12">
           <div class="widget p-lg">
-            <a href="{{ url('export') }} " class="btn btn-sm btn-primary float-right">Exportar
+            <a href="{{ url('export') }} " class="btn btn-sm btn-primary float-right ">Exportar
               Excel</a>
             <h4 class="m-b-lg">Clientes que no pagaron</h4>
-            <table class="table agente-transactionV-table">
-              <tbody>
-                <tr class="visible-lg">
+            <table class="table agente-not-payments-table">
+              <thead>
+                <tr>
                   <th>Cliente</th>
                   <th>Lunes</th>
                   <th>Martes</th>
@@ -23,14 +23,14 @@
                   <th>Sábado</th>
                   <th>Domingo</th>
                 </tr>
-                @foreach ($clients as $client)
+              </thead>
 
+              <tbody>
+                @foreach($clients as $client)
                 <tr>
-                  <td>{{$client->name}} {{$client->last_name}} </td>
-
+                  <td>{{$client->name}} {{$client->last_name}}</td>
                   <td>
                     <span class="badge {{$client->summary_day['Monday']> 0 ? 'badge-success': 'badge-danger' }}">
-
                       {{$client->summary_day['Monday'] > 0 ?  $client->summary_day['Monday']. '.000' : $client->summary_day['Monday'] }}
                     </span>
                   </td>
@@ -66,11 +66,11 @@
                       {{$client->summary_day['Sunday'] > 0 ?  $client->summary_day['Sunday']. '.000' : $client->summary_day['Sunday'] }}
                     </span>
                   </td>
-
-                <tr>
-                  @endforeach
+                </tr>
+                @endforeach
               </tbody>
             </table>
+
           </div><!-- .widget -->
         </div>
       </div><!-- .row -->
