@@ -5,10 +5,12 @@ namespace App\Exports;
 use App\db_credit;
 use App\db_summary;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Events\AfterSheet;
 
-class PaymentExport implements FromCollection, WithHeadings, WithMapping
+class PaymentExport implements FromCollection, WithHeadings, WithMapping, WithEvents
 {
     public function __construct(int  $user_id)
     {
@@ -73,6 +75,16 @@ class PaymentExport implements FromCollection, WithHeadings, WithMapping
             'Cuotas pagada',
             'Pagos restantes',
             'Cuotas totales',
+        ];
+    }
+    public function registerEvents(): array
+    {
+
+        return [
+            AfterSheet::class    => function (AfterSheet $event) {
+
+                $event->sheet->autoSize(true);
+            },
         ];
     }
 }
