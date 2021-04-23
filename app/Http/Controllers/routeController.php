@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\db_credit;
 use App\db_not_pay;
+use App\db_pending_pay;
 use App\db_summary;
 use App\db_supervisor_has_agent;
 use App\User;
@@ -41,15 +42,12 @@ class routeController extends Controller
         $dt = Carbon::now();
 
         foreach ($data as $k => $d) {
-
-
             $tmp_amount = db_summary::where('id_credit', $d->id)
             ->where('id_agent', Auth::id())
             ->sum('amount');
             $amount_total = ($d->amount_neto) + ($d->amount_neto * $d->utility);
             $tmp_quote = round(floatval(($amount_total / $d->payment_number)), 2);
             $tmp_rest = round(floatval($amount_total - $tmp_amount), 2);
-
             $d->positive = $tmp_amount;
             $d->payment_quote = ($tmp_rest > $tmp_quote) ? $tmp_rest : $tmp_quote;
             $d->rest = round(floatval($amount_total - $tmp_amount), 2);            
@@ -62,12 +60,13 @@ class routeController extends Controller
             $d->setAttribute('last_pay', db_summary::where('id_credit', $d->id)->orderBy('id', 'desc')->first());
 
             if (!db_summary::where('id_credit', $d->id)->whereDate('created_at', '=', Carbon::now()->toDateString())->exists()) {
-                if (!db_not_pay::whereDate('created_at', '=', Carbon::now()->toDateString())->where('id_credit', $d->id)->exists()) {
+
+                $findExist = !db_not_pay::whereDate('created_at', '=', Carbon::now()->toDateString())->where('id_credit', $d->id)->exists();
+                $findPending = !db_pending_pay::where('id_credit', $d->id)->whereDate('created_at', '=', Carbon::now()->toDateString())->exists();
+                if ($findExist && $findPending) {
                     $data_filter[] = $d;
                 }
-
             }
-
 
         }
 

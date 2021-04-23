@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('cartera', 'carteraController')->middleware('close');
     Route::resource('summary', 'summaryController')->middleware('close');
     Route::resource('simulator', 'simulatorController');
+    Route::resource('pending-pay', 'pendingPaymentController');
     Route::resource('route', 'routeController')->middleware('close');
     Route::resource('statistics', 'statisticsUserController');
     Route::resource('history', 'historyController');
