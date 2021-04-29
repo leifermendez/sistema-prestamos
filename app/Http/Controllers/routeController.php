@@ -70,9 +70,26 @@ class routeController extends Controller
 
         }
 
+        $pending = db_pending_pay::join('credit','credit.id','=','pending_pays.id_credit')
+            ->join('users','credit.id_user','=','users.id')
+            ->select(
+                'pending_pays.*',
+                'users.name as user_name',
+                'users.last_name as user_last_name'
+            )
+            ->orderBy('id','DESC')
+            ->get();
+
+//        dd($clients);
+
+
         $data_all = array(
-            'clients' => $data_filter
+            'clients' => $data_filter,
+            'pending' => $pending
         );
+
+
+
 
         return view('route.index', $data_all);
     }

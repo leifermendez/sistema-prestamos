@@ -98,6 +98,28 @@
                                 </tbody>
                             </table>
 
+                            <table class="table agente-route-table">
+                                <thead>
+                                <tr>
+                                    <th># Credito</th>
+                                    <th>Nombres</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                @foreach($pending as $client)
+                                    <tr id="td_{{$client->id}}">
+                                        <td>{{$client->id}}</td>
+                                        <td>{{$client->id}}</td>
+                                        <td>{{$client->id}}</td>
+                                        <td>{{$client->user_name}} {{$client->user_last_name}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
