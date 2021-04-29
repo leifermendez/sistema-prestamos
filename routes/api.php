@@ -31,4 +31,4 @@ Route::group(['prefix' => 'agente', 'middleware' => ['jwt.auth']], function () {
 });
 
 Route::post('login', 'Api\loginApiController@loginApi');
-Route::resource('close', 'cronController', ['only' => ['index']]);
+//Route::resource('close', 'cronController', ['only' => ['index']]);
