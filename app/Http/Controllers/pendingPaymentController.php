@@ -17,24 +17,20 @@ class pendingPaymentController extends Controller
     {
         // pending_pay -> credit -> user
         //      ->join('credit', 'summary.id_credit', '=', 'credit.id')
-        $clients = db_pending_pay::join('credit', 'credit.id', '=', 'pending_pays.id_credit')
+ $clients = db_pending_pay::join('credit', 'credit.id', '=', 'pending_pays.id_credit')
             ->join('users', 'credit.id_user', '=', 'users.id')
             ->select(
                 'pending_pays.*',
                 'users.name as user_name',
                 'users.last_name as user_last_name'
-            )
-            ->orderBy('id', 'DESC')
+            )->orderBy('id', 'DESC')
             ->get();
 
-        //        dd($clients);
 
 
         $data = array(
             'clients' => $clients
         );
-
-        //        dd($data);
 
         return view('pending-pay.index', $data);
     }

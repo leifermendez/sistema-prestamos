@@ -42,15 +42,12 @@ class routeController extends Controller
         $dt = Carbon::now();
 
         foreach ($data as $k => $d) {
-
-
             $tmp_amount = db_summary::where('id_credit', $d->id)
                 ->where('id_agent', Auth::id())
                 ->sum('amount');
             $amount_total = ($d->amount_neto) + ($d->amount_neto * $d->utility);
             $tmp_quote = round(floatval(($amount_total / $d->payment_number)), 2);
             $tmp_rest = round(floatval($amount_total - $tmp_amount), 2);
-
             $d->positive = $tmp_amount;
             $d->payment_quote = ($tmp_rest > $tmp_quote) ? $tmp_rest : $tmp_quote;
             $d->rest = round(floatval($amount_total - $tmp_amount), 2);
@@ -63,10 +60,14 @@ class routeController extends Controller
             $d->setAttribute('last_pay', db_summary::where('id_credit', $d->id)->orderBy('id', 'desc')->first());
 
             if (!db_summary::where('id_credit', $d->id)->whereDate('created_at', '=', Carbon::now()->toDateString())->exists()) {
-                if (!db_not_pay::whereDate('created_at', '=', Carbon::now()->toDateString())->where('id_credit', $d->id)->exists()) {
+
+                $findExist = !db_not_pay::whereDate('created_at', '=', Carbon::now()->toDateString())->where('id_credit', $d->id)->exists();
+                $findPending = !db_pending_pay::where('id_credit', $d->id)->whereDate('created_at', '=', Carbon::now()->toDateString())->exists();
+                if ($findExist && $findPending) {
                     $data_filter[] = $d;
                 }
             }
+
         }
         $pending = db_pending_pay::join('credit', 'credit.id', '=', 'pending_pays.id_credit')
             ->join('users', 'credit.id_user', '=', 'users.id')
@@ -78,10 +79,26 @@ class routeController extends Controller
             ->orderBy('id', 'DESC')
             ->get();
 
+        $pending = db_pending_pay::join('credit','credit.id','=','pending_pays.id_credit')
+            ->join('users','credit.id_user','=','users.id')
+            ->select(
+                'pending_pays.*',
+                'users.name as user_name',
+                'users.last_name as user_last_name'
+            )
+            ->orderBy('id','DESC')
+            ->get();
+
+//        dd($clients);
+
+
         $data_all = array(
             'clients' => $data_filter,
             'pending' => $pending
         );
+
+
+
 
         return view('route.index', $data_all);
     }
