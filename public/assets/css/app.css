@@ -5120,6 +5120,16 @@ td.mail-right {
     /*FIn Luis*/
 }
 
+
+.clients.hovering {
+  background: #b6d6fb;
+  border-color: #276cbc;
+}
+
+.item {
+  cursor: pointer;  
+}
+
 .add_top_60 {
     margin-top: 60px;
 }

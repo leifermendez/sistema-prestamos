@@ -81,7 +81,6 @@
         });
     };
 
-
     window.app = app;
 }(jQuery, window);
 
@@ -93,12 +92,10 @@ function initialize() {
     const autocomplete = new google.maps.places.Autocomplete(input, options);
     autocomplete.addListener('place_changed', function () {
         const place = autocomplete.getPlace();
-        console.log(place)
         const mapElement = document.querySelector(".over-change-display")
         if (place) {
-            console.log(mapElement)
             mapElement.setAttribute('style', 'display:block !important');
-            initMap({lat: place.geometry['location'].lat(), lng: place.geometry['location'].lng()})
+            initMap({ lat: place.geometry['location'].lat(), lng: place.geometry['location'].lng() })
         }
         // $('#latitude').val(place.geometry['location'].lat());
         // $('#longitude').val(place.geometry['location'].lng());
@@ -116,9 +113,9 @@ function toggleBounce(event) {
 
 }
 
-function initMap({lat, lng}) {
+function initMap({ lat, lng }) {
     // The location of Uluru
-    const uluru = {lat, lng};
+    const uluru = { lat, lng };
     // The map, centered at Uluru
     const map = new google.maps.Map(document.querySelector(".map-google"), {
         zoom: 9,
@@ -311,9 +308,9 @@ function initMap({lat, lng}) {
             var $this = $(this), total = $this.offset().left + $this.width();
             var ww = $(window).width();
             if ((ww - total) < 220) {
-                $this.find('> .submenu').css({left: 'auto', right: '100%'});
+                $this.find('> .submenu').css({ left: 'auto', right: '100%' });
             } else if ((ww - total) >= 220 && !$this.is('.app-menu > li')) {
-                $this.find('> .submenu').css({left: '100%', right: 'auto'});
+                $this.find('> .submenu').css({ left: '100%', right: 'auto' });
             }
             $(this).toggleClass('open').siblings().removeClass('open');
         },
@@ -449,12 +446,12 @@ function initMap({lat, lng}) {
 }(jQuery, window);
 
 
-    
-function viewPassword(){
+
+function viewPassword() {
     var input = document.getElementById("password");
-    if(input.type == "password"){
+    if (input.type == "password") {
         input.type = "text";
-    }else{
+    } else {
         input.type = "password";
     }
 }
@@ -761,7 +758,7 @@ function limpiarNumero(obj) {
 
     $('body .modal-pay').submit(function (event) {
 
-        console.log(event);
+
         event.preventDefault();
         var data = {
             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -770,7 +767,7 @@ function limpiarNumero(obj) {
             format: 'json'
         };
         var actionurl = event.currentTarget.action;
-        console.log(data);
+
         //do your own request an handle the results
         $.post(actionurl,
             data, function (res) {
@@ -811,6 +808,66 @@ function limpiarNumero(obj) {
                 }
             })
     });
+    // Drag and Drop
+    $("#complete-item-drop").sortable({
+        connectWith: ".connectedSortable",
+        opacity: 0.5,
+    }).disableSelection();
+
+    if (!localStorage.getItem('change-list')) {
+        $("#complete-item-drop").sortable({
+            connectWith: ".connectedSortable",
+            opacity: 0.5,
+            cancel: "#complete-item-drop tr"
+        }).disableSelection();
+    }
+
+    $(".connectedSortable").on("sortupdate", function () {
+        var completeArr = [];
+        $("#complete-item-drop tr").each(function () {
+            completeArr.push({ id: $(this).attr('item-id') });
+        });
+        $.ajax({
+            url: '/route',
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: { completeArr }
+        }).done(function (res) {
+        });
+    });
+
+
+    const seedList = document.getElementById('seeList');
+    const changeList = document.getElementById('changeList');
+    const pending = document.getElementById('pending');
+    const logout = document.getElementById('logout');
+    const goBack = document.getElementById('goBack');
+
+    if (localStorage.getItem('change-list')) {
+        changeList?.classList.toggle('d-none');
+        seedList?.classList.toggle('d-none');
+        pending?.classList.toggle('d-none');
+    };
+
+    changeList?.addEventListener('click', function () {
+        localStorage.setItem('change-list', Date.now())
+        location.reload();
+
+    });
+    seedList?.addEventListener('click', function () {
+        localStorage.removeItem('change-list');
+        location.reload();
+    });
+    logout?.addEventListener('click', function () {
+        localStorage.removeItem('change-list');
+    });
+    goBack?.addEventListener('submit', function () {
+        console.log('submit');
+        localStorage.removeItem('change-list');
+    });
+
 
 }(jQuery, window);
 
