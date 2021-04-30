@@ -32,7 +32,7 @@ class routeController extends Controller
     public function index()
     {
         $data = db_credit::where('credit.id_agent', Auth::id())
-            ->join('users','credit.id_user','=','users.id')
+            ->join('users', 'credit.id_user', '=', 'users.id')
             ->where('credit.status', 'inprogress')
             ->select('credit.*')
             ->orderBy('credit.order_list', 'asc')
@@ -44,15 +44,15 @@ class routeController extends Controller
 
 
             $tmp_amount = db_summary::where('id_credit', $d->id)
-            ->where('id_agent', Auth::id())
-            ->sum('amount');
+                ->where('id_agent', Auth::id())
+                ->sum('amount');
             $amount_total = ($d->amount_neto) + ($d->amount_neto * $d->utility);
             $tmp_quote = round(floatval(($amount_total / $d->payment_number)), 2);
             $tmp_rest = round(floatval($amount_total - $tmp_amount), 2);
 
             $d->positive = $tmp_amount;
             $d->payment_quote = ($tmp_rest > $tmp_quote) ? $tmp_rest : $tmp_quote;
-            $d->rest = round(floatval($amount_total - $tmp_amount), 2);            
+            $d->rest = round(floatval($amount_total - $tmp_amount), 2);
             $d->payment_done = db_summary::where('id_credit', $d->id)->count();
             $d->user = User::find($d->id_user);
             $d->amount_total = $amount_total;
@@ -65,10 +65,7 @@ class routeController extends Controller
                 if (!db_not_pay::whereDate('created_at', '=', Carbon::now()->toDateString())->where('id_credit', $d->id)->exists()) {
                     $data_filter[] = $d;
                 }
-
             }
-
-
         }
 
         $data_all = array(
@@ -96,7 +93,16 @@ class routeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $input = $request->all();
+
+        foreach ($input['completeArr'] as $key => $value) {
+            $key = $key + 1;
+            db_credit::where('id', $value)->update([
+                'order_list' => ($key)
+            ]);
+        }
+        return response()->json(['status' => 'success']);
     }
 
     /**
@@ -118,6 +124,8 @@ class routeController extends Controller
      */
     public function edit(Request $request, $id)
     {
+
+
         $id_credit = $request->id_credit;
         $direction = $request->direction;
 
@@ -157,9 +165,8 @@ class routeController extends Controller
         } else {
             return redirect('/route');
         }
-
-
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -170,8 +177,15 @@ class routeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $input = $request->completeArr;
+        // $arr = [];
+        // foreach ($input as $key => $value) {
+        //     $k = $value->order;
+        //     $arr[$k] = $value;
+        // }
 
 
+        return $input;
     }
 
     /**
