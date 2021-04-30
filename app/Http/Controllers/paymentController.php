@@ -7,10 +7,12 @@ use App\db_credit;
 use App\db_not_pay;
 use App\db_summary;
 use App\db_supervisor_has_agent;
+use App\Exports\PaymentExport;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class paymentController extends Controller
 {
@@ -35,8 +37,11 @@ class paymentController extends Controller
 
         $data_user = db_credit::where('credit.id_agent', Auth::id())
             ->join('users', 'credit.id_user', '=', 'users.id')
-            ->select('credit.*', 'users.id as id_user',
-                'users.name', 'users.last_name'
+            ->select(
+                'credit.*',
+                'users.id as id_user',
+                'users.name',
+                'users.last_name'
             )
             ->get();
 
@@ -46,17 +51,21 @@ class paymentController extends Controller
                 $data->setAttribute('credit_id', $data->id);
                 $data->setAttribute('amount_neto', ($data->amount_neto) + ($data->amount_neto * $data->utility));
                 $data->setAttribute('positive', $data->amount_neto - (db_summary::where('id_credit', $data->id)
-                        ->where('id_agent', Auth::id())
-                        ->sum('amount')));
+                    ->where('id_agent', Auth::id())
+                    ->sum('amount')));
                 $data->setAttribute('payment_current', db_summary::where('id_credit', $data->id)->count());
             }
-
         }
         $data = array(
             'clients' => $data_user
         );
 
         return view('payment.index', $data);
+    }
+
+    public function export()
+    {
+        return Excel::download(new PaymentExport(Auth::id()), 'payments.xlsx');
     }
 
     /**
@@ -66,7 +75,6 @@ class paymentController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -98,7 +106,6 @@ class paymentController extends Controller
         db_summary::insert($values);
 
         return redirect('');
-
     }
 
     /**
@@ -128,7 +135,7 @@ class paymentController extends Controller
         $data->amount_neto = $amount_neto;
 
 
-//        dd([$amount_neto,$tmp_amount]);
+        //        dd([$amount_neto,$tmp_amount]);
 
         $tmp_quote = round(floatval(($amount_neto / $data->payment_number)), 2);
         $tmp_rest = round(floatval($amount_neto - $tmp_amount), 2);
@@ -138,7 +145,7 @@ class paymentController extends Controller
             'rest' => round(floatval($amount_neto - $tmp_amount), 2),
             'payment_done' => db_summary::where('id_credit', $id)->count(),
             'payment_quote' => $tmp_quote
-    );
+        );
 
 
         if ($request->input('format') === 'json') {
@@ -151,7 +158,6 @@ class paymentController extends Controller
         } else {
             return view('payment.create', $data);
         }
-
     }
 
     /**
@@ -184,7 +190,6 @@ class paymentController extends Controller
         } else {
             return redirect('route');
         }
-
     }
 
     /**

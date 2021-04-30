@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +8,11 @@
     <meta name="description" content="Leifer Mendez, github, sistema prestamos, https://github.com/leifermendez" />
     <meta name="author" content="https://github.com/leifermendez" />
     <link rel="shortcut icon" sizes="196x196" href="../assets/images/logo.png">
-    <title>{{config("app.name")}} | .:APPHERCULES:.</title>
+    <title>{{config("app.name")}}</title>
 
     <link rel="stylesheet" href="{{ asset('libs/bower/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css') }}">
     <!-- build:css ../assets/css/app.min.css -->
     <link rel="stylesheet" href="{{ asset('libs/bower/animate.css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/bower/fullcalendar/dist/fullcalendar.min.css') }}">
@@ -34,14 +36,14 @@
 </head>
 
 <body class="theme-primary menubar-light pace-done menubar-top">
-<!--============= start main area -->
-@include('layout.navbar')
+    <!--============= start main area -->
+    @include('layout.navbar')
 
-@include('layout.navbarsearch')
+    @include('layout.navbarsearch')
 
-@yield('content')
+    @yield('content')
 
-@include('layout.sidepanel')
+    @include('layout.sidepanel')
 
 </body>
 

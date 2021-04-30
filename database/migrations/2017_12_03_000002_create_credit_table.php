@@ -30,6 +30,7 @@ class CreateCreditTable extends Migration
             $table->integer('id_agent')->nullable()->default(null);
             $table->integer('payment_number')->nullable()->default(null);
             $table->float('utility')->nullable()->default(null);
+            $table->timestamp('pending_at')->nullable()->default(null);
             $table->enum('status', ['close', 'inprogress'])->nullable()->default('inprogress');
             $table->nullableTimestamps();
         });

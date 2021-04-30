@@ -25,14 +25,18 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('client', 'userController', ['only' => ['create', 'show']])->middleware('close');
     Route::resource('client', 'userController', ['except' => ['create', 'show']]);
     Route::resource('payment', 'paymentController')->middleware('close');
+    Route::get('payment-export', 'paymentController@export')->middleware('auth');
     Route::resource('cartera', 'carteraController')->middleware('close');
     Route::resource('summary', 'summaryController')->middleware('close');
     Route::resource('simulator', 'simulatorController');
+    Route::resource('pending-pay', 'pendingPaymentController');
     Route::resource('route', 'routeController')->middleware('close');
     Route::resource('statistics', 'statisticsUserController');
     Route::resource('history', 'historyController');
     Route::resource('transaction', 'transactionController');
     Route::resource('bill', 'billController')->middleware('close');
+    Route::resource('not-pay', 'NotPaymentController')->middleware('auth');
+    Route::get('export', 'NotPaymentController@export')->middleware('auth');
 });
 
 
