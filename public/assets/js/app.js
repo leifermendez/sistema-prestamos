@@ -862,6 +862,7 @@ function limpiarNumero(obj) {
         localStorage.removeItem('change-list');
     });
     goBack?.addEventListener('submit', function () {
+        console.log('submit');
         localStorage.removeItem('change-list');
     });
 
