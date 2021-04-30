@@ -841,12 +841,14 @@ function limpiarNumero(obj) {
 
     const seedList = document.getElementById('seeList');
     const changeList = document.getElementById('changeList');
+    const pending = document.getElementById('pending');
     const logout = document.getElementById('logout');
     const goBack = document.getElementById('goBack');
 
     if (localStorage.getItem('change-list')) {
         changeList?.classList.toggle('d-none');
         seedList?.classList.toggle('d-none');
+        pending?.classList.toggle('d-none');
     };
 
     changeList?.addEventListener('click', function () {

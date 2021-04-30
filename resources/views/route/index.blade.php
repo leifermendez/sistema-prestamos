@@ -63,9 +63,9 @@
 
                                     </td>
                                     <td>
-                                        {{-- <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up"
-                                        class="btn btn-default btn-xs arw-up btn-center-arrow"><i
-                                            class="fa fa-arrow-up"></i></a> --}}
+                                        <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up"
+                                            class="btn btn-default btn-xs arw-up btn-center-arrow"><i
+                                                class="fa fa-arrow-up"></i></a>
                                         <a href="{{url('payment')}}/{{$client->id}}"
                                             class="btn btn-success btn-xs hidden"><i class="fa fa-money"></i> Pagar</a>
 
@@ -77,12 +77,40 @@
                                             id_credit="{{$client->id}}"
                                             class="btn btn-warning btn-xs ajax-btn btn-pagar"><i
                                                 class="fa fa-archive "></i> Saltar</a>
+                                        <form action="{{url('pending-pay')}}" method="POST" class="pull-left px-1">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="id_credit" value="{{$client->id}}">
+                                            <button type="submit" class="btn btn-inverse btn-xs">
+                                                Pendiente
+                                            </button>
+                                        </form>
                                         <a href="{{url('summary')}}?id_credit={{$client->id}}"
                                             class="btn btn-info btn-xs hidden"><i class="fa fa-history"></i> Ver</a>
-                                        {{-- <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down"
-                                        class="btn btn-default btn-xs arw-down btn-center-arrow"><i
-                                            class="fa fa-arrow-down"></i></a> --}}
+                                        <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down"
+                                            class="btn btn-default btn-xs arw-down btn-center-arrow"><i
+                                                class="fa fa-arrow-down"></i></a>
                                     </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <table class="table agente-route-table" id="pending">
+                            <thead>
+                                <tr>
+                                    <th># Credito</th>
+                                    <th>Nombres</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach($pending as $client)
+                                <tr id="td_{{$client->id}}">
+                                    <td>{{$client->id}}</td>
+                                    <td>{{$client->id}}</td>
+                                    <td>{{$client->id}}</td>
+                                    <td>{{$client->user_name}} {{$client->user_last_name}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

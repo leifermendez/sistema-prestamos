@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\db_credit;
 use App\db_not_pay;
+use App\db_pending_pay;
 use App\db_summary;
 use App\db_supervisor_has_agent;
 use App\User;
@@ -67,9 +68,19 @@ class routeController extends Controller
                 }
             }
         }
+        $pending = db_pending_pay::join('credit', 'credit.id', '=', 'pending_pays.id_credit')
+            ->join('users', 'credit.id_user', '=', 'users.id')
+            ->select(
+                'pending_pays.*',
+                'users.name as user_name',
+                'users.last_name as user_last_name'
+            )
+            ->orderBy('id', 'DESC')
+            ->get();
 
         $data_all = array(
-            'clients' => $data_filter
+            'clients' => $data_filter,
+            'pending' => $pending
         );
 
         return view('route.index', $data_all);
