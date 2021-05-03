@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\db_audit;
 use App\db_countries;
 use App\db_wallet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class adminRouteController extends Controller
 {
@@ -52,6 +54,16 @@ class adminRouteController extends Controller
             'address' => $address
         );
         db_wallet::insert($values);
+
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode($values),
+            'event' => 'create',
+            'type' => 'Cartera'
+        );
+        db_audit::insert($audit);
 
         return redirect('home');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\db_audit;
 use App\db_credit;
 use App\db_summary;
 use App\db_supervisor_has_agent;
@@ -129,6 +130,16 @@ class summaryController extends Controller
         );
 
         db_summary::insert($values);
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode($values),
+            'event' => 'create',
+            'type' => 'Pago'
+        );
+        db_audit::insert($audit);
+
         $sum = db_summary::where('id_credit', $id_credit)->sum('amount');
 //        dd($sum);
         if ($sum >= (db_credit::find($id_credit)->amount_neto) + (db_credit::find($id_credit)->amount_neto * db_credit::find($id_credit)->utility)) {
@@ -212,6 +223,15 @@ class summaryController extends Controller
             'amount' => $amount,
         );
         db_summary::where('id', $id)->update($values);
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode($values),
+            'event' => 'update',
+            'type' => 'Pago'
+        );
+        db_audit::insert($audit);
 
         return redirect('supervisor/menu/edit/create?id_wallet=' . $id_wallet);
     }

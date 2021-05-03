@@ -13,7 +13,7 @@ class CreateDbPendingPaysTable extends Migration
      */
     public function up()
     {
-        Schema::create('pending_pays', function (Blueprint $table) {
+        Schema::create('db_pending_pays', function (Blueprint $table) {
             $table->id();
             $table->integer('id_credit');
             $table->timestamps();

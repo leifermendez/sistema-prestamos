@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\db_agent_has_user;
+use App\db_audit;
 use App\db_bills;
 use App\db_close_day;
 use App\db_credit;
@@ -54,7 +55,6 @@ class closeController extends Controller
             }
 
         }
-
 
         $data = array(
             'clients' => $data,
@@ -125,7 +125,6 @@ class closeController extends Controller
             'user' => User::find($id)
         );
 
-
         return view('supervisor_agent.close', $data);
     }
 
@@ -177,6 +176,15 @@ class closeController extends Controller
             //'from_number' =>
         );
         db_close_day::insert($values);
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode($values),
+            'event' => 'update',
+            'type' => 'Cierre de dia'
+        );
+        db_audit::insert($audit);
 
         return redirect('supervisor/close');
     }

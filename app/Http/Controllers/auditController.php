@@ -3,38 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\db_audit;
-use App\db_pending_pay;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
-class pendingPaymentController extends Controller
+class auditController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // pending_pay -> credit -> user
-        //      ->join('credit', 'summary.id_credit', '=', 'credit.id')
- $clients = db_pending_pay::join('credit', 'credit.id', '=', 'pending_pays.id_credit')
-            ->join('users', 'credit.id_user', '=', 'users.id')
-            ->select(
-                'pending_pays.*',
-                'users.name as user_name',
-                'users.last_name as user_last_name'
-            )->orderBy('id', 'DESC')
-            ->get();
+        $date_start = $request->date_start;
+        $date_end = $request->date_end;
+        $sql = [];
 
+        if (isset($date_start) && isset($date_end)) {
+            $sql[] = ['audit.created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)];
+            $sql[] = ['audit.created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)];
+        } else {
+            $sql[] = ['audit.created_at', '>=', Carbon::now()->startOfDay()];
+            $sql[] = ['audit.created_at', '<=', Carbon::now()->endOfDay()];
+        }
 
+        $data = db_audit::where($sql)
+        ->join('users', 'audit.id_user', '=', 'users.id')
+        ->select('audit.*', 'users.name as user_name',
+            'users.last_name as user_last_name',
+            'users.level as user_level'
+        )->orderBy('created_at','DESC')->get();
 
         $data = array(
-            'clients' => $clients
+            'audits' => $data
         );
 
-        return view('pending-pay.index', $data);
+        return view('audit.index', $data);
     }
 
     /**
@@ -55,24 +59,7 @@ class pendingPaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $id_credit = $request->input('id_credit');
-        db_pending_pay::insert([
-            'id_credit' => $id_credit,
-            'created_at' => Carbon::now()
-        ]);
-
-        $audit = array(
-            'created_at' => Carbon::now(),
-            'id_user' => Auth::id(),
-            'data' => json_encode([
-                'id_credit' => $id_credit,
-                'created_at' => Carbon::now()
-            ]),
-            'event' => 'create',
-            'type' => 'Pago pendiente'
-        );
-        db_audit::insert($audit);
-        return redirect('route');
+        //
     }
 
     /**

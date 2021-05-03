@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\db_audit;
 use App\db_summary;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class supervisorSummaryController extends Controller
 {
@@ -97,6 +100,14 @@ class supervisorSummaryController extends Controller
             if(!isset($amount)){ return 'Amount';};
 
             db_summary::where('id',$id)->update(['amount'=>$amount]);
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode(['amount'=>$amount, 'id'=>$id]),
+            'event' => 'create',
+            'type' => 'Pago'
+        );
+        db_audit::insert($audit);
 
             return redirect('supervisor/menu/edit/create?id_wallet='.$id_wallet);
     }
@@ -110,6 +121,15 @@ class supervisorSummaryController extends Controller
     public function destroy(Request $request,$id)
     {
         db_summary::where('id',$id)->delete();
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode(['id'=>$id]),
+            'event' => 'delete',
+            'type' => 'Pago'
+        );
+        db_audit::insert($audit);
 
         return redirect('/supervisor/menu/edit/'.$id.'?date_start='.urlencode($request->date_start));
     }

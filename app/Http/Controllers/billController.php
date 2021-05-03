@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\db_audit;
 use App\db_bills;
 use App\db_list_bills;
 use App\db_supervisor_has_agent;
@@ -98,6 +99,16 @@ class billController extends Controller
         );
 
         db_bills::insert($values);
+
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode($values),
+            'event' => 'create',
+            'type' => 'Gasto'
+        );
+        db_audit::insert($audit);
 
         return redirect('bill');
     }

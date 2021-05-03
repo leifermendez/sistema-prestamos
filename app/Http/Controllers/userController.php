@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\db_agent_has_user;
+use App\db_audit;
 use App\db_credit;
 use App\db_summary;
 use App\db_supervisor_has_agent;
@@ -211,6 +212,15 @@ class userController extends Controller
             'order_list' => ($last_order) + 1
         );
         db_credit::insert($values);
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode($values),
+            'event' => 'create',
+            'type' => 'Cliente'
+        );
+        db_audit::insert($audit);
         return redirect('/');
     }
 

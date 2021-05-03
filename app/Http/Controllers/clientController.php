@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\db_agent_has_user;
+use App\db_audit;
 use App\db_countries;
 use App\db_credit;
 use App\db_supervisor_has_agent;
 use App\db_wallet;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -67,6 +69,15 @@ class clientController extends Controller
 
         db_supervisor_has_agent::where('id_user_agent', $id_agent)->where('id_supervisor', Auth::id())
             ->update(['id_wallet' => $id_wallet]);
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode(['id_wallet' => $id_wallet]),
+            'event' => 'update',
+            'type' => 'Cliente'
+        );
+        db_audit::insert($audit);
     }
 
     /**
@@ -145,6 +156,15 @@ class clientController extends Controller
         );
 
         User::where('id', $id)->update($values);
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode($values),
+            'event' => 'update',
+            'type' => 'Cliente'
+        );
+        db_audit::insert($audit);
         if (db_agent_has_user::where('id_client', $id)->exists()) {
             $wallet = db_agent_has_user::where('id_client', $id)->first();
             return redirect('supervisor/client/' . $wallet->id_wallet);
