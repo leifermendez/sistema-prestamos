@@ -85,17 +85,41 @@
 }(jQuery, window);
 
 function initialize() {
-
     const options = optionsMaps || null;
-
+    let coordinates = null;
     const input = document.querySelector('.g-autoplaces-address');
     const autocomplete = new google.maps.places.Autocomplete(input, options);
+    const mapElement = document.querySelector(".over-change-display")
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            coordinates = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            }
+            if (coordinates) {
+                console.log('loading map..')
+                mapElement.setAttribute('style', 'display:block !important');
+                initMap({ lat: coordinates.lat, lng: coordinates.lng })
+            }
+        });
+    }
+    else {
+        console.log(`Geolocation is not supported by this browser.`);
+    }
+
     autocomplete.addListener('place_changed', function () {
         const place = autocomplete.getPlace();
-        const mapElement = document.querySelector(".over-change-display")
-        if (place) {
+
+        if(place) {
+            coordinates = {
+                lat: place.geometry['location'].lat(),
+                lng: place.geometry['location'].lng()
+            }
+        }
+        if (coordinates) {
             mapElement.setAttribute('style', 'display:block !important');
-            initMap({ lat: place.geometry['location'].lat(), lng: place.geometry['location'].lng() })
+            initMap({ lat: coordinates.lat, lng: coordinates.lng })
         }
         // $('#latitude').val(place.geometry['location'].lat());
         // $('#longitude').val(place.geometry['location'].lng());
