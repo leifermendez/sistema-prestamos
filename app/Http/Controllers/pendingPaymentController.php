@@ -28,8 +28,6 @@ class pendingPaymentController extends Controller
             )->orderBy('id', 'DESC')
             ->get();
 
-
-
         $data = array(
             'clients' => $clients
         );
