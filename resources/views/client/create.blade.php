@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Nombres:</label>
-                        '                <input type="text" name="name" value="{{isset($user) ? $user->name : ''}}"
+                                        <input type="text" name="name" value="{{isset($user) ? $user->name : ''}}"
                                                class="form-control" id="name" required>
                                     </div>
                                     <div class="form-group">

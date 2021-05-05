@@ -52,19 +52,40 @@
                                             </div>
                                             @if($audit->event === 'create')
                                                 <div class="alert alert-success" role="alert">
-                                                    {{$audit->data}}
+                                                    <ul>
+                                                        @foreach(json_decode($audit->data) as $key => $data)
+                                                            <li>
+                                                                {{$key}}: &nbsp; {{$data}}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+
                                                 </div>
                                             @endif
 
                                             @if($audit->event === 'delete')
                                                 <div class="alert alert-danger" role="alert">
-                                                    {{$audit->data}}
+
+                                                    <ul>
+                                                        @foreach(json_decode($audit->data) as $key => $data)
+                                                            <li>
+                                                                {{$key}}: &nbsp; {{$data}}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
                                                 </div>
                                             @endif
 
                                             @if($audit->event === 'update')
                                                 <div class="alert alert-primary" role="alert">
-                                                    {{$audit->data}}
+
+                                                    <ul>
+                                                        @foreach(json_decode($audit->data) as $key => $data)
+                                                            <li>
+                                                                {{$key}}: &nbsp; {{$data}}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
                                                 </div>
                                             @endif
                                         </div>
