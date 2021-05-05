@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\db_agent_has_user;
+use App\db_audit;
 use App\db_credit;
 use App\db_not_pay;
 use App\db_summary;
@@ -105,6 +106,15 @@ class paymentController extends Controller
 
         db_summary::insert($values);
 
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode($values),
+            'event' => 'create',
+            'type' => 'Pago'
+        );
+        db_audit::insert($audit);
+
         return redirect('');
     }
 
@@ -181,6 +191,15 @@ class paymentController extends Controller
         );
 
         db_not_pay::insert($values);
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode($values),
+            'event' => 'create',
+            'type' => 'Pago saltado'
+        );
+        db_audit::insert($audit);
 
         if ($request->ajax) {
             $response = array(

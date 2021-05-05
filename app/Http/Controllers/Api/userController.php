@@ -153,7 +153,8 @@ class userController extends Controller
             $amount = $request->amount;
             $lat = $request->lat;
             $lng = $request->lng;
-
+            $_id = $request->id;
+            
             $redirect_error = '/client?msg=Fields_Null&status=error';
             if (!isset($name)) {
                 $response = array(
@@ -257,21 +258,30 @@ class userController extends Controller
                 'nit' => $nit
             );
 
+            
             if (!User::where('nit', $nit)->exists()) {
                 $id = User::insertGetId($values);
             } else {
                 $id = User::where('nit', $nit)->first()->id;
-
-                if (db_agent_has_user::where('id_client', $id)->exists()) {
-                    $agent_data = db_agent_has_user::where('id_client', $id)->first();
-                    if ($agent_data->id_agent != Auth::id()) {
-                        $response = array(
-                            'status' => 'fail',
-                            'msj' => 'Este usuario ya esta asignado a otro Agente',
-                            'code' => 5
-                        );
-                        return response()->json($response);
+                if($_id == $id) {
+                    if (db_agent_has_user::where('id_client', $id)->exists()) {
+                        $agent_data = db_agent_has_user::where('id_client', $id)->first();
+                        if ($agent_data->id_agent != Auth::id()) {
+                            $response = array(
+                                'status' => 'fail',
+                                'msj' => 'Este usuario ya esta asignado a otro Agente',
+                                'code' => 5
+                            );
+                            return response()->json($response);
+                        }
                     }
+                } else {
+                    $response = array(
+                        'status' => 'fail',
+                        'msj' => 'Ya existe un ususario con el mismo nit',
+                        'code' => 5
+                    );
+                    return response()->json($response);
                 }
             }
 

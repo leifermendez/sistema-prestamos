@@ -79,4 +79,5 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
         'update'
     ]);
     Route::resource('route', 'adminRouteController');
+    Route::resource('audit', 'auditController', ['only' => ['index']]);
 });

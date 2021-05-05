@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\db_audit;
 use App\db_supervisor_has_agent;
 use App\User;
 use Carbon\Carbon;
@@ -107,6 +108,16 @@ class agentController extends Controller
         db_supervisor_has_agent::where('id_user_agent',$id)
             ->where('id_supervisor',Auth::id())
             ->update(['base'=>$base]);
+
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode(array('base'=>$base)),
+            'event' => 'update',
+            'type' => 'Asignar Caja'
+        );
+        db_audit::insert($audit);
 
         return redirect('supervisor/agent');
     }

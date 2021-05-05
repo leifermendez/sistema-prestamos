@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="amount">Valor de cuota:</label>
-                <input type="text" readonly value="{{$client->payment_quote / $client->payment_number}}" class="form-control" id="amount1">
+                <input type="text" readonly value="{{$client->payment_quote}}" class="form-control" id="amount1">
             </div>
             <div class="form-group">
                 <label for="amount">Cuotas pagadas:</label>
@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label for="amount">Valor de abono:</label>
-                <input type="number" step="any" min="1" max="{{$client->rest}}" value="{{$client->payment_quote / $client->payment_number}}" name="amount" class="form-control" id="amount">
+                <input type="number" step="any" min="1" max="{{$client->rest}}" value="{{($client->rest < $client->payment_quote) ? $client->rest : $client->payment_quote}}" name="amount" class="form-control" id="amount">
             </div>
             <div class="form-group">
                 <button type="submit" {{($client->rest<1) ? 'disabled': ''}} class="btn btn-success btn-block btn-md">Guardar pago</button>

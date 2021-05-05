@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\db_audit;
 use App\db_pending_pay;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class pendingPaymentController extends Controller
 {
@@ -25,8 +27,6 @@ class pendingPaymentController extends Controller
                 'users.last_name as user_last_name'
             )->orderBy('id', 'DESC')
             ->get();
-
-
 
         $data = array(
             'clients' => $clients
@@ -58,6 +58,18 @@ class pendingPaymentController extends Controller
             'id_credit' => $id_credit,
             'created_at' => Carbon::now()
         ]);
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode([
+                'id_credit' => $id_credit,
+                'created_at' => Carbon::now()
+            ]),
+            'event' => 'create',
+            'type' => 'Pago pendiente'
+        );
+        db_audit::insert($audit);
         return redirect('route');
     }
 

@@ -20,7 +20,6 @@
                                             <th>Supervisor</th>
                                             <th></th>
                                     </div>
-                                
                                 @foreach($clients as $client)
                                     @if($client->active_user=='enabled')
                                         <tr>

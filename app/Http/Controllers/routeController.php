@@ -56,7 +56,7 @@ class routeController extends Controller
             $d->amount_total = $amount_total;
             $d->days_rest = $dt->diffInDays(Carbon::parse($d->created_at));
             $d->saldo = $d->amount_total - (db_summary::where('id_credit', $d->id)->sum('amount'));
-            $d->quote = (floatval($d->amount_neto * $d->utility) + floatval($d->amount_neto)) / floatval($d->payment_number);
+            $d->quote = round((floatval($d->amount_neto * $d->utility) + floatval($d->amount_neto)) / floatval($d->payment_number),2);
             $d->setAttribute('last_pay', db_summary::where('id_credit', $d->id)->orderBy('id', 'desc')->first());
 
             if (!db_summary::where('id_credit', $d->id)->whereDate('created_at', '=', Carbon::now()->toDateString())->exists()) {

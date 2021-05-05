@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\db_audit;
 use App\db_credit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class creditController extends Controller
 {
@@ -84,6 +87,15 @@ class creditController extends Controller
             ['amount_neto'=>$amount_neto]
         );
 
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode(['amount_neto'=>$amount_neto, '$id_wallet'=>$id_wallet]),
+            'event' => 'update',
+            'type' => 'Cliente'
+        );
+        db_audit::insert($audit);
+
         return redirect('supervisor/menu/edit/create?id_wallet='.$id_wallet);
     }
 
@@ -98,12 +110,20 @@ class creditController extends Controller
         $date_start = $request->date_start;
         $id_wallet = $request->id_wallet;
 
-
         if(!isset($id)){return 'ID vacio';};
         if(!db_credit::where('id',$id)->exists()){
             return 'No existe ID';
         }
         db_credit::where('id',$id)->delete();
+
+        $audit = array(
+            'created_at' => Carbon::now(),
+            'id_user' => Auth::id(),
+            'data' => json_encode(['id'=>$id]),
+            'event' => 'delete',
+            'type' => 'Credito'
+        );
+        db_audit::insert($audit);
 
         return redirect('supervisor/menu/edit/'.$id_wallet.'?date_start='.$date_start);
     }
