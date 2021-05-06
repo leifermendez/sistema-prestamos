@@ -6,6 +6,8 @@
 <script src="{{asset('/libs/bower/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
 <script src="{{asset('/libs/bower/perfect-scrollbar/js/perfect-scrollbar.jquery.js')}}"></script>
 <script src="{{asset('/libs/bower/PACE/pace.min.js')}}"></script>
+<script src="https://unpkg.com/sortablejs-make/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
 <!-- endbuild -->
 
 <script type="text/javascript">
