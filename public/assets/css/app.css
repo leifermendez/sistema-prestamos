@@ -19,7 +19,14 @@ body {
 .widget-resume {
     background-color: transparent !important;
 }
-
+.ghost {
+  opacity: .5;
+  background: #C8EBFB;  
+  
+}
+.item{
+  -webkit-transform: perspective(1200px) translateZ(0px);
+}
 .hamburger {
     padding: 0 0;
     display: inline-block;
