@@ -69,7 +69,8 @@
                                         <a href="{{url('payment')}}/{{$client->id}}"
                                             class="btn btn-success btn-xs hidden"><i class="fa fa-money"></i> Pagar</a>
 
-                                        <a href="#openModal{{$client->id}}" class="btn btn-success btn-xs"> Pagar</a>
+                                        <a href="#openModal{{$client->id}}" class="btn btn-success btn-xs">
+                                            Pagar</a>
 
                                         @include('route.modal')
 
