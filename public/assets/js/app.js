@@ -727,7 +727,8 @@ function limpiarNumero(obj) {
         "dateFormat": "dd/mm/yy",
         "dayNames": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
         "dayNamesMin": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-        "monthNames": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+        "monthNames": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        "weekHeader": "W"
     });
     $('body .datepicker-trigger').prop("readonly", true);
     $('body').on('change', '.supervisor-client #wallet', function () {
