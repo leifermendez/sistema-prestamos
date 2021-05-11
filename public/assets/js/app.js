@@ -85,7 +85,11 @@
 }(jQuery, window);
 
 function initialize() {
-    const options = optionsMaps || null;
+    // const options = optionsMaps || null;
+
+    const options = {
+        componentRestrictions: { country: 'ec' }
+    };
     let coordinates = null;
     const input = document.querySelector('.g-autoplaces-address');
     const autocomplete = new google.maps.places.Autocomplete(input, options);
@@ -117,6 +121,7 @@ function initialize() {
                 lat: place.geometry['location'].lat(),
                 lng: place.geometry['location'].lng()
             }
+            // document.getElementById('address').value = results[0].formatted_address;
         }
         if (coordinates) {
             mapElement.setAttribute('style', 'display:block !important');
@@ -148,7 +153,10 @@ geocodeLatLng = ({lat, lng}) => {
         ) => {
             if (status === 'OK') {
                 if (results[0]) {
-                    document.getElementById('address').value = results[0].formatted_address;
+                    let address = document.getElementById('address');
+                    if (!address.value.length) {
+                        address.value = results[0].formatted_address
+                    }
                 } else {
                     // window.alert('No results found');
                 }
