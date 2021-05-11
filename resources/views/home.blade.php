@@ -29,13 +29,13 @@
 </div>
 
 <div class="col-md-3 col-sm-6">
-    <a href="{{url('admin/graph')}}">
+    <a href="{{url('admin/graph?type=default')}}">
         <div class="widget stats-widget">
             <div class="widget-body clearfix bg-success">
                 <div class="pull-left">
                     <h3 class="widget-title text-white">Graficas</h3>
                 </div>
-                <span class="pull-right big-icon watermark"><i class="fa fa-list-ol"></i></span>
+                <span class="pull-right big-icon watermark"><i class="fa fa-signal"></i></span>
             </div>
         </div><!-- .widget -->
     </a>

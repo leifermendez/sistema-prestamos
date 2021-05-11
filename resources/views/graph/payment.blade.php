@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
-                            <h4 class="m-b-lg">Prestamos</h4>
+                            <h4 class="m-b-lg">Pagos</h4>
                             <form action="{{url('admin/graph')}}" method="POST">
                                 {{ csrf_field() }}
                                 <div class="row align-items-end">
@@ -25,7 +25,7 @@
                                         <a href="{{url('admin/graph?type=default')}}" class="btn btn-dark">Regresar</a>
                                     </div>
                                 </div>
-                                <input type="hidden" name="type" id="type" value="overdraft">
+                                <input type="hidden" name="type" id="type" value="payment">
                             </form>
                             <br class="clearfix">
 {{--                            {{json_encode($data)}}--}}
@@ -64,21 +64,21 @@
             graphicsDays(
                 dataGraph.dataDays.data,
                 dataGraph.dataDays.labels,
-                'Dinero prestado por día',
+                'Pagos por día',
                 'dataDays'
             );
 
             graphics(
                 [dataGraph.dataItems.thisWeekend, dataGraph.dataItems.lastWeekend],
                 [dataGraph.thisWeekend, dataGraph.lastWeekend],
-                'Prestamos otorgados',
+                'Cantidad de pagos',
                 'dataItems'
             );
 
             graphics(
                 [dataGraph.dataAmount.thisWeekend, dataGraph.dataAmount.lastWeekend],
                 [dataGraph.thisWeekend, dataGraph.lastWeekend],
-                'Dinero prestado por rango',
+                'Pagos por rango',
                 'dataAmount'
             );
         }
