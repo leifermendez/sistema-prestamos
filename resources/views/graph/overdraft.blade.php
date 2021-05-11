@@ -34,18 +34,27 @@
                                     <input type="hidden" name="dataGraph" id="dataGraph" value="{{json_encode($data)}}">
 
 {{--                                    grafica por dias entre rango de fechas--}}
-                                    <div class="pt-4 container d-flex justify-content-center">
-                                        <div class="col-8">
+                                    <div class="pt-4 px-1 container d-flex justify-content-center">
+                                        <div style=" position: relative;
+                                              margin: auto;
+                                              height: 30vh;
+                                              width: 100vw;">
                                             <canvas id="dataDays" width="200" height="100"></canvas>
                                         </div>
                                     </div>
 
-{{--                                    graficas por rango de fecha--}}
+                                    {{--                                    graficas por rango de fecha--}}
                                     <div class="row pt-5" id="graphs">
-                                        <div class="col-sm-6 px-5">
+                                        <div class="col-sm-6" style=" position: relative;
+                                              margin: auto;
+                                              height: 30vh;
+                                              width: 100vw;">
                                             <canvas id="dataItems" width="200" height="100"></canvas>
                                         </div>
-                                        <div class="col-sm-6 px-5">
+                                        <div class="col-sm-6" style=" position: relative;
+                                              margin: auto;
+                                              height: 30vh;
+                                              width: 100vw;">
                                             <canvas id="dataAmount" width="200" height="100"></canvas>
                                         </div>
                                     </div>

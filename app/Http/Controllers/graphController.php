@@ -114,8 +114,8 @@ class graphController extends Controller
         }
 
         $response = array_merge($dataGraph, array(
-                'thisWeekend'=> 'Desde '.$date_start->format('d-m-Y').' hasta '.$date_end->format('d-m-Y'),
-                'lastWeekend'=> 'Desde '.$date_last->format('d-m-Y').' hasta '.$date_last_end->format('d-m-Y')
+                'thisWeekend'=> 'Desde '.$date_start->format('d-m').' hasta '.$date_end->format('d-m'),
+                'lastWeekend'=> 'Desde '.$date_last->format('d-m').' hasta '.$date_last_end->format('d-m')
             )
         );
         return array(

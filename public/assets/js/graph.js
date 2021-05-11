@@ -21,11 +21,20 @@ function graphics(data, labels, label, id) {
             ]
         },
         options: {
-            responsive: true,
+            maintainAspectRatio: false,
             scales: {
-                y: {
-                    beginAtZero: true
-                }
+                yAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        display: true,
+                        color: "rgba(255,99,132,0.2)"
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        display: false
+                    }
+                }]
             }
         }
     });
@@ -50,20 +59,32 @@ function graphicsDays(data, labels, label, id) {
             }]
         },
         options: {
+            maintainAspectRatio: false,
             scales: {
-                y: {
-                    beginAtZero: true
-                }
-            },
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: label
-                }
+                yAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        display: true,
+                        color: "rgba(255,99,132,0.2)"
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        display: false
+                    }
+                }]
             }
         }
+        // responsive: false,
+        // maintainAspectRatio: true,
+        // plugins: {
+        //     legend: {
+        //         position: 'top',
+        //     },
+        //     title: {
+        //         display: true,
+        //         text: label
+        //     }
+        // }
     });
 }
