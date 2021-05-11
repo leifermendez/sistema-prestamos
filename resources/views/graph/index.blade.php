@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="d-flex mt-3">
+    <div class="d-flex flex-wrap mt-3">
         <div class="col-md-3 col-sm-6">
             <a href="{{url('admin/graph?type=overdraft')}}">
                 <div class="widget stats-widget">
