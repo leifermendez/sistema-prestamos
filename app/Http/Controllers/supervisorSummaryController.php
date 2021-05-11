@@ -105,6 +105,7 @@ class supervisorSummaryController extends Controller
             'id_user' => Auth::id(),
             'data' => json_encode(['amount'=>$amount, 'id'=>$id]),
             'event' => 'create',
+            'device' => $request->device,
             'type' => 'Pago'
         );
         db_audit::insert($audit);
@@ -127,6 +128,7 @@ class supervisorSummaryController extends Controller
             'id_user' => Auth::id(),
             'data' => json_encode(['id'=>$id]),
             'event' => 'delete',
+            'device' => $request->device,
             'type' => 'Pago'
         );
         db_audit::insert($audit);

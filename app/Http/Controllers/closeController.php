@@ -182,6 +182,7 @@ class closeController extends Controller
             'id_user' => Auth::id(),
             'data' => json_encode($values),
             'event' => 'update',
+            'device' => $request->device,
             'type' => 'Cierre de dia'
         );
         db_audit::insert($audit);

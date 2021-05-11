@@ -162,6 +162,7 @@ $ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $
             'id_user' => Auth::id(),
             'data' => json_encode($values),
             'event' => 'create',
+            'device' => $request->device,
             'type' => 'Gasto'
         );
         db_audit::insert($audit);
@@ -230,6 +231,7 @@ $ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $
             'id_user' => Auth::id(),
             'data' => json_encode($values),
             'event' => 'update',
+            'device' => $request->device,
             'type' => 'Gasto'
         );
         db_audit::insert($audit);
@@ -262,6 +264,7 @@ $ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $
             'id_user' => Auth::id(),
             'data' => json_encode(['id'=>$id]),
             'event' => 'delete',
+            'device' => $request->device,
             'type' => 'Gasto'
         );
         db_audit::insert($audit);

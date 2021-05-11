@@ -20,7 +20,7 @@ Route::get('/cron', 'closeController@close_automatic');
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'device'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('client', 'userController', ['only' => ['create', 'show']])->middleware('close');
     Route::resource('client', 'userController', ['except' => ['create', 'show']]);
@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-Route::prefix('supervisor')->group(function () {
+Route::prefix('supervisor')->middleware(['device'])->group(function () {
     Route::resource('agent', 'agentController');
     Route::resource('close', 'closeController');
     Route::resource('client', 'clientController');
@@ -66,14 +66,14 @@ Route::prefix('supervisor')->group(function () {
     });
 });
 
-Route::prefix('admin')->middleware(['auth'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'device'])->group(function () {
     Route::resource('session', 'sessionController')->only([
         'store'
     ]);
 });
 
 
-Route::prefix('admin')->middleware(['admin'])->group(function () {
+Route::prefix('admin')->middleware(['admin', 'device'])->group(function () {
     Route::resource('user', 'adminUserController');
     Route::resource('session', 'sessionController')->only([
         'update'

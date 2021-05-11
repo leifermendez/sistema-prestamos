@@ -115,6 +115,7 @@ class agentController extends Controller
             'id_user' => Auth::id(),
             'data' => json_encode(array('base'=>$base)),
             'event' => 'update',
+            'device' => $request->device,
             'type' => 'Asignar Caja'
         );
         db_audit::insert($audit);

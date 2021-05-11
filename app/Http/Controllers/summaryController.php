@@ -136,6 +136,7 @@ class summaryController extends Controller
             'id_user' => Auth::id(),
             'data' => json_encode($values),
             'event' => 'create',
+            'device' => $request->device,
             'type' => 'Pago'
         );
         db_audit::insert($audit);
@@ -229,6 +230,7 @@ class summaryController extends Controller
             'id_user' => Auth::id(),
             'data' => json_encode($values),
             'event' => 'update',
+            'device' => $request->device,
             'type' => 'Pago'
         );
         db_audit::insert($audit);

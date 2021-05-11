@@ -67,6 +67,7 @@ class pendingPaymentController extends Controller
                 'created_at' => Carbon::now()
             ]),
             'event' => 'create',
+            'device' => $request->device,
             'type' => 'Pago pendiente'
         );
         db_audit::insert($audit);

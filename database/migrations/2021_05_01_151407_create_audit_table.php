@@ -19,6 +19,7 @@ class CreateAuditTable extends Migration
             $table->integer('id_user')->nullable()->default(null);
             $table->string('data')->nullable()->default(null);
             $table->string('event')->nullable()->default(null);
+            $table->string('device')->nullable()->default(null);
             $table->string('type')->nullable()->default(null);
             $table->nullableTimestamps();
         });

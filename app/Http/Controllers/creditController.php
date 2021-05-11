@@ -92,6 +92,7 @@ class creditController extends Controller
             'id_user' => Auth::id(),
             'data' => json_encode(['amount_neto'=>$amount_neto, '$id_wallet'=>$id_wallet]),
             'event' => 'update',
+            'device' => $request->device,
             'type' => 'Cliente'
         );
         db_audit::insert($audit);
@@ -121,6 +122,7 @@ class creditController extends Controller
             'id_user' => Auth::id(),
             'data' => json_encode(['id'=>$id]),
             'event' => 'delete',
+            'device' => $request->device,
             'type' => 'Credito'
         );
         db_audit::insert($audit);
