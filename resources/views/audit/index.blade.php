@@ -30,7 +30,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <p>{{$audit->user_name}} {{$audit->user_last_name}}
+                                                    <p class="m-0">{{$audit->user_name}} {{$audit->user_last_name}}
                                                         &nbsp;&nbsp;||&nbsp;&nbsp;
                                                         @if($audit->event === 'create')
                                                             Creó: {{$audit->type}}
@@ -44,6 +44,7 @@
                                                             Editó: {{$audit->type}}
                                                         @endif
                                                     </p>
+                                                    <small>Dispositivo: {{$audit->device}}</small>
                                                 </div>
                                                 <div class="col-6 text-right">
                                                     <p class="m-0">{{date_format($audit->created_at, "d/m/Y")}}</p>
@@ -51,7 +52,7 @@
                                                 </div>
                                             </div>
                                             @if($audit->event === 'create')
-                                                <div class="alert alert-success" role="alert">
+                                                <div class="alert mt-2 alert-success" role="alert">
                                                     <ul>
                                                         @foreach(json_decode($audit->data) as $key => $data)
                                                             <li>
