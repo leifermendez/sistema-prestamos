@@ -51,6 +51,7 @@ Route::prefix('supervisor')->middleware(['device'])->group(function () {
     Route::resource('cash', 'cashController');
     Route::resource('bill', 'billsupervisorController');
     Route::resource('credit', 'creditController');
+    Route::resource('graph', 'graphController');
     Route::resource('summary', 'supervisorSummaryController');
 
     /*-----Sub Menu-----*/
@@ -79,6 +80,5 @@ Route::prefix('admin')->middleware(['admin', 'device'])->group(function () {
         'update'
     ]);
     Route::resource('route', 'adminRouteController');
-    Route::resource('graph', 'graphController');
     Route::resource('audit', 'auditController', ['only' => ['index']]);
 });

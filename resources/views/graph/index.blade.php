@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex flex-wrap mt-3">
         <div class="col-md-3 col-sm-6">
-            <a href="{{url('admin/graph?type=overdraft')}}">
+            <a href="{{url('supervisor/graph?type=overdraft')}}">
                 <div class="widget stats-widget">
                     <div class="widget-body clearfix bg-success">
                         <div class="pull-left">
@@ -15,7 +15,7 @@
             </a>
         </div>
         <div class="col-md-3 col-sm-6">
-            <a href="{{url('admin/graph?type=bill')}}">
+            <a href="{{url('supervisor/graph?type=bill')}}">
                 <div class="widget stats-widget">
                     <div class="widget-body clearfix bg-danger">
                         <div class="pull-left">
@@ -28,7 +28,7 @@
         </div>
 
         <div class="col-md-3 col-sm-6">
-            <a href="{{url('admin/graph?type=payment')}}">
+            <a href="{{url('supervisor/graph?type=payment')}}">
                 <div class="widget stats-widget">
                     <div class="widget-body clearfix bg-primary">
                         <div class="pull-left">

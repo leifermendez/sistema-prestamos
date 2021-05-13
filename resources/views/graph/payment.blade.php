@@ -9,8 +9,20 @@
                     <div class="col-md-12">
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Pagos</h4>
-                            <form action="{{url('admin/graph')}}" method="POST">
+                            <form class="container" action="{{url('supervisor/graph')}}" method="POST">
                                 {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label for="payment_number">Cobrador:</label>
+                                    <select name="agent" class="form-control" id="agent">
+                                        @foreach($clients as $client)
+                                            <option value="{{$client->id}}">
+                                                {{$client->name}} {{$client->last_name}}
+                                                - {{$client->wallet_name}}
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
                                 <div class="row align-items-end">
                                     <div class="col-sm-4">
                                         <label for="nit_number"> Fecha Inicial:</label>
@@ -22,7 +34,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <button class="btn btn-info hidden" type="submit">Buscar</button>
-                                        <a href="{{url('admin/graph?type=default')}}" class="btn btn-dark">Regresar</a>
+                                        <a href="{{url('supervisor/graph?type=default')}}" class="btn btn-dark">Regresar</a>
                                     </div>
                                 </div>
                                 <input type="hidden" name="type" id="type" value="payment">

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\db_bills;
 use App\db_credit;
 use App\db_summary;
+use App\db_supervisor_has_agent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class graphController extends Controller
 {
@@ -24,18 +26,36 @@ class graphController extends Controller
         );
         switch ($type) {
             case 'overdraft':
-                return view('graph.overdraft', $response);
+                $data = $this->getAgents();
+                return view('graph.overdraft', array_merge($data, $response));
                 break;
             case 'bill':
-                return view('graph.bill', $response);
+                $data = $this->getAgents();
+                return view('graph.bill', array_merge($data, $response));
                 break;
             case 'payment':
-                return view('graph.payment', $response);
+                $data = $this->getAgents();
+                return view('graph.payment', array_merge($data, $response));
                 break;
             default:
                 return view('graph.index', $response);
         }
 
+    }
+
+    private function getAgents(): array
+    {
+        $data = db_supervisor_has_agent::where('id_supervisor',Auth::id())
+            ->join('users','id_user_agent','=','users.id')
+            ->join('wallet','agent_has_supervisor.id_wallet','=','wallet.id')
+            ->select(
+                'users.*',
+                'wallet.name as wallet_name'
+            )
+            ->get();
+        return array(
+            'clients' => $data,
+        );
     }
 
     /**
@@ -57,24 +77,25 @@ class graphController extends Controller
     public function store(Request $request)
     {
         $type = $request->type;
+        $agent = $request->agent;
         $date_start = Carbon::createFromFormat('d/m/Y', $request->date_start);
         $date_end = Carbon::createFromFormat('d/m/Y', $request->date_end);
-
-        $response = $this->parseDates($date_start, $date_end, $type);
+        $response = $this->parseDates($date_start, $date_end, $type, $agent);
+        $data = $this->getAgents();
         switch ($type) {
             case 'overdraft':
-                return view('graph.overdraft', $response);
+                return view('graph.overdraft', array_merge($data, $response));
                 break;
             case 'payment':
-                return view('graph.payment', $response);
+                return view('graph.payment', array_merge($data, $response));
                 break;
             case 'bill':
-                return view('graph.bill', $response);
+                return view('graph.bill', array_merge($data, $response));
                 break;
         }
     }
 
-    private function parseDates($date_start, $date_end, $type): array
+    private function parseDates($date_start, $date_end, $type, $agent): array
     {
         setlocale(LC_TIME, 'Spanish');
         $thisWeekendSql = [];
@@ -93,23 +114,25 @@ class graphController extends Controller
         if (isset($date_start) && isset($date_end)) {
             $thisWeekendSql[] = ['created_at', '>=', $date_start->startOfDay()];
             $thisWeekendSql[] = ['created_at', '<=', $date_end->endOfDay()];
+            $thisWeekendSql[] = ['id_agent', $agent];
         }
 
         // last week
         if (isset($date_last) && isset($date_last_end)) {
             $lastWeekendSql[] = ['created_at', '>=', $date_last->startOfDay()];
             $lastWeekendSql[] = ['created_at', '<=', $date_last_end->endOfDay()];
+            $lastWeekendSql[] = ['id_agent', $agent];
         }
 //        var_dump($lastWeekendSql);
         switch ($type) {
             case 'overdraft':
-                $dataGraph = $this->overdraft($thisWeekendSql, $lastWeekendSql, $datesForDays);
+                $dataGraph = $this->overdraft($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent);
                 break;
             case 'bill':
-                $dataGraph = $this->bill($thisWeekendSql, $lastWeekendSql, $datesForDays);
+                $dataGraph = $this->bill($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent);
                 break;
             case 'payment':
-                $dataGraph = $this->payment($thisWeekendSql, $lastWeekendSql, $datesForDays);
+                $dataGraph = $this->payment($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent);
                 break;
         }
 
@@ -123,7 +146,7 @@ class graphController extends Controller
         );
     }
 
-    private function overdraft($thisWeekendSql, $lastWeekendSql, $datesForDays): array
+    private function overdraft($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent): array
     {
         $dataDaysData = [];
         $dataDaysLabels = [];
@@ -139,7 +162,8 @@ class graphController extends Controller
         foreach ($datesForDays as $value) {
             $dataDaysData[] = db_credit::where([
                 ['created_at', '>=', $value],
-                ['created_at', '<=', $value->copy()->endOfDay()]
+                ['created_at', '<=', $value->copy()->endOfDay()],
+                ['id_agent', $agent]
             ])->sum('amount_neto');
 //            print_r($value.' - '.$value->copy()->endOfDay().'<br>');
             $dataDaysLabels[] = $value->copy()->isoFormat('dddd D');
@@ -155,7 +179,7 @@ class graphController extends Controller
         );
     }
 
-    private function payment($thisWeekendSql, $lastWeekendSql, $datesForDays): array
+    private function payment($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent): array
     {
         $dataDaysData = [];
         $dataDaysLabels = [];
@@ -171,7 +195,8 @@ class graphController extends Controller
         foreach ($datesForDays as $value) {
             $dataDaysData[] = db_summary::where([
                 ['created_at', '>=', $value],
-                ['created_at', '<=', $value->copy()->endOfDay()]
+                ['created_at', '<=', $value->copy()->endOfDay()],
+                ['id_agent', $agent]
             ])->sum('amount');
 //            print_r($value.' - '.$value->copy()->endOfDay().'<br>');
             $dataDaysLabels[] = $value->copy()->isoFormat('dddd D');
@@ -187,7 +212,7 @@ class graphController extends Controller
         );
     }
 
-    private function bill($thisWeekendSql, $lastWeekendSql, $datesForDays): array
+    private function bill($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent): array
     {
         $dataDaysData = [];
         $dataDaysLabels = [];
@@ -203,7 +228,8 @@ class graphController extends Controller
         foreach ($datesForDays as $value) {
             $dataDaysData[] = db_bills::where([
                 ['created_at', '>=', $value],
-                ['created_at', '<=', $value->copy()->endOfDay()]
+                ['created_at', '<=', $value->copy()->endOfDay()],
+                ['id_agent', $agent]
             ])->sum('amount');
 //            print_r($value.' - '.$value->copy()->endOfDay().'<br>');
             $dataDaysLabels[] = $value->copy()->isoFormat('dddd D');
