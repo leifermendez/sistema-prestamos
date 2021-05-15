@@ -131,10 +131,27 @@ class summaryController extends Controller
 
         db_summary::insert($values);
 
+        $credit = db_credit::where('credit.id', $id_credit)
+            ->join('users', 'credit.id_user', '=', 'users.id')
+            ->select(
+                'credit.amount_neto as credit_amount_neto',
+                'credit.order_list as credit_order_list',
+                'credit.id_user as credit_id_user',
+                'credit.payment_number as credit_payment_number',
+                'credit.utility as credit_utility',
+                'credit.status as credit_status',
+                'users.name as user_name')
+            ->first();
+        $credit['amount'] = $amount;
+        $credit['id_credit'] = $id_credit;
+        $credit['id_agent'] = Auth::id();
+        $credit['created_at'] = Carbon::now();
+        $credit['number_index'] = ($index + 1);
+
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode($values),
+            'data' => json_encode($credit),
             'event' => 'create',
             'device' => $request->device,
             'type' => 'Pago'
@@ -228,7 +245,7 @@ class summaryController extends Controller
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode($values),
+            'data' => json_encode(db_summary::find($id)),
             'event' => 'update',
             'device' => $request->device,
             'type' => 'Pago'

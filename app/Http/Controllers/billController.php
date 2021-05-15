@@ -6,6 +6,8 @@ use App\db_audit;
 use App\db_bills;
 use App\db_list_bills;
 use App\db_supervisor_has_agent;
+use App\db_wallet;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -100,11 +102,25 @@ class billController extends Controller
 
         db_bills::insert($values);
 
-
+        $user_audit = User::where('users.id', Auth::id())->select(
+            'name',
+            'last_name'
+        )->first();
+        $type_audit = db_list_bills::find($type);
+        $wallet_audit = db_wallet::find($wallet->id_wallet);
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode($values),
+            'data' => json_encode(array(
+                'description' => $description,
+                'agent_id' => Auth::id(),
+                'agent' => $user_audit->name.' '.$user_audit->last_name,
+                'amount' => $amount,
+                'created_at' => Carbon::now(),
+                'type' => $type_audit->name,
+                'id_wallet' => $wallet->id_wallet,
+                'wallet' => $wallet_audit->name
+            )),
             'event' => 'create',
             'device' => $request->device,
             'type' => 'Gasto'

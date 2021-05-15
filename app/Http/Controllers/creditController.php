@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\db_audit;
 use App\db_credit;
+use App\db_wallet;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,10 +89,16 @@ class creditController extends Controller
             ['amount_neto'=>$amount_neto]
         );
 
+        $wallet_audit = db_wallet::find($id_wallet);
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode(['amount_neto'=>$amount_neto, '$id_wallet'=>$id_wallet]),
+            'data' => json_encode([
+                'credit_id' => $id,
+                'amount_neto'=>$amount_neto,
+                'id_wallet'=>$id_wallet,
+                'wallet' => $wallet_audit->name
+            ]),
             'event' => 'update',
             'device' => $request->device,
             'type' => 'Cliente'
@@ -115,17 +123,25 @@ class creditController extends Controller
         if(!db_credit::where('id',$id)->exists()){
             return 'No existe ID';
         }
-        db_credit::where('id',$id)->delete();
+        $credit = db_credit::where('credit.id', $id)
+            ->join('users', 'credit.id_user', '=', 'users.id')
+            ->select('credit.*', 'users.name as user_name')
+            ->first();
 
+        $agent = User::find($credit->id_agent);
+        $credit['agent'] = $agent->name.' '.$agent->last_name;
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode(['id'=>$id]),
+            'data' => json_encode($credit),
             'event' => 'delete',
             'device' => $request->device,
             'type' => 'Credito'
         );
+
         db_audit::insert($audit);
+
+        db_credit::where('id',$id)->delete();
 
         return redirect('supervisor/menu/edit/'.$id_wallet.'?date_start='.$date_start);
     }

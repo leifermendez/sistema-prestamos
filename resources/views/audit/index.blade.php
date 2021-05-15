@@ -31,7 +31,8 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <p class="m-0">{{$audit->user_name}} {{$audit->user_last_name}}
-                                                        &nbsp;&nbsp;||&nbsp;&nbsp;
+                                                    </p>
+                                                    <small>
                                                         @if($audit->event === 'create')
                                                             Creó: {{$audit->type}}
                                                         @endif
@@ -43,52 +44,68 @@
                                                         @if($audit->event === 'update')
                                                             Editó: {{$audit->type}}
                                                         @endif
-                                                    </p>
-                                                    <small>Dispositivo: {{$audit->device}}</small>
+                                                    </small>
+
+{{--                                                    <small>Dispositivo: {{$audit->device}}</small>--}}
                                                 </div>
                                                 <div class="col-6 text-right">
                                                     <p class="m-0">{{date_format($audit->created_at, "d/m/Y")}}</p>
                                                     <small>{{$audit->user_level}}</small>
                                                 </div>
                                             </div>
-                                            @if($audit->event === 'create')
-                                                <div class="alert mt-2 alert-success" role="alert">
-                                                    <ul>
-                                                        @foreach(json_decode($audit->data) as $key => $data)
-                                                            <li>
-                                                                {{$key}}: &nbsp; {{$data}}
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-
+                                            <div class="row mt-2">
+                                                <div class="col-sm-6">
+                                                    <div class="alert alert-info " role="alert">
+                                                        <ul>
+                                                            @foreach(json_decode($audit->device) as $key => $data)
+                                                                <li>
+                                                                    {{$key}}: &nbsp; {{$data}}
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            @endif
+                                                <div class="col-sm-6">
+                                                    @if($audit->event === 'create')
+                                                        <div class="alert text-left alert-success" role="alert">
+                                                            <ul>
+                                                                @foreach(json_decode($audit->data) as $key => $data)
+                                                                    <li>
+                                                                        {{$key}}: &nbsp; {{$data}}
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
 
-                                            @if($audit->event === 'delete')
-                                                <div class="alert alert-danger" role="alert">
+                                                        </div>
+                                                    @endif
 
-                                                    <ul>
-                                                        @foreach(json_decode($audit->data) as $key => $data)
-                                                            <li>
-                                                                {{$key}}: &nbsp; {{$data}}
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
+                                                    @if($audit->event === 'delete')
+                                                        <div class="alert text-left alert-danger" role="alert">
+
+                                                            <ul>
+                                                                @foreach(json_decode($audit->data) as $key => $data)
+                                                                    <li>
+                                                                        {{$key}}: &nbsp; {{$data}}
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
+
+                                                    @if($audit->event === 'update')
+                                                        <div class="alert text-left alert-primary" role="alert">
+
+                                                            <ul>
+                                                                @foreach(json_decode($audit->data) as $key => $data)
+                                                                    <li>
+                                                                        {{$key}}: &nbsp; {{$data}}
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
                                                 </div>
-                                            @endif
-
-                                            @if($audit->event === 'update')
-                                                <div class="alert alert-primary" role="alert">
-
-                                                    <ul>
-                                                        @foreach(json_decode($audit->data) as $key => $data)
-                                                            <li>
-                                                                {{$key}}: &nbsp; {{$data}}
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach

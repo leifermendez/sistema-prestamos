@@ -109,11 +109,18 @@ class agentController extends Controller
             ->where('id_supervisor',Auth::id())
             ->update(['base'=>$base]);
 
-
+        $user_audit = User::where('users.id',$id)->select(
+            'name',
+            'last_name'
+        )->first();
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode(array('base'=>$base)),
+            'data' => json_encode(array(
+                'base'=>$base,
+                'agent_id' => $id,
+                'agent' => $user_audit->name.' '.$user_audit->last_name
+            )),
             'event' => 'update',
             'device' => $request->device,
             'type' => 'Asignar Caja'

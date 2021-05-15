@@ -193,10 +193,16 @@ class paymentController extends Controller
 
         db_not_pay::insert($values);
 
+        $user_audit = User::find($id);
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode($values),
+            'data' => json_encode(array(
+                'created_at' => Carbon::now(),
+                'id_credit' => $id_credit,
+                'id_user' => $id,
+                'user' => $user_audit->name.' '.$user_audit->last_name
+            )),
             'event' => 'create',
             'device' => $request->device,
             'type' => 'Pago saltado'

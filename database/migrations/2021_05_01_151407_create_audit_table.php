@@ -17,9 +17,9 @@ class CreateAuditTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('id_user')->nullable()->default(null);
-            $table->string('data')->nullable()->default(null);
+            $table->string('data', 500)->nullable()->default(null);
             $table->string('event')->nullable()->default(null);
-            $table->string('device')->nullable()->default(null);
+            $table->string('device', 500)->nullable()->default(null);
             $table->string('type')->nullable()->default(null);
             $table->nullableTimestamps();
         });
