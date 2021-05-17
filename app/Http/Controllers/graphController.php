@@ -148,6 +148,7 @@ class graphController extends Controller
 
     private function overdraft($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent): array
     {
+        $dataDaysTotal = 0;
         $dataDaysData = [];
         $dataDaysLabels = [];
         $dataItems = array(
@@ -160,11 +161,13 @@ class graphController extends Controller
         );
 
         foreach ($datesForDays as $value) {
-            $dataDaysData[] = db_credit::where([
+            $totalTmp = db_credit::where([
                 ['created_at', '>=', $value],
                 ['created_at', '<=', $value->copy()->endOfDay()],
                 ['id_agent', $agent]
             ])->sum('amount_neto');
+            $dataDaysData[] = $totalTmp;
+            $dataDaysTotal += $totalTmp;
 //            print_r($value.' - '.$value->copy()->endOfDay().'<br>');
             $dataDaysLabels[] = $value->copy()->isoFormat('dddd D');
         }
@@ -172,7 +175,8 @@ class graphController extends Controller
         return array(
             'dataDays'=> array(
                 'labels' => $dataDaysLabels,
-                'data' => $dataDaysData
+                'data' => $dataDaysData,
+                'total' => $dataDaysTotal
             ),
             'dataAmount' => $dataAmount,
             'dataItems' => $dataItems,
@@ -181,6 +185,7 @@ class graphController extends Controller
 
     private function payment($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent): array
     {
+        $dataDaysTotal = 0;
         $dataDaysData = [];
         $dataDaysLabels = [];
         $dataItems = array(
@@ -193,11 +198,13 @@ class graphController extends Controller
         );
 
         foreach ($datesForDays as $value) {
-            $dataDaysData[] = db_summary::where([
+            $totalTmp = db_summary::where([
                 ['created_at', '>=', $value],
                 ['created_at', '<=', $value->copy()->endOfDay()],
                 ['id_agent', $agent]
             ])->sum('amount');
+            $dataDaysData[] = $totalTmp;
+            $dataDaysTotal += $totalTmp;
 //            print_r($value.' - '.$value->copy()->endOfDay().'<br>');
             $dataDaysLabels[] = $value->copy()->isoFormat('dddd D');
         }
@@ -205,7 +212,8 @@ class graphController extends Controller
         return array(
             'dataDays'=> array(
                 'labels' => $dataDaysLabels,
-                'data' => $dataDaysData
+                'data' => $dataDaysData,
+                'total' => $dataDaysTotal
             ),
             'dataAmount' => $dataAmount,
             'dataItems' => $dataItems,
@@ -214,6 +222,7 @@ class graphController extends Controller
 
     private function bill($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent): array
     {
+        $dataDaysTotal = 0;
         $dataDaysData = [];
         $dataDaysLabels = [];
         $dataItems = array(
@@ -226,11 +235,13 @@ class graphController extends Controller
         );
 
         foreach ($datesForDays as $value) {
-            $dataDaysData[] = db_bills::where([
+            $totalTmp = db_bills::where([
                 ['created_at', '>=', $value],
                 ['created_at', '<=', $value->copy()->endOfDay()],
                 ['id_agent', $agent]
             ])->sum('amount');
+            $dataDaysData[] = $totalTmp;
+            $dataDaysTotal += $totalTmp;
 //            print_r($value.' - '.$value->copy()->endOfDay().'<br>');
             $dataDaysLabels[] = $value->copy()->isoFormat('dddd D');
         }
@@ -238,7 +249,8 @@ class graphController extends Controller
         return array(
             'dataDays'=> array(
                 'labels' => $dataDaysLabels,
-                'data' => $dataDaysData
+                'data' => $dataDaysData,
+                'total' => $dataDaysTotal
             ),
             'dataAmount' => $dataAmount,
             'dataItems' => $dataItems,

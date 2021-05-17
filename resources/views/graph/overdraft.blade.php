@@ -85,6 +85,7 @@
             graphicsDays(
                 dataGraph.dataDays.data,
                 dataGraph.dataDays.labels,
+                dataGraph.dataDays.total,
                 'Dinero prestado por día',
                 'dataDays'
             );

@@ -27,8 +27,8 @@
 <script src="{{asset('/assets/js/dropzone.js')}}"></script>
 <script src="{{asset('/assets/js/datatable.js')}}"></script>
 <script src="{{asset('/assets/js/chart.min.js')}}"></script>
+{{--<script src="{{asset('/assets/js/chartjs-plugin-datalabels.min.js')}}"></script>--}}
 <script src="{{asset('/assets/js/graph.js')}}"></script>
-
 <script src="https://maps.googleapis.com/maps/api/js?key={{ env("GOOGLE_KEY") }}&libraries=places"></script>
 
 

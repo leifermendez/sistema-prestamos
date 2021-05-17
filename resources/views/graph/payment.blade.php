@@ -85,6 +85,7 @@
             graphicsDays(
                 dataGraph.dataDays.data,
                 dataGraph.dataDays.labels,
+                dataGraph.dataDays.total,
                 'Pagos por día',
                 'dataDays'
             );

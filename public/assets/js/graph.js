@@ -40,7 +40,8 @@ function graphics(data, labels, label, id) {
     });
 }
 
-function graphicsDays(data, labels, label, id) {
+function graphicsDays(data, labels, total, label, id) {
+    // Chart.plugins.register(ChartDataLabels);
     const ctx = document.getElementById(id).getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'bar',
@@ -59,6 +60,15 @@ function graphicsDays(data, labels, label, id) {
             }]
         },
         options: {
+            plugins: {
+                // datalabels: {
+                //     color: '#000',
+                // },
+                title: {
+                    display: true,
+                    text: ' Total: '+total
+                }
+            },
             maintainAspectRatio: false,
             scales: {
                 yAxes: [{
@@ -75,16 +85,5 @@ function graphicsDays(data, labels, label, id) {
                 }]
             }
         }
-        // responsive: false,
-        // maintainAspectRatio: true,
-        // plugins: {
-        //     legend: {
-        //         position: 'top',
-        //     },
-        //     title: {
-        //         display: true,
-        //         text: label
-        //     }
-        // }
     });
 }
