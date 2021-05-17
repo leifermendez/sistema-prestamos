@@ -71,7 +71,13 @@
                                                             <ul>
                                                                 @foreach(json_decode($audit->data) as $key => $data)
                                                                     <li>
-                                                                        {{$key}}: &nbsp; {{$data}}
+                                                                        @if (($key == 'created_at' || $key == 'updated_at')
+                                                                                && (!empty($data) || !is_null($data)))
+{{--                                                                                fecha {{$key}}: &nbsp; {{$data}}--}}
+                                                                            {{$key}}: &nbsp; {{date_format(new DateTime($data), "d/m/Y g:i A")}}
+                                                                        @else
+                                                                            {{$key}}: &nbsp; {{$data}}
+                                                                        @endif
                                                                     </li>
                                                                 @endforeach
                                                             </ul>
@@ -85,7 +91,13 @@
                                                             <ul>
                                                                 @foreach(json_decode($audit->data) as $key => $data)
                                                                     <li>
-                                                                        {{$key}}: &nbsp; {{$data}}
+                                                                        @if (($key == 'created_at' || $key == 'updated_at')
+                                                                                && (!empty($data) || !is_null($data)))
+                                                                            {{--                                                                                fecha {{$key}}: &nbsp; {{$data}}--}}
+                                                                            {{$key}}: &nbsp; {{date_format(new DateTime($data), "d/m/Y g:i A")}}
+                                                                        @else
+                                                                            {{$key}}: &nbsp; {{$data}}
+                                                                        @endif
                                                                     </li>
                                                                 @endforeach
                                                             </ul>
@@ -98,7 +110,13 @@
                                                             <ul>
                                                                 @foreach(json_decode($audit->data) as $key => $data)
                                                                     <li>
-                                                                        {{$key}}: &nbsp; {{$data}}
+                                                                        @if (($key == 'created_at' || $key == 'updated_at')
+                                                                                && (!empty($data) || !is_null($data)))
+                                                                            {{--                                                                                fecha {{$key}}: &nbsp; {{$data}}--}}
+                                                                            {{$key}}: &nbsp; {{date_format(new DateTime($data), "d/m/Y g:i A")}}
+                                                                        @else
+                                                                            {{$key}}: &nbsp; {{$data}}
+                                                                        @endif
                                                                     </li>
                                                                 @endforeach
                                                             </ul>

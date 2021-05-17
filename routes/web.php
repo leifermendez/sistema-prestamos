@@ -53,6 +53,7 @@ Route::prefix('supervisor')->middleware(['device'])->group(function () {
     Route::resource('credit', 'creditController');
     Route::resource('graph', 'graphController');
     Route::resource('summary', 'supervisorSummaryController');
+    Route::resource('daily-report', 'dailyReportController');
 
     /*-----Sub Menu-----*/
     Route::prefix('menu')->middleware(['auth'])->group(function () {
