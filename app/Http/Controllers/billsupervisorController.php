@@ -6,6 +6,8 @@ use App\db_audit;
 use App\db_bills;
 use App\db_list_bills;
 use App\db_supervisor_has_agent;
+use App\db_wallet;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -156,12 +158,27 @@ $ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $
 
         db_bills::insert($values);
 
-
+        $user_audit = User::where('users.id', Auth::id())->select(
+            'name',
+            'last_name'
+        )->first();
+        $type_audit = db_list_bills::find($bill);
+        $wallet_audit = db_wallet::find($id_wallet);
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode($values),
+            'data' => json_encode(array(
+                'created_at' => Carbon::now(),
+                'description' => $description,
+                'id_wallet' => $id_wallet,
+                'wallet' => $wallet_audit->name,
+                'type' => $type_audit->name,
+                'id_agent' => Auth::id(),
+                'agent' => $user_audit->name.' '.$user_audit->last_name,
+                'amount' => $amount
+            )),
             'event' => 'create',
+            'device' => $request->device,
             'type' => 'Gasto'
         );
         db_audit::insert($audit);
@@ -225,11 +242,18 @@ $ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $
         );
         db_bills::where('id', $id)->update($values);
 
+        $type_audit = db_list_bills::find($type);
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode($values),
+            'data' => json_encode(array(
+                'id' => $id,
+                'amount' => $amount,
+                'description' => $description,
+                'type' => $type_audit->name
+            )),
             'event' => 'update',
+            'device' => $request->device,
             'type' => 'Gasto'
         );
         db_audit::insert($audit);
@@ -255,16 +279,28 @@ $ormSum = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', $
         if (!db_bills::where('id', $id)->exists()) {
             return 'No existe ID';
         }
-        db_bills::where('id', $id)->delete();
+
+        $bill = db_bills::where('bills.id', $id)
+            ->join('wallet', 'bills.id_wallet', '=', 'wallet.id')
+            ->join('list_bill', 'bills.type', '=', 'list_bill.id')
+            ->join('users', 'bills.id_agent', '=', 'users.id')
+            ->select('bills.*', 'wallet.name as wallet_name',
+                'list_bill.name as category_name',
+                'users.name as user_name'
+            )->get();
 
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode(['id'=>$id]),
+            'data' => json_encode($bill[0]),
             'event' => 'delete',
+            'device' => $request->device,
             'type' => 'Gasto'
         );
         db_audit::insert($audit);
+//        print_r(json_encode($bill));
+        db_bills::where('id', $id)->delete();
+
 
         return redirect('supervisor/menu/edit/' . $id_wallet . '?date_start=' . $date_start);
     }

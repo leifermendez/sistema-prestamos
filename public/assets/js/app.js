@@ -85,17 +85,47 @@
 }(jQuery, window);
 
 function initialize() {
+    // const options = optionsMaps || null;
 
-    const options = optionsMaps || null;
-
+    const options = {
+        componentRestrictions: { country: 'ec' }
+    };
+    let coordinates = null;
     const input = document.querySelector('.g-autoplaces-address');
     const autocomplete = new google.maps.places.Autocomplete(input, options);
+    const mapElement = document.querySelector(".over-change-display")
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            coordinates = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            }
+            if (coordinates) {
+                console.log('loading map..')
+                geocodeLatLng(coordinates);
+                mapElement.setAttribute('style', 'display:block !important');
+                initMap({ lat: coordinates.lat, lng: coordinates.lng })
+            }
+        });
+    }
+    else {
+        console.log(`Geolocation is not supported by this browser.`);
+    }
+
     autocomplete.addListener('place_changed', function () {
         const place = autocomplete.getPlace();
-        const mapElement = document.querySelector(".over-change-display")
-        if (place) {
+
+        if(place) {
+            coordinates = {
+                lat: place.geometry['location'].lat(),
+                lng: place.geometry['location'].lng()
+            }
+            // document.getElementById('address').value = results[0].formatted_address;
+        }
+        if (coordinates) {
             mapElement.setAttribute('style', 'display:block !important');
-            initMap({ lat: place.geometry['location'].lat(), lng: place.geometry['location'].lng() })
+            initMap({ lat: coordinates.lat, lng: coordinates.lng })
         }
         // $('#latitude').val(place.geometry['location'].lat());
         // $('#longitude').val(place.geometry['location'].lng());
@@ -111,6 +141,30 @@ function toggleBounce(event) {
     $('body .new-register #lat').val(event.latLng.lat());
     $('body .new-register #lng').val(event.latLng.lng());
 
+}
+
+geocodeLatLng = ({lat, lng}) => {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode(
+        { location: {lat, lng} },
+        (
+            results = google.maps.GeocoderResult,
+            status = google.maps.GeocoderStatus
+        ) => {
+            if (status === 'OK') {
+                if (results[0]) {
+                    let address = document.getElementById('address');
+                    if (!address.value.length) {
+                        address.value = results[0].formatted_address
+                    }
+                } else {
+                    // window.alert('No results found');
+                }
+            } else {
+                // window.alert('Geocoder failed due to: ' + status);
+            }
+        }
+    );
 }
 
 function initMap({ lat, lng }) {
@@ -681,7 +735,8 @@ function limpiarNumero(obj) {
         "dateFormat": "dd/mm/yy",
         "dayNames": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
         "dayNamesMin": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-        "monthNames": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+        "monthNames": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        "weekHeader": "W"
     });
     $('body .datepicker-trigger').prop("readonly", true);
     $('body').on('change', '.supervisor-client #wallet', function () {

@@ -101,11 +101,22 @@ class carteraController extends Controller
 
         db_summary::insert($values);
 
+        $user_audit = User::where('users.id', Auth::id())->select(
+            'name',
+            'last_name'
+        )->first();
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode($values),
+            'data' => json_encode(array(
+                'created_at' => Carbon::now(),
+                'amount' => $amount,
+                'id_agent' => Auth::id(),
+                'agent' => $user_audit->name.' '.$user_audit->last_name,
+                'id_credit' => $credit_id,
+            )),
             'event' => 'create',
+            'device' => $request->device,
             'type' => 'Cartera'
         );
         db_audit::insert($audit);

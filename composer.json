@@ -8,10 +8,13 @@
     "php": ">=7.0",
     "fruitcake/laravel-cors": "^2.0",
     "fzaninotto/faker": "~1.4",
+    "geoip2/geoip2": "^2.11",
+    "jenssegers/agent": "^2.6",
     "laravel/framework": "^7.0",
     "laravel/tinker": "^2.0",
     "laravel/ui": "^2.0",
     "maatwebsite/excel": "^3.1",
+    "torann/geoip": "1.2.1",
     "tymon/jwt-auth": "^1.0"
   },
   "require-dev": {

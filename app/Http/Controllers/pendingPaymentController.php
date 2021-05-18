@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\db_audit;
+use App\db_credit;
 use App\db_pending_pay;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -58,15 +59,17 @@ class pendingPaymentController extends Controller
             'id_credit' => $id_credit,
             'created_at' => Carbon::now()
         ]);
-
+        $credit = db_credit::where('credit.id', $id_credit)
+            ->join('users', 'credit.id_user', '=', 'users.id')
+            ->select('credit.*', 'users.name as user_name')
+            ->first();
+        $credit['created_at_pending_pay'] = Carbon::now();
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode([
-                'id_credit' => $id_credit,
-                'created_at' => Carbon::now()
-            ]),
+            'data' => json_encode($credit),
             'event' => 'create',
+            'device' => $request->device,
             'type' => 'Pago pendiente'
         );
         db_audit::insert($audit);

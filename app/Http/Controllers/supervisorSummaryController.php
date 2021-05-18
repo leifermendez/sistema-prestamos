@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\db_audit;
+use App\db_credit;
 use App\db_summary;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -103,8 +105,9 @@ class supervisorSummaryController extends Controller
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode(['amount'=>$amount, 'id'=>$id]),
-            'event' => 'create',
+            'data' => json_encode(db_summary::find($id)),
+            'event' => 'update',
+            'device' => $request->device,
             'type' => 'Pago'
         );
         db_audit::insert($audit);
@@ -120,16 +123,39 @@ class supervisorSummaryController extends Controller
      */
     public function destroy(Request $request,$id)
     {
-        db_summary::where('id',$id)->delete();
+        $summary = db_summary::find($id);
+        $credit = db_credit::where('credit.id', $summary->id_credit)
+            ->join('users', 'credit.id_user', '=', 'users.id')
+            ->select(
+                'credit.amount_neto as credit_amount_neto',
+                'credit.order_list as credit_order_list',
+                'credit.id_user as credit_id_user',
+                'credit.payment_number as credit_payment_number',
+                'credit.utility as credit_utility',
+                'credit.status as credit_status',
+                'users.name as credit_user_name')
+            ->first();
+
+        $user_audit = User::find($summary->id_agent);
+        $credit['agent'] = $user_audit->name.' '.$user_audit->last_name;
+        $credit['id'] = $summary->id;
+        $credit['amount'] = $summary->amount;
+        $credit['id_agent'] = $summary->id_agent;
+        $credit['id_credit'] = $summary->id_credit;
+        $credit['updated_at'] = $summary->updated_at;
+        $credit['number_index'] = $summary->number_index;
+        $credit['created_at'] = $summary->created_at;
 
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode(['id'=>$id]),
+            'data' => json_encode($credit),
             'event' => 'delete',
+            'device' => $request->device,
             'type' => 'Pago'
         );
         db_audit::insert($audit);
+        db_summary::where('id',$id)->delete();
 
         return redirect('/supervisor/menu/edit/'.$id.'?date_start='.urlencode($request->date_start));
     }

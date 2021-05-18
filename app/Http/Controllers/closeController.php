@@ -7,6 +7,7 @@ use App\db_audit;
 use App\db_bills;
 use App\db_close_day;
 use App\db_credit;
+use App\db_list_bills;
 use App\db_summary;
 use App\db_supervisor_has_agent;
 use App\db_wallet;
@@ -177,11 +178,28 @@ class closeController extends Controller
         );
         db_close_day::insert($values);
 
+
+        $user_audit = User::where('users.id', $id)->select(
+            'name',
+            'last_name'
+        )->first();
+        $wallet_audit = db_wallet::find($agent_data->id_wallet);
+
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
-            'data' => json_encode($values),
+            'data' => json_encode( array(
+                'id_agent' => $id,
+                'agent' => $user_audit->name.' '.$user_audit->last_name,
+                'id_wallet' => $agent_data->id_wallet,
+                'wallet' => $wallet_audit->name,
+                'id_supervisor' => Auth::id(),
+                'created_at' => Carbon::now(),
+                'total' => $total,
+                'base_before' => $base_total,
+            )),
             'event' => 'update',
+            'device' => $request->device,
             'type' => 'Cierre de dia'
         );
         db_audit::insert($audit);

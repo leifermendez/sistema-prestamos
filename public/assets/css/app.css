@@ -4236,9 +4236,9 @@ td.mail-right {
 
     /* Hide table headers (but not display: none;, for accessibility) */
     thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
+        /*position: absolute;*/
+        /*top: -9999px;*/
+        /*left: -9999px;*/
     }
 
     tr {
@@ -4871,11 +4871,7 @@ td.mail-right {
     }
 
     .supervisor-billS-table td:nth-of-type(6):before {
-<<<<<<< Updated upstream
-        content: "Agente";
-=======
         content: "Cobrador";
->>>>>>> Stashed changes
     }
 
     /* Agente:*/
@@ -4913,11 +4909,7 @@ td.mail-right {
     }
 
     .client-table td:nth-of-type(9):before {
-<<<<<<< Updated upstream
-        content: "Tipo";
-=======
         content: "Status";
->>>>>>> Stashed changes
     }
 
     .client-table td:nth-of-type(10):before {
@@ -5122,11 +5114,7 @@ td.mail-right {
     }
 
     .agente-g-table td:nth-of-type(6):before {
-<<<<<<< Updated upstream
-        content: "Agente";
-=======
         content: "Cobrador";
->>>>>>> Stashed changes
     }
 
     /*FIn Luis*/
@@ -5159,6 +5147,7 @@ td.mail-right {
 @media (max-width: 768px) {
     .ui-datepicker-calendar tr {
         display: inline-flex !important;
+        justify-content: space-between;
         width: 100%;
     }
 
