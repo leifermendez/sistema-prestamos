@@ -28,10 +28,10 @@
                                         <label for="nit_number"> Fecha Inicial:</label>
                                         <input type="text" name="date_start"  class="form-control datepicker-trigger" id="date_start" required>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <label for="nit_number"> Fecha Final:</label>
-                                        <input type="text" name="date_end"  class="form-control datepicker-trigger" id="date_end" required>
-                                    </div>
+{{--                                    <div class="col-sm-4">--}}
+{{--                                        <label for="nit_number"> Fecha Final:</label>--}}
+{{--                                        <input type="text" name="date_end"  class="form-control datepicker-trigger" id="date_end" required>--}}
+{{--                                    </div>--}}
                                     <div class="col-sm-4">
                                         <button class="btn btn-info hidden" type="submit">Buscar</button>
                                         <a href="{{url('supervisor/graph?type=default')}}" class="btn btn-dark">Regresar</a>
@@ -90,19 +90,19 @@
                 'dataDays'
             );
 
-            graphics(
-                [dataGraph.dataItems.thisWeekend, dataGraph.dataItems.lastWeekend],
-                [dataGraph.thisWeekend, dataGraph.lastWeekend],
-                'Cantidad de gastos',
-                'dataItems'
-            );
-
-            graphics(
-                [dataGraph.dataAmount.thisWeekend, dataGraph.dataAmount.lastWeekend],
-                [dataGraph.thisWeekend, dataGraph.lastWeekend],
-                'Dinero gastado por rango',
-                'dataAmount'
-            );
+            // graphics(
+            //     [dataGraph.dataItems.thisWeekend, dataGraph.dataItems.lastWeekend],
+            //     [dataGraph.thisWeekend, dataGraph.lastWeekend],
+            //     'Cantidad de gastos',
+            //     'dataItems'
+            // );
+            //
+            // graphics(
+            //     [dataGraph.dataAmount.thisWeekend, dataGraph.dataAmount.lastWeekend],
+            //     [dataGraph.thisWeekend, dataGraph.lastWeekend],
+            //     'Dinero gastado por rango',
+            //     'dataAmount'
+            // );
         }
         setTimeout(function () {
             window.onload = load()

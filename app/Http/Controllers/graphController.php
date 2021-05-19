@@ -79,8 +79,8 @@ class graphController extends Controller
         $type = $request->type;
         $agent = $request->agent;
         $date_start = Carbon::createFromFormat('d/m/Y', $request->date_start);
-        $date_end = Carbon::createFromFormat('d/m/Y', $request->date_end);
-        $response = $this->parseDates($date_start, $date_end, $type, $agent);
+//        $date_end = Carbon::createFromFormat('d/m/Y', $request->date_end);
+        $response = $this->parseDates($date_start, $type, $agent);
         $data = $this->getAgents();
         switch ($type) {
             case 'overdraft':
@@ -95,165 +95,225 @@ class graphController extends Controller
         }
     }
 
-    private function parseDates($date_start, $date_end, $type, $agent): array
+    private function parseDates($date_start, $type, $agent): array
     {
         setlocale(LC_TIME, 'Spanish');
-        $thisWeekendSql = [];
-        $lastWeekendSql = [];
+//        $thisWeekendSql = [];
+//        $lastWeekendSql = [];
         $dataGraph = [];
-        $datesForDays = [$date_start->startOfDay()->copy()];
-        $daysBetweenWeekends = $date_start->copy()->diffInDays($date_end);
-        for ($i = 0; $i < $daysBetweenWeekends; $i++) {
-            $datesForDays[] = $datesForDays[$i]->copy()->addDay()->startOfDay();
+        $datesThisWeek = [$date_start->startOfDay()->copy()];
+        $datesLastWeek = [$date_start->copy()->subDays(7)];
+
+        for ($i = 0; $i < 7; $i++) {
+            $datesThisWeek[] = $datesThisWeek[$i]->copy()->addDay()->startOfDay();
+            $datesLastWeek[] = $datesLastWeek[$i]->copy()->addDay()->startOfDay();
         }
 
-        $date_last = $date_start->copy()->subDays($daysBetweenWeekends+1);
-        $date_last_end = $date_start->copy()->subDay();
+//        $date_last = $date_start->copy()->subDays($daysBetweenWeekends+1);
+//        $date_last_end = $date_start->copy()->subDay();
 
         // this week
-        if (isset($date_start) && isset($date_end)) {
-            $thisWeekendSql[] = ['created_at', '>=', $date_start->startOfDay()];
-            $thisWeekendSql[] = ['created_at', '<=', $date_end->endOfDay()];
-            $thisWeekendSql[] = ['id_agent', $agent];
-        }
+//        if (isset($date_start) && isset($date_end)) {
+//            $thisWeekendSql[] = ['created_at', '>=', $date_start->startOfDay()];
+//            $thisWeekendSql[] = ['created_at', '<=', $date_end->endOfDay()];
+//            $thisWeekendSql[] = ['id_agent', $agent];
+//        }
 
         // last week
-        if (isset($date_last) && isset($date_last_end)) {
-            $lastWeekendSql[] = ['created_at', '>=', $date_last->startOfDay()];
-            $lastWeekendSql[] = ['created_at', '<=', $date_last_end->endOfDay()];
-            $lastWeekendSql[] = ['id_agent', $agent];
-        }
+//        if (isset($date_last) && isset($date_last_end)) {
+//            $lastWeekendSql[] = ['created_at', '>=', $date_last->startOfDay()];
+//            $lastWeekendSql[] = ['created_at', '<=', $date_last_end->endOfDay()];
+//            $lastWeekendSql[] = ['id_agent', $agent];
+//        }
 //        var_dump($lastWeekendSql);
         switch ($type) {
             case 'overdraft':
-                $dataGraph = $this->overdraft($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent);
+                $dataGraph = $this->overdraft($datesThisWeek, $datesLastWeek, $agent);
                 break;
             case 'bill':
-                $dataGraph = $this->bill($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent);
+                $dataGraph = $this->bill($datesThisWeek, $datesLastWeek, $agent);
                 break;
             case 'payment':
-                $dataGraph = $this->payment($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent);
+                $dataGraph = $this->payment($datesThisWeek, $datesLastWeek, $agent);
                 break;
         }
 
-        $response = array_merge($dataGraph, array(
-                'thisWeekend'=> 'Desde '.$date_start->format('d-m').' hasta '.$date_end->format('d-m'),
-                'lastWeekend'=> 'Desde '.$date_last->format('d-m').' hasta '.$date_last_end->format('d-m')
-            )
-        );
         return array(
-            'data'=> $response
+            'data'=> $dataGraph
         );
     }
 
-    private function overdraft($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent): array
+    private function overdraft($datesThisWeek, $datesLastWeek, $agent): array
     {
-        $dataDaysTotal = 0;
-        $dataDaysData = [];
+        $dataDaysThisWeekTotal = 0;
+        $dataDaysLastWeekTotal = 0;
         $dataDaysLabels = [];
-        $dataItems = array(
-            'thisWeekend' => db_credit::where($thisWeekendSql)->count(),
-            'lastWeekend' => db_credit::where($lastWeekendSql)->count(),
-        );
-        $dataAmount = array(
-            'thisWeekend' => db_credit::where($thisWeekendSql)->sum('amount_neto'),
-            'lastWeekend' => db_credit::where($lastWeekendSql)->sum('amount_neto')
-        );
+        $dataDaysThisWeek = [];;
+        $dataDaysLastWeek = [];
 
-        foreach ($datesForDays as $value) {
+//        $dataItems = array(
+//            'thisWeekend' => db_credit::where($thisWeekendSql)->count(),
+//            'lastWeekend' => db_credit::where($lastWeekendSql)->count(),
+//        );
+//        $dataAmount = array(
+//            'thisWeekend' => db_credit::where($thisWeekendSql)->sum('amount_neto'),
+//            'lastWeekend' => db_credit::where($lastWeekendSql|-)->sum('amount_neto')
+//        );
+
+        foreach ($datesThisWeek as $value) {
             $totalTmp = db_credit::where([
                 ['created_at', '>=', $value],
                 ['created_at', '<=', $value->copy()->endOfDay()],
                 ['id_agent', $agent]
             ])->sum('amount_neto');
-            $dataDaysData[] = $totalTmp;
-            $dataDaysTotal += $totalTmp;
-//            print_r($value.' - '.$value->copy()->endOfDay().'<br>');
-            $dataDaysLabels[] = $value->copy()->isoFormat('dddd D');
+            $dataDaysThisWeek[] = $totalTmp;
+            $dataDaysThisWeekTotal += $totalTmp;
+
+            $dataDaysLabels[] = $value->copy()->isoFormat('ddd D');
+        }
+
+        foreach ($datesLastWeek as $key => $value) {
+            $totalTmp = db_credit::where([
+                ['created_at', '>=', $value],
+                ['created_at', '<=', $value->copy()->endOfDay()],
+                ['id_agent', $agent]
+            ])->sum('amount_neto');
+            $dataDaysLastWeek[] = $totalTmp;
+            $dataDaysLastWeekTotal += $totalTmp;
+
+            $dataDaysLabels[$key] = $dataDaysLabels[$key].' - '.$value->copy()->isoFormat('ddd D');
         }
 
         return array(
             'dataDays'=> array(
                 'labels' => $dataDaysLabels,
-                'data' => $dataDaysData,
-                'total' => $dataDaysTotal
+                'data' => array(
+                    'thisWeek' => $dataDaysThisWeek,
+                    'lastWeek' => $dataDaysLastWeek
+                ),
+                'total' => array(
+                    'thisWeek' => $dataDaysThisWeekTotal,
+                    'lastWeek' => $dataDaysLastWeekTotal
+                ),
             ),
-            'dataAmount' => $dataAmount,
-            'dataItems' => $dataItems,
+//            'dataAmount' => $dataAmount,
+//            'dataItems' => $dataItems,
         );
     }
 
-    private function payment($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent): array
+    private function payment($datesThisWeek, $datesLastWeek, $agent): array
     {
-        $dataDaysTotal = 0;
-        $dataDaysData = [];
+        $dataDaysThisWeekTotal = 0;
+        $dataDaysLastWeekTotal = 0;
         $dataDaysLabels = [];
-        $dataItems = array(
-            'thisWeekend' => db_summary::where($thisWeekendSql)->count(),
-            'lastWeekend' => db_summary::where($lastWeekendSql)->count(),
-        );
-        $dataAmount = array(
-            'thisWeekend' => db_summary::where($thisWeekendSql)->sum('amount'),
-            'lastWeekend' => db_summary::where($lastWeekendSql)->sum('amount')
-        );
+        $dataDaysThisWeek = [];;
+        $dataDaysLastWeek = [];
 
-        foreach ($datesForDays as $value) {
+//        $dataItems = array(
+//            'thisWeekend' => db_credit::where($thisWeekendSql)->count(),
+//            'lastWeekend' => db_credit::where($lastWeekendSql)->count(),
+//        );
+//        $dataAmount = array(
+//            'thisWeekend' => db_credit::where($thisWeekendSql)->sum('amount_neto'),
+//            'lastWeekend' => db_credit::where($lastWeekendSql|-)->sum('amount_neto')
+//        );
+
+        foreach ($datesThisWeek as $value) {
             $totalTmp = db_summary::where([
                 ['created_at', '>=', $value],
                 ['created_at', '<=', $value->copy()->endOfDay()],
                 ['id_agent', $agent]
             ])->sum('amount');
-            $dataDaysData[] = $totalTmp;
-            $dataDaysTotal += $totalTmp;
-//            print_r($value.' - '.$value->copy()->endOfDay().'<br>');
-            $dataDaysLabels[] = $value->copy()->isoFormat('dddd D');
+            $dataDaysThisWeek[] = $totalTmp;
+            $dataDaysThisWeekTotal += $totalTmp;
+
+            $dataDaysLabels[] = $value->copy()->isoFormat('ddd D');
+        }
+
+        foreach ($datesLastWeek as $key => $value) {
+            $totalTmp = db_summary::where([
+                ['created_at', '>=', $value],
+                ['created_at', '<=', $value->copy()->endOfDay()],
+                ['id_agent', $agent]
+            ])->sum('amount');
+            $dataDaysLastWeek[] = $totalTmp;
+            $dataDaysLastWeekTotal += $totalTmp;
+
+            $dataDaysLabels[$key] = $dataDaysLabels[$key].' - '.$value->copy()->isoFormat('ddd D');
         }
 
         return array(
             'dataDays'=> array(
                 'labels' => $dataDaysLabels,
-                'data' => $dataDaysData,
-                'total' => $dataDaysTotal
+                'data' => array(
+                    'thisWeek' => $dataDaysThisWeek,
+                    'lastWeek' => $dataDaysLastWeek
+                ),
+                'total' => array(
+                    'thisWeek' => $dataDaysThisWeekTotal,
+                    'lastWeek' => $dataDaysLastWeekTotal
+                ),
             ),
-            'dataAmount' => $dataAmount,
-            'dataItems' => $dataItems,
+//            'dataAmount' => $dataAmount,
+//            'dataItems' => $dataItems,
         );
     }
 
-    private function bill($thisWeekendSql, $lastWeekendSql, $datesForDays, $agent): array
+    private function bill($datesThisWeek, $datesLastWeek, $agent): array
     {
-        $dataDaysTotal = 0;
-        $dataDaysData = [];
+        $dataDaysThisWeekTotal = 0;
+        $dataDaysLastWeekTotal = 0;
         $dataDaysLabels = [];
-        $dataItems = array(
-            'thisWeekend' => db_bills::where($thisWeekendSql)->count(),
-            'lastWeekend' => db_bills::where($lastWeekendSql)->count(),
-        );
-        $dataAmount = array(
-            'thisWeekend' => db_bills::where($thisWeekendSql)->sum('amount'),
-            'lastWeekend' => db_bills::where($lastWeekendSql)->sum('amount')
-        );
+        $dataDaysThisWeek = [];;
+        $dataDaysLastWeek = [];
 
-        foreach ($datesForDays as $value) {
+//        $dataItems = array(
+//            'thisWeekend' => db_credit::where($thisWeekendSql)->count(),
+//            'lastWeekend' => db_credit::where($lastWeekendSql)->count(),
+//        );
+//        $dataAmount = array(
+//            'thisWeekend' => db_credit::where($thisWeekendSql)->sum('amount_neto'),
+//            'lastWeekend' => db_credit::where($lastWeekendSql|-)->sum('amount_neto')
+//        );
+
+        foreach ($datesThisWeek as $value) {
             $totalTmp = db_bills::where([
                 ['created_at', '>=', $value],
                 ['created_at', '<=', $value->copy()->endOfDay()],
                 ['id_agent', $agent]
             ])->sum('amount');
-            $dataDaysData[] = $totalTmp;
-            $dataDaysTotal += $totalTmp;
-//            print_r($value.' - '.$value->copy()->endOfDay().'<br>');
-            $dataDaysLabels[] = $value->copy()->isoFormat('dddd D');
+            $dataDaysThisWeek[] = $totalTmp;
+            $dataDaysThisWeekTotal += $totalTmp;
+
+            $dataDaysLabels[] = $value->copy()->isoFormat('ddd D');
+        }
+
+        foreach ($datesLastWeek as $key => $value) {
+            $totalTmp = db_bills::where([
+                ['created_at', '>=', $value],
+                ['created_at', '<=', $value->copy()->endOfDay()],
+                ['id_agent', $agent]
+            ])->sum('amount');
+            $dataDaysLastWeek[] = $totalTmp;
+            $dataDaysLastWeekTotal += $totalTmp;
+
+            $dataDaysLabels[$key] = $dataDaysLabels[$key].' - '.$value->copy()->isoFormat('ddd D');
         }
 
         return array(
             'dataDays'=> array(
                 'labels' => $dataDaysLabels,
-                'data' => $dataDaysData,
-                'total' => $dataDaysTotal
+                'data' => array(
+                    'thisWeek' => $dataDaysThisWeek,
+                    'lastWeek' => $dataDaysLastWeek
+                ),
+                'total' => array(
+                    'thisWeek' => $dataDaysThisWeekTotal,
+                    'lastWeek' => $dataDaysLastWeekTotal
+                ),
             ),
-            'dataAmount' => $dataAmount,
-            'dataItems' => $dataItems,
+//            'dataAmount' => $dataAmount,
+//            'dataItems' => $dataItems,
         );
     }
 
