@@ -49,17 +49,6 @@ function graphicsDays(data, labels, total, label, id) {
             labels: labels,
             datasets: [
                 {
-                    label: 'Esta semana',
-                    data: data.thisWeek, // 0=> lastWeekend, 1=> thisWeekend
-                    borderWidth: 1,
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 0.2)',
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                    ],
-                },
-                {
                     label: 'Semana pasada',
                     data: data.lastWeek, // 0=> lastWeekend, 1=> thisWeekend
                     borderWidth: 1,
@@ -69,6 +58,17 @@ function graphicsDays(data, labels, total, label, id) {
                     borderColor: [
                         'rgb(235,54,54)',
                     ],
+                },
+                {
+                    label: 'Esta semana',
+                    data: data.thisWeek, // 0=> lastWeekend, 1=> thisWeekend
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                    ],
                 }
             ]
         },
@@ -76,7 +76,7 @@ function graphicsDays(data, labels, total, label, id) {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Totales = Semana elegida: '+total.thisWeek+' - Semana pasada: '+total.lastWeek
+                    text: 'Totales = Semana pasada: '+total.lastWeek+' - Semana elegida: '+total.thisWeek
                 }
             },
             maintainAspectRatio: false,

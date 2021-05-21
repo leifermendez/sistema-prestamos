@@ -104,7 +104,7 @@ class graphController extends Controller
         $datesThisWeek = [$date_start->startOfDay()->copy()];
         $datesLastWeek = [$date_start->copy()->subDays(7)];
 
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i < 6; $i++) {
             $datesThisWeek[] = $datesThisWeek[$i]->copy()->addDay()->startOfDay();
             $datesLastWeek[] = $datesLastWeek[$i]->copy()->addDay()->startOfDay();
         }
@@ -160,28 +160,34 @@ class graphController extends Controller
 //            'lastWeekend' => db_credit::where($lastWeekendSql|-)->sum('amount_neto')
 //        );
 
-        foreach ($datesThisWeek as $value) {
-            $totalTmp = db_credit::where([
-                ['created_at', '>=', $value],
-                ['created_at', '<=', $value->copy()->endOfDay()],
-                ['id_agent', $agent]
-            ])->sum('amount_neto');
-            $dataDaysThisWeek[] = $totalTmp;
-            $dataDaysThisWeekTotal += $totalTmp;
+        foreach ($datesLastWeek as $value) {
+            if ($value->copy()->isoFormat('dddd') != 'domingo') {
+                $totalTmp = db_credit::where([
+                    ['created_at', '>=', $value],
+                    ['created_at', '<=', $value->copy()->endOfDay()],
+                    ['id_agent', $agent]
+                ])->sum('amount_neto');
+                $dataDaysLastWeek[] = $totalTmp;
+                $dataDaysLastWeekTotal += $totalTmp;
 
-            $dataDaysLabels[] = $value->copy()->isoFormat('ddd D');
+                $dataDaysLabels[] = $value->copy()->isoFormat('ddd D');
+            }
         }
 
-        foreach ($datesLastWeek as $key => $value) {
-            $totalTmp = db_credit::where([
-                ['created_at', '>=', $value],
-                ['created_at', '<=', $value->copy()->endOfDay()],
-                ['id_agent', $agent]
-            ])->sum('amount_neto');
-            $dataDaysLastWeek[] = $totalTmp;
-            $dataDaysLastWeekTotal += $totalTmp;
+        $i = 0;
+        foreach ($datesThisWeek as $value) {
+            if ($value->copy()->isoFormat('dddd') != 'domingo') {
+                $totalTmp = db_credit::where([
+                    ['created_at', '>=', $value],
+                    ['created_at', '<=', $value->copy()->endOfDay()],
+                    ['id_agent', $agent]
+                ])->sum('amount_neto');
+                $dataDaysThisWeek[] = $totalTmp;
+                $dataDaysThisWeekTotal += $totalTmp;
 
-            $dataDaysLabels[$key] = $dataDaysLabels[$key].' - '.$value->copy()->isoFormat('ddd D');
+                $dataDaysLabels[$i] = $dataDaysLabels[$i] . ' - ' . $value->copy()->isoFormat('ddd D');
+                $i++;
+            }
         }
 
         return array(
@@ -218,29 +224,36 @@ class graphController extends Controller
 //            'lastWeekend' => db_credit::where($lastWeekendSql|-)->sum('amount_neto')
 //        );
 
+        foreach ($datesLastWeek as $value) {
+            if ($value->copy()->isoFormat('dddd') != 'domingo') {
+                $totalTmp = db_summary::where([
+                    ['created_at', '>=', $value],
+                    ['created_at', '<=', $value->copy()->endOfDay()],
+                    ['id_agent', $agent]
+                ])->sum('amount');
+                $dataDaysLastWeek[] = $totalTmp;
+                $dataDaysLastWeekTotal += $totalTmp;
+
+                $dataDaysLabels[] = $value->copy()->isoFormat('ddd D');
+            }
+        }
+
+        $i = 0;
         foreach ($datesThisWeek as $value) {
-            $totalTmp = db_summary::where([
-                ['created_at', '>=', $value],
-                ['created_at', '<=', $value->copy()->endOfDay()],
-                ['id_agent', $agent]
-            ])->sum('amount');
-            $dataDaysThisWeek[] = $totalTmp;
-            $dataDaysThisWeekTotal += $totalTmp;
+            if ($value->copy()->isoFormat('dddd') != 'domingo') {
+                $totalTmp = db_summary::where([
+                    ['created_at', '>=', $value],
+                    ['created_at', '<=', $value->copy()->endOfDay()],
+                    ['id_agent', $agent]
+                ])->sum('amount');
+                $dataDaysThisWeek[] = $totalTmp;
+                $dataDaysThisWeekTotal += $totalTmp;
 
-            $dataDaysLabels[] = $value->copy()->isoFormat('ddd D');
+                $dataDaysLabels[$i] = $dataDaysLabels[$i] . ' - ' . $value->copy()->isoFormat('ddd D');
+                $i++;
+            }
         }
 
-        foreach ($datesLastWeek as $key => $value) {
-            $totalTmp = db_summary::where([
-                ['created_at', '>=', $value],
-                ['created_at', '<=', $value->copy()->endOfDay()],
-                ['id_agent', $agent]
-            ])->sum('amount');
-            $dataDaysLastWeek[] = $totalTmp;
-            $dataDaysLastWeekTotal += $totalTmp;
-
-            $dataDaysLabels[$key] = $dataDaysLabels[$key].' - '.$value->copy()->isoFormat('ddd D');
-        }
 
         return array(
             'dataDays'=> array(
@@ -276,28 +289,35 @@ class graphController extends Controller
 //            'lastWeekend' => db_credit::where($lastWeekendSql|-)->sum('amount_neto')
 //        );
 
-        foreach ($datesThisWeek as $value) {
-            $totalTmp = db_bills::where([
-                ['created_at', '>=', $value],
-                ['created_at', '<=', $value->copy()->endOfDay()],
-                ['id_agent', $agent]
-            ])->sum('amount');
-            $dataDaysThisWeek[] = $totalTmp;
-            $dataDaysThisWeekTotal += $totalTmp;
 
-            $dataDaysLabels[] = $value->copy()->isoFormat('ddd D');
+        foreach ($datesLastWeek as $value) {
+            if ($value->copy()->isoFormat('dddd') != 'domingo') {
+                $totalTmp = db_bills::where([
+                    ['created_at', '>=', $value],
+                    ['created_at', '<=', $value->copy()->endOfDay()],
+                    ['id_agent', $agent]
+                ])->sum('amount');
+                $dataDaysLastWeek[] = $totalTmp;
+                $dataDaysLastWeekTotal += $totalTmp;
+
+                $dataDaysLabels[] = $value->copy()->isoFormat('ddd D');
+            }
         }
 
-        foreach ($datesLastWeek as $key => $value) {
-            $totalTmp = db_bills::where([
-                ['created_at', '>=', $value],
-                ['created_at', '<=', $value->copy()->endOfDay()],
-                ['id_agent', $agent]
-            ])->sum('amount');
-            $dataDaysLastWeek[] = $totalTmp;
-            $dataDaysLastWeekTotal += $totalTmp;
+        $i = 0;
+        foreach ($datesThisWeek as $value) {
+            if ($value->copy()->isoFormat('dddd') != 'domingo') {
+                $totalTmp = db_bills::where([
+                    ['created_at', '>=', $value],
+                    ['created_at', '<=', $value->copy()->endOfDay()],
+                    ['id_agent', $agent]
+                ])->sum('amount');
+                $dataDaysThisWeek[] = $totalTmp;
+                $dataDaysThisWeekTotal += $totalTmp;
 
-            $dataDaysLabels[$key] = $dataDaysLabels[$key].' - '.$value->copy()->isoFormat('ddd D');
+                $dataDaysLabels[$i] = $dataDaysLabels[$i] . ' - ' . $value->copy()->isoFormat('ddd D');
+                $i++;
+            }
         }
 
         return array(

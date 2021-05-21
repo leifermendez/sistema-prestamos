@@ -58,9 +58,16 @@
                                                     <div class="alert alert-info " role="alert">
                                                         <ul>
                                                             @foreach(json_decode($audit->device) as $key => $data)
-                                                                <li>
-                                                                    {{$key}}: &nbsp; {{$data}}
-                                                                </li>
+                                                                @if (str_contains($data, 'https'))
+                                                                    <li>
+                                                                        {{$key}}: &nbsp; <a href="{{$data}}" target="_blank">Ver en GoogleMaps</a>
+                                                                    </li>
+                                                                @else
+                                                                    <li>
+                                                                        {{$key}}: &nbsp; {{$data}}
+                                                                    </li>
+                                                                @endIf
+
                                                             @endforeach
                                                         </ul>
                                                     </div>
