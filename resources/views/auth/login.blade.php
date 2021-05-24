@@ -49,6 +49,7 @@
                     <div class="input-group col-md-12">
                         <input name="password"
                                onkeyup="limpiarNumero(this)"
+                               inputmode="numeric"
                                onchange="limpiarNumero(this)"
                                maxlength="8" required id="password" type="password" class="form-control"
                                placeholder="Contraseña">

@@ -49,7 +49,7 @@
 {{--                                                    <small>Dispositivo: {{$audit->device}}</small>--}}
                                                 </div>
                                                 <div class="col-6 text-right">
-                                                    <p class="m-0">{{date_format($audit->created_at, "d/m/Y")}}</p>
+                                                    <p class="m-0">{{date_format($audit->created_at, "d/m/Y g:i A")}}</p>
                                                     <small>{{$audit->user_level}}</small>
                                                 </div>
                                             </div>

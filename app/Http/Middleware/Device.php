@@ -24,6 +24,7 @@ class Device
             'Dispositivo' => $a,
             'Tipo' => $agent->device(),
             'Ip' => $geoIp['ip'],
+            'plataforma' => $agent->platform(),
             'Direccion' => $geoIp['city'],
             'Mapa' => 'https://www.google.com/maps/search/?api=1&query='.$geoIp['lat'].','.$geoIp['lon'],
             'Coordenadas' => $geoIp['lat'].','.$geoIp['lon'],
