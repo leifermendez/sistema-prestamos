@@ -161,12 +161,12 @@ class userController extends Controller
 
 
         $values = array(
-            'name' => strtoupper($name),
-            'last_name' => strtoupper($last_name),
+            'name' => $this->removeAccents(strtoupper($name)),
+            'last_name' => $this->removeAccents(strtoupper($last_name)),
             'email' => $nit,
             'level' => 'user',
-            'address' => strtoupper($address),
-            'province' => strtoupper($province),
+            'address' => $this->removeAccents(strtoupper($address)),
+            'province' => $this->removeAccents(strtoupper($province)),
             'phone' => $phone,
             'password' => Str::random(5),
             'lat' => $lat,
@@ -218,6 +218,8 @@ class userController extends Controller
         );
         db_credit::insert($values);
 
+        $user_audit = User::find($id);
+        $values['user_name'] = $user_audit->name.' '.$user_audit->last_name;
         $audit = array(
             'created_at' => Carbon::now(),
             'id_user' => Auth::id(),
@@ -276,5 +278,14 @@ class userController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /* Función que elimina los acantos y letras ñ*/
+    private function removeAccents($string){
+        $original = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðòóôõöøùúûýýþÿ';
+        $modify = 'AAAAAAACEEEEIIIIDNOOOOOOUUUUYBSAAAAAAACEEEEIIIIDOOOOOOUUUYYBY';
+        $string = utf8_decode($string);
+        $string = strtr($string, utf8_decode($original), $modify);
+        return utf8_encode($string);
     }
 }

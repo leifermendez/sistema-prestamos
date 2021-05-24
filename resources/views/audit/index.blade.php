@@ -49,7 +49,7 @@
 {{--                                                    <small>Dispositivo: {{$audit->device}}</small>--}}
                                                 </div>
                                                 <div class="col-6 text-right">
-                                                    <p class="m-0">{{date_format($audit->created_at, "d/m/Y")}}</p>
+                                                    <p class="m-0">{{date_format($audit->created_at, "d/m/Y g:i A")}}</p>
                                                     <small>{{$audit->user_level}}</small>
                                                 </div>
                                             </div>
@@ -58,9 +58,16 @@
                                                     <div class="alert alert-info " role="alert">
                                                         <ul>
                                                             @foreach(json_decode($audit->device) as $key => $data)
-                                                                <li>
-                                                                    {{$key}}: &nbsp; {{$data}}
-                                                                </li>
+                                                                @if (str_contains($data, 'https'))
+                                                                    <li>
+                                                                        {{$key}}: &nbsp; <a href="{{$data}}" target="_blank">Ver en GoogleMaps</a>
+                                                                    </li>
+                                                                @else
+                                                                    <li>
+                                                                        {{$key}}: &nbsp; {{$data}}
+                                                                    </li>
+                                                                @endIf
+
                                                             @endforeach
                                                         </ul>
                                                     </div>

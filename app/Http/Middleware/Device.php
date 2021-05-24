@@ -24,8 +24,10 @@ class Device
             'Dispositivo' => $a,
             'Tipo' => $agent->device(),
             'Ip' => $geoIp['ip'],
-            'Direccion' => $geoIp['state_name'],
-            'Coordenadas' => 'lat: '.$geoIp['lat'].', lng: '.$geoIp['lon'],
+            'plataforma' => $agent->platform(),
+            'Direccion' => $geoIp['city'],
+            'Mapa' => 'https://www.google.com/maps/search/?api=1&query='.$geoIp['lat'].','.$geoIp['lon'],
+            'Coordenadas' => $geoIp['lat'].','.$geoIp['lon'],
         );
 //        print_r(json_encode($device));
 

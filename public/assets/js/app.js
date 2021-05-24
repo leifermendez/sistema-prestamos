@@ -105,7 +105,6 @@ function initialize() {
                 console.log('loading map..')
                 geocodeLatLng(coordinates);
                 mapElement.setAttribute('style', 'display:block !important');
-                initMap({ lat: coordinates.lat, lng: coordinates.lng })
             }
         });
     }
@@ -154,8 +153,13 @@ geocodeLatLng = ({lat, lng}) => {
             if (status === 'OK') {
                 if (results[0]) {
                     let address = document.getElementById('address');
-                    if (!address.value.length) {
+                    const latitude = document.getElementById('lat');
+                    const longitude = document.getElementById('lng');
+                    if (!address.value.length && !latitude.value.length && !longitude.value.length) {
                         address.value = results[0].formatted_address
+                        initMap({ lat: parseFloat(lat), lng: parseFloat(lng) })
+                    } else {
+                        initMap({ lat: parseFloat(latitude.value), lng: parseFloat(longitude.value) })
                     }
                 } else {
                     // window.alert('No results found');
