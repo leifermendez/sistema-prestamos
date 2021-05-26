@@ -5270,3 +5270,13 @@ hr {
 	font-weight: bold;
 }
 .close:hover { background: #c5c5c5; }
+
+canvas {
+    /*border: 1px dotted red;*/
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 70vh;
+}

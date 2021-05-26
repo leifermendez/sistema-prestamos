@@ -45,31 +45,45 @@
                                 @if(count($data)>0)
                                     <input type="hidden" name="dataGraph" id="dataGraph" value="{{json_encode($data)}}">
 
-{{--                                    grafica por dias entre rango de fechas--}}
-                                    <div class="pt-4 px-1 container d-flex justify-content-center">
-                                        <div style=" position: relative;
-                                              margin: auto;
-                                              height: 30vh;
-                                              width: 100vw;">
-                                            <canvas id="dataDays" width="200" height="100"></canvas>
+                                    <div class="mt-3 d-flex flex-wrap justify-content-center">
+                                        <div  class="chart-container" style="width: 100vh">
+                                            <canvas id="dataDays"></canvas>
                                         </div>
                                     </div>
 
-                                    {{--                                    graficas por rango de fecha--}}
-                                    <div class="row pt-5" id="graphs">
-                                        <div class="col-sm-6" style=" position: relative;
-                                              margin: auto;
-                                              height: 30vh;
-                                              width: 100vw;">
-                                            <canvas id="dataItems" width="200" height="100"></canvas>
+                                    <div class="mt-3 d-flex flex-wrap justify-content-around">
+                                        <div  class="chart-container" style="width: 70vh !important;">
+                                            <canvas id="dataAmount"></canvas>
                                         </div>
-                                        <div class="col-sm-6" style=" position: relative;
-                                              margin: auto;
-                                              height: 30vh;
-                                              width: 100vw;">
-                                            <canvas id="dataAmount" width="200" height="100"></canvas>
+                                        <div  class="chart-container" style="width: 70vh !important;">
+                                            <canvas id="dataItems"></canvas>
                                         </div>
                                     </div>
+{{--                                    grafica por dias entre rango de fechas--}}
+{{--                                    <div class="pt-4 px-1 container d-flex justify-content-center">--}}
+{{--                                        <div style=" position: relative;--}}
+{{--                                              margin: auto;--}}
+{{--                                              height: 30vh;--}}
+{{--                                              width: 100vw;">--}}
+{{--                                            <canvas id="dataDays" width="200" height="100"></canvas>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+
+{{--                                    --}}{{--                                    graficas por rango de fecha--}}
+{{--                                    <div class="row pt-5" id="graphs">--}}
+{{--                                        <div class="col-sm-6" style=" position: relative;--}}
+{{--                                              margin: auto;--}}
+{{--                                              height: 30vh;--}}
+{{--                                              width: 100vw;">--}}
+{{--                                            <canvas id="dataItems" width="200" height="100"></canvas>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-sm-6" style=" position: relative;--}}
+{{--                                              margin: auto;--}}
+{{--                                              height: 30vh;--}}
+{{--                                              width: 100vw;">--}}
+{{--                                            <canvas id="dataAmount" width="200" height="100"></canvas>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 @endif
                             </div>
                         </div><!-- .widget -->
@@ -90,19 +104,19 @@
                 'dataDays'
             );
 
-            // graphics(
-            //     [dataGraph.dataItems.thisWeekend, dataGraph.dataItems.lastWeekend],
-            //     [dataGraph.thisWeekend, dataGraph.lastWeekend],
-            //     'Cantidad de pagos',
-            //     'dataItems'
-            // );
-            //
-            // graphics(
-            //     [dataGraph.dataAmount.thisWeekend, dataGraph.dataAmount.lastWeekend],
-            //     [dataGraph.thisWeekend, dataGraph.lastWeekend],
-            //     'Pagos por rango',
-            //     'dataAmount'
-            // );
+            graphics(
+                [dataGraph.dataItems.thisWeekend, dataGraph.dataItems.lastWeekend],
+                [dataGraph.labels.lastWeekend, dataGraph.labels.thisWeekend],
+                'Cantidad de pagos',
+                'dataItems'
+            );
+
+            graphics(
+                [dataGraph.dataAmount.thisWeekend, dataGraph.dataAmount.lastWeekend],
+                [dataGraph.labels.lastWeekend, dataGraph.labels.thisWeekend],
+                'Pagos por rango',
+                'dataAmount'
+            );
         }
         setTimeout(function () {
             window.onload = load()
