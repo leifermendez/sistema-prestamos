@@ -74,42 +74,86 @@
                          <a href="{{ url('payment-export') }} " class="btn btn-sm btn-primary float-right">Exportar
                             Excel</a>
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
-                            <table class="table agente-payments-table">
-                                <thead>
-                                <tr>
-                                    <th>Nombres</th>
-                                    <th>#Credito</th>
-                                    <th>Valor</th>
-                                    <th>Saldo Actual</th>
-                                    <th>Cuotas Pagadas</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
 
-                                <tbody>
-                                @foreach($clients as $client)
-                                    @if($client->positive>0)
-                                    <tr id="credit_{{$client->credit_id}}">
-                                        <td>{{$client->name}} {{$client->last_name}}</td>
-                                        <td>{{$client->credit_id}}</td>
-                                        <td>{{$client->amount_neto}}</td>
-                                        <td id="saldo">{{$client->positive}}</td>
-                                        <td>{{$client->payment_current}} / {{$client->payment_number}}</td>
-                                        <td>
-                                            <!-- Trigger the modal with a button -->
-
-
-
-                                            <a href="{{url('payment')}}/{{$client->credit_id}}?rev=true" class="btn btn-success btn-xs"><i class="fa fa-money"></i> Pagar</a>
-                                            <a href="{{url('summary')}}?id_credit={{$client->credit_id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
-                                        </td>
+                            <div  class="d-none d-lg-block d-xl-block">
+                                <table class="table agente-payments-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombres</th>
+                                        <th>#Credito</th>
+                                        <th>Valor</th>
+                                        <th>Saldo Actual</th>
+                                        <th>Cuotas Pagadas</th>
+                                        <th></th>
                                     </tr>
-                                    @endif
+                                    </thead>
 
-                                @endforeach
+                                    <tbody>
+                                    @foreach($clients as $client)
+                                        @if($client->positive>0)
+                                            <tr id="credit_{{$client->credit_id}}">
+                                                <td>{{$client->name}} {{$client->last_name}}</td>
+                                                <td>{{$client->credit_id}}</td>
+                                                <td>{{$client->amount_neto}}</td>
+                                                <td id="saldo">{{$client->positive}}</td>
+                                                <td>{{$client->payment_current}} / {{$client->payment_number}}</td>
+                                                <td>
+                                                    <!-- Trigger the modal with a button -->
 
-                                </tbody>
-                            </table>
+
+
+                                                    <a href="{{url('payment')}}/{{$client->credit_id}}?rev=true" class="btn btn-success btn-xs"><i class="fa fa-money"></i> Pagar</a>
+                                                    <a href="{{url('summary')}}?id_credit={{$client->credit_id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+{{--                            MOBILE--}}
+                            <div  class="d-sm-block d-lg-none">
+                                <table class="table agente-payments-table">
+                                    <thead class="d-none">
+                                        <tr>
+                                            <th>Nombres</th>
+                                            <th>#Credito</th>
+                                            <th>Valor</th>
+                                            <th>Saldo Actual</th>
+                                            <th>Cuotas Pagadas</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    @foreach($clients as $client)
+                                        @if($client->positive>0)
+                                            <tr id="credit_{{$client->credit_id}}">
+                                                <td>{{$client->name}} {{$client->last_name}}</td>
+                                                <td>{{$client->credit_id}}</td>
+                                                <td>{{$client->amount_neto}}</td>
+                                                <td id="saldo">{{$client->positive}}</td>
+                                                <td>{{$client->payment_current}} / {{$client->payment_number}}</td>
+                                                <td>
+                                                    <!-- Trigger the modal with a button -->
+
+
+
+                                                    <a href="{{url('payment')}}/{{$client->credit_id}}?rev=true" class="btn btn-success btn-xs"><i class="fa fa-money"></i> Pagar</a>
+                                                    <a href="{{url('summary')}}?id_credit={{$client->credit_id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->
