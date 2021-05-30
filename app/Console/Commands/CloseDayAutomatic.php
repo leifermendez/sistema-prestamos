@@ -53,8 +53,6 @@ class CloseDayAutomatic extends Command
             foreach ($data_agents as $d) {
 
                 $base_amount = db_supervisor_has_agent::where('id_user_agent', $d->id_user_agent)->first()->base;
-                $id_wallet = db_bills::whereDate('created_at', '=', Carbon::now()->toDateString())
-                ->where('id_agent', $d->id_user_agent)->first()->id_wallet;
 
                 $today_amount = db_summary::whereDate('created_at', '=', Carbon::now()->toDateString())
                     ->where('id_agent', $d->id_user_agent)
@@ -63,7 +61,7 @@ class CloseDayAutomatic extends Command
                     ->where('id_agent', $d->id_user_agent)
                     ->sum('amount_neto');
                 $bills = db_bills::whereDate('created_at', '=', Carbon::now()->toDateString())
-                    ->where('id_wallet', $id_wallet)
+                    ->where('id_wallet', $d->id_wallet)
                     ->sum('amount');
                 $total = floatval($base_amount + $today_amount) - floatval($today_sell + $bills);
 
@@ -73,7 +71,7 @@ class CloseDayAutomatic extends Command
 
                 $values = array(
                     'id_agent' => $d->id_user_agent,
-                    'id_wallet' => $id_wallet,
+                    'id_wallet' => $d->id_wallet,
                     'id_supervisor' => Auth::id(),
                     'created_at' => Carbon::now(),
                     'total' => $total,
@@ -82,6 +80,7 @@ class CloseDayAutomatic extends Command
                 db_close_day::insert($values);
             }
         } catch (\Exception $e) {
+            print_r('ERROR: '.$e->getMessage());
             return $e->getMessage();
         }
     }
