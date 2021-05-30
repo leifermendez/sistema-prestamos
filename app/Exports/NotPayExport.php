@@ -58,19 +58,20 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
                 $data->summary_day = $daysOfWeek;
             }
         }
-        return $data_credit;
+//        dd(collect($this->parse_not_payments($data_credit)));
+        return collect((new \App\Http\Controllers\NotPaymentController)->parse_not_payments($data_credit));
     }
     public function map($row): array
     {
         return [
             $row->name . ' ' . $row->last_name,
-            $row->summary_day['Monday'] > 0 ?  $row->summary_day['Monday'] . '000' :  '0',
-            $row->summary_day['Tuesday'] > 0 ?   $row->summary_day['Tuesday'] . '000' :  '0',
-            $row->summary_day['Wednesday'] > 0 ?   $row->summary_day['Wednesday'] . '000' :  '0',
-            $row->summary_day['Thursday'] > 0 ?    $row->summary_day['Thursday'] . '000' :  '0',
-            $row->summary_day['Friday'] > 0 ?  $row->summary_day['Friday'] . '000' :  '0',
-            $row->summary_day['Saturday'] > 0 ?   $row->summary_day['Saturday'] . '000' :  '0',
-            $row->summary_day['Sunday'] > 0 ?   $row->summary_day['Sunday'] . '000' :  '0',
+            $row->summary_day['Monday'] > 0 ?  $row->summary_day['Monday'] :  '0',
+            $row->summary_day['Tuesday'] > 0 ?   $row->summary_day['Tuesday'] :  '0',
+            $row->summary_day['Wednesday'] > 0 ?   $row->summary_day['Wednesday'] :  '0',
+            $row->summary_day['Thursday'] > 0 ?    $row->summary_day['Thursday'] :  '0',
+            $row->summary_day['Friday'] > 0 ?  $row->summary_day['Friday'] :  '0',
+            $row->summary_day['Saturday'] > 0 ?   $row->summary_day['Saturday'] :  '0',
+            $row->summary_day['Sunday'] > 0 ?   $row->summary_day['Sunday'] :  '0',
         ];
     }
     /**

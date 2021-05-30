@@ -29,43 +29,44 @@
 
                 <tbody>
                 @foreach($clients as $client)
+
                   <tr>
                     <td>{{$client->name}} {{$client->last_name}}</td>
                     <td>
                     <span class="badge {{$client->summary_day['Monday']> 0 ? 'badge-success': 'badge-danger' }}">
-                      {{$client->summary_day['Monday'] > 0 ?  $client->summary_day['Monday']. '.000' : $client->summary_day['Monday'] }}
+                      {{$client->summary_day['Monday'] > 0 ?  $client->summary_day['Monday'] : $client->summary_day['Monday'] }}
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Tuesday']> 0 ? 'badge-success': 'badge-danger' }}">
 
-                      {{$client->summary_day['Tuesday'] > 0 ?  $client->summary_day['Tuesday']. '.000' : $client->summary_day['Tuesday'] }}
+                      {{$client->summary_day['Tuesday'] > 0 ?  $client->summary_day['Tuesday'] : $client->summary_day['Tuesday'] }}
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Wednesday']> 0 ? 'badge-success': 'badge-danger' }}">
-                      {{$client->summary_day['Wednesday'] > 0 ?  $client->summary_day['Wednesday']. '.000' : $client->summary_day['Wednesday'] }}
+                      {{$client->summary_day['Wednesday'] > 0 ?  $client->summary_day['Wednesday'] : $client->summary_day['Wednesday'] }}
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Thursday']> 0 ? 'badge-success': 'badge-danger' }}   ">
-                      {{$client->summary_day['Thursday'] > 0 ?  $client->summary_day['Thursday']. '.000' : $client->summary_day['Thursday'] }}
+                      {{$client->summary_day['Thursday'] > 0 ?  $client->summary_day['Thursday'] : $client->summary_day['Thursday'] }}
 
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Friday']> 0 ? 'badge-success': 'badge-danger' }}   ">
-                      {{$client->summary_day['Friday'] > 0 ?  $client->summary_day['Friday']. '.000' : $client->summary_day['Friday'] }}
+                      {{$client->summary_day['Friday'] > 0 ?  $client->summary_day['Friday'] : $client->summary_day['Friday'] }}
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Saturday']> 0 ? 'badge-success': 'badge-danger' }}   ">
-                      {{$client->summary_day['Saturday'] > 0 ?  $client->summary_day['Saturday']. '.000' : $client->summary_day['Saturday'] }}
+                      {{$client->summary_day['Saturday'] > 0 ?  $client->summary_day['Saturday'] : $client->summary_day['Saturday'] }}
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Sunday']> 0 ? 'badge-success': 'badge-danger' }}   ">
-                      {{$client->summary_day['Sunday'] > 0 ?  $client->summary_day['Sunday']. '.000' : $client->summary_day['Sunday'] }}
+                      {{$client->summary_day['Sunday'] > 0 ?  $client->summary_day['Sunday'] : $client->summary_day['Sunday'] }}
                     </span>
                     </td>
                   </tr>
@@ -96,39 +97,39 @@
                     <td>{{$client->name}} {{$client->last_name}}</td>
                     <td>
                     <span class="badge {{$client->summary_day['Monday']> 0 ? 'badge-success': 'badge-danger' }}">
-                      {{$client->summary_day['Monday'] > 0 ?  $client->summary_day['Monday']. '.000' : $client->summary_day['Monday'] }}
+                      {{$client->summary_day['Monday'] > 0 ?  $client->summary_day['Monday'] : $client->summary_day['Monday'] }}
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Tuesday']> 0 ? 'badge-success': 'badge-danger' }}">
 
-                      {{$client->summary_day['Tuesday'] > 0 ?  $client->summary_day['Tuesday']. '.000' : $client->summary_day['Tuesday'] }}
+                      {{$client->summary_day['Tuesday'] > 0 ?  $client->summary_day['Tuesday'] : $client->summary_day['Tuesday'] }}
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Wednesday']> 0 ? 'badge-success': 'badge-danger' }}">
-                      {{$client->summary_day['Wednesday'] > 0 ?  $client->summary_day['Wednesday']. '.000' : $client->summary_day['Wednesday'] }}
+                      {{$client->summary_day['Wednesday'] > 0 ?  $client->summary_day['Wednesday'] : $client->summary_day['Wednesday'] }}
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Thursday']> 0 ? 'badge-success': 'badge-danger' }}   ">
-                      {{$client->summary_day['Thursday'] > 0 ?  $client->summary_day['Thursday']. '.000' : $client->summary_day['Thursday'] }}
+                      {{$client->summary_day['Thursday'] > 0 ?  $client->summary_day['Thursday'] : $client->summary_day['Thursday'] }}
 
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Friday']> 0 ? 'badge-success': 'badge-danger' }}   ">
-                      {{$client->summary_day['Friday'] > 0 ?  $client->summary_day['Friday']. '.000' : $client->summary_day['Friday'] }}
+                      {{$client->summary_day['Friday'] > 0 ?  $client->summary_day['Friday'] : $client->summary_day['Friday'] }}
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Saturday']> 0 ? 'badge-success': 'badge-danger' }}   ">
-                      {{$client->summary_day['Saturday'] > 0 ?  $client->summary_day['Saturday']. '.000' : $client->summary_day['Saturday'] }}
+                      {{$client->summary_day['Saturday'] > 0 ?  $client->summary_day['Saturday'] : $client->summary_day['Saturday'] }}
                     </span>
                     </td>
                     <td>
                     <span class="badge {{$client->summary_day['Sunday']> 0 ? 'badge-success': 'badge-danger' }}   ">
-                      {{$client->summary_day['Sunday'] > 0 ?  $client->summary_day['Sunday']. '.000' : $client->summary_day['Sunday'] }}
+                      {{$client->summary_day['Sunday'] > 0 ?  $client->summary_day['Sunday'] : $client->summary_day['Sunday'] }}
                     </span>
                     </td>
                   </tr>

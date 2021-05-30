@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class NotPaymentController extends Controller
@@ -91,6 +92,9 @@ class NotPaymentController extends Controller
                 $data->summary_day = $daysOfWeek;
             }
         }
+
+        $data_credit = $this->parse_not_payments($data_credit);
+
         $data = array(
             'clients' => $data_credit
         );
@@ -148,5 +152,26 @@ class NotPaymentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function parse_not_payments($data_credit): array
+    {
+        $listaFinal = [];
+        foreach ($data_credit as $data) {
+            if (isset($listaFinal[$data->id_user])) {
+                foreach ($data->summary_day as $key => $item) {
+                    $listaFinal[$data->id_user]->summary_day[$key] += $item;
+                }
+            } else {
+                $listaFinal[$data->id_user] = (object) array(
+                    'id_credit' => $data->id_credit,
+                    'id_user' => $data->id_user,
+                    'name' => $data->name,
+                    'last_name' => $data->last_name,
+                    'summary_day' => $data->summary_day
+                );
+            }
+        }
+        return $listaFinal;
     }
 }
