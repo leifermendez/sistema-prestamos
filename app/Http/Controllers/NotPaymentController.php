@@ -154,7 +154,7 @@ class NotPaymentController extends Controller
         //
     }
 
-    public function parse_not_payments($data_credit): array
+    private function parse_not_payments($data_credit): array
     {
         $listaFinal = [];
         foreach ($data_credit as $data) {

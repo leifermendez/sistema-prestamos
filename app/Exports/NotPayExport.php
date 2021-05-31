@@ -34,6 +34,7 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
             ->join('users', 'users.id', '=', 'credit.id_user')
             ->orderBy('credit.created_at', 'asc')
             ->select(
+                'credit.*',
                 'credit.id as id_credit',
                 'users.id as id_user',
                 'users.name',
@@ -49,6 +50,11 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
         foreach ($data_credit as $data) {
             if (db_credit::where('id_user', $data->id_user)->where('id_agent', $this->user_id)->exists()) {
 
+                $data->amount_neto = ($data->amount_neto) + ($data->amount_neto * $data->utility);
+                $data->positive = $data->amount_neto - (db_summary::where('id_credit', $data->id)
+                        ->where('id_agent', $this->user_id)
+                        ->sum('amount'));
+
                 foreach ($dateRanges->toArray() as $dateRange) {
                     $day = Carbon::parse($dateRange)->Format('l');
                     $daysOfWeek[$day] =  db_summary::where('id_credit', $data->id_credit)
@@ -58,12 +64,12 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
                 $data->summary_day = $daysOfWeek;
             }
         }
-//        dd(collect($this->parse_not_payments($data_credit)));
-        return collect((new \App\Http\Controllers\NotPaymentController)->parse_not_payments($data_credit));
+        return collect($this->parse_not_payments($data_credit));
     }
     public function map($row): array
     {
         return [
+            $row->created_at,
             $row->name . ' ' . $row->last_name,
             $row->summary_day['Monday'] > 0 ?  $row->summary_day['Monday'] :  '0',
             $row->summary_day['Tuesday'] > 0 ?   $row->summary_day['Tuesday'] :  '0',
@@ -72,6 +78,8 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
             $row->summary_day['Friday'] > 0 ?  $row->summary_day['Friday'] :  '0',
             $row->summary_day['Saturday'] > 0 ?   $row->summary_day['Saturday'] :  '0',
             $row->summary_day['Sunday'] > 0 ?   $row->summary_day['Sunday'] :  '0',
+            $row->amount_neto  > 0 ?   $row->amount_neto   . '' :  '0',
+            $row->positive  > 0 ?   $row->positive   . '' :  '0',
         ];
     }
     /**
@@ -80,6 +88,7 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
     public function headings(): array
     {
         return [
+            'Fecha',
             'Cliente',
             'Lunes',
             'Martes',
@@ -88,6 +97,8 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
             'Viernes',
             'Sabado',
             'Domingo',
+            'Monto Prestado',
+            'Saldo Actual',
         ];
     }
     public function columnWidths(): array
@@ -101,6 +112,9 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
             'F' => 12,
             'G' => 12,
             'H' => 12,
+            'I' => 12,
+            'J' => 20,
+            'K' => 20,
         ];
     }
 
@@ -142,12 +156,13 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
             ) {
                 $to = $event->sheet->getDelegate()->getHighestRowAndColumn();
                 $rows = $event->sheet->getDelegate()->toArray();
-                $cellRange = 'A1:H1';
+                $cellRange = 'A1:K1';
                 $event->sheet->getStyle($cellRange)->ApplyFromArray($styleArray);
                 $event->sheet->getStyle('A1')->ApplyFromArray($styleArray2);
                 $event->sheet->getStyle('A')->ApplyFromArray($styleArray5);
-                $event->sheet->getStyle('B1:H1')->ApplyFromArray($styleArray3);
-                $event->sheet->getStyle('A:H')->ApplyFromArray($styleArray4);
+                $event->sheet->getStyle('B')->ApplyFromArray($styleArray5);
+                $event->sheet->getStyle('B1:K1')->ApplyFromArray($styleArray3);
+                $event->sheet->getStyle('A:K')->ApplyFromArray($styleArray4);
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setName('Arial');
                 $event->sheet->getStyle('A1')->applyFromArray([
                     'borders' => [
@@ -157,7 +172,7 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
                         ],
                     ],
                 ]);
-                $event->sheet->getStyle('A1:' . $to['column'] . $to['row'],)->applyFromArray([
+                $event->sheet->getStyle('A1:' . $to['column'] . $to['row'])->applyFromArray([
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -175,7 +190,9 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
                 $column_f = 0;
                 $column_g = 0;
                 $column_h = 0;
-
+                $column_i = 0;
+                $column_j = 0;
+                $column_k = 0;
                 foreach ($rows as $key => $row) {
                     if (is_numeric($row[1])) {
                         $column_b = $column_b + $row[1];
@@ -239,6 +256,33 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
                         } else {
                             $event->sheet->getStyle('H' . $k)->ApplyFromArray($style_not_pay);
                         }
+                        if (is_numeric($row[8])) {
+                            $column_i = $column_i + $row[8];
+                            $k = $key + 1;
+                            if ($row[8] > 0) {
+                                $event->sheet->getStyle('I' . $k)->ApplyFromArray($style_pay);
+                            } else {
+                                $event->sheet->getStyle('I' . $k)->ApplyFromArray($style_not_pay);
+                            }
+                            if (is_numeric($row[9])) {
+                                $column_j = $column_j + $row[9];
+                                $k = $key + 1;
+                                if ($row[9] > 0) {
+                                    $event->sheet->getStyle('J' . $k)->ApplyFromArray($styleArray5);
+                                } else {
+                                    $event->sheet->getStyle('J' . $k)->ApplyFromArray($style_not_pay);
+                                }
+                            }
+                            if (is_numeric($row[10])) {
+                                $column_k = $column_k + $row[10];
+                                $k = $key + 1;
+                                if ($row[10] > 0) {
+                                    $event->sheet->getStyle('K' . $k)->ApplyFromArray($styleArray5);
+                                } else {
+                                    $event->sheet->getStyle('K' . $k)->ApplyFromArray($style_not_pay);
+                                }
+                            }
+                        }
                     }
                 }
                 $event->sheet->appendRows(array(
@@ -251,11 +295,14 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
                         "$column_f",
                         "$column_g",
                         "$column_h",
+                        "$column_i",
+                        "$column_j",
+                        "$column_k",
                     ),
                 ), $event);
 
                 $total_rows = count($rows) + 1;
-                $range = 'A' . $total_rows . ':' . 'H' . $total_rows;
+                $range = 'A' . $total_rows . ':' . 'K' . $total_rows;
                 $event->sheet->getStyle($range)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
@@ -267,5 +314,31 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
                 ]);
             },
         ];
+    }
+
+    private function parse_not_payments($data_credit): array
+    {
+        $listaFinal = [];
+        foreach ($data_credit as $data) {
+            if (isset($listaFinal[$data->id_user])) {
+                $listaFinal[$data->id_user]->amount_neto += $data->amount_neto;
+                $listaFinal[$data->id_user]->positive += $data->positive;
+                foreach ($data->summary_day as $key => $item) {
+                    $listaFinal[$data->id_user]->summary_day[$key] += $item;
+                }
+            } else {
+                $listaFinal[$data->id_user] = (object) array(
+                    'id_credit' => $data->id_credit,
+                    'id_user' => $data->id_user,
+                    'name' => $data->name,
+                    'last_name' => $data->last_name,
+                    'summary_day' => $data->summary_day,
+                    'amount_neto' => $data->amount_neto,
+                    'positive' => $data->positive,
+                    'created_at' => $data->created_at
+                );
+            }
+        }
+        return $listaFinal;
     }
 }
