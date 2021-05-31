@@ -10,6 +10,7 @@
                 <div class="col-md-12">
                     <div class="widget p-lg overflow-auto">
                         <h4 class="m-b-lg">Clientes y Creditos</h4>
+                        <a href="{{url('blacklists')}}" class="btn btn-danger btn hidden"><i class="fa fa-history"></i> Ver Clavos</a>
                         <button class="btn btn-primary float-left" id="changeList">Ordenar lista</button>
                         <button class="btn btn-primary float-left d-none  mb-4" id="seeList">Ver lista</button>
                         @if(app('request')->input('hide'))
@@ -63,32 +64,35 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up"
-                                               class="btn btn-default btn-xs arw-up btn-center-arrow"><i
-                                                        class="fa fa-arrow-up"></i></a>
-                                            <a href="{{url('payment')}}/{{$client->id}}"
-                                               class="btn btn-success btn-xs hidden"><i class="fa fa-money"></i> Pagar</a>
-
-                                            <a href="#openModal{{$client->id}}" class="btn btn-success btn-xs"> Pagar</a>
-
-                                            @include('route.modal')
-
-                                            <a href="{{url('route')}}/" id_user="{{$client->id_user}}"
-                                               id_credit="{{$client->id}}"
-                                               class="btn btn-warning btn-xs ajax-btn btn-pagar"><i
-                                                        class="fa fa-archive "></i> Saltar</a>
+                                            {{-- <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up"
+                                            class="btn btn-default btn-xs arw-up btn-center-arrow"><i
+                                                class="fa fa-arrow-up"></i></a> --}}
                                             <form action="{{url('pending-pay')}}" method="POST" class="pull-left px-1">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="id_credit" value="{{$client->id}}">
-                                                <button type="submit" class="btn btn-inverse btn-xs">
+                                                <button type="submit" class="btn btn-dark btn-xs">
                                                     Pendiente
                                                 </button>
                                             </form>
+                                            <form action="{{url('blacklists')}}" method="POST" class="pull-left px-1">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="id_credit" value="{{$client->id}}">
+                                                <button type="submit" class="btn btn-danger btn-xs">
+                                                    Clavo
+                                                </button>
+                                            </form>
+
+                                            <a href="#openModal{{$client->id}}" class="btn btn-success btn-xs">
+                                                Pagar</a>
+
+
+                                            @include('route.modal')
+                                            <a href="javascript:void(0)" id_user="{{$client->id_user}}" id_credit="{{$client->id}}" class="btn btn-warning btn-xs ajax-btn btn-pagar"><i class="fa fa-archive "></i> Saltar</a>
                                             <a href="{{url('summary')}}?id_credit={{$client->id}}"
                                                class="btn btn-info btn-xs hidden"><i class="fa fa-history"></i> Ver</a>
-                                            <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down"
-                                               class="btn btn-default btn-xs arw-down btn-center-arrow"><i
-                                                        class="fa fa-arrow-down"></i></a>
+                                            {{-- <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down"
+                                            class="btn btn-default btn-xs arw-down btn-center-arrow"><i
+                                                class="fa fa-arrow-down"></i></a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -140,32 +144,35 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up"
-                                               class="btn btn-default btn-xs arw-up btn-center-arrow"><i
-                                                        class="fa fa-arrow-up"></i></a>
-                                            <a href="{{url('payment')}}/{{$client->id}}"
-                                               class="btn btn-success btn-xs hidden"><i class="fa fa-money"></i> Pagar</a>
-
-                                            <a href="#openModal{{$client->id}}" class="btn btn-success btn-xs"> Pagar</a>
-
-                                            @include('route.modal')
-
-                                            <a href="{{url('route')}}/" id_user="{{$client->id_user}}"
-                                               id_credit="{{$client->id}}"
-                                               class="btn btn-warning btn-xs ajax-btn btn-pagar"><i
-                                                        class="fa fa-archive "></i> Saltar</a>
+                                            {{-- <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up"
+                                            class="btn btn-default btn-xs arw-up btn-center-arrow"><i
+                                                class="fa fa-arrow-up"></i></a> --}}
                                             <form action="{{url('pending-pay')}}" method="POST" class="pull-left px-1">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="id_credit" value="{{$client->id}}">
-                                                <button type="submit" class="btn btn-inverse btn-xs">
+                                                <button type="submit" class="btn btn-dark btn-xs">
                                                     Pendiente
                                                 </button>
                                             </form>
+                                            <form action="{{url('blacklists')}}" method="POST" class="pull-left px-1">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="id_credit" value="{{$client->id}}">
+                                                <button type="submit" class="btn btn-danger btn-xs">
+                                                    Clavo
+                                                </button>
+                                            </form>
+
+                                            <a href="#openModal{{$client->id}}" class="btn btn-success btn-xs">
+                                                Pagar</a>
+
+
+                                            @include('route.modal')
+                                            <a href="javascript:void(0)" id_user="{{$client->id_user}}" id_credit="{{$client->id}}" class="btn btn-warning btn-xs ajax-btn btn-pagar"><i class="fa fa-archive "></i> Saltar</a>
                                             <a href="{{url('summary')}}?id_credit={{$client->id}}"
                                                class="btn btn-info btn-xs hidden"><i class="fa fa-history"></i> Ver</a>
-                                            <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down"
-                                               class="btn btn-default btn-xs arw-down btn-center-arrow"><i
-                                                        class="fa fa-arrow-down"></i></a>
+                                            {{-- <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down"
+                                            class="btn btn-default btn-xs arw-down btn-center-arrow"><i
+                                                class="fa fa-arrow-down"></i></a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -174,48 +181,54 @@
                         </div>
 
                         <div class="d-none d-lg-block d-xl-block">
-                            <table class="table agente-route-table" id="pending">
+                            <table class="table agente-route-table-pending">
                                 <thead>
-                                    <tr>
-                                        <th># Credito</th>
-                                        <th>Nombres</th>
-                                        <th>Status</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
+                                <tr>
+                                    <th>#Credito</th>
+                                    <th>Nombres</th>
+                                    <th>Abono</th>
 
+                                </tr>
+                                </thead>
+                                <h4 class="m-b-lg">Clientes Pendientes</h4>
                                 <tbody>
-                                    @foreach($pending as $client)
-                                    <tr id="td_{{$client->id}}">
-                                        <td>{{$client->id}}</td>
-                                        <td>{{$client->id}}</td>
-                                        <td>{{$client->id}}</td>
-                                        <td>{{$client->user_name}} {{$client->user_last_name}}</td>
+
+                                @foreach($pending as $clienta)
+                                    <tr id="td_{{$clienta->id_credit}}">
+                                        <td>{{$clienta->id_credit}}</td>
+                                        <td>{{$clienta->user_name}} {{$clienta->user_last_name}}</td>
+                                        <td><a href="/payment/{{$clienta->id_credit}}?rev=true" class="btn btn-success btn-xs"> Pagar</a>
+                                            <a href="javascript:void(0)" id_user="{{$clienta->id_credit}}" id_credit="{{$clienta->id_credit}}" class="btn btn-warning btn-xs ajax-btn btn-pagar"><i class="fa fa-archive "></i> Saltar</a>
+
+
                                     </tr>
-                                    @endforeach
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
 
 {{--                        MOBILE--}}
                         <div class="d-sm-block d-lg-none">
-                            <table class="table agente-route-table" id="pending">
+                            <table class="table agente-route-table-pending">
                                 <thead class="d-none">
-                                    <tr>
-                                        <th># Credito</th>
-                                        <th>Nombres</th>
-                                        <th>Status</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
+                                <tr>
+                                    <th>#Credito</th>
+                                    <th>Nombres</th>
+                                    <th>Abono</th>
 
+                                </tr>
+                                </thead>
+                                <h4 class="m-b-lg">Clientes Pendientes</h4>
                                 <tbody>
-                                @foreach($pending as $client)
-                                    <tr id="td_{{$client->id}}">
-                                        <td>{{$client->id}}</td>
-                                        <td>{{$client->id}}</td>
-                                        <td>{{$client->id}}</td>
-                                        <td>{{$client->user_name}} {{$client->user_last_name}}</td>
+
+                                @foreach($pending as $clienta)
+                                    <tr id="td_{{$clienta->id_credit}}">
+                                        <td>{{$clienta->id_credit}}</td>
+                                        <td>{{$clienta->user_name}} {{$clienta->user_last_name}}</td>
+                                        <td><a href="/payment/{{$clienta->id_credit}}?rev=true" class="btn btn-success btn-xs"> Pagar</a>
+                                            <a href="javascript:void(0)" id_user="{{$clienta->id_credit}}" id_credit="{{$clienta->id_credit}}" class="btn btn-warning btn-xs ajax-btn btn-pagar"><i class="fa fa-archive "></i> Saltar</a>
+
+
                                     </tr>
                                 @endforeach
                                 </tbody>

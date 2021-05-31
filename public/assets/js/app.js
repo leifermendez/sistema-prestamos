@@ -767,7 +767,7 @@ function limpiarNumero(obj) {
             }
         )
             .done(function (data) {
-                $('#td_' + id_credit).addClass('hidden');
+                $('#td_' + id_credit).addClass('d-none');
             });
     });
 

@@ -30,7 +30,6 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
     public function collection()
     {
         $data_credit  = db_credit::where('credit.id_agent', $this->user_id)
-            ->where('credit.status', 'inprogress')
             ->join('users', 'users.id', '=', 'credit.id_user')
             ->orderBy('credit.created_at', 'asc')
             ->select(
