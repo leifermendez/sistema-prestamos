@@ -151,7 +151,7 @@ class NotPaymentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // 
     }
 
     private function parse_not_payments($data_credit): array
