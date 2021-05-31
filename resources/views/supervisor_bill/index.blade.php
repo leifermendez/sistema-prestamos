@@ -32,7 +32,8 @@
                                 <button type="submit" class="btn btn-success">Buscar</button>
                             </form>
                             <br class="clearfix">
-                            <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
+
+                            <div class="d-none d-lg-block d-xl-block overflow-auto">
                                 <table class="table supervisor-billS-table">
                                     <tbody>
                                             <tr>
@@ -61,7 +62,7 @@
                             </div>
 
                             <!-- FOR MOBILE -->
-                            <div class=" d-lg-none d-xl-none d-md-none">
+                            <div class="d-sm-block d-lg-none">
                                 <table class="table supervisor-billS-table">
                                     <tbody>
                                             <!-- <tr>
@@ -88,6 +89,7 @@
                                     </tbody>
                                 </table>
                             </div>
+
                             <footer class="widget-footer">
                                 <p><b>Total: </b><span class="text-success">{{$sum}}</span></p>
                             </footer>

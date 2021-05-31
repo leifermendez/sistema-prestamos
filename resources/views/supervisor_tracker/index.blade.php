@@ -4,7 +4,7 @@
     <!-- APP MAIN ==========-->
     <main id="app-main" class="app-main">
         <div class="wrap">
-            <section class="app-content d-none d-lg-block d-xl-block d-md-block">
+            <section class="app-content d-none d-lg-block d-xl-block ">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg  overflow-auto">
@@ -39,7 +39,7 @@
             </section>
 
             <!-- FOR MOBIL -->
-            <section class="app-content d-lg-none d-xl-none d-md-none">
+            <section class="app-content d-sm-block d-lg-none">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">

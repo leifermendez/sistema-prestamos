@@ -32,14 +32,13 @@ Route::middleware(['auth', 'device'])->group(function () {
     Route::resource('pending-pay', 'pendingPaymentController');
     Route::resource('route', 'routeController')->middleware('close');
     Route::resource('statistics', 'statisticsUserController');
+    Route::resource('blacklists', 'blacklistsController');
     Route::resource('history', 'historyController');
     Route::resource('transaction', 'transactionController');
     Route::resource('bill', 'billController')->middleware('close');
     Route::resource('not-pay', 'NotPaymentController')->middleware('auth');
     Route::get('export', 'NotPaymentController@export')->middleware('auth');
 });
-
-
 
 Route::prefix('supervisor')->middleware(['device'])->group(function () {
     Route::resource('agent', 'agentController');

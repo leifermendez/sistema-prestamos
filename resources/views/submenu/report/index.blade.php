@@ -9,7 +9,8 @@
                     <div class="col-md-12">
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Movimientos desde {{$date_start}} hasta {{$date_end}}</h4>
-                            <div class="d-none d-lg-block d-xl-block d-md-block overflow-auto">
+
+                            <div class="d-none d-lg-block d-xl-block overflow-auto">
                                 <table class="table supervisor-report-table">
                                     <tbody>
                                         <tr>
@@ -44,7 +45,7 @@
                             </div>
 
                             <!-- FOR MOBILE -->
-                            <div class=" d-lg-none d-xl-none d-md-none">
+                            <div class="d-sm-block d-lg-none">
                                 <table class="table supervisor-report-table">
                                     <tbody>
                                         <!-- <tr>
@@ -77,6 +78,7 @@
                                     </tbody>
                                 </table>
                             </div>
+
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->

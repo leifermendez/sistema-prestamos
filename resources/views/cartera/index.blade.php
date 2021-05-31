@@ -72,40 +72,82 @@
                     <div class="col-md-12">
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Clientes y Creditos</h4>
-                            <table class="table agente-payments-table">
-                                <thead>
-                                <tr>
-                                    <th>Nombres</th>
-                                    <th>Credito</th>
-                                    <th>Valor</th>
-                                    <th>Saldo</th>
-                                    <th>Cuota</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
 
-                                <tbody>
-                                @foreach($clients as $client)
-                                    @if($client->positive>0)
-                                    <tr id="credit_{{$client->credit_id}}">
-                                        <td>{{$client->name}} {{$client->last_name}}</td>
-                                        <td>{{$client->credit_id}}</td>
-                                        <td>{{$client->amount_neto}}</td>
-                                        <td id="saldo">{{$client->positive}}</td>
-                                        <td>{{$client->payment_current}} / {{$client->payment_number}}</td>
-                                        <td>
-                                            <!-- Trigger the modal with a button -->
-
-
-
-                                            <a href="{{url('summary')}}?id_credit={{$client->credit_id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
-                                        </td>
+                            <div  class="d-none d-lg-block d-xl-block">
+                                <table class="table agente-payments-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombres</th>
+                                        <th>Credito</th>
+                                        <th>Valor</th>
+                                        <th>Saldo</th>
+                                        <th>Cuota</th>
+                                        <th></th>
                                     </tr>
-                                    @endif
+                                    </thead>
 
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    <tbody>
+                                    @foreach($clients as $client)
+                                        @if($client->positive>0)
+                                            <tr id="credit_{{$client->credit_id}}">
+                                                <td>{{$client->name}} {{$client->last_name}}</td>
+                                                <td>{{$client->credit_id}}</td>
+                                                <td>{{$client->amount_neto}}</td>
+                                                <td id="saldo">{{$client->positive}}</td>
+                                                <td>{{$client->payment_current}} / {{$client->payment_number}}</td>
+                                                <td>
+                                                    <!-- Trigger the modal with a button -->
+
+
+
+                                                    <a href="{{url('summary')}}?id_credit={{$client->credit_id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+{{--                            MOBILE--}}
+                            <div class="d-sm-block d-lg-none">
+                                <table class="table agente-payments-table">
+                                    <thead class="d-none">
+                                        <tr>
+                                            <th>Nombres</th>
+                                            <th>Credito</th>
+                                            <th>Valor</th>
+                                            <th>Saldo</th>
+                                            <th>Cuota</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    @foreach($clients as $client)
+                                        @if($client->positive>0)
+                                            <tr id="credit_{{$client->credit_id}}">
+                                                <td>{{$client->name}} {{$client->last_name}}</td>
+                                                <td>{{$client->credit_id}}</td>
+                                                <td>{{$client->amount_neto}}</td>
+                                                <td id="saldo">{{$client->positive}}</td>
+                                                <td>{{$client->payment_current}} / {{$client->payment_number}}</td>
+                                                <td>
+                                                    <!-- Trigger the modal with a button -->
+
+
+
+                                                    <a href="{{url('summary')}}?id_credit={{$client->credit_id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
                             <div class="w-100 mx-auto mt-4 alert alert-success d-flex justify-content-between"> 
                                <b> <p class="m-0">CARTERA TOTAL</p> </b>
                                 <h5 class="m-0">{{$suma}}</h5>

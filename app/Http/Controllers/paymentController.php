@@ -180,7 +180,11 @@ class paymentController extends Controller
     public function edit(Request $request, $id)
     {
         $id_credit = $request->id_credit;
-
+//        dd(array(
+//            'id_credit' => $request->id_credit,
+//            'id_user' => $id,
+//            'ajax' => $request->ajax
+//        ));
         if (!isset($id_credit)) {
             return 'ID cretido';
         };
