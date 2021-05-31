@@ -36,7 +36,8 @@ class userController extends Controller
     {
         $payment_number = DB::table('payment_number')->get();
         array(
-        $paymente_number = 'payment_number');
+            $paymente_number = 'payment_number'
+        );
         $user_current = Auth::user();
 
         $user_has_agent = db_agent_has_user::where('id_agent', Auth::id())
@@ -56,13 +57,13 @@ class userController extends Controller
                 $user->credit_count = db_credit::where('id_user', $user->id)->count();
                 $user->amount_net = db_credit::where('id_user', $user->id)
                     ->where('status', 'inprogress')->get()->toArray();
-                if(sizeOf($user->amount_net)) {
+                if (sizeOf($user->amount_net)) {
                     $tmp_credit = 0;
                     $user->gap_credit = 0;
                     $user->summary_net = 0;
                     foreach ($user->amount_net as $key => $value) {
                         $user->summary_net += db_summary::where('id_credit', $value['id'])
-                        ->sum('amount');
+                            ->sum('amount');
                         $tmp_credit += $value['amount_neto'] ?? 0;
                         $user->gap_credit += $value['amount_neto'] * $value['utility'];
                     }
@@ -75,12 +76,12 @@ class userController extends Controller
             }
         }
 
-        $total_pending = floatval($user_has_agent->sum('summary_net') + $user_has_agent->sum('gap_credit')) ;
+        $total_pending = floatval($user_has_agent->sum('summary_net') + $user_has_agent->sum('gap_credit'));
         $user_has_agent = array(
             'clients' => $user_has_agent,
             'total_pending' => $total_pending
         );
-//        dd($user_has_agent);
+        //        dd($user_has_agent);
         return view('client.index', $user_has_agent);
     }
 
@@ -158,7 +159,7 @@ class userController extends Controller
             ->sum('amount_neto');
         $base -= $base_credit;
 
-      
+
         $values = array(
             'name' => $this->removeAccents(strtoupper($name)),
             'last_name' => $this->removeAccents(strtoupper($last_name)),
@@ -177,7 +178,7 @@ class userController extends Controller
             $id = User::insertGetId($values);
         } else {
             $id = User::where('nit', $nit)->first()->id;
-            if($_id == $id) {
+            if ($_id == $id) {
                 if (db_agent_has_user::where('id_client', $id)->exists()) {
                     $agent_data = db_agent_has_user::where('id_client', $id)->first();
                     if ($agent_data->id_agent != Auth::id()) {
@@ -193,9 +194,13 @@ class userController extends Controller
             db_agent_has_user::insert([
                 'id_agent' => Auth::id(),
                 'id_client' => $id,
-                'id_wallet' => db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->id_wallet]);
+                'id_wallet' => db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->id_wallet
+            ]);
         }
-
+        $order_list_credit = 0;
+        if (db_credit::where('credit.id_user', $id)->where('id_agent', Auth::id())->exists()) {
+            $order_list_credit = db_credit::where('credit.id_user', $id)->where('credit.id_agent', Auth::id())->orderBy('created_at', 'desc')->first()->order_list;
+        }
         if (db_credit::orderBy('order_list', 'DESC')->first() === null) {
             $last_order = 0;
         } else {
@@ -209,7 +214,7 @@ class userController extends Controller
             'amount_neto' => $amount,
             'id_user' => $id,
             'id_agent' => Auth::id(),
-            'order_list' => ($last_order) + 1
+            'order_list' => $order_list_credit > 0 ? $order_list_credit : ($last_order) + 1
         );
         db_credit::insert($values);
 

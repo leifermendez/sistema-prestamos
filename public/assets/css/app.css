@@ -19,6 +19,18 @@ body {
 .widget-resume {
     background-color: transparent !important;
 }
+.item{
+   	cursor: move; 
+}
+.select {	
+box-shadow: 0px 0px 20px rgba(149, 153, 159, .16);
+background-color: black;
+
+
+}
+.drag {
+  opacity: 0;    
+}
 
 .hamburger {
     padding: 0 0;
@@ -3194,7 +3206,7 @@ h3.widget-title {
 /* statistics widgets */
 .stats-widget .big-icon {
     font-size: 32px;
-    color: #cccer;
+    color: '#cccer';
 }
 
 .stats-widget .widget-footer {
