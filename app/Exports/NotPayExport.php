@@ -63,7 +63,8 @@ class NotPayExport implements FromCollection, WithHeadings, WithMapping, WithCol
                 $data->summary_day = $daysOfWeek;
             }
         }
-        return collect($this->parse_not_payments($data_credit));
+        return $data_credit;
+//            collect($this->parse_not_payments($data_credit));
     }
     public function map($row): array
     {
