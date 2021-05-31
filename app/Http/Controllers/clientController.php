@@ -23,7 +23,6 @@ class clientController extends Controller
      */
     public function index()
     {
-
         $data = array(
             'wallet' => db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor', Auth::id())
                 ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
