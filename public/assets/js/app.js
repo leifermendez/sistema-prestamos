@@ -749,7 +749,7 @@ function limpiarNumero(obj) {
     });
 
     $('body').on('submit', '.payment-create', function () {
-        if (confirm('Esta seguro de realizar el pago (' + $('.payment-create #amount').val() + ')')) {
+        if (confirm('Esta seguro de realizar el pago agente-route-table-pending (' + $('.payment-create #amount').val() + ')')) {
             return true;
         } else {
             return false;

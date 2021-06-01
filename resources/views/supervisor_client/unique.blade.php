@@ -30,8 +30,18 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="address">Direccion:</label>
-                                        <input type="text" name="address"  value="{{isset($user) ? $user->address : ''}}"  class="form-control" id="address" required>
+                                        <input type="text" name="address" value="{{isset($user) ? $user->address : ''}}"
+                                               placeholder="" class="form-control g-autoplaces-address" id="address"
+                                               required>
                                     </div>
+                                    <div class="form-group d-none over-change-display">
+                                        <label for="address">Mapa:</label>
+                                        <div id="map" class="map-google"></div>
+                                    </div>
+                                    <input type="hidden" name="lat" value="{{isset($user) ? $user->lat : ''}}"
+                                           class="form-control" id="lat">
+                                    <input type="hidden" name="lng" value="{{isset($user) ? $user->lng : ''}}"
+                                           class="form-control" id="lng">
                                     <div class="form-group">
                                         <label for="province">Tipo de Negocio:</label>
                                         <input type="text" name="province"  value="{{isset($user) ? $user->province : ''}}"  class="form-control" id="province" required>

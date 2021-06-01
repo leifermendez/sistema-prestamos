@@ -72,6 +72,7 @@ class routeController extends Controller
         }
 
         $pending = db_pending_pay::where('id_agent', Auth::id())
+            ->whereDate('pending_pays.created_at', '=', Carbon::now()->toDateString())
             ->join('credit','credit.id','=','pending_pays.id_credit')
             ->join('users','credit.id_user','=','users.id')
             ->select(
@@ -79,7 +80,7 @@ class routeController extends Controller
                 'users.name as user_name',
                 'users.last_name as user_last_name'
             )
-            ->orderBy('id','DESC')
+            ->orderBy('pending_pays.id','ASC')
             ->get();
         $data_filter_pending = array();
         foreach ($pending as $da) {
