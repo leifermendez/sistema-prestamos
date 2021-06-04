@@ -50,7 +50,9 @@ class subRouteController extends Controller
                     }
                     $d->quote = (floatval($d->amount_neto*$d->utility)+floatval($d->amount_neto))/floatval($d->payment_number);
                     $d->saldo = ($d->amount_neto)-(db_summary::where('id_credit',$d->id)->sum('amount'));
-                    $data_filter[]=$d;
+                    if ($d->user) {
+                        $data_filter[]=$d;
+                    }
                 }
             }else{
                 $d->user=User::find($d->id_user);
@@ -65,7 +67,10 @@ class subRouteController extends Controller
                     $d->rest_days = $dt->diffInDays(Carbon::parse($d->created_at));
                 }
                 $d->saldo = ($d->amount_neto)-(db_summary::where('id_credit',$d->id)->sum('amount'));
-                $data_filter[]=$d;
+                if ($d->user) {
+                    $data_filter[]=$d;
+                }
+
             }
 
         }
