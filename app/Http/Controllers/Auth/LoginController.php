@@ -34,16 +34,32 @@ class LoginController extends Controller
         $agent = new Agent();
         $a = ($agent->isMobile() || $agent->isTablet()) ? 'Móvil' : 'Escritorio';
         $geoIp = GeoIP::getLocation($request->ip());
+        $url = 'https://api.ipregistry.co/'.$geoIp['ip'].'?key=q49696zvy4aq1y';
+        //  Initiate curl
+        $ch = curl_init();
+        // Will return the response, if false it print the response
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // Set the url
+        curl_setopt($ch, CURLOPT_URL, $url);
+        // Execute
+        $result=curl_exec($ch);
+        // Closing
+        curl_close($ch);
+
+        $result = json_decode($result);
+
+        // Will dump a beauty json :3
 
         $device = array(
             'Dispositivo' => $a,
             'Tipo' => $agent->device(),
             'Ip' => $geoIp['ip'],
             'plataforma' => $agent->platform(),
-            'Direccion' => $geoIp['city'],
-            'Mapa' => 'https://www.google.com/maps/search/?api=1&query='.$geoIp['lat'].','.$geoIp['lon'],
-            'Coordenadas' => $geoIp['lat'].','.$geoIp['lon'],
+            'Direccion' => $result->location->city,
+            'Mapa' => 'https://www.google.com/maps/search/?api=1&query='.$result->location->latitude.','.$result->location->longitude,
+            'Coordenadas' => $result->location->latitude.','.$result->location->longitude,
         );
+
         $user = User::find(Auth::id());
         $audit = array(
             'created_at' => Carbon::now(),

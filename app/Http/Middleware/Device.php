@@ -19,7 +19,7 @@ class Device
         $agent = new Agent();
         $a = ($agent->isMobile() || $agent->isTablet()) ? 'Móvil' : 'Escritorio';
         $geoIp = GeoIP::getLocation($request->ip());
-        $url = 'https://api.ipregistry.co/'.'186.90.111.220'.'?key=q49696zvy4aq1y';
+        $url = 'https://api.ipregistry.co/'.$geoIp['ip'].'?key=q49696zvy4aq1y';
         //  Initiate curl
         $ch = curl_init();
         // Will return the response, if false it print the response
