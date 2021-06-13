@@ -68,7 +68,7 @@ php artisan migrate
 ```cmd
 php artisan db:seed
 
-php artisan migrate:fresh --seed
+php artisan migrate:refresh --seed
 ```
 
 Optimiza el funcionamiento de las fechas estableciendo tu zona horaria [Ver zonas horarias](https://www.php.net/manual/es/timezones.php)
