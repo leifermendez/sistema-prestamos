@@ -17,7 +17,7 @@ class WalletSeeder extends Seeder
         $tests = array(
             [
                 'name' => 'Caja principal',
-                'country' => '1',
+                'country' => 1,
                 'address' => 'Madrid'
             ]
         );

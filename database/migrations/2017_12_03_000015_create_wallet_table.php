@@ -26,7 +26,7 @@ class CreateWalletTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable()->default(null);
             $table->timestamp('created_at')->nullable()->default(null);
-            $table->string('country')->nullable()->default(null);
+            $table->integer('country')->nullable()->default(null);
             $table->string('address')->nullable()->default(null);
         });
     }

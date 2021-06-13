@@ -176,7 +176,7 @@ class adminUserController extends Controller
                 $id_wallet = $request->id_wallet;
 
                 $data_wallet = db_wallet::where('id', $id_wallet)->first();
-
+                $country = null;
                 if (db_countries::where('id', $data_wallet->country)->exists()) {
                     $country = db_countries::where('id', $data_wallet->country)->first()->name;
                 }
